@@ -10,11 +10,20 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Deck {
+    private Hand hand;
     private String deckName;
     private String heroInDeckName;
     private ArrayList<String> cardsInDeckNames = new ArrayList<>();
     private ArrayList<String> itemsInDeckNames = new ArrayList<>();
     private boolean deckIsSelected;
+
+    public Hand getHand() {
+        return hand;
+    }
+
+    public void setHand(Hand hand) {
+        this.hand = hand;
+    }
 
     public Deck(String deckName){
         this.setDeckName(deckName);
@@ -270,6 +279,18 @@ public class Deck {
             Game.getInstance().getPlayer1().setMainDeck(deck);
             deck.setDeckIsSelected(true);
         }
+    }
+
+    public void deleteCardFromDeck(String cardName){
+        this.getCardsInDeckNames().remove(cardName);
+    }
+
+    public boolean deckIsEmpty(){
+        int deckSize = this.getCardsInDeckNames().size();
+        if (deckSize <= 0)
+            return true;
+        else
+            return false;
     }
 
 
