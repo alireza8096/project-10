@@ -1,0 +1,7 @@
+{"mana":9,
+  "price":2000,
+  "name":"All Disarm",
+  "id":10,
+  "type": "spell",
+  "desc":"become disarm for 1 turn"
+}

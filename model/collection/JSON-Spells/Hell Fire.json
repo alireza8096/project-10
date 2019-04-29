@@ -1,0 +1,7 @@
+{"mana":3,
+  "price":600,
+  "name":"HellFire",
+  "id":6,
+  "type":"spell",
+  "desc":"performs the effect of a fiery cell in selected cell of the map for 2 turns"
+}

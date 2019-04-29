@@ -1,0 +1,11 @@
+{"healthPoint":20,
+  "attackRange":null,
+  "attackPower":12,
+  "mana":8,
+  "attackType":"melee",
+  "price":400,
+  "name":"Piran",
+  "id":29,
+  "activationTime":"On Defend",
+  "type":"minion"
+}

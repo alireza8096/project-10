@@ -1,0 +1,11 @@
+{"healthPoint":5,
+  "attackRange":4,
+  "attackPower":6,
+  "mana":4,
+  "attackType":"ranged",
+  "price":300,
+  "name":"Mar Sammi",
+  "id":18,
+  "activationTime":"On Attack",
+  "type":"minion"
+}

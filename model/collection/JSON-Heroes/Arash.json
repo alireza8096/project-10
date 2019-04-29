@@ -1,0 +1,11 @@
+{"healthPoint":30,
+  "attackRange":6,
+  "attackPower":2,
+  "attackType":"ranged",
+  "mana":2,
+  "price":10000,
+  "name":"Arash",
+  "id":7,
+  "coolDown":2,
+  "type": "hero"
+}

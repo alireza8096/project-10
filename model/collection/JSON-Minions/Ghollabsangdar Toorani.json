@@ -1,0 +1,11 @@
+{"healthPoint":4,
+  "attackRange":7,
+  "attackPower":2,
+  "mana":1,
+  "attackType":"ranged",
+  "price":600,
+  "name":"Ghollabsangdar Toorani",
+  "id":8,
+  "activationTime":null,
+  "type":"minion"
+}

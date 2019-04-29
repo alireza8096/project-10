@@ -1,0 +1,11 @@
+{"healthPoint":12,
+  "attackRange":null,
+  "attackPower":4,
+  "mana":7,
+  "attackType":"melee",
+  "price":800,
+  "name":"Sepahsalar Fars",
+  "id":6,
+  "activationTime":"Combo",
+  "type":"minion"
+}

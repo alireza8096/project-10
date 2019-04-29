@@ -1,0 +1,11 @@
+{"healthPoint":3,
+  "attackRange":5,
+  "attackPower":4,
+  "mana":1,
+  "attackType":"ranged",
+  "price":500,
+  "name":"Kamandar Toorani",
+  "id":7,
+  "activationTime":null,
+  "type":"minion"
+}

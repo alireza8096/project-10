@@ -1,0 +1,11 @@
+{"healthPoint":10,
+  "attackRange":null,
+  "attackPower":6,
+  "mana":4,
+  "attackType":"melee",
+  "price":200,
+  "name":"Asbsavar Fars",
+  "id":4,
+  "activationTime":null,
+  "type":"minion"
+}

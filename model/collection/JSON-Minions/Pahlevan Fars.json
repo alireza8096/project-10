@@ -1,0 +1,11 @@
+{"healthPoint":24,
+  "attackRange":null,
+  "attackPower":6,
+  "mana":9,
+  "attackType":"melee",
+  "price":600,
+  "name":"Pahlevan Fars",
+  "id":5,
+  "activationTime":"On Attack",
+  "type":"minion"
+}

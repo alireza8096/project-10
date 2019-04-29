@@ -1,0 +1,11 @@
+{"healthPoint":10,
+  "attackRange":null,
+  "attackPower":4,
+  "mana":4,
+  "attackType":"melee",
+  "price":550,
+  "name":"Ghool Dosar",
+  "id":35,
+  "activationTime":"On Attack",
+  "type":"minion"
+}

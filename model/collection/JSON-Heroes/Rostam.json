@@ -1,0 +1,11 @@
+{"healthPoint":55,
+  "attackRange":4,
+  "attackPower":7,
+  "attackType":"hybrid",
+  "mana":null,
+  "price":8000,
+  "name":"Rostam",
+  "id":10,
+  "coolDown":null,
+  "type": "hero"
+}

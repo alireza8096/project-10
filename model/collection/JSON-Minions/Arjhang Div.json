@@ -1,0 +1,11 @@
+{"healthPoint":6,
+  "attackRange":null,
+  "attackPower":6,
+  "mana":3,
+  "attackType":"melee",
+  "price":600,
+  "name":"Arjhang Div",
+  "id":40,
+  "activationTime":"Combo",
+  "type":"minion"
+}

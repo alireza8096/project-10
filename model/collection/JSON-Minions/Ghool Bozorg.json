@@ -1,0 +1,11 @@
+{"healthPoint":30,
+  "attackRange":2,
+  "attackPower":8,
+  "mana":9,
+  "attackType":"hybrid",
+  "price":600,
+  "name":"Ghool Bozorg",
+  "id":34,
+  "activationTime":null,
+  "type":"minion"
+}

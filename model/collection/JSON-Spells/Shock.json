@@ -1,0 +1,7 @@
+{"mana":1,
+  "price":1200,
+  "name":"Shock",
+  "id":20,
+  "type":"spell",
+  "desc":"becomes stun for 2 turns"
+}

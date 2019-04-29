@@ -1,0 +1,7 @@
+{"mana":2,
+  "price":1250,
+  "name":"Lighting Bolt",
+  "id":7,
+  "type":"spell",
+  "desc":"attacks 8Ap to the hero of enemy"
+}

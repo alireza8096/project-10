@@ -1,0 +1,11 @@
+{"healthPoint":4,
+  "attackRange":3,
+  "attackPower":4,
+  "mana":1,
+  "attackType":"hybrid",
+  "price":600,
+  "name":"Neyzedar Toorani",
+  "id":9,
+  "activationTime":null,
+  "type":"minion"
+}

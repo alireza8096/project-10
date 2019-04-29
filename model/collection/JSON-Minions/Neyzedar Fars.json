@@ -1,0 +1,11 @@
+{"healthPoint":5,
+  "attackRange":3,
+  "attackPower":3,
+  "mana":1,
+  "attackType":"hybrid",
+  "price":500,
+  "name":"Neyzedar Fars",
+  "id":3,
+  "activationTime":null,
+  "type":"minion"
+}

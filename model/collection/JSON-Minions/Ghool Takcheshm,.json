@@ -1,0 +1,11 @@
+{"healthPoint":12,
+  "attackRange":3,
+  "attackPower":11,
+  "mana":7,
+  "attackType":"hybrid",
+  "price":500,
+  "name":"Ghool Takcheshm",
+  "id":17,
+  "activationTime":"On Death",
+  "type":"minion"
+}

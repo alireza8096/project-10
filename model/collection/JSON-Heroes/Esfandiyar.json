@@ -1,0 +1,11 @@
+{"healthPoint":35,
+  "attackRange":3,
+  "attackPower":3,
+  "attackType":"hybrid",
+  "mana":null,
+  "price":12000,
+  "name":"Esafndiyar",
+  "id":9,
+  "coolDown":null,
+  "type": "hero"
+}

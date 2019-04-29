@@ -1,0 +1,11 @@
+{"healthPoint":14,
+  "attackRange":7,
+  "attackPower":10,
+  "mana":9,
+  "attackType":"hybrid",
+  "price":300,
+  "name":"Div Siah",
+  "id":13,
+  "activationTime":null,
+  "type":"minion"
+}

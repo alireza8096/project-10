@@ -1,0 +1,11 @@
+{"healthPoint":50,
+  "attackRange":null,
+  "attackPower":4,
+  "attackType":"melee",
+  "mana":1,
+  "price":8000,
+  "name":"Rakhsh",
+  "id":4,
+  "coolDown":2,
+  "type": "hero"
+}

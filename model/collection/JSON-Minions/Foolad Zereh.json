@@ -1,0 +1,11 @@
+{"healthPoint":1,
+  "attackRange":null,
+  "attackPower":1,
+  "mana":3,
+  "attackType":"melee",
+  "price":650,
+  "name":"Foolad Zereh",
+  "id":37,
+  "activationTime":"Passive",
+  "type":"minion"
+}

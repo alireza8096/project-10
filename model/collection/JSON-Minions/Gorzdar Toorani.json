@@ -1,0 +1,11 @@
+{"healthPoint":3,
+  "attackRange":null,
+  "attackPower":10,
+  "mana":2,
+  "attackType":"melee",
+  "price":450,
+  "name":"Gorzdar Toorani",
+  "id":11,
+  "activationTime":null,
+  "type":"minion"
+}

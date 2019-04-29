@@ -1,0 +1,11 @@
+{"healthPoint":50,
+  "attackRange":null,
+  "attackPower":4,
+  "attackType":"melee",
+  "mana":5,
+  "price":9000,
+  "name":"Simorgh",
+  "id":2,
+  "coolDown":8,
+  "type": "hero"
+}

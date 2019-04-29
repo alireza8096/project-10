@@ -1,0 +1,11 @@
+{"healthPoint":9,
+  "attackRange":4,
+  "attackPower":5,
+  "mana":5,
+  "attackType":"ranged",
+  "price":250,
+  "name":"Ejhdeha Atashandaz",
+  "id":19,
+  "activationTime":null,
+  "type":"minion"
+}

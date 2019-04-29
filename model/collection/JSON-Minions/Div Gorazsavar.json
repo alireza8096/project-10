@@ -1,0 +1,11 @@
+{"healthPoint":16,
+  "attackRange":null,
+  "attackPower":8,
+  "mana":6,
+  "attackType":"melee",
+  "price":300,
+  "name":"Div Gorazsavar",
+  "id":16,
+  "activationTime":null,
+  "type":"minion"
+}

@@ -1,0 +1,7 @@
+{"mana":2,
+  "price":1600,
+  "name":"Sacrifice",
+  "id":18,
+  "type":"spell",
+  "desc":"applies an weakness buff with decrease of 6HP and a power buff with increase of 8AP"
+}

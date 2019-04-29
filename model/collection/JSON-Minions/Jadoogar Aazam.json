@@ -1,0 +1,11 @@
+{"healthPoint":6,
+  "attackRange":5,
+  "attackPower":6,
+  "mana":6,
+  "attackType":"ranged",
+  "price":550,
+  "name":"Jadoogar Aazam",
+  "id":26,
+  "activationTime":"Passive",
+  "type":"minion"
+}

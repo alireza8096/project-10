@@ -1,0 +1,11 @@
+{"healthPoint":8,
+  "attackRange":null,
+  "attackPower":5,
+  "mana":4,
+  "attackType":"melee",
+  "price":350,
+  "name":"Siavash",
+  "id":38,
+  "activationTime":"On Death",
+  "type":"minion"
+}

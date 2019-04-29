@@ -1,0 +1,11 @@
+{"healthPoint":6,
+  "attackRange":null,
+  "attackPower":6,
+  "mana":4,
+  "attackType":"melee",
+  "price":700,
+  "name":"Jasoos Toorani",
+  "id":10,
+  "activationTime":"On Attack",
+  "type":"minion"
+}

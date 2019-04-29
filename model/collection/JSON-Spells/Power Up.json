@@ -1,0 +1,7 @@
+{"mana":2,
+  "price":2500,
+  "name":"Power Up",
+  "id":14,
+  "type":"spell",
+  "desc":"applies a power buff with 6AP increase"
+}

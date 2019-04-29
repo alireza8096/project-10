@@ -1,0 +1,11 @@
+{"healthPoint":10,
+  "attackRange":4,
+  "attackPower":4,
+  "mana":5,
+  "attackType":"ranged",
+  "price":500,
+  "name":"Jen",
+  "id":27,
+  "activationTime":"On Turn",
+  "type":"minion"
+}

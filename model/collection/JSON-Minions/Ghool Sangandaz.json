@@ -1,0 +1,11 @@
+{"healthPoint":12,
+  "attackRange":7,
+  "attackPower":12,
+  "mana":9,
+  "attackType":"ranged",
+  "price":300,
+  "name":"Ghool Sangandaz",
+  "id":14,
+  "activationTime":null,
+  "type":"minion"
+}

@@ -1,0 +1,11 @@
+{"healthPoint":3,
+  "attackRange":5,
+  "attackPower":4,
+  "mana":3,
+  "attackType":"ranged",
+  "price":500,
+  "name":"Nane Sarma",
+  "id":36,
+  "activationTime":"On Spawn",
+  "type":"minion"
+}

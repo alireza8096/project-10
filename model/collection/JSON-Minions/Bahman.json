@@ -1,0 +1,11 @@
+{"healthPoint":16,
+  "attackRange":null,
+  "attackPower":9,
+  "mana":8,
+  "attackType":"melee",
+  "price":450,
+  "name":"Bahman",
+  "id":31,
+  "activationTime":"On Spawn",
+  "type":"minion"
+}

@@ -1,0 +1,11 @@
+{"healthPoint":50,
+  "attackRange":null,
+  "attackPower":4,
+  "attackType":"melee",
+  "mana":0,
+  "price":8000,
+  "name":"Ejhdeha Haftsar",
+  "id":3,
+  "coolDown":1,
+  "type": "hero"
+}

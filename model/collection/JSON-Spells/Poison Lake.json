@@ -1,0 +1,7 @@
+{"mana":5,
+  "price":900,
+  "name":"Poison Lake",
+  "id":8,
+  "type":"spell",
+  "desc":"performs poison cell effect in the selected cell of the map for 1 turn"
+}

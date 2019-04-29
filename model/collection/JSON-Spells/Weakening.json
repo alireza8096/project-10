@@ -1,0 +1,7 @@
+{"mana":1,
+  "price":1000,
+  "name":"Weakening",
+  "id":17,
+  "type":"spell",
+  "desc":"applies a weakness buff with decrease of 4AP to the selected card"
+}

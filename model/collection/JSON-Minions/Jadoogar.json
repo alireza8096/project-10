@@ -1,0 +1,11 @@
+{"healthPoint":5,
+  "attackRange":3,
+  "attackPower":4,
+  "mana":4,
+  "attackType":"ranged",
+  "price":550,
+  "name":"Jadoogar",
+  "id":25,
+  "activationTime":"Passive",
+  "type":"minion"
+}

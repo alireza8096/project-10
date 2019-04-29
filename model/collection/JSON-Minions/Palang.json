@@ -1,0 +1,11 @@
+{"healthPoint":6,
+  "attackRange":null,
+  "attackPower":2,
+  "mana":4,
+  "attackType":"melee",
+  "price":400,
+  "name":"Palang",
+  "id":23,
+  "activationTime":"On Attack",
+  "type":"minion"
+}

@@ -1,0 +1,7 @@
+{"mana":0,
+  "price":1000,
+  "name":"Total Disarm",
+  "id":1,
+  "type":"spell",
+  "desc":"becomes disarm to the end of the game"
+}

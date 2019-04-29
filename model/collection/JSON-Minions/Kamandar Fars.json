@@ -1,0 +1,11 @@
+{"healthPoint":6,
+  "attackRange":7,
+  "attackPower":4,
+  "mana":2,
+  "attackType":"ranged",
+  "price":300,
+  "name":"Kamandar Fars",
+  "id":1,
+  "activationTime":null,
+  "type":"minion"
+}

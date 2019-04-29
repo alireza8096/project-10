@@ -1,0 +1,11 @@
+{"healthPoint":0,
+  "attackRange":3,
+  "attackPower":2,
+  "mana":2,
+  "attackType":"ranged",
+  "price":200,
+  "name":"Oghab",
+  "id":15,
+  "activationTime":"Passive",
+  "type":"minion"
+}

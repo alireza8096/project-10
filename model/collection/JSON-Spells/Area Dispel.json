@@ -1,0 +1,7 @@
+{"mana":2,
+  "price":1500,
+  "name":"Area Dispel",
+  "id":2,
+  "type":"spell",
+  "desc":"destroys positive buffs of enemy and negative buffs of self forces"
+}
