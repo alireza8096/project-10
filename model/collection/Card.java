@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Card {
@@ -147,6 +148,14 @@ public class Card {
 
     public void showCardInfo(){
 
+    }
+
+    public static Card getCardByName(String cardName) throws IOException, ParseException {
+        if (Minion.thisCardIsMinion(cardName)){
+            return Minion.getCardByName(cardName);
+        }else(Spell.thisCardIsSpell(cardName)){
+            return Spell.getSpellByName(cardName);
+        }
     }
 
 }

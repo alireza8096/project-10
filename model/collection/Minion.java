@@ -17,6 +17,15 @@ public class Minion extends Card {
     private int attackRange;
     private String activationTime;
 
+    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime){
+        this.healthPoint = healthPoint;
+        this.setName(name);
+        this.attackPower = attackPower;
+        this.attackRange = attackRange;
+        this.attackType = attackType;
+        this.activationTime = activationTime;
+    }
+
     public int getHealthPoint() {
         return healthPoint;
     }
@@ -71,6 +80,41 @@ public class Minion extends Card {
             value = Integer.parseInt(idString);
             if (value == id){
                 return (String) jsonObject.get("name");
+            }
+        }
+        return null;
+    }
+
+//    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime){
+//        this.healthPoint = healthPoint;
+//        this.setName(name);
+//        this.attackPower = attackPower;
+//        this.attackRange = attackRange;
+//        this.attackType = attackType;
+//        this.activationTime = activationTime;
+//    }
+
+    public static Card getMinionByName(String minionName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions");
+        File[] listOfFiles = folder.listFiles();
+        String fileName;
+        JSONObject jsonObject;
+        for (int i = 0; i < listOfFiles.length; i++) {
+            fileName = listOfFiles[i].getName().split("\\.")[0];
+            if (fileName.equals(minionName)){
+                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Minions/" + fileName + ".json");
+                String name = jsonObject.get("name").toString();
+                String healthPointString = jsonObject.get("healthPoint").toString();
+                int healthPoint = Integer.parseInt(healthPointString);
+                String attackPowerString = jsonObject.get("attackPower").toString();
+                int attackPower = Integer.parseInt(attackPowerString);
+                String attackRangeString = jsonObject.get("attackRange").toString();
+                int attackRange = Integer.parseInt(attackRangeString);
+                String attackType = jsonObject.get("attackType").toString();
+                String activationTime = jsonObject.get("activationTime").toString();
+
+                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime);
+                return minion;
             }
         }
         return null;

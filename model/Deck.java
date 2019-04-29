@@ -268,6 +268,7 @@ public class Deck {
         }else {
             Deck deck = findDeckByName(deckName);
             Game.getInstance().getPlayer1().setMainDeck(deck);
+            deck.setDeckIsSelected(true);
         }
     }
 
