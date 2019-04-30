@@ -12,8 +12,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class HandleFiles {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Downloads/AP-Project-10/project-10/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
+    public static void createStringOfPlayers(){
+        File folder = new File("/Users/hamilamailee/Documents/Duelyst Project/model/players");
+        File[] listOfFiles = folder.listFiles();
+        for(int i=0; i<listOfFiles.length; i++){
+            Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
+        }
+    }
     public static void createStringOfHeroes() {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
         File[] listOfFiles = folder.listFiles();
@@ -57,17 +64,6 @@ public class HandleFiles {
             System.out.print(name+" ");
         }
         System.out.println();
-    }
-
-    public static void main(String[] args) {
-        createStringOfHeroes();
-        createStringOfItems();
-        createStringOfMinions();
-        createStringOfSpells();
-//        soutString(Hero.heroeNames,"hero");
-//        soutString(Minion.minionNames,"minion");
-//        soutString(Item.itemNames,"item");
-//        soutString(Spell.spellNames,"spell");
     }
 
     public static Object readJsonFiles(String fileName) throws IOException, ParseException {

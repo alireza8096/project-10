@@ -88,7 +88,7 @@ public class Shop {
             File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions");
             File[] listOfFiles = folder.listFiles();
             for (int i = 0; i < listOfFiles.length; i++) {
-
+                    return "minion";
             }
         }
         if(type.equals("Spell"))
@@ -96,7 +96,7 @@ public class Shop {
             File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Spells");
             File[] listOfFiles = folder.listFiles();
             for (int i = 0; i < listOfFiles.length; i++) {
-
+                return "spell";
             }
         }
         if(type.equals("Hero"))
@@ -104,7 +104,7 @@ public class Shop {
             File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
             File[] listOfFiles = folder.listFiles();
             for (int i = 0; i < listOfFiles.length; i++) {
-
+                return "hero";
             }
         }
         if(type.equals("Item"))
@@ -112,9 +112,10 @@ public class Shop {
             File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
             File[] listOfFiles = folder.listFiles();
             for (int i = 0; i < listOfFiles.length; i++) {
-
+                return "item";
             }
         }
+        return "none";
     }
 
     public boolean checkIfThisCardIsAvailableInCards(int id,String type) throws Exception {

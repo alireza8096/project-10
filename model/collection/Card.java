@@ -153,9 +153,9 @@ public class Card {
     public static Card getCardByName(String cardName) throws IOException, ParseException {
         if (Minion.thisCardIsMinion(cardName)){
             return Minion.getCardByName(cardName);
-        }else(Spell.thisCardIsSpell(cardName)){
+        }else if(Spell.thisCardIsSpell(cardName)){
             return Spell.getSpellByName(cardName);
         }
+        return null;
     }
-
 }
