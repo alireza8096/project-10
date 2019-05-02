@@ -149,19 +149,7 @@ public class Minion extends Card {
 
     public void applyBuff(Buff buff,Minion minion)
     {
-        if(buff.getName().equals("holyBuff"))
-        {
 
-        }
-        else if(buff.getName().equals("attackPowerBuff"))
-        {
-
-        }
-        else if(buff.getName().equals("healthPowerBuff"))
-        {
-
-        }
-        else if(buff.getName().equals(""))
     }
 
     public void applyBuffs(ArrayList<Buff> buffs,Minion minion)
