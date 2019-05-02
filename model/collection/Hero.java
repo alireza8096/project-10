@@ -139,18 +139,37 @@ public class Hero extends Card{
     }
 
     public void applyBuffsOnHero(){
-        for (Buff buff : this.getPositiveBuffs()){
-            this.applyBuffOnHero(buff);
+        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
+        for (Buff buff : positiveBuffsCopy){
+            if (checkIfBuffIsActive(buff))
+                this.applyBuffOnHeroForOneTurn(buff);
+            else
+                this.removeBuffFromHero(buff);
         }
 
-        for (Buff buff : this.getNegativeBuffs()){
-            this.applyBuffOnHero(buff);
+        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
+        for (Buff buff : negativeBuffsCopy){
+            if (checkIfBuffIsActive(buff))
+                this.applyBuffOnHeroForOneTurn(buff);
+            else
+                this.removeBuffFromHero(buff);
         }
     }
 
-    public void applyBuffOnHero(Buff buff){
+    public boolean checkIfBuffIsActive(Buff buff){
+        int numberOfTurns = buff.getForHowManyTurns();
+        if (numberOfTurns > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void applyBuffOnHeroForOneTurn(Buff buff){
+        int currentNumberOfTurns = buff.getForHowManyTurns();
+        buff.setForHowManyTurns(currentNumberOfTurns - 1);
         String buffName = buff.getName();
-        switch (buffName){
+        switch (buffName) {
             case "attackPowerBuff":
                 this.applyAttackPowerBuff(buff);
                 break;
@@ -191,12 +210,20 @@ public class Hero extends Card{
                 this.deactivateDisarmBuff();
                 break;
         }
+        String buffType = buff.getType();
+        if (buffType.equals("negative"))
+            this.getNegativeBuffs().remove(buff);
+        else
+            this.getPositiveBuffs().remove(buff);
     }
 
     public void applyAttackPowerBuff(Buff buff){
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentAttackPower = this.getAttackPower();
-        setAttackPower(currentAttackPower + howMuchImpact);
+        if (!buff.isUsed()) {
+            int howMuchImpact = buff.getHowMuchImpact();
+            int currentAttackPower = this.getAttackPower();
+            setAttackPower(currentAttackPower + howMuchImpact);
+            buff.setUsed(true);
+        }
     }
 
     public void applyHealthPowerBuff(Buff buff){
@@ -218,9 +245,12 @@ public class Hero extends Card{
     }
 
     public void applyAttackPowerWeaknessBuff(Buff buff){
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentAttackPower = this.getAttackPower();
-        setAttackPower(currentAttackPower - howMuchImpact);
+        if (!buff.isUsed()) {
+            int howMuchImpact = buff.getHowMuchImpact();
+            int currentAttackPower = this.getAttackPower();
+            setAttackPower(currentAttackPower - howMuchImpact);
+            buff.setUsed(true);
+        }
     }
 
     public void applyStunBuff(){

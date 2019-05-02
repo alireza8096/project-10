@@ -5,6 +5,15 @@ public class Buff {
     private String name;
     private String type;
     private int howMuchImpact;
+    private boolean isUsed;
+
+    public boolean isUsed() {
+        return isUsed;
+    }
+
+    public void setUsed(boolean used) {
+        isUsed = used;
+    }
 
     public int getForHowManyTurns() {
         return forHowManyTurns;
