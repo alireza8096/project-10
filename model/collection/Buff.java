@@ -1,29 +1,40 @@
 package model.collection;
 
 public class Buff {
-    private int turnsLeft;
+    private int forHowManyTurns;
+    private String name;
+    private String type;
+    private int howMuchImpact;
 
-    public int getTurnsLeft() {
-        return turnsLeft;
+    public int getForHowManyTurns() {
+        return forHowManyTurns;
     }
 
-    public void setTurnsLeft(int turnsLeft) {
-        this.turnsLeft = turnsLeft;
+    public void setForHowManyTurns(int forHowManyTurns) {
+        this.forHowManyTurns = forHowManyTurns;
     }
 
-    public void weaknessBuff()
-    {
-
+    public String getName() {
+        return name;
     }
 
-    public void stunBuff()
-    {
-
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void disarmBuff()
-    {
-
+    public String getType() {
+        return type;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getHowMuchImpact() {
+        return howMuchImpact;
+    }
+
+    public void setHowMuchImpact(int howMuchImpact) {
+        this.howMuchImpact = howMuchImpact;
+    }
 }
