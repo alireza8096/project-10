@@ -1,6 +1,9 @@
 package view;
 
 import model.Deck;
+import model.collection.Card;
+import model.collection.Item;
+import model.GraveYard;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import model.collection.Minion;
@@ -22,6 +25,68 @@ public class GameView {
         return view;
     }
     Scanner scanner = new Scanner(System.in);
+
+    public static void showCard(String cardName,String type) throws IOException, ParseException {
+        if(type.equals("Minion"))
+        {
+            showMinion(cardName);
+        }
+        if(type.equals("Spell"))
+        {
+            showSpell(cardName);
+        }
+        if(type.equals("Hero"))
+        {
+            showHero(cardName);
+        }
+    }
+
+    public static void showItem(String itemName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES + "JSON-Item/" +itemName+".json");
+        String name=jsonObject.get("name").toString();
+        String desc=jsonObject.get("desc").toString();
+        System.out.println("Name : "+name);
+    }
+
+    public static void showMinion(String minionName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions" );
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES + "JSON-Spell/" + minionName+".json");
+        String name = jsonObject.get("name").toString();
+        String MP = jsonObject.get("mana").toString();
+        String price = jsonObject.get("price").toString();
+        String attackType = jsonObject.get("attackType").toString();
+        String AP = jsonObject.get("attackPower").toString();
+        String HP = jsonObject.get("healthPoint").toString();
+        System.out.println("Type : Minion - Name : " +
+                name + " – Class: " + attackType + " - AP : " + AP + " - HP : " + HP + " – MP : " + MP + " – Sell Cost : " + price);
+    }
+
+    public static void showSpell(String spellName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Spells" );
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES + "JSON-Spell/" + spellName+".json");
+        String name = jsonObject.get("name").toString();
+        String desc = jsonObject.get("desc").toString();
+        String MP = jsonObject.get("MP").toString();
+        String price = jsonObject.get("price").toString();
+        System.out.println("Type : Spell - Name : " +
+                name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price);
+    }
+
+    public static void showHero(String heroName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes" );
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + heroName+".json");
+        String name = jsonObject.get("name").toString();
+        String AP = jsonObject.get("attackPower").toString();
+        String HP = jsonObject.get("healthPoint").toString();
+        String attackType = jsonObject.get("attackType").toString();
+        System.out.println("Name : " + name + " - AP : " + AP +
+                " – HP : " + HP + " – Class : " + attackType);
+    }
 
     public static void showDeck(String deckName) throws IOException, ParseException {
         Deck deck = Deck.findDeckByName(deckName);
@@ -49,7 +114,7 @@ public class GameView {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
                 fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(heroInDeck)){
-                    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+              /*      JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + listOfFiles[i].getName());
                     String name = jsonObject.get("name").toString();
                     String AP = jsonObject.get("attackPower").toString();
@@ -57,7 +122,7 @@ public class GameView {
                     String attackType = jsonObject.get("attackType").toString();
 
                     System.out.println("    " + counter + " : Name : " + name + " - AP : " + AP +
-                            " – HP : " + HP + " – Class : " + attackType);
+                            " – HP : " + HP + " – Class : " + attackType); */
                     counter++;
                     break;
                 }
@@ -73,7 +138,7 @@ public class GameView {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
                 fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(itemInDeck)){
-                    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                   /* JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + listOfFiles[i].getName());
                     String name = jsonObject.get("name").toString();
                     String desc = jsonObject.get("desc").toString();
@@ -81,7 +146,7 @@ public class GameView {
                     String price = jsonObject.get("price").toString();
 
                     System.out.println("    " + counter + " : Type : Spell - Name : " +
-                            name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price);
+                            name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price); */
                     counter++;
                     break;
                 }
@@ -97,7 +162,7 @@ public class GameView {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
                 fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(spellInDeck)){
-                    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                /*    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + listOfFiles[i].getName());
                     String name = jsonObject.get("name").toString();
                     String desc = jsonObject.get("desc").toString();
@@ -105,7 +170,7 @@ public class GameView {
                     String price = jsonObject.get("price").toString();
 
                     System.out.println("    " + counter + " : Type : Spell - Name : " +
-                            name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price);
+                            name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price); */
                     counter++;
                     break;
                 }
@@ -120,7 +185,7 @@ public class GameView {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
                 fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(minionInDeck)){
-                    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                /*    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Minions/" + listOfFiles[i].getName());
                     String name = jsonObject.get("name").toString();
                     String MP = jsonObject.get("mana").toString();
@@ -130,12 +195,22 @@ public class GameView {
                     String HP = jsonObject.get("healthPoint").toString();
 
                     System.out.println("    " + counter + " : Type : Minion - Name : " +
-                            name + " – Class: " + attackType + " - AP : " + AP + " - HP : " + HP + " – MP : " + MP + " – Sell Cost : " + price);
+                            name + " – Class: " + attackType + " - AP : " + AP + " - HP : " + HP + " – MP : " + MP + " – Sell Cost : " + price);*/
                     counter++;
                     break;
                 }
             }
         }
 
+    }
+
+    public static void showCardsInGraveYard(GraveYard graveYard) throws IOException, ParseException {
+        int counter=0;
+        System.out.println("Heros :");
+        for(String name: graveYard.getCardsDeletedFromHandName())
+        {
+            System.out.print(counter+" ");
+            showCard(name,"minion");
+        }
     }
 }
