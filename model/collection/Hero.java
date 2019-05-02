@@ -186,8 +186,23 @@ public class Hero extends Card{
         this.setCanCounterAttack(false);
     }
 
+    public void deactivateAttackPowerbuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower - howMuchImpact);
+    }
 
+    public void deactivateAttackPowerWeaknessBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower + howMuchImpact);
+    }
 
+    public void deactivateStunBuff(){
+        this.setCanAttackOrMove(true);
+    }
 
-
+    public void deactivateDisarmBuff(){
+        this.setCanCounterAttack(true);
+    }
 }

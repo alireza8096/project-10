@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bc4b47e4-540e-4c5e-96ca-d49fc65197d5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/collection/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Hero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/Minion.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Minion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/Spell.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Spell.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="13" column="47" lean-forward="true" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+            <state relative-caret-position="290">
+              <caret line="204" column="29" lean-forward="true" selection-start-line="204" selection-start-column="29" selection-end-line="204" selection-end-column="29" />
               <folding>
                 <element signature="e#797#798#0" expanded="true" />
                 <element signature="e#836#837#0" expanded="true" />
@@ -51,6 +46,10 @@
                 <element signature="e#4955#4956#0" expanded="true" />
                 <element signature="e#5259#5260#0" expanded="true" />
                 <element signature="e#5301#5302#0" expanded="true" />
+                <element signature="e#5817#5818#0" expanded="true" />
+                <element signature="e#5862#5863#0" expanded="true" />
+                <element signature="e#5907#5908#0" expanded="true" />
+                <element signature="e#5926#5927#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -140,7 +139,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556793789242" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556794544201" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -182,6 +181,14 @@
       <option name="presentableId" value="Default" />
       <updated>1556789789473</updated>
     </task>
+    <task id="LOCAL-00001" summary="added methods for applying buffs on hero">
+      <created>1556793831740</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1556793831740</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -193,16 +200,16 @@
       <window_info id="UI Designer" order="2" />
       <window_info id="simpleUML" order="3" />
       <window_info id="Capture Tool" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.17704518" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.17704518" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="3" visible="true" weight="0.32959184" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" visible="true" weight="0.28163266" />
+      <window_info anchor="bottom" id="Run" order="6" weight="0.28163266" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
@@ -217,6 +224,10 @@
       <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
     </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added methods for applying buffs on hero" />
+    <option name="LAST_COMMIT_MESSAGE" value="added methods for applying buffs on hero" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/model/CellType.java">
@@ -343,8 +354,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="13" column="47" lean-forward="true" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
+        <state relative-caret-position="290">
+          <caret line="204" column="29" lean-forward="true" selection-start-line="204" selection-start-column="29" selection-end-line="204" selection-end-column="29" />
           <folding>
             <element signature="e#797#798#0" expanded="true" />
             <element signature="e#836#837#0" expanded="true" />
@@ -354,6 +365,10 @@
             <element signature="e#4955#4956#0" expanded="true" />
             <element signature="e#5259#5260#0" expanded="true" />
             <element signature="e#5301#5302#0" expanded="true" />
+            <element signature="e#5817#5818#0" expanded="true" />
+            <element signature="e#5862#5863#0" expanded="true" />
+            <element signature="e#5907#5908#0" expanded="true" />
+            <element signature="e#5926#5927#0" expanded="true" />
           </folding>
         </state>
       </provider>
