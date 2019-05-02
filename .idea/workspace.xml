@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8600f58d-abb3-4827-b80a-5036ba2c3d29" name="Default Changelist" comment="">
+    <list default="true" id="8600f58d-abb3-4827-b80a-5036ba2c3d29" name="Default Changelist" comment="add some methods for buff to minions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/collection/Minion.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Minion.java" afterDir="false" />
     </list>
@@ -17,7 +17,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/collection/Buff.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
+            <state relative-caret-position="663">
               <caret line="39" selection-start-line="39" selection-end-line="39" />
               <folding>
                 <element signature="e#199#200#0" expanded="true" />
@@ -53,8 +53,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model/collection/Minion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="265" column="5" lean-forward="true" selection-start-line="265" selection-start-column="5" selection-end-line="265" selection-end-column="5" />
+            <state relative-caret-position="1219">
+              <caret line="293" column="5" selection-start-line="293" selection-start-column="5" selection-end-line="293" selection-end-column="5" />
               <folding>
                 <element signature="e#1141#1142#0" expanded="true" />
                 <element signature="e#1183#1184#0" expanded="true" />
@@ -76,12 +76,27 @@
                 <element signature="e#2582#2708#0" />
                 <element signature="method#getMinionByName#0;class#Minion#0" />
                 <element signature="method#thisCardIsMinion#0;class#Minion#0" />
+                <element signature="method#applyBuffsOnHero#0;class#Minion#0" />
                 <element signature="method#applyBuffOnMinion#0;class#Minion#0" />
-                <element signature="e#6521#6749#0" />
-                <element signature="e#6586#6813#0" />
-                <element signature="e#6771#6986#0" />
-                <element signature="e#6832#7052#0" />
-                <element signature="e#6898#7118#0" />
+                <element signature="e#7202#7442#0" />
+                <element signature="e#7464#8011#0" />
+                <element signature="e#8486#8487#0" expanded="true" />
+                <element signature="e#8576#8577#0" expanded="true" />
+                <element signature="e#8622#8623#0" expanded="true" />
+                <element signature="e#8701#8702#0" expanded="true" />
+                <element signature="e#8752#8753#0" expanded="true" />
+                <element signature="e#8831#8832#0" expanded="true" />
+                <element signature="e#8882#8883#0" expanded="true" />
+                <element signature="e#8961#8962#0" expanded="true" />
+                <element signature="e#9041#9042#0" expanded="true" />
+                <element signature="e#9097#9098#0" expanded="true" />
+                <element signature="e#9176#9177#0" expanded="true" />
+                <element signature="e#10042#10043#0" expanded="true" />
+                <element signature="e#10087#10088#0" expanded="true" />
+                <element signature="e#10136#10137#0" expanded="true" />
+                <element signature="e#10182#10183#0" expanded="true" />
+                <element signature="e#9866#9867#0" expanded="true" />
+                <element signature="e#9898#9899#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,14 +105,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="226" column="22" selection-start-line="226" selection-end-line="227" />
+            <state relative-caret-position="349">
+              <caret line="250" column="39" selection-start-line="250" selection-start-column="8" selection-end-line="250" selection-end-column="39" />
               <folding>
                 <element signature="e#4076#4946#0" />
-                <element signature="e#6684#6685#0" expanded="true" />
-                <element signature="e#6730#6731#0" expanded="true" />
-                <element signature="e#6766#6767#0" expanded="true" />
-                <element signature="e#6813#6814#0" expanded="true" />
+                <element signature="e#5521#5740#0" />
+                <element signature="e#5746#5965#0" />
+                <element signature="e#5971#6185#0" />
+                <element signature="e#6191#6418#0" />
+                <element signature="e#6424#6651#0" />
+                <element signature="e#7050#7282#0" />
               </folding>
             </state>
           </provider>
@@ -118,6 +135,7 @@
     </leaf>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
@@ -129,6 +147,7 @@
         <option value="$PROJECT_DIR$/controller/CollectionController.java" />
         <option value="$PROJECT_DIR$/model/collection/Buff.java" />
         <option value="$PROJECT_DIR$/model/collection/Card.java" />
+        <option value="$PROJECT_DIR$/model/collection/Hero.java" />
         <option value="$PROJECT_DIR$/model/collection/Minion.java" />
       </list>
     </option>
@@ -188,7 +207,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556776882080" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556810045658" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Desktop/json-simple-1.1.1.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -283,11 +302,18 @@
       <option name="project" value="LOCAL" />
       <updated>1556783899465</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add some methods for buff to minions">
+      <created>1556787294008</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1556787294008</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22350000" />
+    <option name="totallyTimeSpent" value="26052000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
@@ -333,7 +359,8 @@
     <MESSAGE value="add show method for graveyard" />
     <MESSAGE value="add buff fields and some methods" />
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="add some methods for buff to minions" />
+    <option name="LAST_COMMIT_MESSAGE" value="add some methods for buff to minions" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Items/Blades Of Agility.json">
@@ -441,31 +468,6 @@
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Empower.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/Buff.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-          <folding>
-            <element signature="e#199#200#0" expanded="true" />
-            <element signature="e#237#238#0" expanded="true" />
-            <element signature="e#296#297#0" expanded="true" />
-            <element signature="e#350#351#0" expanded="true" />
-            <element signature="e#381#382#0" expanded="true" />
-            <element signature="e#408#409#0" expanded="true" />
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
-            <element signature="e#511#512#0" expanded="true" />
-            <element signature="e#538#539#0" expanded="true" />
-            <element signature="e#578#579#0" expanded="true" />
-            <element signature="e#610#611#0" expanded="true" />
-            <element signature="e#647#648#0" expanded="true" />
-            <element signature="e#683#684#0" expanded="true" />
-            <element signature="e#738#739#0" expanded="true" />
-            <element signature="e#788#789#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/Card.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="791">
@@ -492,22 +494,49 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="226" column="22" selection-start-line="226" selection-end-line="227" />
+        <state relative-caret-position="349">
+          <caret line="250" column="39" selection-start-line="250" selection-start-column="8" selection-end-line="250" selection-end-column="39" />
           <folding>
             <element signature="e#4076#4946#0" />
-            <element signature="e#6684#6685#0" expanded="true" />
-            <element signature="e#6730#6731#0" expanded="true" />
-            <element signature="e#6766#6767#0" expanded="true" />
-            <element signature="e#6813#6814#0" expanded="true" />
+            <element signature="e#5521#5740#0" />
+            <element signature="e#5746#5965#0" />
+            <element signature="e#5971#6185#0" />
+            <element signature="e#6191#6418#0" />
+            <element signature="e#6424#6651#0" />
+            <element signature="e#7050#7282#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/Buff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="39" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <element signature="e#199#200#0" expanded="true" />
+            <element signature="e#237#238#0" expanded="true" />
+            <element signature="e#296#297#0" expanded="true" />
+            <element signature="e#350#351#0" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#408#409#0" expanded="true" />
+            <element signature="e#448#449#0" expanded="true" />
+            <element signature="e#480#481#0" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#538#539#0" expanded="true" />
+            <element signature="e#578#579#0" expanded="true" />
+            <element signature="e#610#611#0" expanded="true" />
+            <element signature="e#647#648#0" expanded="true" />
+            <element signature="e#683#684#0" expanded="true" />
+            <element signature="e#738#739#0" expanded="true" />
+            <element signature="e#788#789#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/Minion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="265" column="5" lean-forward="true" selection-start-line="265" selection-start-column="5" selection-end-line="265" selection-end-column="5" />
+        <state relative-caret-position="1219">
+          <caret line="293" column="5" selection-start-line="293" selection-start-column="5" selection-end-line="293" selection-end-column="5" />
           <folding>
             <element signature="e#1141#1142#0" expanded="true" />
             <element signature="e#1183#1184#0" expanded="true" />
@@ -529,12 +558,27 @@
             <element signature="e#2582#2708#0" />
             <element signature="method#getMinionByName#0;class#Minion#0" />
             <element signature="method#thisCardIsMinion#0;class#Minion#0" />
+            <element signature="method#applyBuffsOnHero#0;class#Minion#0" />
             <element signature="method#applyBuffOnMinion#0;class#Minion#0" />
-            <element signature="e#6521#6749#0" />
-            <element signature="e#6586#6813#0" />
-            <element signature="e#6771#6986#0" />
-            <element signature="e#6832#7052#0" />
-            <element signature="e#6898#7118#0" />
+            <element signature="e#7202#7442#0" />
+            <element signature="e#7464#8011#0" />
+            <element signature="e#8486#8487#0" expanded="true" />
+            <element signature="e#8576#8577#0" expanded="true" />
+            <element signature="e#8622#8623#0" expanded="true" />
+            <element signature="e#8701#8702#0" expanded="true" />
+            <element signature="e#8752#8753#0" expanded="true" />
+            <element signature="e#8831#8832#0" expanded="true" />
+            <element signature="e#8882#8883#0" expanded="true" />
+            <element signature="e#8961#8962#0" expanded="true" />
+            <element signature="e#9041#9042#0" expanded="true" />
+            <element signature="e#9097#9098#0" expanded="true" />
+            <element signature="e#9176#9177#0" expanded="true" />
+            <element signature="e#10042#10043#0" expanded="true" />
+            <element signature="e#10087#10088#0" expanded="true" />
+            <element signature="e#10136#10137#0" expanded="true" />
+            <element signature="e#10182#10183#0" expanded="true" />
+            <element signature="e#9866#9867#0" expanded="true" />
+            <element signature="e#9898#9899#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -220,16 +220,45 @@ public class Minion extends Card {
         }
     }
 
+    public void applyBuffsOnHero(){
+        for (Buff buff : this.getMinionPositiveBuffs()){
+            this.applyBuffOnMinion(buff);
+        }
+
+        for (Buff buff : this.getMinionNegativeBuffs()){
+            this.applyBuffOnMinion(buff);
+        }
+    }
+
+    public void removeBuffFromMinion(Buff buff){
+        String buffName = buff.getName();
+        if(buffName.equals("attackPowerWeaknessBuff"))
+        {
+            this.removeAttackPowerWeaknessBuff(buff);
+        }
+        else if(buffName.equals("disarmBuff"))
+        {
+            this.removeDisarmBuff(buff);
+        }
+        else if(buffName.equals("stunBuff"))
+        {
+            this.removeStunBuff(buff);
+        }
+        else if(buffName.equals("attackPowerBuff"))
+        {
+            this.removeAttackPowerBuff(buff);
+        }
+        else if(buffName.equals("holyBuff"))
+        {
+            this.removeHolyBuff(buff);
+        }
+    }
     public void applyPowerAttackWeaknessBuff(Buff buff) {
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentAttackPower = this.getAttackPower();
-        setAttackPower(currentAttackPower - howMuchImpact);
+        setAttackPower(this.getAttackPower() - buff.getHowMuchImpact());
     }
 
     public void applyHealthPointWeaknessBuff(Buff buff) {
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentHealthPoint = this.getHealthPoint();
-        setHealthPoint(currentHealthPoint - howMuchImpact);
+        setHealthPoint(this.getHealthPoint() - buff.getHowMuchImpact());
     }
 
     public void applyDisarmBuff(Buff buff) {
@@ -241,32 +270,43 @@ public class Minion extends Card {
     }
 
     public void applyPoisonBuff(Buff buff) {
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentHealthPoint = this.getHealthPoint();
-        setHealthPoint(currentHealthPoint - howMuchImpact);
+        setHealthPoint(this.getHealthPoint() - buff.getHowMuchImpact());
     }
 
     public void applyHealthPowerBuff(Buff buff) {
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentHealthPoint = this.getHealthPoint();
-        setHealthPoint(currentHealthPoint + howMuchImpact);
+        setHealthPoint(this.getHealthPoint() + buff.getHowMuchImpact());
     }
 
     public void applyAttackPowerBuff(Buff buff) {
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentAttackPower = this.getAttackPower();
-        setAttackPower(currentAttackPower + howMuchImpact);
+        setAttackPower(this.getAttackPower() + buff.getHowMuchImpact());
     }
 
     public void applyHolyBuff(Buff buff) {
         setHasHolyBuff(true);
     }
 
-    public void applyBuffs(ArrayList<Buff> buffs,Minion minion)
+    public void removeAttackPowerBuff(Buff buff)
     {
-        for(Buff buff: buffs)
-        {
-             applyBuff(buff,minion);
-        }
+        setAttackPower(this.getAttackPower() - buff.getHowMuchImpact());
+    }
+
+    public void removeAttackPowerWeaknessBuff(Buff buff)
+    {
+        setAttackPower(this.getAttackPower() + buff.getHowMuchImpact());
+    }
+
+    public void removeDisarmBuff(Buff buff)
+    {
+        this.setCanAttackOrMove(true);
+    }
+
+    public void removeStunBuff(Buff buff)
+    {
+        this.setCanCounterAttack(true);
+    }
+
+    public void removeHolyBuff(Buff buff)
+    {
+        setHasHolyBuff(false);
     }
 }
