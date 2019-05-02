@@ -18,6 +18,9 @@ public class Minion extends Card {
     private String attackType;
     private int attackRange;
     private String activationTime;
+    private boolean canAttackOrMove;
+    private boolean canCounterAttack;
+    private boolean hasHolyBuff;
 
     public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime){
         this.healthPoint = healthPoint;
@@ -30,6 +33,30 @@ public class Minion extends Card {
 
     public ArrayList<Buff> getMinionPositiveBuffs() {
         return minionPositiveBuffs;
+    }
+
+    public boolean isHasHolyBuff() {
+        return hasHolyBuff;
+    }
+
+    public void setHasHolyBuff(boolean hasHolyBuff) {
+        this.hasHolyBuff = hasHolyBuff;
+    }
+
+    public boolean isCanAttackOrMove() {
+        return canAttackOrMove;
+    }
+
+    public void setCanAttackOrMove(boolean canAttackOrMove) {
+        this.canAttackOrMove = canAttackOrMove;
+    }
+
+    public boolean isCanCounterAttack() {
+        return canCounterAttack;
+    }
+
+    public void setCanCounterAttack(boolean canCounterAttack) {
+        this.canCounterAttack = canCounterAttack;
     }
 
     public void setMinionPositiveBuffs(ArrayList<Buff> minionPositiveBuffs) {
@@ -147,9 +174,92 @@ public class Minion extends Card {
         return false;
     }
 
-    public void applyBuff(Buff buff,Minion minion)
-    {
+    public void applyBuffsOnMinion(){
+        for (Buff buff : this.getMinionPositiveBuffs()){
+            this.applyBuffOnMinion(buff);
+        }
 
+        for (Buff buff : this.getMinionNegativeBuffs()){
+            this.applyBuffOnMinion(buff);
+        }
+    }
+    public void applyBuffOnMinion(Buff buff)
+    {
+        String buffName = buff.getName();
+        if(buffName.equals("holyBuff"))
+        {
+            this.applyHolyBuff(buff);
+        }
+        else if(buffName.equals("attackPowerBuff"))
+        {
+            this.applyAttackPowerBuff(buff);
+        }
+        else if(buffName.equals("healthPowerBuff"))
+        {
+            this.applyHealthPowerBuff(buff);
+        }
+        else if(buffName.equals("poisonBuff"))
+        {
+            this.applyPoisonBuff(buff);
+        }
+        else if(buffName.equals("stunBuff"))
+        {
+            this.applyStunBuff(buff);
+        }
+        else if(buffName.equals("disarmBuff"))
+        {
+            this.applyDisarmBuff(buff);
+        }
+        else if(buffName.equals("healthPointWeaknessBuff"))
+        {
+            this.applyHealthPointWeaknessBuff(buff);
+        }
+        else if(buffName.equals("powerAttackWeaknessBuff"))
+        {
+            this.applyPowerAttackWeaknessBuff(buff);
+        }
+    }
+
+    public void applyPowerAttackWeaknessBuff(Buff buff) {
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower - howMuchImpact);
+    }
+
+    public void applyHealthPointWeaknessBuff(Buff buff) {
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentHealthPoint = this.getHealthPoint();
+        setHealthPoint(currentHealthPoint - howMuchImpact);
+    }
+
+    public void applyDisarmBuff(Buff buff) {
+        this.setCanCounterAttack(false);
+    }
+
+    public void applyStunBuff(Buff buff) {
+        this.setCanAttackOrMove(false);
+    }
+
+    public void applyPoisonBuff(Buff buff) {
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentHealthPoint = this.getHealthPoint();
+        setHealthPoint(currentHealthPoint - howMuchImpact);
+    }
+
+    public void applyHealthPowerBuff(Buff buff) {
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentHealthPoint = this.getHealthPoint();
+        setHealthPoint(currentHealthPoint + howMuchImpact);
+    }
+
+    public void applyAttackPowerBuff(Buff buff) {
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower + howMuchImpact);
+    }
+
+    public void applyHolyBuff(Buff buff) {
+        setHasHolyBuff(true);
     }
 
     public void applyBuffs(ArrayList<Buff> buffs,Minion minion)
