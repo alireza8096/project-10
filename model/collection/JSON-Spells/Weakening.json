@@ -3,5 +3,15 @@
   "name":"Weakening",
   "id":17,
   "type":"spell",
-  "desc":"applies a weakness buff with decrease of 4AP to the selected card"
+  "desc":"applies a weakness buff with decrease of 4AP to the selected card",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion",
+  "actsOn": "enemy",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "attackPowerWeaknessBuff",
+  "howMuchChange" : "4",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

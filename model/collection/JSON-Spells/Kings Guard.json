@@ -3,5 +3,15 @@
   "name":"Kings Guard",
   "id":19,
   "type":"spell",
-  "desc":"kills enemy"
+  "desc":"kills enemy",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion",
+  "actsOn": "enemy",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "healthPointWeaknessBuff",
+  "howMuchChange" : "healthPoint",
+  "cellImpact" : "null",
+  "locationOfTarget" : "random8around"
 }

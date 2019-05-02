@@ -3,5 +3,15 @@
   "name":"Area Dispel",
   "id":2,
   "type":"spell",
-  "desc":"destroys positive buffs of enemy and negative buffs of self forces"
+  "desc":"destroys positive buffs of enemy and negative buffs of self forces",
+  "numOfTargets" : "inArea",
+  "Square" : "2",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "enemy/owner",
+  "forHowManyTurns" : "0",
+  "typeOfAction" : "removesBuff",
+  "whichBuff" : "allBuffs",
+  "howMuchChange" : "null",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

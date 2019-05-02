@@ -3,5 +3,15 @@
   "name":"All Poison",
   "id":11,
   "type":"spell",
-  "desc":"all forces become poisonous for 4 turns"
+  "desc":"all forces become poisonous for 4 turns",
+  "numOfTargets" : "all",
+  "Square" : "null",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "enemy",
+  "forHowManyTurns" : "4",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "poisonBuff",
+  "howMuchChange" : "null",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

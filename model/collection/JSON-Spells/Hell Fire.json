@@ -3,5 +3,15 @@
   "name":"HellFire",
   "id":6,
   "type":"spell",
-  "desc":"performs the effect of a fiery cell in selected cell of the map for 2 turns"
+  "desc":"performs the effect of a fiery cell in selected cell of the map for 2 turns",
+  "numOfTargets" : "inArea",
+  "Square" : "2",
+  "targetsSpecified" : "cells",
+  "actsOn": "map",
+  "forHowManyTurns" : "2",
+  "typeOfAction" : "cellImpact",
+  "whichBuff" : "null",
+  "howMuchChange" : "null",
+  "cellImpact" : "fire",
+  "locationOfTarget" : "null"
 }

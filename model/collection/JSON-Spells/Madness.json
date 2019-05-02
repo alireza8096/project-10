@@ -3,5 +3,15 @@
   "name":"Madness",
   "id":9,
   "type":"spell",
-  "desc":"adds 4AP to the AP of a force for 3 turns but becomes disarm"
+  "desc":"adds 4AP to the AP of a force for 3 turns but becomes disarm",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "owner",
+  "forHowManyTurns" : "3,all",
+  "typeOfAction" : "addsBuff,addsBuff",
+  "whichBuff" : "attackPowerBuff,disarm",
+  "howMuchChange" : "4,null",
+  "cellImpact" : "null,null",
+  "locationOfTarget" : "null,null"
 }

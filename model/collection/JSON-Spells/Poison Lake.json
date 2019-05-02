@@ -3,5 +3,15 @@
   "name":"Poison Lake",
   "id":8,
   "type":"spell",
-  "desc":"performs poison cell effect in the selected cell of the map for 1 turn"
+  "desc":"performs poison cell effect in the selected cell of the map for 1 turn",
+  "numOfTargets" : "inArea",
+  "Square" : "3",
+  "targetsSpecified" : "cells",
+  "actsOn": "map",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "cellImpact",
+  "whichBuff" : "null",
+  "howMuchChange" : "null",
+  "cellImpact" : "poison",
+  "locationOfTarget" : "null"
 }

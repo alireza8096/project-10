@@ -3,5 +3,15 @@
   "name":"Power Up",
   "id":14,
   "type":"spell",
-  "desc":"applies a power buff with 6AP increase"
+  "desc":"applies a power buff with 6AP increase",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "owner",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "attackPowerBuff",
+  "howMuchChange" : "6",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

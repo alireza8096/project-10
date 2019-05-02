@@ -3,5 +3,15 @@
   "name":"God Strength",
   "id":5,
   "type":"spell",
-  "desc":"adds 4AP to the AP of hero"
+  "desc":"adds 4AP to the AP of hero",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "hero",
+  "actsOn": "owner",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "attackPowerBuff",
+  "howMuchChange" : "4",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

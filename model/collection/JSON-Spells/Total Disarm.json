@@ -3,5 +3,15 @@
   "name":"Total Disarm",
   "id":1,
   "type":"spell",
-  "desc":"becomes disarm to the end of the game"
+  "desc":"becomes disarm to the end of the game",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "enemy",
+  "forHowManyTurns" : "all",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "disarm",
+  "howMuchChange" : "null",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

@@ -3,5 +3,15 @@
   "name":"Fireball",
   "id":4,
   "type":"spell",
-  "desc":"attacks with 4AP to an enemy"
+  "desc":"attacks with 4AP to an enemy",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "enemy",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "healthPointWeaknessBuff",
+  "howMuchChange" : "4",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

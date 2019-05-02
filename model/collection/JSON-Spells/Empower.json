@@ -3,5 +3,15 @@
   "name":"Empower",
   "id":3,
   "type":"spell",
-  "desc":"adds 2AP to a card"
+  "desc":"adds 2AP to a card",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "owner",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "attackPowerBuff",
+  "howMuchChange" : "2",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }

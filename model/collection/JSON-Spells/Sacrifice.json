@@ -3,5 +3,15 @@
   "name":"Sacrifice",
   "id":18,
   "type":"spell",
-  "desc":"applies an weakness buff with decrease of 6HP and a power buff with increase of 8AP"
+  "desc":"applies an weakness buff with decrease of 6HP and a power buff with increase of 8AP",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "minion",
+  "actsOn": "owner",
+  "forHowManyTurns" : "1,1",
+  "typeOfAction" : "addsBuff,addsBuff",
+  "whichBuff" : "healthPointWeaknessBuff,attackPowerBuff",
+  "howMuchChange" : "6,8",
+  "cellImpact" : "null,null",
+  "locationOfTarget" : "null,null"
 }

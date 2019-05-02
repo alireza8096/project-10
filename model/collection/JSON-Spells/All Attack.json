@@ -3,4 +3,15 @@
   "name":"All Attack",
   "id":16,
   "type": "spell",
-  "desc": "adds 6AP to all enemy cards"}
+  "desc": "adds 6AP to all enemy cards",
+  "numOfTargets" : "all",
+  "Square" : "null",
+  "targetsSpecified" : "minion/hero",
+  "actsOn": "enemy",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "healthPointWeaknessBuff",
+  "howMuchChange" : "6",
+  "cellImpact" : "null",
+  "locationOfTarget" : "column"
+}

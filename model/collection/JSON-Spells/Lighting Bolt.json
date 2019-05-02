@@ -3,5 +3,15 @@
   "name":"Lighting Bolt",
   "id":7,
   "type":"spell",
-  "desc":"attacks 8Ap to the hero of enemy"
+  "desc":"attacks 8Ap to the hero of enemy",
+  "numOfTargets" : "1",
+  "Square" : "null",
+  "targetsSpecified" : "hero",
+  "actsOn": "enemy",
+  "forHowManyTurns" : "1",
+  "typeOfAction" : "addsBuff",
+  "whichBuff" : "healthPointWeaknessBuff",
+  "howMuchChange" : "8",
+  "cellImpact" : "null",
+  "locationOfTarget" : "null"
 }
