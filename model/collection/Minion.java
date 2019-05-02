@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Minion extends Card {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Downloads/AP-Project-10/project-10/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection";
 
     public static ArrayList<String> minionNames = new ArrayList<>();
     private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
