@@ -22,6 +22,4 @@ public class GraveYard {
         this.graveYardIsBeingUsed = graveYardIsBeingUsed;
     }
 
-
-
 }
