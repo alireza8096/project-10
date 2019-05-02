@@ -10,12 +10,31 @@ import java.util.ArrayList;
 public class Hero extends Card{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Downloads/AP-Project-10/project-10/src/model/collection/";
 
+    private ArrayList<Buff> positiveBuffs = new ArrayList<>();
+    private ArrayList<Buff> negativeBuffs = new ArrayList<>();
+
     public static ArrayList<String> heroNames = new ArrayList<>();
     private int healthPoint;
     private int attackPower;
     private String attackType;
     private int attackRange;
     private int coolDown;
+
+    public ArrayList<Buff> getPositiveBuffs() {
+        return positiveBuffs;
+    }
+
+    public void setPositiveBuffs(ArrayList<Buff> positiveBuffs) {
+        this.positiveBuffs = positiveBuffs;
+    }
+
+    public ArrayList<Buff> getNegativeBuffs() {
+        return negativeBuffs;
+    }
+
+    public void setNegativeBuffs(ArrayList<Buff> negativeBuffs) {
+        this.negativeBuffs = negativeBuffs;
+    }
 
     public int getHealthPoint() {
         return healthPoint;
