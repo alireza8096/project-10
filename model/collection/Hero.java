@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Hero extends Card{
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Downloads/AP-Project-10/project-10/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
@@ -19,6 +19,24 @@ public class Hero extends Card{
     private String attackType;
     private int attackRange;
     private int coolDown;
+    private boolean canAttackOrMove;
+    private boolean canCounterAttack;
+
+    public boolean isCanCounterAttack() {
+        return canCounterAttack;
+    }
+
+    public void setCanCounterAttack(boolean canCounterAttack) {
+        this.canCounterAttack = canCounterAttack;
+    }
+
+    public boolean isCanAttackOrMove() {
+        return canAttackOrMove;
+    }
+
+    public void setCanAttackOrMove(boolean canAttackOrMove) {
+        this.canAttackOrMove = canAttackOrMove;
+    }
 
     public ArrayList<Buff> getPositiveBuffs() {
         return positiveBuffs;
@@ -120,4 +138,116 @@ public class Hero extends Card{
         return false;
     }
 
+    public void applyBuffsOnHero(){
+        for (Buff buff : this.getPositiveBuffs()){
+            this.applyBuffOnHero(buff);
+        }
+
+        for (Buff buff : this.getNegativeBuffs()){
+            this.applyBuffOnHero(buff);
+        }
+    }
+
+    public void applyBuffOnHero(Buff buff){
+        String buffName = buff.getName();
+        switch (buffName){
+            case "attackPowerBuff":
+                this.applyAttackPowerBuff(buff);
+                break;
+            case "healthPowerBuff":
+                this.applyHealthPowerBuff(buff);
+                break;
+            case "poisonBuff":
+                this.applyPoisonBuff(buff);
+                break;
+            case "healthPointWeaknessBuff":
+                this.applyHealthPointWeaknessBuff(buff);
+                break;
+            case "attackPowerWeaknessBuff":
+                this.applyAttackPowerWeaknessBuff(buff);
+                break;
+            case "stunBuff":
+                this.applyStunBuff();
+                break;
+            case "disarmBuff":
+                this.applyDisarmBuff();
+                break;
+        }
+    }
+
+    public void removeBuffFromHero(Buff buff){
+        String buffName = buff.getName();
+        switch (buffName){
+            case "attackPowerbuff":
+                this.deactivateAttackPowerBuff(buff);
+                break;
+            case "attackPowerWeaknessBuff":
+                this.deactivateAttackPowerWeaknessBuff(buff);
+                break;
+            case "stunBuff":
+                this.deactivateStunBuff();
+                break;
+            case "disarmBuff":
+                this.deactivateDisarmBuff();
+                break;
+        }
+    }
+
+    public void applyAttackPowerBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower + howMuchImpact);
+    }
+
+    public void applyHealthPowerBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentHealthPoint = this.getHealthPoint();
+        setHealthPoint(currentHealthPoint + howMuchImpact);
+    }
+
+    public void applyPoisonBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentHealthPoint = this.getHealthPoint();
+        setHealthPoint(currentHealthPoint - howMuchImpact);
+    }
+
+    public void applyHealthPointWeaknessBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentHealthPoint = this.getHealthPoint();
+        setHealthPoint(currentHealthPoint - howMuchImpact);
+    }
+
+    public void applyAttackPowerWeaknessBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower - howMuchImpact);
+    }
+
+    public void applyStunBuff(){
+        this.setCanAttackOrMove(false);
+    }
+
+    public void applyDisarmBuff(){
+        this.setCanCounterAttack(false);
+    }
+
+    public void deactivateAttackPowerBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower - howMuchImpact);
+    }
+
+    public void deactivateAttackPowerWeaknessBuff(Buff buff){
+        int howMuchImpact = buff.getHowMuchImpact();
+        int currentAttackPower = this.getAttackPower();
+        setAttackPower(currentAttackPower + howMuchImpact);
+    }
+
+    public void deactivateStunBuff(){
+        this.setCanAttackOrMove(true);
+    }
+
+    public void deactivateDisarmBuff(){
+        this.setCanCounterAttack(true);
+    }
 }
