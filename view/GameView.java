@@ -204,11 +204,13 @@ public class GameView {
 
     }
 
-    public static void showCardsInGraveYard(GraveYard graveYard)
-    {
+    public static void showCardsInGraveYard(GraveYard graveYard) throws IOException, ParseException {
+        int counter=0;
+        System.out.println("Heros :");
         for(String name: graveYard.getCardsDeletedFromHandName())
         {
-
+            System.out.print(counter+" ");
+            showCard(name,"minion");
         }
     }
 }
