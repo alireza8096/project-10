@@ -1,4 +1,4 @@
 package model;
 
-abstract public class Menu {
+public class Menu {
 }

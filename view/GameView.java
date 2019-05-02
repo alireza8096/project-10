@@ -112,7 +112,6 @@ public class GameView {
         for (String heroInDeck : heroesInDeck){
             for (int i = 0; i < listOfFiles.length; i++) {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
-                fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(heroInDeck)){
               /*      JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + listOfFiles[i].getName());
@@ -136,7 +135,6 @@ public class GameView {
         for (String itemInDeck : deck.getItemsInDeckNames()){
             for (int i = 0; i < listOfFiles.length; i++) {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
-                fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(itemInDeck)){
                    /* JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + listOfFiles[i].getName());
@@ -160,7 +158,6 @@ public class GameView {
         for (String spellInDeck : spellsInDeck){
             for (int i = 0; i < listOfFiles.length; i++) {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
-                fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(spellInDeck)){
                 /*    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + listOfFiles[i].getName());
@@ -183,7 +180,6 @@ public class GameView {
         for (String minionInDeck : minionsInDeck){
             for (int i = 0; i < listOfFiles.length; i++) {
                 String fileName = listOfFiles[i].getName().split("\\.")[0];
-                fileName = HandleFiles.changeFileNameToProperName(fileName);
                 if (fileName.equals(minionInDeck)){
                 /*    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                             (ADDRESS_OF_JSON_FILES + "JSON-Minions/" + listOfFiles[i].getName());
