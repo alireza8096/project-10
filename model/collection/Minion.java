@@ -28,6 +28,22 @@ public class Minion extends Card {
         this.activationTime = activationTime;
     }
 
+    public ArrayList<Buff> getMinionPositiveBuffs() {
+        return minionPositiveBuffs;
+    }
+
+    public void setMinionPositiveBuffs(ArrayList<Buff> minionPositiveBuffs) {
+        this.minionPositiveBuffs = minionPositiveBuffs;
+    }
+
+    public ArrayList<Buff> getMinionNegativeBuffs() {
+        return minionNegativeBuffs;
+    }
+
+    public void setMinionNegativeBuffs(ArrayList<Buff> minionNegativeBuffs) {
+        this.minionNegativeBuffs = minionNegativeBuffs;
+    }
+
     public int getHealthPoint() {
         return healthPoint;
     }
@@ -129,5 +145,18 @@ public class Minion extends Card {
             }
         }
         return false;
+    }
+
+    public void applyBuff(Buff buff,Minion minion)
+    {
+
+    }
+
+    public void applyBuffs(ArrayList<Buff> buffs,Minion minion)
+    {
+        for(Buff buff: buffs)
+        {
+             applyBuff(buff,minion);
+        }
     }
 }
