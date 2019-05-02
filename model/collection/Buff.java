@@ -37,4 +37,5 @@ public class Buff {
     public void setHowMuchImpact(int howMuchImpact) {
         this.howMuchImpact = howMuchImpact;
     }
+
 }

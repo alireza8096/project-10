@@ -11,6 +11,8 @@ public class Minion extends Card {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Downloads/AP-Project-10/project-10/src/model/collection/";
 
     public static ArrayList<String> minionNames = new ArrayList<>();
+    private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
+    private ArrayList<Buff> minionNegativeBuffs=new ArrayList<>();
     private int healthPoint;
     private int attackPower;
     private String attackType;
