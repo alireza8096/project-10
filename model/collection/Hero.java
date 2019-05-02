@@ -139,13 +139,58 @@ public class Hero extends Card{
     }
 
     public void applyBuffsOnHero(){
+        for (Buff buff : this.getPositiveBuffs()){
+            this.applyBuffOnHero(buff);
+        }
 
+        for (Buff buff : this.getNegativeBuffs()){
+            this.applyBuffOnHero(buff);
+        }
     }
 
     public void applyBuffOnHero(Buff buff){
-        String heroName = this.getName();
         String buffName = buff.getName();
+        switch (buffName){
+            case "attackPowerBuff":
+                this.applyAttackPowerBuff(buff);
+                break;
+            case "healthPowerBuff":
+                this.applyHealthPowerBuff(buff);
+                break;
+            case "poisonBuff":
+                this.applyPoisonBuff(buff);
+                break;
+            case "healthPointWeaknessBuff":
+                this.applyHealthPointWeaknessBuff(buff);
+                break;
+            case "attackPowerWeaknessBuff":
+                this.applyAttackPowerWeaknessBuff(buff);
+                break;
+            case "stunBuff":
+                this.applyStunBuff();
+                break;
+            case "disarmBuff":
+                this.applyDisarmBuff();
+                break;
+        }
+    }
 
+    public void removeBuffFromHero(Buff buff){
+        String buffName = buff.getName();
+        switch (buffName){
+            case "attackPowerbuff":
+                this.deactivateAttackPowerBuff(buff);
+                break;
+            case "attackPowerWeaknessBuff":
+                this.deactivateAttackPowerWeaknessBuff(buff);
+                break;
+            case "stunBuff":
+                this.deactivateStunBuff();
+                break;
+            case "disarmBuff":
+                this.deactivateDisarmBuff();
+                break;
+        }
     }
 
     public void applyAttackPowerBuff(Buff buff){
@@ -186,7 +231,7 @@ public class Hero extends Card{
         this.setCanCounterAttack(false);
     }
 
-    public void deactivateAttackPowerbuff(Buff buff){
+    public void deactivateAttackPowerBuff(Buff buff){
         int howMuchImpact = buff.getHowMuchImpact();
         int currentAttackPower = this.getAttackPower();
         setAttackPower(currentAttackPower - howMuchImpact);
