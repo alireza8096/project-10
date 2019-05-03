@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Card {
-    private static ArrayList<String> cardNames = new ArrayList<>();
     private int mana;
     private int id;
     private String cardType;
@@ -46,14 +45,6 @@ public class Card {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public static ArrayList<String> getCardNames() {
-        return cardNames;
-    }
-
-    public static void setCardNames(ArrayList<String> cardNames) {
-        Card.cardNames = cardNames;
     }
 
     public String getCardType() {

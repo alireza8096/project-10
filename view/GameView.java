@@ -50,7 +50,8 @@ public class GameView {
         System.out.println("Name : "+name);
     }
 
-    public static void showMinion(String minionName) throws IOException, ParseException {
+    public static void showMinion(String minionName) throws IOException, ParseException
+    {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions" );
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                 (ADDRESS_OF_JSON_FILES + "JSON-Spell/" + minionName+".json");
@@ -84,6 +85,7 @@ public class GameView {
         String AP = jsonObject.get("attackPower").toString();
         String HP = jsonObject.get("healthPoint").toString();
         String attackType = jsonObject.get("attackType").toString();
+        String specialPower = jsonObject.get("specialPower").toString();
         System.out.println("Name : " + name + " - AP : " + AP +
                 " – HP : " + HP + " – Class : " + attackType);
     }

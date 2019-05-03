@@ -3,6 +3,7 @@ package controller;
 import model.AllDatas;
 import model.collection.Account;
 
+import java.util.Collection;
 import java.util.Scanner;
 
 public interface MenusCommandController{
@@ -15,6 +16,10 @@ public interface MenusCommandController{
         AccountController.save(commandSplitted);
         AccountController.logout(commandSplitted);
         AccountController.help("Account", commandSplitted, scanner);
+        if(commandSplitted.length == 1 && commandSplitted[0].compareToIgnoreCase("exit") == 0){
+            AllDatas.gameBoolean = false;
+            AllDatas.hasEnteredAccount = true;
+        }
         if (!AllDatas.hasEnteredAccount) {
             System.out.println("Command is not supported in this menu");
         }
@@ -59,5 +64,21 @@ public interface MenusCommandController{
         else{
             System.out.println("Command is not supported in this menu");
         }
+    }
+    public static void collectionController(Scanner scanner){
+        String command = scanner.nextLine();
+        String[] commandsSplitted = command.split(" ");
+        CollectionController.show(commandsSplitted);
+        CollectionController.search();
+        CollectionController.save();
+        CollectionController.createDeck();
+        CollectionController.deleteDeck();
+        CollectionController.addToDeck();
+        CollectionController.remove();
+        CollectionController.validateDeck();
+        CollectionController.selectDeck();
+        CollectionController.showAllDecks();
+        CollectionController.showDeckByName();
+        CollectionController.help();
     }
 }

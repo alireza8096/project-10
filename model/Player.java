@@ -25,6 +25,7 @@ public class Player {
     private int coordinateY;
     private ArrayList<String> cardsInCollectionNames = new ArrayList<>();
     private ArrayList<String> itemsInCollectionNames = new ArrayList<>();
+    private ArrayList<String> heroesInCollectionName = new ArrayList<>();
 
     public Player(String name){
         this.setUserName(name);

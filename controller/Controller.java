@@ -71,6 +71,7 @@ public interface Controller {
                 break;
             case "Collection" :
                 System.out.println("collection");
+                MenusCommandController.collectionController(scanner);
                 break;
             case "Shop" :
                 System.out.println("shop");
