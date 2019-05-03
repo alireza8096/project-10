@@ -1,5 +1,6 @@
 package model.collection;
 
+import controller.Controller;
 import model.Game;
 import model.Player;
 import org.json.simple.JSONObject;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account {
-    public static final String PLAYERS_FOLDER = "/Users/hamilamailee/Documents/Duelyst Project/model/players/";
+    public static final String PLAYERS_FOLDER = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/player/";
     private static ArrayList<String> players = new ArrayList<>();
 
     public static ArrayList<String> getPlayers() {
@@ -36,31 +37,43 @@ public class Account {
             return true;
         return false;
     }
-    public static void setPlayer(String name,Game game) throws Exception {
+    public static void setPlayer(String name) throws Exception {
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");
         Player player = new Player(
                 (String) jsonObject.get("username"),
                 (String) jsonObject.get("password")
         );
-        game.setPlayer1(player);
+        Controller.gameBeingPlayed = new Game();
+        Controller.gameBeingPlayed.setPlayer1(player);
     }
-    public static void getPlayerName(Scanner scanner,Game game) throws Exception{
-        String name = scanner.next();
-        String password = scanner.next();
-        if(usernameAlreadyExists(name)) {
-            if(checkCorrectPassword(name,password)) {
-                setPlayer(name, game);
-            }
-            else {
-                System.out.println("Password is not correct");
-            }
+    public static void createAccount(String name, Scanner scanner) throws Exception{
+        if(usernameAlreadyExists(name)){
+            System.out.println("Username already exists");
         }
-        else{
+        else {
+            System.out.println("Please enter password :");
+            String password = scanner.nextLine();
             writePlayerToFile(name,password);
-            setPlayer(name,game);
             players.add(name);
         }
     }
+    public static void login(String name,Scanner scanner) throws Exception{
+        if(!usernameAlreadyExists(name)){
+            System.out.println("Invalid username");
+        }
+        else{
+            System.out.println("Please enter password :");
+            String password = scanner.nextLine();
+            if(checkCorrectPassword(name,password)){
+                setPlayer(name);
+                Controller.account.setNowInThisMenu(false);
+                Controller.commandLine.setNowInThisMenu(true);
+            }
+            else
+                System.out.println("Password is not correct");
+        }
+    }
+
     public static boolean usernameAlreadyExists(String checkName){
         for (String name: players) {
             if(name.matches(checkName))
