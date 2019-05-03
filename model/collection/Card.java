@@ -23,6 +23,15 @@ public class Card {
     protected int counterOfCard;
     protected int x;
     protected int y;
+    protected boolean inGame;
+
+    public boolean isInGame() {
+        return inGame;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
+    }
 
     public int getMana() {
         return mana;
@@ -145,7 +154,7 @@ public class Card {
 
     public static Card getCardByName(String cardName) throws IOException, ParseException {
         if (Minion.thisCardIsMinion(cardName)){
-            return Minion.getCardByName(cardName);
+            return Minion.getMinionByName(cardName);
         }else if(Spell.thisCardIsSpell(cardName)){
             return Spell.getSpellByName(cardName);
         }

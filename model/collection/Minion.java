@@ -1,7 +1,6 @@
 package model.collection;
 
-import model.Cell;
-import model.Map;
+import model.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -10,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Minion extends Card {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public static ArrayList<String> minionNames = new ArrayList<>();
     private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
@@ -336,6 +335,16 @@ public class Minion extends Card {
                 this.getMinionPositiveBuffs().add(buff);
                 break;
         }
+    }
+
+    public static Minion getMinionInThisCoordination(int x, int y){
+        Map map = Game.getInstance().getMap();
+        for (Card card : map.getMinions()){
+            if (card.getX() == x && card.getY() == y){
+                return (Minion) card;
+            }
+        }
+        return null;
 
     }
 }

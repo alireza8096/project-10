@@ -14,6 +14,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Hand {
     private ArrayList<Card> cardsInHand = new ArrayList<>();
 
+
     public ArrayList<Card> getCardsInHand() {
         return cardsInHand;
     }
@@ -89,9 +90,12 @@ public class Hand {
                         Map.getCells()[x][y].setCellSituation(CellType.selfMinion);
                         card.setX(x);
                         card.setY(y);
+                        card.setInGame(true);
+                        Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().remove(card);
+                        Game.getInstance().getMap().getMinions().add(card);
                     }
                 }else if (cardType.equals("spell")){
-
+                    Spell.insertSpellInMap
                 }
             }
         }

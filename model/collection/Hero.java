@@ -1,5 +1,7 @@
 package model.collection;
 
+import model.Game;
+import model.Hand;
 import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -9,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Hero extends Card{
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
@@ -23,6 +25,14 @@ public class Hero extends Card{
     private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean holyBuffIsActive;
+
+    public Hero(int healthPoint, int attackPower, String attackType, int attackRange, int coolDown){
+        this.healthPoint = healthPoint;
+        this.attackPower = attackPower;
+        this.attackType = attackType;
+        this.attackRange = attackRange;
+        this.coolDown = coolDown;
+    }
 
     public boolean isHolyBuffIsActive() {
         return holyBuffIsActive;
@@ -313,6 +323,27 @@ public class Hero extends Card{
                 this.getNegativeBuffs().add(buff);
                 break;
         }
-
     }
+
+    public static void insertHeroInMap() throws IOException, ParseException {
+        String heroName = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeckName();
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + heroName + ".json");
+        int healthPoint = Integer.parseInt(jsonObject.get("healthPoint").toString());
+        int attackPower = Integer.parseInt(jsonObject.get("attackPower").toString());
+        String attackType = jsonObject.get("attackType").toString();
+        int attackRange = Integer.parseInt(jsonObject.get("attackRange").toString());
+        int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
+
+        Hero hero = new Hero(healthPoint, attackPower, attackType, attackRange, coolDown);
+        Game.getInstance().getMap().getHeroes().add(hero);
+    }
+
+    public static Hero findHeroInMap(int x, int y){
+        for (Card card : Game.getInstance().getMap().getHeroes()){
+            if (card.getX() == x && card.getY() == y)
+                return (Hero) card;
+        }
+        return null;
+    }
+
 }

@@ -56,4 +56,12 @@ public class Buff {
         this.howMuchImpact = howMuchImpact;
     }
 
+    public static String getTypeOfBuffByItsName(String buffName){
+        if (buffName.equals("healthPointWeaknessBuff") || buffName.equals("disarm") || buffName.equals("poisonBuff")
+                || buffName.equals("stunBuff") || buffName.equals("attackPowerWeaknessBuff")){
+            return "negative";
+        }else
+            return "positive";
+    }
+
 }

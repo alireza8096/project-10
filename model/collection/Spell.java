@@ -2,6 +2,8 @@ package model.collection;
 
 import model.Cell;
 import model.CellType;
+import model.Game;
+import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -10,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Spell extends Card {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public static ArrayList<String> spellNames = new ArrayList<>();
     private String desc;
@@ -102,34 +104,82 @@ public class Spell extends Card {
         }
     }
 
-//    public static void insertSpellInThisCoordination(String spellName, int x, int y) throws IOException, ParseException {
-//        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-//                + "JSON-Spells/" + spellName + ".json");
-//        String targetsSpecified = jsonObject.get("targetsSpecified").toString();
-//        Cell cell = Cell.getCellByCoordination(x, y);
-//        CellType celltype = cell.getCellSituation();
-//
-//
-//
-//    }
+    public static void insertSpellInThisCoordination(String spellName, int x, int y) throws IOException, ParseException {
 
-    public static void applySpellTo2x2Square(Spell spell, int x, int y) throws IOException, ParseException {
-        String spellName = spell.getName();
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
                 + "JSON-Spells/" + spellName + ".json");
-        String typeOfAction = jsonObject.get("typeOfAction").toString().split(",")[0];
-        switch (typeOfAction){
-            case "addsBuff":
+        CellType cellType = Map.getCells()[x][y].getCellSituation();
+        String targetsSpecified = jsonObject.get("targetsSpecified").toString();
+        String actsOn = jsonObject.get("actsOn").toString();
+        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
+        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
 
+        switch (cellType){
+            case selfHero:
+                if ((targetsSpecified.equals("hero") || targetsSpecified.equals("minion/hero")) && actsOn.equals("owner")){
+                    for (int i = 0; i < buffNames.length; i++) {
+                        Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                                buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+                        if (typeOfAction[i].equals("addsBuff")){
+                            if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("negative")){
+                                Hero.findHeroInMap(x, y).getNegativeBuffs().add(buff);
+                            }else{
+                                Hero.findHeroInMap(x, y).getPositiveBuffs().add(buff);
+                            }
+                        }
+                    }
+                }else{
+                    System.out.println("Invalid target!");
+                }
                 break;
-            case "removesBuff":
+            case selfMinion:
+                if ((targetsSpecified.equals("minion") || targetsSpecified.equals("minion/hero")) && actsOn.equals("owner")){
 
+                }else{
+                    System.out.println("Invalid target!");
+                }
+                break;
+            case enemyHero:
+                if ((targetsSpecified.equals("hero") || targetsSpecified.equals("minion/hero")) && actsOn.equals("enemy")){
+
+                }else{
+                    System.out.println("Invalid target!");
+                }
+                break;
+            case enemyMinion:
+                if ((targetsSpecified.equals("minion") || targetsSpecified.equals("minion/hero")) && actsOn.equals("enemy")){
+
+                }else{
+                    System.out.println("Invalid target!");
+                }
+                break;
+            case empty:
+             //   if ((targetsSpecified.equals("")))
                 break;
         }
-
-
-        String[] buffsThatSpellHas = jsonObject.get("whichBuff").toString().split(",");
     }
+
+//    public static void applySpellTo2x2Square(Spell spell, int x, int y) throws IOException, ParseException {
+//        String spellName = spell.getName();
+//        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+//                + "JSON-Spells/" + spellName + ".json");
+//        String typeOfAction = jsonObject.get("typeOfAction").toString().split(",")[0];
+//        switch (typeOfAction){
+//            case "addsBuff":
+//
+//                break;
+//            case "removesBuff":
+//
+//                break;
+//        }
+//
+//        String[] buffsThatSpellHas = jsonObject.get("whichBuff").toString().split(",");
+//    }
+
+
+
 
 
 

@@ -97,6 +97,7 @@ public class Deck {
         else
             System.out.println("Deck with this name does not exist");
     }
+
     public static Deck findDeckByName(String deckName){
         for (Deck deck : Game.getInstance().getPlayer1().getDecksOfPlayer()){
             if (deck.getDeckName().equals(deckName))
@@ -104,6 +105,7 @@ public class Deck {
         }
         return null;
     }
+
     public static void addCardOrItemToDeck(int ID, String cardType, String deckName) throws IOException, ParseException {
 
         //if all conditions are true for adding a new card to deck
@@ -130,6 +132,7 @@ public class Deck {
             }
         }
     }
+
     public static void removeCardOrItemFromDeck(int ID, String cardType, String deckName) throws IOException, ParseException {
         if (!checkIfThisCardIsInThisDeck(deckName, ID, cardType)){
             System.out.println("This " + cardType + " doesn't exist in deck!");
@@ -149,6 +152,7 @@ public class Deck {
             }
         }
     }
+
     public void removeItemFromDeck(String itemName){
         for (String name : this.getItemsInDeckNames()){
             if (name.equals(itemName)) {
@@ -157,6 +161,7 @@ public class Deck {
             }
         }
     }
+
     public void removeCardFromDeck(String cardName){
         for (String name : this.getCardsInDeckNames()){
             if (name.equals(cardName)){
@@ -165,6 +170,7 @@ public class Deck {
             }
         }
     }
+
     public boolean checkIfNumberOfCardsInDeckIsValid(){
         if (this.getCardsInDeckNames().size() >= 20){
             return false;
@@ -172,6 +178,7 @@ public class Deck {
             return true;
         }
     }
+
     public boolean checkIfDeckHasHero(){
         for (String heroName : Hero.getHeroNames()){
             if (this.getHeroInDeckName().equals(heroName))
@@ -179,6 +186,7 @@ public class Deck {
         }
         return false;
     }
+
     public static boolean allConditionsOfAddingCardToDeckAreRight(int ID, String cardType, String deckName) throws IOException, ParseException {
         Deck deck = findDeckByName(deckName);
 
@@ -203,6 +211,7 @@ public class Deck {
         }
         return true;
     }
+
     public static boolean checkIfThisCardIsInThisDeck(String deckName, int cardID, String cardType) throws IOException, ParseException {
         String cardName = findNameOfCardByID(cardID, cardType);
         Deck deck = Deck.findDeckByName(deckName);
@@ -220,6 +229,7 @@ public class Deck {
         }
         return false;
     }
+
     public static boolean checkIfThisCardOrItemIsInCollection(int cardID, String cardType) throws IOException, ParseException {
         String name = findNameOfCardByID(cardID, cardType);
 
@@ -234,18 +244,20 @@ public class Deck {
         }
         return false;
     }
+
     public static String findNameOfCardByID(int id, String cardType) throws IOException, ParseException {
         if (cardType.equals("minion")){
             return Minion.findMinionNameByID(id);
-        }else if (cardType.equals("spell")){
+        }else if (cardType.equals("spell"))
             return Spell.findSpellNameByID(id);
-        }else if (cardType.equals("hero")){
+        else if (cardType.equals("hero")){
             return Hero.findHeroNameByID(id);
         }else if (cardType.equals("item")){
             return Item.findItemNameByID(id);
         }
         return null;
     }
+
     public static boolean validateDeck(String deckName){
         Deck deck = Deck.findDeckByName(deckName);
         if (!deck.checkIfDeckHasHero()){
@@ -257,6 +269,7 @@ public class Deck {
         }
         return true;
     }
+
     public static void selectDeck(String deckName){
         if (!validateDeck(deckName)){
             System.out.println("Selected deck in not valid!");

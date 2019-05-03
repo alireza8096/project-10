@@ -1,16 +1,18 @@
 package model;
 
-import model.collection.Card;
-import model.collection.HandleFiles;
-import model.collection.Spell;
+import model.collection.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Map {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
     private static Cell[][] cells = new Cell[5][9];
+
+    private ArrayList<Card> minions = new ArrayList<>();
+    private ArrayList<Card> heroes = new ArrayList<>();
 
     static {
         for (int i = 0; i < 5; i++) {
@@ -18,6 +20,25 @@ public class Map {
                 cells[i][j] = new Cell();
             }
         }
+
+
+
+    }
+
+    public ArrayList<Card> getMinions() {
+        return minions;
+    }
+
+    public void setMinions(ArrayList<Card> minions) {
+        this.minions = minions;
+    }
+
+    public ArrayList<Card> getHeroes() {
+        return heroes;
+    }
+
+    public void setHeroes(ArrayList<Card> heroes) {
+        this.heroes = heroes;
     }
 
     public static Cell[][] getCells() {
@@ -53,5 +74,5 @@ public class Map {
             return false;
     }
 
-//    ˚˚
+
 }
