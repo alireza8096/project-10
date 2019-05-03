@@ -2,5 +2,6 @@
   "price":null,
   "name":"Random Damage",
   "id":11,
-  "type": "item"
+  "type": "item",
+  "desc": "increases 2 points of attack power of a random card in the game"
 }
