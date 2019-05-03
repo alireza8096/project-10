@@ -1,6 +1,9 @@
 package model;
 
 public class Map {
-    Cell cell[][];
+    private static Cell[][] cells = new Cell[5][9];
 
+    public static Cell[][] getCells() {
+        return cells;
+    }
 }

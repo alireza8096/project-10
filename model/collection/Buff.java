@@ -1,11 +1,20 @@
 package model.collection;
 
+import org.json.simple.JSONObject;
+
 public class Buff {
     private int forHowManyTurns;
     private String name;
     private String type;
     private int howMuchImpact;
     private boolean isUsed;
+
+    public Buff(int howMuchImpact, int forHowManyTurns, String name, String type){
+        this.howMuchImpact = howMuchImpact;
+        this.forHowManyTurns = forHowManyTurns;
+        this.name = name;
+        this.type = type;
+    }
 
     public boolean isUsed() {
         return isUsed;

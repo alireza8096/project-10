@@ -21,6 +21,15 @@ public class Hero extends Card{
     private int coolDown;
     private boolean canAttackOrMove;
     private boolean canCounterAttack;
+    private boolean holyBuffIsActive;
+
+    public boolean isHolyBuffIsActive() {
+        return holyBuffIsActive;
+    }
+
+    public void setHolyBuffIsActive(boolean holyBuffIsActive) {
+        this.holyBuffIsActive = holyBuffIsActive;
+    }
 
     public boolean isCanCounterAttack() {
         return canCounterAttack;
@@ -121,15 +130,6 @@ public class Hero extends Card{
         return null;
     }
 
-//    public static int findHeroIDByName(int cardName){
-//        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
-//        File[] listOfFiles = folder.listFiles();
-//        for (int i = 0; i < listOfFiles.length; i++) {
-//          //  if ()
-//        }
-//
-//    }
-
     public static boolean thisCardIsHero(String cardName){
         for (String name : heroNames){
             if (name.equals(cardName))
@@ -170,6 +170,9 @@ public class Hero extends Card{
         buff.setForHowManyTurns(currentNumberOfTurns - 1);
         String buffName = buff.getName();
         switch (buffName) {
+            case "holyBuff":
+                this.setHolyBuffIsActive(true);
+                break;
             case "attackPowerBuff":
                 this.applyAttackPowerBuff(buff);
                 break;
@@ -197,6 +200,9 @@ public class Hero extends Card{
     public void removeBuffFromHero(Buff buff){
         String buffName = buff.getName();
         switch (buffName){
+            case "holyBuff":
+                this.setHolyBuffIsActive(false);
+                break;
             case "attackPowerbuff":
                 this.deactivateAttackPowerBuff(buff);
                 break;

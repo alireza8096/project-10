@@ -1,5 +1,7 @@
 package model.collection;
 
+import model.Cell;
+import model.CellType;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -55,13 +57,25 @@ public class Spell extends Card {
         for (int i = 0; i < listOfFiles.length; i++) {
             fileName = listOfFiles[i].getName().split("\\.")[0];
             if (fileName.equals(spellName)){
-                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Spells/" + fileName + ".json");
+                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+                        + "JSON-Spells/" + fileName + ".json");
                 String name = jsonObject.get("name").toString();
                 String priceString = jsonObject.get("price").toString();
                 int price = Integer.parseInt(priceString);
                 String manaString = jsonObject.get("mana").toString();
                 int mana = Integer.parseInt(manaString);
                 String desc = jsonObject.get("desc").toString();
+
+//                String numOfTargets = jsonObject.get("numOfTargets").toString();
+//                String square = jsonObject.get("Square").toString();
+//                String targetsSpecified = jsonObject.get("targetsSpecified").toString();
+//                String actsOn = jsonObject.get("actsOn").toString();
+//                String forHowManyTurns = jsonObject.get("forHowManyTurns").toString();
+//                String typeOfAction = jsonObject.get("typeOfAction").toString();
+//                String whichBuff = jsonObject.get("whichBuff").toString();
+//                String howMuchChange = jsonObject.get("howMuchChange").toString();
+//                String cellImpact = jsonObject.get("cellImpact").toString();
+//                String locationOfTarget = jsonObject.get("locationOfTarget").toString();
 
                 Spell spell = new Spell(name, price, mana, desc);
                 return spell;
@@ -77,4 +91,28 @@ public class Spell extends Card {
         }
         return false;
     }
+
+    public static void applySpell(String spellName) throws IOException, ParseException {
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+                + "JSON-Spells/" + spellName + ".json");
+        String[] buffsThatSpellHas = jsonObject.get("whichBuff").toString().split(",");
+
+        for (String buffName : buffsThatSpellHas){
+
+        }
+    }
+
+//    public static void insertSpellInThisCoordination(String spellName, int x, int y) throws IOException, ParseException {
+//        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+//                + "JSON-Spells/" + spellName + ".json");
+//        String targetsSpecified = jsonObject.get("targetsSpecified").toString();
+//        Cell cell = Cell.getCellByCoordination(x, y);
+//        CellType celltype = cell.getCellSituation();
+//
+//
+//
+//    }
+
+
+
 }

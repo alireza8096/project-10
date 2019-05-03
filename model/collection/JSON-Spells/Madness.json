@@ -8,7 +8,7 @@
   "Square" : "null",
   "targetsSpecified" : "minion/hero",
   "actsOn": "owner",
-  "forHowManyTurns" : "3,all",
+  "forHowManyTurns" : "3,3",
   "typeOfAction" : "addsBuff,addsBuff",
   "whichBuff" : "attackPowerBuff,disarm",
   "howMuchChange" : "4,null",
