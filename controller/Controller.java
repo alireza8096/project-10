@@ -1,22 +1,13 @@
 package controller;
 
+import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
-import model.Menu;
 import model.collection.HandleFiles;
 
 import java.util.Scanner;
 
-public class Controller {
-    public static LinkedListMenus account;
-    public static LinkedListMenus leaderboard;
-    public static LinkedListMenus commandLine;
-    public static LinkedListMenus collection;
-    public static LinkedListMenus shop;
-    public static LinkedListMenus battle;
-    public static LinkedListMenus help;
-    public static Game gameBeingPlayed;
-
+public interface Controller {
     public static void createAll(){
         createAllMenus();
         createAllDataFromJSON();
@@ -29,38 +20,38 @@ public class Controller {
         HandleFiles.createStringOfSpells();
     }
     public static void createAllMenus(){
-        account= new LinkedListMenus("Account",true);
-        leaderboard = new LinkedListMenus("Leaderboard",false);
-        commandLine = new LinkedListMenus("Command Line",false);
-        collection = new LinkedListMenus("Collection",false);
-        shop = new LinkedListMenus("Shop",false);
-        battle = new LinkedListMenus("Battle",false);
-        help = new LinkedListMenus("Help",false);
-        account.getChilds().add(commandLine);
-        leaderboard.setParent(account);
-        commandLine.setParent(account);
-        commandLine.getChilds().add(collection);
-        commandLine.getChilds().add(shop);
-        commandLine.getChilds().add(battle);
-        collection.setParent(commandLine);
-        shop.setParent(commandLine);
-        battle.setParent(commandLine);
-        account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save","logout");
-        leaderboard.setCommandsForHelp("exit");
-        commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help");
-        collection.setCommandsForHelp("exit","show","search [card name | item name]","save","create deck[deck name]"
+        AllDatas.account= new LinkedListMenus("Account",true);
+        AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
+        AllDatas.commandLine = new LinkedListMenus("Command Line",false);
+        AllDatas.collection = new LinkedListMenus("Collection",false);
+        AllDatas.shop = new LinkedListMenus("Shop",false);
+        AllDatas.battle = new LinkedListMenus("Battle",false);
+        AllDatas.help = new LinkedListMenus("Help",false);
+        AllDatas.account.getChilds().add(AllDatas.commandLine);
+        AllDatas.leaderboard.setParent(AllDatas.account);
+        AllDatas.commandLine.setParent(AllDatas.account);
+        AllDatas.commandLine.getChilds().add(AllDatas.collection);
+        AllDatas.commandLine.getChilds().add(AllDatas.shop);
+        AllDatas.commandLine.getChilds().add(AllDatas.battle);
+        AllDatas.collection.setParent(AllDatas.commandLine);
+        AllDatas.shop.setParent(AllDatas.commandLine);
+        AllDatas.battle.setParent(AllDatas.commandLine);
+        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save","logout");
+        AllDatas.leaderboard.setCommandsForHelp("exit");
+        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help");
+        AllDatas.collection.setCommandsForHelp("exit","show","search [card name | item name]","save","create deck[deck name]"
         ,"delete deck [deck name]","add [card id | card id | hero id] to deck [deck name]",
                 "remove [card id | card id| hero id] from deck [deck name]","validate deck [deck name]","select deck [deck name]"
         ,"show all decks","show deck [deck name]","Help");
-        shop.setCommandsForHelp("exit","show collection","search [item name | card name]","search collection [item name | card name]",
+        AllDatas.shop.setCommandsForHelp("exit","show collection","search [item name | card name]","search collection [item name | card name]",
                 "buy [card name | item name]","sell [card id | card id]","show","Help");
-        LinkedListMenus.allMenus.add(account);
-        LinkedListMenus.allMenus.add(leaderboard);
-        LinkedListMenus.allMenus.add(commandLine);
-        LinkedListMenus.allMenus.add(collection);
-        LinkedListMenus.allMenus.add(shop);
-        LinkedListMenus.allMenus.add(battle);
-        LinkedListMenus.allMenus.add(help);
+        LinkedListMenus.allMenus.add(AllDatas.account);
+        LinkedListMenus.allMenus.add(AllDatas.leaderboard);
+        LinkedListMenus.allMenus.add(AllDatas.commandLine);
+        LinkedListMenus.allMenus.add(AllDatas.collection);
+        LinkedListMenus.allMenus.add(AllDatas.shop);
+        LinkedListMenus.allMenus.add(AllDatas.battle);
+        LinkedListMenus.allMenus.add(AllDatas.help);
 
     }
 
@@ -76,6 +67,7 @@ public class Controller {
                 break;
             case "Command Line":
                 System.out.println("command line");
+                MenusCommandController.commandLineController(scanner);
                 break;
             case "Collection" :
                 System.out.println("collection");

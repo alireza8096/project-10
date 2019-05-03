@@ -7,8 +7,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Game {
-    private static Game currentGame = new Game();
-
+    private static Game currentGame;
     private static ArrayList<Game> games = new ArrayList<>();
     private boolean isPlayer1Turn;
     private String winnerName;
@@ -55,10 +54,6 @@ public class Game {
 
     public static void setCurrentGame(Game game) {
         Game.currentGame = game;
-    }
-
-    public static Game getCurrentGame() {
-        return currentGame;
     }
 
     public static ArrayList<Game> getGames() {

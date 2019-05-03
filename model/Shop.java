@@ -19,7 +19,7 @@ public class Shop {
     private Player player;
     private ArrayList<String> cardsAvailableInShop = new ArrayList<>();
     private ArrayList<String> itemsAvailableInShop = new ArrayList<>();
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Downloads/AP-Project-10/project-10/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
     public static Object readCardOrItemFromFile(String filename) throws Exception{
         FileReader reader = new FileReader(filename);
         JSONParser jsonParser = new JSONParser();
