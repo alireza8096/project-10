@@ -7,5 +7,6 @@
   "name":"Nane Sarma",
   "id":36,
   "activationTime":"On Spawn",
-  "type":"minion"
+  "type":"minion",
+  "specialPower": "the enemy minions on 8 neighbour cells will be stunned for 1 turn"
 }
