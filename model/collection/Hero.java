@@ -1,5 +1,6 @@
 package model.collection;
 
+import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -21,6 +22,15 @@ public class Hero extends Card{
     private int coolDown;
     private boolean canAttackOrMove;
     private boolean canCounterAttack;
+    private boolean holyBuffIsActive;
+
+    public boolean isHolyBuffIsActive() {
+        return holyBuffIsActive;
+    }
+
+    public void setHolyBuffIsActive(boolean holyBuffIsActive) {
+        this.holyBuffIsActive = holyBuffIsActive;
+    }
 
     public boolean isCanCounterAttack() {
         return canCounterAttack;
@@ -121,15 +131,6 @@ public class Hero extends Card{
         return null;
     }
 
-//    public static int findHeroIDByName(int cardName){
-//        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
-//        File[] listOfFiles = folder.listFiles();
-//        for (int i = 0; i < listOfFiles.length; i++) {
-//          //  if ()
-//        }
-//
-//    }
-
     public static boolean thisCardIsHero(String cardName){
         for (String name : heroNames){
             if (name.equals(cardName))
@@ -139,18 +140,40 @@ public class Hero extends Card{
     }
 
     public void applyBuffsOnHero(){
-        for (Buff buff : this.getPositiveBuffs()){
-            this.applyBuffOnHero(buff);
+        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
+        for (Buff buff : positiveBuffsCopy){
+            if (checkIfBuffIsActive(buff))
+                this.applyBuffOnHeroForOneTurn(buff);
+            else
+                this.removeBuffFromHero(buff);
         }
 
-        for (Buff buff : this.getNegativeBuffs()){
-            this.applyBuffOnHero(buff);
+        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
+        for (Buff buff : negativeBuffsCopy){
+            if (checkIfBuffIsActive(buff))
+                this.applyBuffOnHeroForOneTurn(buff);
+            else
+                this.removeBuffFromHero(buff);
         }
     }
 
-    public void applyBuffOnHero(Buff buff){
+    public boolean checkIfBuffIsActive(Buff buff){
+        int numberOfTurns = buff.getForHowManyTurns();
+        if (numberOfTurns > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public void applyBuffOnHeroForOneTurn(Buff buff){
+        int currentNumberOfTurns = buff.getForHowManyTurns();
+        buff.setForHowManyTurns(currentNumberOfTurns - 1);
         String buffName = buff.getName();
-        switch (buffName){
+        switch (buffName) {
+            case "holyBuff":
+                this.setHolyBuffIsActive(true);
+                break;
             case "attackPowerBuff":
                 this.applyAttackPowerBuff(buff);
                 break;
@@ -178,6 +201,9 @@ public class Hero extends Card{
     public void removeBuffFromHero(Buff buff){
         String buffName = buff.getName();
         switch (buffName){
+            case "holyBuff":
+                this.setHolyBuffIsActive(false);
+                break;
             case "attackPowerbuff":
                 this.deactivateAttackPowerBuff(buff);
                 break;
@@ -191,12 +217,20 @@ public class Hero extends Card{
                 this.deactivateDisarmBuff();
                 break;
         }
+        String buffType = buff.getType();
+        if (buffType.equals("negative"))
+            this.getNegativeBuffs().remove(buff);
+        else
+            this.getPositiveBuffs().remove(buff);
     }
 
     public void applyAttackPowerBuff(Buff buff){
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentAttackPower = this.getAttackPower();
-        setAttackPower(currentAttackPower + howMuchImpact);
+        if (!buff.isUsed()) {
+            int howMuchImpact = buff.getHowMuchImpact();
+            int currentAttackPower = this.getAttackPower();
+            setAttackPower(currentAttackPower + howMuchImpact);
+            buff.setUsed(true);
+        }
     }
 
     public void applyHealthPowerBuff(Buff buff){
@@ -218,9 +252,12 @@ public class Hero extends Card{
     }
 
     public void applyAttackPowerWeaknessBuff(Buff buff){
-        int howMuchImpact = buff.getHowMuchImpact();
-        int currentAttackPower = this.getAttackPower();
-        setAttackPower(currentAttackPower - howMuchImpact);
+        if (!buff.isUsed()) {
+            int howMuchImpact = buff.getHowMuchImpact();
+            int currentAttackPower = this.getAttackPower();
+            setAttackPower(currentAttackPower - howMuchImpact);
+            buff.setUsed(true);
+        }
     }
 
     public void applyStunBuff(){
@@ -249,5 +286,33 @@ public class Hero extends Card{
 
     public void deactivateDisarmBuff(){
         this.setCanCounterAttack(true);
+    }
+
+    public void applyCellImpact(Minion minion, Map map)
+    {
+        int x=minion.getX();
+        int y=minion.getY();
+        switch (((map.getCells())[x][y]).getCellSituation())
+        {
+            case fire:
+                this.setHealthPoint(this.getHealthPoint()-2);
+                break;
+            case holy:
+                this.setHolyBuffIsActive(true);
+                break;
+            case empty:
+                break;
+            case flag:
+                break;
+            case poison:
+                Buff buff = new Buff(1,3,"poisonBuff","negative");
+                buff.setForHowManyTurns(3);
+                buff.setHowMuchImpact(1);
+                buff.setName("poisonBuff");
+                buff.setType("negative");
+                this.getNegativeBuffs().add(buff);
+                break;
+        }
+
     }
 }

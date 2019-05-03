@@ -29,9 +29,5 @@ public class Cell {
         this.cellSituation = cellSituation;
     }
 
-    public static Cell getCellByCoordination(int x, int y){
-        return Map.getCells()[x][y];
-    }
-
 
 }

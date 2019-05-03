@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class CollectionController {
+public interface CollectionController {
     public static void writeHeroCard(String filename, int id, String name, int price, int healthPoint, int attackPower, String attackType, int attackRange, int mana, int coolDown) throws Exception {
         JSONObject hero = new JSONObject();
         hero.put("id", id);

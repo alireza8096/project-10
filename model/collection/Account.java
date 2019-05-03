@@ -1,6 +1,7 @@
 package model.collection;
 
 import controller.Controller;
+import model.AllDatas;
 import model.Game;
 import model.Player;
 import org.json.simple.JSONObject;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Account {
-    public static final String PLAYERS_FOLDER = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/player/";
+    public static final String PLAYERS_FOLDER = "/Users/hamilamailee/Documents/Duelyst Project/model/players/";
     private static ArrayList<String> players = new ArrayList<>();
 
     public static ArrayList<String> getPlayers() {
@@ -43,8 +44,9 @@ public class Account {
                 (String) jsonObject.get("username"),
                 (String) jsonObject.get("password")
         );
-        Controller.gameBeingPlayed = new Game();
-        Controller.gameBeingPlayed.setPlayer1(player);
+        Game createGame = new Game();
+        Game.setCurrentGame(createGame);
+        Game.getInstance().setPlayer1(player);
     }
     public static void createAccount(String name, Scanner scanner) throws Exception{
         if(usernameAlreadyExists(name)){
@@ -66,8 +68,8 @@ public class Account {
             String password = scanner.nextLine();
             if(checkCorrectPassword(name,password)){
                 setPlayer(name);
-                Controller.account.setNowInThisMenu(false);
-                Controller.commandLine.setNowInThisMenu(true);
+                AllDatas.account.setNowInThisMenu(false);
+                AllDatas.commandLine.setNowInThisMenu(true);
             }
             else
                 System.out.println("Password is not correct");
