@@ -29,5 +29,4 @@ public class Cell {
         this.cellSituation = cellSituation;
     }
 
-
 }

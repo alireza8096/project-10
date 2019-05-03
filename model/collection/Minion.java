@@ -1,5 +1,7 @@
 package model.collection;
 
+import model.Cell;
+import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -308,5 +310,33 @@ public class Minion extends Card {
     public void removeHolyBuff(Buff buff)
     {
         setHasHolyBuff(false);
+    }
+
+    public void applyCellImpact(Minion minion, Map map)
+    {
+        int x=minion.getX();
+        int y=minion.getY();
+        switch (((map.getCells())[x][y]).getCellSituation())
+        {
+            case fire:
+                this.setHealthPoint(this.getHealthPoint()-2);
+                break;
+            case holy:
+                this.setHasHolyBuff(true);
+                break;
+            case empty:
+                break;
+            case flag:
+                break;
+            case poison:
+                Buff buff = new Buff();
+                buff.setForHowManyTurns(3);
+                buff.setHowMuchImpact(1);
+                buff.setName("poisonBuff");
+                buff.setType("negative");
+                this.getMinionPositiveBuffs().add(buff);
+                break;
+        }
+
     }
 }

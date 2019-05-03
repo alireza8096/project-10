@@ -1,5 +1,6 @@
 package model.collection;
 
+import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -249,5 +250,10 @@ public class Hero extends Card{
 
     public void deactivateDisarmBuff(){
         this.setCanCounterAttack(true);
+    }
+
+    public void applyCellImpact(Hero hero, Map map)
+    {
+
     }
 }
