@@ -7,5 +7,6 @@
   "name":"Jadoogar",
   "id":25,
   "activationTime":"Passive",
-  "type":"minion"
+  "type":"minion",
+  "specialPower" : "null"
 }

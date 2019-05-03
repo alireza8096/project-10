@@ -13,9 +13,10 @@ public interface AccountController{
                 && commands.length > 2){
             String username="";
             for(int i=2; i<commands.length-1; i++){
-                username = username + commands[i];
+                username = username + commands[i] + " ";
             }
             username = username + commands[commands.length-1];
+            System.out.println(username);
             Account.createAccount(username,scanner);
             AllDatas.hasEnteredAccount = true;
         }
@@ -61,7 +62,7 @@ public interface AccountController{
              AllDatas.hasEnteredAccount = true;
          }
     }
-    public static void help(String parentName,String[] commands,Scanner scanner){
+    public static void help(String parentName,String[] commands){
          if(commands.length == 1 && commands[0].compareToIgnoreCase("help") == 0){
              AllDatas.help.setParent(AllDatas.account);
              AllDatas.help.setNowInThisMenu(true);

@@ -7,5 +7,6 @@
   "name":"Jen",
   "id":27,
   "activationTime":"On Turn",
-  "type":"minion"
+  "type":"minion",
+  "specialPower" : "null"
 }

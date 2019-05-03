@@ -1,6 +1,7 @@
 package view;
 
 import model.Deck;
+import model.Game;
 import model.collection.Card;
 import model.collection.Item;
 import model.GraveYard;
@@ -24,34 +25,45 @@ public class GameView {
     public static GameView getInstance(){
         return view;
     }
-    Scanner scanner = new Scanner(System.in);
 
-    public static void showCard(String cardName,String type) throws IOException, ParseException {
-        if(type.equals("Minion"))
-        {
-            showMinion(cardName);
-        }
-        if(type.equals("Spell"))
-        {
-            showSpell(cardName);
-        }
-        if(type.equals("Hero"))
-        {
-            showHero(cardName);
-        }
+    public static String searchTypeAndShow(String name) throws Exception{
+        String returnString = "";
+        if(Minion.thisCardIsMinion(name))
+            returnString = showMinion(name);
+        else if(Spell.thisCardIsSpell(name))
+            returnString = showSpell(name);
+        else if(Item.thisCardIsItem(name))
+            returnString = showItem(name);
+        else if(Hero.thisCardIsHero(name))
+            returnString = showHero(name);
+        return returnString;
     }
-
-    public static void showItem(String itemName) throws IOException, ParseException {
+    public static String showCard(String cardName) throws IOException, ParseException {
+        String name = "";
+        if(Minion.thisCardIsMinion(cardName)){
+            name = showMinion(cardName);
+        }
+        else if(Spell.thisCardIsSpell(cardName)){
+            name = showSpell(cardName);
+        }
+        return name;
+    }
+    public static String showItem(String itemName) throws IOException, ParseException {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                 (ADDRESS_OF_JSON_FILES + "JSON-Item/" +itemName+".json");
         String name=jsonObject.get("name").toString();
         String desc=jsonObject.get("desc").toString();
-        System.out.println("Name : "+name);
+        String sellCost;
+        if(jsonObject.get("itemType").toString().matches("usable")) {
+            sellCost = jsonObject.get("price").toString();
+        }
+        else{
+            sellCost = "collectible";
+        }
+        return ("Name : "+name + " - Desc : " + desc + " - Sell Cost : " + sellCost);
     }
-
-    public static void showMinion(String minionName) throws IOException, ParseException
-    {
+    public static String showMinion(String minionName) throws IOException, ParseException {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions" );
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                 (ADDRESS_OF_JSON_FILES + "JSON-Spell/" + minionName+".json");
@@ -61,11 +73,12 @@ public class GameView {
         String attackType = jsonObject.get("attackType").toString();
         String AP = jsonObject.get("attackPower").toString();
         String HP = jsonObject.get("healthPoint").toString();
-        System.out.println("Type : Minion - Name : " +
-                name + " – Class: " + attackType + " - AP : " + AP + " - HP : " + HP + " – MP : " + MP + " – Sell Cost : " + price);
+        String speacialPower = jsonObject.get("specialPower").toString();
+        return ("Type : Minion - Name : " +
+                name + " – Class: " + attackType + " - AP : " + AP + " - HP : "
+                + HP + " – MP : " + MP + " - Special Power : " +speacialPower +" – Sell Cost : " + price);
     }
-
-    public static void showSpell(String spellName) throws IOException, ParseException {
+    public static String showSpell(String spellName) throws IOException, ParseException {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Spells" );
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                 (ADDRESS_OF_JSON_FILES + "JSON-Spell/" + spellName+".json");
@@ -73,11 +86,10 @@ public class GameView {
         String desc = jsonObject.get("desc").toString();
         String MP = jsonObject.get("MP").toString();
         String price = jsonObject.get("price").toString();
-        System.out.println("Type : Spell - Name : " +
+        return ("Type : Spell - Name : " +
                 name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price);
     }
-
-    public static void showHero(String heroName) throws IOException, ParseException {
+    public static String showHero(String heroName) throws IOException, ParseException {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes" );
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
                 (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + heroName+".json");
@@ -86,13 +98,15 @@ public class GameView {
         String HP = jsonObject.get("healthPoint").toString();
         String attackType = jsonObject.get("attackType").toString();
         String specialPower = jsonObject.get("specialPower").toString();
-        System.out.println("Name : " + name + " - AP : " + AP +
-                " – HP : " + HP + " – Class : " + attackType);
+        String sellPrice = jsonObject.get("price").toString();
+        return ("Name : " + name + " - AP : " + AP +
+                " – HP : " + HP + " – Class : " + attackType +" - Special power : " + specialPower
+         +". - Sell Cost : " + sellPrice);
     }
-
     public static void showDeck(String deckName) throws IOException, ParseException {
         Deck deck = Deck.findDeckByName(deckName);
         ArrayList<String> heroesInDeck = new ArrayList<>();
+        ArrayList<String> itemsInDeck = new ArrayList<>();
         ArrayList<String> spellsInDeck = new ArrayList<>();
         ArrayList<String> minionsInDeck = new ArrayList<>();
         for (String cardName : deck.getCardsInDeckNames()){
@@ -103,103 +117,25 @@ public class GameView {
             }else if (Spell.thisCardIsSpell(cardName)){
                 spellsInDeck.add(cardName);
             }
-        }
-
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
-        File[] listOfFiles = folder.listFiles();
-
-        System.out.println("Heros :");
-        int counter = 1;
-
-        for (String heroInDeck : heroesInDeck){
-            for (int i = 0; i < listOfFiles.length; i++) {
-                String fileName = listOfFiles[i].getName().split("\\.")[0];
-                if (fileName.equals(heroInDeck)){
-              /*      JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                            (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + listOfFiles[i].getName());
-                    String name = jsonObject.get("name").toString();
-                    String AP = jsonObject.get("attackPower").toString();
-                    String HP = jsonObject.get("healthPoint").toString();
-                    String attackType = jsonObject.get("attackType").toString();
-
-                    System.out.println("    " + counter + " : Name : " + name + " - AP : " + AP +
-                            " – HP : " + HP + " – Class : " + attackType); */
-                    counter++;
-                    break;
-                }
+            else if(Item.thisCardIsItem(cardName)){
+                itemsInDeck.add(cardName);
             }
         }
-
-        folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
-        listOfFiles = folder.listFiles();
+        System.out.println("Heroes :");
+        for(int i=1; i<=heroesInDeck.size(); i++){
+            System.out.println( i + " : " + showHero(heroesInDeck.get(i-1)));
+        }
         System.out.println("Items :");
-        counter = 1;
-        for (String itemInDeck : deck.getItemsInDeckNames()){
-            for (int i = 0; i < listOfFiles.length; i++) {
-                String fileName = listOfFiles[i].getName().split("\\.")[0];
-                if (fileName.equals(itemInDeck)){
-                   /* JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                            (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + listOfFiles[i].getName());
-                    String name = jsonObject.get("name").toString();
-                    String desc = jsonObject.get("desc").toString();
-                    String MP = jsonObject.get("MP").toString();
-                    String price = jsonObject.get("price").toString();
-
-                    System.out.println("    " + counter + " : Type : Spell - Name : " +
-                            name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price); */
-                    counter++;
-                    break;
-                }
-            }
+        for (int i = 1; i <= itemsInDeck.size(); i++) {
+            System.out.println(i + " : " + showItem(itemsInDeck.get(i - 1)));
         }
-
-        folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Spells");
-        listOfFiles = folder.listFiles();
         System.out.println("Cards :");
-        counter = 1;
-        for (String spellInDeck : spellsInDeck){
-            for (int i = 0; i < listOfFiles.length; i++) {
-                String fileName = listOfFiles[i].getName().split("\\.")[0];
-                if (fileName.equals(spellInDeck)){
-                /*    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                            (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + listOfFiles[i].getName());
-                    String name = jsonObject.get("name").toString();
-                    String desc = jsonObject.get("desc").toString();
-                    String MP = jsonObject.get("MP").toString();
-                    String price = jsonObject.get("price").toString();
-
-                    System.out.println("    " + counter + " : Type : Spell - Name : " +
-                            name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price); */
-                    counter++;
-                    break;
-                }
-            }
+        for (int i = 1; i <=spellsInDeck.size(); i++) {
+            System.out.println(i + " : " + showSpell(spellsInDeck.get(i - 1)));
         }
-
-        folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions");
-        listOfFiles = folder.listFiles();
-        counter = 1;
-        for (String minionInDeck : minionsInDeck){
-            for (int i = 0; i < listOfFiles.length; i++) {
-                String fileName = listOfFiles[i].getName().split("\\.")[0];
-                if (fileName.equals(minionInDeck)){
-                /*    JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                            (ADDRESS_OF_JSON_FILES + "JSON-Minions/" + listOfFiles[i].getName());
-                    String name = jsonObject.get("name").toString();
-                    String MP = jsonObject.get("mana").toString();
-                    String price = jsonObject.get("price").toString();
-                    String attackType = jsonObject.get("attackType").toString();
-                    String AP = jsonObject.get("attackPower").toString();
-                    String HP = jsonObject.get("healthPoint").toString();
-
-                    System.out.println("    " + counter + " : Type : Minion - Name : " +
-                            name + " – Class: " + attackType + " - AP : " + AP + " - HP : " + HP + " – MP : " + MP + " – Sell Cost : " + price);*/
-                    counter++;
-                    break;
-                }
-            }
+        for(int i=1; i<=minionsInDeck.size(); i++){
+            System.out.println(i + " : " + showMinion(minionsInDeck.get(i-1)));
         }
-
     }
 
     public static void showCardsInGraveYard(GraveYard graveYard) throws IOException, ParseException {
@@ -208,7 +144,7 @@ public class GameView {
         for(String name: graveYard.getCardsDeletedFromHandName())
         {
             System.out.print(counter+" ");
-            showCard(name,"minion");
+            showMinion(name);
         }
     }
 }

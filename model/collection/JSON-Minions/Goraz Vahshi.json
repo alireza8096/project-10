@@ -7,5 +7,6 @@
   "name":"Goraz Vahshi",
   "id":28,
   "activationTime":"On Defend",
-  "type":"minion"
+  "type":"minion",
+  "specialPower" : "null"
 }

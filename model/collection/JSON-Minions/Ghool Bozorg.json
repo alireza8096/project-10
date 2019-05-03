@@ -7,5 +7,6 @@
   "name":"Ghool Bozorg",
   "id":34,
   "activationTime":null,
-  "type":"minion"
+  "type":"minion",
+  "specialPower" : "null"
 }
