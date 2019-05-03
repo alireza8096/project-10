@@ -8,5 +8,5 @@
   "id":1,
   "coolDown":2,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "apply one power buff with the impact of 4 continuously on itself"
 }

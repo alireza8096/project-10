@@ -8,5 +8,5 @@
   "id":9,
   "coolDown":null,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "has 3 holy buffs continuously"
 }

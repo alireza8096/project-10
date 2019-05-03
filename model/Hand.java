@@ -2,6 +2,8 @@ package model;
 
 import model.collection.Card;
 import model.collection.Hero;
+import model.collection.Minion;
+import model.collection.Spell;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -51,8 +53,13 @@ public class Hand {
             Collections.shuffle(mainDeck.getCardsInDeckNames());
             String nextCardName = mainDeck.getCardsInDeckNames().get(0);
             mainDeck.getCardsInDeckNames().remove(nextCardName);
-            Card nextCard = Card.getCardByName(nextCardName);
-            this.getCardsInHand().add(nextCard);
+            if (Minion.thisCardIsMinion(nextCardName)){
+                Minion minion = (Minion) Minion.getMinionByName(nextCardName);
+                this.getCardsInHand().add(minion);
+            }else if (Spell.thisCardIsSpell(nextCardName)){
+                Spell spell = (Spell) Spell.getSpellByName(nextCardName);
+                this.getCardsInHand().add(spell);
+            }
         }
     }
 
@@ -73,19 +80,18 @@ public class Hand {
             if (card.getMana() > playerMana){
                 System.out.println("You don't have enough mana!");
             }else{
-                if (!Map.checkIfCanInsertCardInThisCoordination(x, y)){
-                    System.out.println("Invalid target!");
-                }else{
-                    Game.getInstance().getPlayer1().setNumOfMana(playerMana - card.getMana());
-                    String cardType = card.getCardType();
-                    CellType cellType;
-                    if (cardType.equals("minion"))
-                        cellType = CellType.selfMinion;
-                    else if (cardType.equals("spell"))
-                        cellType = CellType.selfSpell;
-                    else
-                        cellType = CellType.empty;
-                    Map.getCells()[x][y].setCellSituation(cellType);
+                String cardType = card.getCardType();
+                if (cardType.equals("minion")){
+                    if (!Map.checkIfMinionInsertCardInThisCoordination(x, y)){
+                        System.out.println("Invalid target!");
+                    }else {
+                        Game.getInstance().getPlayer1().setNumOfMana(playerMana - card.getMana());
+                        Map.getCells()[x][y].setCellSituation(CellType.selfMinion);
+                        card.setX(x);
+                        card.setY(y);
+                    }
+                }else if (cardType.equals("spell")){
+
                 }
             }
         }

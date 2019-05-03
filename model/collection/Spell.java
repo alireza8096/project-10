@@ -119,6 +119,24 @@ public class Spell extends Card {
 //
 //    }
 
+    public static void applySpellTo2x2Square(Spell spell, int x, int y) throws IOException, ParseException {
+        String spellName = spell.getName();
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+                + "JSON-Spells/" + spellName + ".json");
+        String typeOfAction = jsonObject.get("typeOfAction").toString().split(",")[0];
+        switch (typeOfAction){
+            case "addsBuff":
+
+                break;
+            case "removesBuff":
+
+                break;
+        }
+
+
+        String[] buffsThatSpellHas = jsonObject.get("whichBuff").toString().split(",");
+    }
+
 
 
 }
