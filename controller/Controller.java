@@ -54,7 +54,6 @@ public interface Controller {
         LinkedListMenus.allMenus.add(AllDatas.help);
 
     }
-
     public static void handleCommands(Scanner scanner) throws Exception{
         switch (LinkedListMenus.whichMenuNow().getMenuName()){
             case "Account":
@@ -75,6 +74,7 @@ public interface Controller {
                 break;
             case "Shop" :
                 System.out.println("shop");
+                MenusCommandController.shopController(scanner);
                 break;
             case "Battle" :
                 System.out.println("battle");

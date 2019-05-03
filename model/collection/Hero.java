@@ -24,6 +24,12 @@ public class Hero extends Card{
     private boolean canCounterAttack;
     private boolean holyBuffIsActive;
 
+    public static int getHeroIDByName(String heroName) throws Exception{
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+                + "JSON-Heroes/" + heroName + ".json");
+        return Integer.parseInt(jsonObject.get("id").toString()) + 100;
+    }
+
     public boolean isHolyBuffIsActive() {
         return holyBuffIsActive;
     }
@@ -102,14 +108,6 @@ public class Hero extends Card{
 
     public void setCoolDown(int coolDown) {
         this.coolDown = coolDown;
-    }
-
-    public static ArrayList<String> getHeroNames() {
-        return heroNames;
-    }
-
-    public static void setHeroNames(ArrayList<String> heroNames) {
-        Hero.heroNames = heroNames;
     }
 
     public static String findHeroNameByID(int id) throws IOException, ParseException {
