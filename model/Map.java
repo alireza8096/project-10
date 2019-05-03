@@ -1,6 +1,15 @@
 package model;
 
+import model.collection.Card;
+import model.collection.HandleFiles;
+import model.collection.Spell;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+
 public class Map {
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
     private static Cell[][] cells = new Cell[5][9];
 
     static {
@@ -19,7 +28,7 @@ public class Map {
         Map.cells = cells;
     }
 
-    public static boolean checkIfCanInsertCardInThisCoordination(int x, int y){
+    public static boolean checkIfMinionInsertCardInThisCoordination(int x, int y){
         if (thisCellIsEmpty(x, y)){
             if ((x - 1) >= 0 && !thisCellIsEmpty(x - 1, y))
                 return true;
@@ -43,4 +52,6 @@ public class Map {
         }else
             return false;
     }
+
+//    ˚˚
 }
