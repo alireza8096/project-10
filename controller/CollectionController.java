@@ -84,36 +84,43 @@ public interface CollectionController {
     }
 
     public static void addToDeck(String[] commands, String command) throws Exception {
-        if (command.contains("add") && command.contains("to deck") && command.length() >= 6) {
+        if (command.contains("add") && command.contains("to deck") && command.length() >= 5) {
             AllDatas.hasEnteredCollection = true;
-            int id = Integer.parseInt(commands[2]);
+            int id = Integer.parseInt(commands[1])%100;
+            int type = Integer.parseInt(commands[1])/100;
             String deckName = "";
             d:
             for (int i = 0; i < commands.length; i++) {
                 if (commands[i].equals("deck")) {
-                    for (int j = i + 1; j < commands.length - 1; j++) {
-                        deckName = deckName + commands[j] + " ";
-                    }
-                    deckName = deckName + commands[commands.length - 1];
+                    deckName = createName(commands,i+1);
                     break d;
                 }
             }
-            if (commands[1].compareToIgnoreCase("hero") == 0) {
-                Deck.addCardOrItemToDeck(id, "hero", deckName);
-            } else if (commands[1].compareToIgnoreCase("item") == 0) {
-                Deck.addCardOrItemToDeck(id, "item", deckName);
-            } else if (commands[1].compareToIgnoreCase("minion") == 0) {
-                Deck.addCardOrItemToDeck(id, "minio", deckName);
-            } else if (commands[1].compareToIgnoreCase("spell") == 0) {
-                Deck.addCardOrItemToDeck(id, "spell", deckName);
-            } else System.out.println("Type is not valid");
+            switch (type) {
+                case 1:
+                    Deck.addCardOrItemToDeck(id, "hero", deckName);
+                    break;
+                case 2:
+                    Deck.addCardOrItemToDeck(id, "item", deckName);
+                    break;
+                case 3:
+                    Deck.addCardOrItemToDeck(id, "minion", deckName);
+                    break;
+                case 4:
+                    Deck.addCardOrItemToDeck(id, "spell", deckName);
+                    break;
+                default:
+                    System.out.println("Type is not valid");
+                    break;
+            }
         }
     }
 
     public static void remove(String[] commands, String command) throws Exception {
-        if (command.contains("remove") && command.contains("from deck") && command.length() >= 6) {
+        if (command.contains("remove") && command.contains("from deck") && command.length() >= 5) {
             AllDatas.hasEnteredCollection = true;
-            int id = Integer.parseInt(commands[2]);
+            int id = Integer.parseInt(commands[1])%100;
+            int type = Integer.parseInt(commands[1])/100;
             String deckName = "";
             d:
             for (int i = 0; i < commands.length; i++) {
@@ -122,15 +129,22 @@ public interface CollectionController {
                     break d;
                 }
             }
-            if (commands[1].compareToIgnoreCase("hero") == 0) {
-                Deck.removeCardOrItemFromDeck(id, "hero", deckName);
-            } else if (commands[1].compareToIgnoreCase("item") == 0) {
-                Deck.removeCardOrItemFromDeck(id, "item", deckName);
-            } else if (commands[1].compareToIgnoreCase("minion") == 0) {
-                Deck.removeCardOrItemFromDeck(id, "minion", deckName);
-            } else if (commands[1].compareToIgnoreCase("spell") == 0) {
-                Deck.removeCardOrItemFromDeck(id, "spell", deckName);
-            } else System.out.println("Type is not valid");
+            switch (type) {
+                case 1:
+                    Deck.removeCardOrItemFromDeck(id, "hero", deckName);
+                    break;
+                case 2:
+                    Deck.removeCardOrItemFromDeck(id, "item", deckName);
+                    break;
+                case 3:
+                    Deck.removeCardOrItemFromDeck(id, "minion", deckName);
+                    break;
+                case 4:
+                    Deck.removeCardOrItemFromDeck(id, "spell", deckName);
+                    break;
+                default:
+                    System.out.println("Type is not valid");
+            }
         }
     }
 

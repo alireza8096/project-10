@@ -39,14 +39,14 @@ public class GameView {
         return returnString;
     }
     public static String showCard(String cardName) throws IOException, ParseException {
-        String name = "";
+        String output = "";
         if(Minion.thisCardIsMinion(cardName)){
-            name = showMinion(cardName);
+            output = showMinion(cardName);
         }
         else if(Spell.thisCardIsSpell(cardName)){
-            name = showSpell(cardName);
+            output = showSpell(cardName);
         }
-        return name;
+        return output;
     }
     public static String showItem(String itemName) throws IOException, ParseException {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");

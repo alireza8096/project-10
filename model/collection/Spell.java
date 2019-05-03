@@ -2,6 +2,7 @@ package model.collection;
 
 import model.Cell;
 import model.CellType;
+import model.Hand;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -92,6 +93,11 @@ public class Spell extends Card {
         return false;
     }
 
+    public static int getSpellIDByName(String spellName) throws Exception{
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES +
+                 "JSON-Spells/" + spellName + ".json");
+        return Integer.parseInt(jsonObject.get("id").toString())+400;
+    }
     public static void applySpell(String spellName) throws IOException, ParseException {
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
                 + "JSON-Spells/" + spellName + ".json");

@@ -67,6 +67,10 @@ public class Item {
         return null;
     }
 
+    public static int getItemIDByName(String itemName) throws Exception{
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items/" + itemName+".json");
+        return Integer.parseInt(jsonObject.get("id").toString())+200;
+    }
     public static boolean thisCardIsItem(String cardName){
         for (String name : itemNames){
             if (name.equals(cardName))

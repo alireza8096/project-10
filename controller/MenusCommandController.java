@@ -1,6 +1,7 @@
 package controller;
 
 import model.AllDatas;
+import model.Shop;
 import model.collection.Account;
 
 import java.util.Collection;
@@ -88,5 +89,26 @@ public interface MenusCommandController {
             System.out.println("Command is not supported in this menu");
         }
         AllDatas.hasEnteredCollection = false;
+    }
+
+    public static void shopController(Scanner scanner) throws Exception {
+        String command = scanner.nextLine();
+        String[] commandsSplitted = command.split(" ");
+        ShopController.showCollection(commandsSplitted);
+        ShopController.searchInShop(commandsSplitted);
+//        ShopController.searchInCollection();
+//        ShopController.buy();
+//        ShopController.sell();
+//        ShopController.showShop();
+//        ShopController.help();
+        if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
+            AllDatas.shop.setNowInThisMenu(false);
+            AllDatas.commandLine.setNowInThisMenu(true);
+            AllDatas.hasEnteredShop = true;
+        }
+        if (!AllDatas.hasEnteredShop) {
+            System.out.println("Command is not supported in this menu");
+        }
+        AllDatas.hasEnteredShop= false;
     }
 }

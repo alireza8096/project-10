@@ -170,6 +170,11 @@ public class Minion extends Card {
         return null;
     }
 
+    public static int getMinionIDByName(String minionName) throws Exception{
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+        + "JSON-Minions/" + minionName + ".json");
+        return Integer.parseInt(jsonObject.get("id").toString())+300;
+    }
     public static boolean thisCardIsMinion(String cardName){
         for (String name : minionNames){
             if (name.equals(cardName)) {
