@@ -96,10 +96,10 @@ public interface MenusCommandController {
         String[] commandsSplitted = command.split(" ");
         ShopController.showCollection(commandsSplitted);
         ShopController.searchInShop(commandsSplitted);
-//        ShopController.searchInCollection();
+        ShopController.searchInCollection(commandsSplitted);
 //        ShopController.buy();
 //        ShopController.sell();
-//        ShopController.showShop();
+        ShopController.showShop(commandsSplitted);
 //        ShopController.help();
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.shop.setNowInThisMenu(false);

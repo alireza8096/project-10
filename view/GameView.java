@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GameView {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Downloads/AP-Project-10/project-10/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
     private static GameView view = new GameView();
 
@@ -49,9 +49,8 @@ public class GameView {
         return output;
     }
     public static String showItem(String itemName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                (ADDRESS_OF_JSON_FILES + "JSON-Item/" +itemName+".json");
+                (ADDRESS_OF_JSON_FILES + "JSON-Items/" +itemName+".json");
         String name=jsonObject.get("name").toString();
         String desc=jsonObject.get("desc").toString();
         String sellCost;
@@ -64,9 +63,8 @@ public class GameView {
         return ("Name : "+name + " - Desc : " + desc + " - Sell Cost : " + sellCost);
     }
     public static String showMinion(String minionName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions" );
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                (ADDRESS_OF_JSON_FILES + "JSON-Spell/" + minionName+".json");
+                (ADDRESS_OF_JSON_FILES + "JSON-Minions/" + minionName+".json");
         String name = jsonObject.get("name").toString();
         String MP = jsonObject.get("mana").toString();
         String price = jsonObject.get("price").toString();
@@ -79,12 +77,11 @@ public class GameView {
                 + HP + " – MP : " + MP + " - Special Power : " +speacialPower +" – Sell Cost : " + price);
     }
     public static String showSpell(String spellName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Spells" );
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                (ADDRESS_OF_JSON_FILES + "JSON-Spell/" + spellName+".json");
+                (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + spellName+".json");
         String name = jsonObject.get("name").toString();
         String desc = jsonObject.get("desc").toString();
-        String MP = jsonObject.get("MP").toString();
+        String MP = jsonObject.get("mana").toString();
         String price = jsonObject.get("price").toString();
         return ("Type : Spell - Name : " +
                 name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price);
