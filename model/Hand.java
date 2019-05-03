@@ -29,6 +29,7 @@ public class Hand {
         for (int i = 0; i < 5; i++) {
             String cardName = cardNamesInDeck.get(i);
             this.getCardsInHand().add(Card.getCardByName(cardName));
+            Game.getInstance().getPlayer1().getMainDeck().getCardsInDeckNames().remove(cardName);
         }
     }
 
@@ -54,6 +55,22 @@ public class Hand {
         }
     }
 
+    public boolean checkIfCardIsInHand(String cardName){
+        for (Card card : this.getCardsInHand()) {
+            if (card.getName().equals(cardName))
+                return true;
+        }
+        return false;
+    }
+
+    public void insertCardFromHandInMap(String cardName, int x, int y)
+    {
+        if (!checkIfCardIsInHand(cardName)){
+            System.out.println("Invalid card name!");
+        }else{
+
+        }
+    }
 
 
 }
