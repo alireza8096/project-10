@@ -6,4 +6,8 @@ public class Map {
     public static Cell[][] getCells() {
         return cells;
     }
+
+    public static void setCells(Cell[][] cells) {
+        Map.cells = cells;
+    }
 }
