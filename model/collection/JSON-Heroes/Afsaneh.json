@@ -8,5 +8,5 @@
   "id":8,
   "coolDown":2,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "dispel one enemy hero/minion"
 }

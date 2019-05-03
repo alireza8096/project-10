@@ -8,5 +8,5 @@
   "id":4,
   "coolDown":2,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "make one of enemy minion/heroes stunned for one turn"
 }
