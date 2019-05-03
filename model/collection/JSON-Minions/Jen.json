@@ -8,5 +8,5 @@
   "id":27,
   "activationTime":"On Turn",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "gives continuous power buff with impact of 1 to all of self minions"
 }

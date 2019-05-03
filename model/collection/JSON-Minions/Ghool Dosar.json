@@ -8,5 +8,5 @@
   "id":35,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "while attacking it dactivate all of positive buffs of the attacked card"
 }

@@ -8,5 +8,5 @@
   "id":5,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "it will attack 5 points more than the number of attacks in previous turns"
 }

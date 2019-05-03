@@ -8,5 +8,5 @@
   "id":15,
   "activationTime":"Passive",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "add 10 health point"
 }

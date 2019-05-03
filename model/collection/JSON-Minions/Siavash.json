@@ -8,5 +8,5 @@
   "id":38,
   "activationTime":"On Death",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "on death,decreases enemy's hero 6 points;"
 }

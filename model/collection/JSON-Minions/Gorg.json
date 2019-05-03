@@ -8,5 +8,5 @@
   "id":24,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "decrease 6 health points on next turn"
 }

@@ -8,5 +8,5 @@
   "id":29,
   "activationTime":"On Defend",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "does not get poisoned"
 }

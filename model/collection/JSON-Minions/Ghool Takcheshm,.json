@@ -8,5 +8,5 @@
   "id":17,
   "activationTime":"On Death",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "on death,the minions on 8 neighbours cells will lose 2 health points"
 }

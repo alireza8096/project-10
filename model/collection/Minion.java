@@ -24,13 +24,14 @@ public class Minion extends Card {
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
 
-    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime){
+    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana){
         this.healthPoint = healthPoint;
         this.setName(name);
         this.attackPower = attackPower;
         this.attackRange = attackRange;
         this.attackType = attackType;
         this.activationTime = activationTime;
+        this.mana = mana;
     }
 
     public ArrayList<Buff> getMinionPositiveBuffs() {
@@ -159,8 +160,10 @@ public class Minion extends Card {
                 int attackRange = Integer.parseInt(attackRangeString);
                 String attackType = jsonObject.get("attackType").toString();
                 String activationTime = jsonObject.get("activationTime").toString();
+                String manaString = jsonObject.get("price").toString();
+                int mana = Integer.parseInt(manaString);
 
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime);
+                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana);
                 return minion;
             }
         }

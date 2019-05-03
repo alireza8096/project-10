@@ -8,5 +8,5 @@
   "id":2,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "stuns minion/hero for that turn while attacking"
 }

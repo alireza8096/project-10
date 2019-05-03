@@ -8,5 +8,5 @@
   "id":28,
   "activationTime":"On Defend",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "can't be disarmed"
 }

@@ -8,5 +8,5 @@
   "id":37,
   "activationTime":"Passive",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "has 12 holy buff continuously"
 }

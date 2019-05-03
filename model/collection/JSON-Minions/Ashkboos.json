@@ -8,5 +8,5 @@
   "id":32,
   "activationTime":"On Defend",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "doesn't get attack from minion/heroes with less attack power"
 }

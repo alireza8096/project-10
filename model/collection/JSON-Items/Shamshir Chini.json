@@ -2,5 +2,6 @@
   "price":null,
   "name":"Shamshir Chini",
   "id":20,
-  "type": "item"
+  "type": "item",
+  "desc": "adds 5 point to attack power of melee minion/heroes"
 }

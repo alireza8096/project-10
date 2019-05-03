@@ -8,5 +8,5 @@
   "id":12,
   "activationTime":"Combo",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "combo"
 }

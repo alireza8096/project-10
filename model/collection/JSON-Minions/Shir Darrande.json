@@ -8,5 +8,5 @@
   "id":20,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "holy buff does not have effect on it's attack(it does not decrease attack power)"
 }

@@ -8,5 +8,5 @@
   "id":31,
   "activationTime":"On Spawn",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "randomly, decrease 16 points from one of enemy minions' health point"
 }

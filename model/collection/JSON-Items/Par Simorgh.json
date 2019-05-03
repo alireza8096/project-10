@@ -2,5 +2,6 @@
   "price":3500,
   "name":"Par Simorgh",
   "id":6,
-  "type": "item"
+  "type": "item",
+  "desc":"decrease 2 points from attack power of enemy hybrid/ranged hero"
 }

@@ -8,5 +8,5 @@
   "id":25,
   "activationTime":"Passive",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "it will add one power buff with 2 points impact and one weakness buff with 1 point of health point decrease for one turn to itself and any self minions in 8 neighbour cells"
 }

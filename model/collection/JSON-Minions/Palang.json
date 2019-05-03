@@ -8,5 +8,5 @@
   "id":23,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower" : "null"
+  "specialPower": "when attacking a minion,the minion will lose 8 health points in the next turn"
 }
