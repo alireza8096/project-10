@@ -7,5 +7,6 @@
   "name":"Div Sefid",
   "id":1,
   "coolDown":2,
-  "type": "hero"
+  "type": "hero",
+  "specialPower" : "null"
 }

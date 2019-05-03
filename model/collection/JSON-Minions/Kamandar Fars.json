@@ -7,5 +7,6 @@
   "name":"Kamandar Fars",
   "id":1,
   "activationTime":null,
-  "type":"minion"
+  "type":"minion",
+  "specialPower": "Does not have special power"
 }

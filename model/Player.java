@@ -3,6 +3,10 @@ package model;
 import model.Deck;
 import model.Game;
 import model.GraveYard;
+import model.collection.Hero;
+import model.collection.Item;
+import model.collection.Minion;
+import model.collection.Spell;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -25,6 +29,7 @@ public class Player {
     private int coordinateY;
     private ArrayList<String> cardsInCollectionNames = new ArrayList<>();
     private ArrayList<String> itemsInCollectionNames = new ArrayList<>();
+    private ArrayList<String> heroesInCollectionName = new ArrayList<>();
 
     public Player(String name){
         this.setUserName(name);
@@ -81,6 +86,10 @@ public class Player {
 
     public static void setPlayers(ArrayList<Player> players) {
         Player.players = players;
+    }
+
+    public ArrayList<String> getHeroesInCollectionName() {
+        return heroesInCollectionName;
     }
 
     public int getDaric() {
@@ -158,25 +167,26 @@ public class Player {
     }
 
     public boolean thisCardOrItemIsAvailableInCollection(String name){
-        for (String cardName : this.getCardsInCollectionNames()){
-            if (cardName.equals(name))
-                return true;
-        }
+        if(Minion.thisCardIsMinion(name) || Spell.thisCardIsSpell(name) ||
+        Hero.thisCardIsHero(name) || Item.thisCardIsItem(name)) {
+            for (String cardName : this.getCardsInCollectionNames()) {
+                if (cardName.equals(name))
+                    return true;
+            }
 
-        for (String itemName : this.getItemsInCollectionNames()){
-            if (itemName.equals(name))
-                return true;
+            for (String itemName : this.getItemsInCollectionNames()) {
+                if (itemName.equals(name))
+                    return true;
+            }
+
+            for (String heroName : this.getHeroesInCollectionName()) {
+                if (heroName.equals(name))
+                    return true;
+            }
+            System.out.println("Card is not available in collection");
+            return false;
         }
+        System.out.println("This name is not valid for crad");
         return false;
     }
-
-    public void searchCardOrItemInColliection(String name, String cardType){
-        boolean isAvailableInCollection = this.thisCardOrItemIsAvailableInCollection(name);
-        if (isAvailableInCollection){
-
-        }
-    }
-
-
-
 }

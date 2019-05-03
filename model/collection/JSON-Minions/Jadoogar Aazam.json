@@ -7,5 +7,6 @@
   "name":"Jadoogar Aazam",
   "id":26,
   "activationTime":"Passive",
-  "type":"minion"
+  "type":"minion",
+  "specialPower": "it will add one power buff with 2 point impacrs and one holy continuously buff to irself and any self minions in 8 neighbour cells"
 }

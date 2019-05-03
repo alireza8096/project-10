@@ -7,5 +7,6 @@
   "name":"Rakhsh",
   "id":4,
   "coolDown":2,
-  "type": "hero"
+  "type": "hero",
+  "specialPower" : "null"
 }

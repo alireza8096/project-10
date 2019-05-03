@@ -7,5 +7,6 @@
   "name":"Arash",
   "id":7,
   "coolDown":2,
-  "type": "hero"
+  "type": "hero",
+  "specialPower" : "null"
 }

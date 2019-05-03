@@ -7,5 +7,6 @@
   "name":"Siavash",
   "id":38,
   "activationTime":"On Death",
-  "type":"minion"
+  "type":"minion",
+  "specialPower": "on death,decreases enemy's hero 6 points;"
 }
