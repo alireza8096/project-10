@@ -2,5 +2,6 @@
   "price":300,
   "name":"Taj Danaee",
   "id":1,
-  "type": "item"
+  "type": "item",
+  "desc": "for first 3 turns adds 1point to mana"
 }

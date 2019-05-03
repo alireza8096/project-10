@@ -2,5 +2,6 @@
   "price":null,
   "name":"Nooshdaroo",
   "id":4,
-  "type": "item"
+  "type": "item",
+  "desc": "decreases 6 points from health point of random minion/hero"
 }

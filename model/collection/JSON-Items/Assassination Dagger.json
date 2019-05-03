@@ -2,5 +2,6 @@
   "price":15000,
   "name":"Assassination Dagger",
   "id":15,
-  "type": "item"
+  "type": "item",
+  "desc": "while putting any self hero/minion , it decrease one point from enemy hero's health point"
 }

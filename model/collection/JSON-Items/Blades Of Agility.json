@@ -2,5 +2,6 @@
   "price":null,
   "name":"Blades of Agility",
   "id":13,
-  "type": "item"
+  "type": "item",
+  "desc":"add 6 points to attack power of one of the heroes/minions"
 }
