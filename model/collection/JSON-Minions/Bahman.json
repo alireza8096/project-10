@@ -1,5 +1,5 @@
 {"healthPoint":16,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":9,
   "mana":8,
   "attackType":"melee",
@@ -8,5 +8,13 @@
   "id":31,
   "activationTime":"On Spawn",
   "type":"minion",
-  "specialPower": "randomly, decrease 16 points from one of enemy minions' health point"
+  "specialPower": "randomly, decrease 16 points from one of enemy minions' health point",
+  "numOfTargets" :1,
+  "targetsSpecified":"minion",
+  "actsOn":"enemy",
+  "forHowManyTurns" :"1",
+  "typeOfAction" :"addsBuff",
+  "whichBuff" :"healthPointWeaknessBuff",
+  "howMuchChange" :"16",
+  "locationOfTarget" :"random"
 }

@@ -8,5 +8,5 @@
   "id":7,
   "coolDown":2,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "decrease health point of all minion/heroes on the hero's row 4 points"
 }

@@ -11,4 +11,5 @@ public class AllDatas {
     public static LinkedListMenus help;
     public static boolean hasEnteredAccount = false;
     public static boolean hasEnteredCollection = false;
+    public static boolean hasEnteredShop = false;
 }

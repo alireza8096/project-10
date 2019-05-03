@@ -180,7 +180,7 @@ public class Deck {
     }
 
     public boolean checkIfDeckHasHero(){
-        for (String heroName : Hero.getHeroNames()){
+        for (String heroName : Hero.heroNames){
             if (this.getHeroInDeckName().equals(heroName))
                 return true;
         }

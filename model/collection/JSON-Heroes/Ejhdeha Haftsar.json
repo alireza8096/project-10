@@ -8,5 +8,5 @@
   "id":3,
   "coolDown":1,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "disarm one minion/hero"
 }

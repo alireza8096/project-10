@@ -1,5 +1,5 @@
 {"healthPoint":1,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":1,
   "mana":3,
   "attackType":"melee",
@@ -8,5 +8,13 @@
   "id":37,
   "activationTime":"Passive",
   "type":"minion",
-  "specialPower": "has 12 holy buff continuously"
+  "specialPower": "has 12 holy buff continuously",
+  "numOfTargets" :1,
+  "targetsSpecified":"minion",
+  "actsOn":"owner",
+  "forHowManyTurns" :"all",
+  "typeOfAction" :"addsBuff",
+  "whichBuff" :"holyBuff",
+  "howMuchChange" :"12",
+  "locationOfTarget" :"null"
 }

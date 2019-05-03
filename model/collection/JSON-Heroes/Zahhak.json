@@ -8,5 +8,6 @@
   "id":5,
   "coolDown":null,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "make the minion/hero poisoned when attacking"
+
 }

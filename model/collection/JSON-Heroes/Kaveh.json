@@ -8,5 +8,5 @@
   "id":6,
   "coolDown":3,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "apply holy buff on one cell for 3 turns"
 }

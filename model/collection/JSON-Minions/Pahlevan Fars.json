@@ -1,5 +1,5 @@
 {"healthPoint":24,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":6,
   "mana":9,
   "attackType":"melee",
@@ -9,4 +9,5 @@
   "activationTime":"On Attack",
   "type":"minion",
   "specialPower": "it will attack 5 points more than the number of attacks in previous turns"
+
 }

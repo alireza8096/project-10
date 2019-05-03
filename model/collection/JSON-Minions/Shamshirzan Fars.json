@@ -1,5 +1,5 @@
 {"healthPoint":6,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":4,
   "mana":2,
   "attackType":"melee",
@@ -8,5 +8,13 @@
   "id":2,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower": "stuns minion/hero for that turn while attacking"
+  "specialPower": "stuns minion/hero for that turn while attacking",
+  "numOfTargets" :"1",
+  "targetsSpecified":"minion/hero",
+  "actsOn":"enemy",
+  "forHowManyTurns" :"1",
+  "typeOfAction" :"addsBuff",
+  "whichBuff" :"stunBuff",
+  "howMuchChange" :"null",
+  "locationOfTarget" :"null"
 }

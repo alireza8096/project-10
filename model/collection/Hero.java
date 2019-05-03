@@ -34,6 +34,12 @@ public class Hero extends Card{
         this.coolDown = coolDown;
     }
 
+    public static int getHeroIDByName(String heroName) throws Exception{
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+                + "JSON-Heroes/" + heroName + ".json");
+        return Integer.parseInt(jsonObject.get("id").toString()) + 100;
+    }
+
     public boolean isHolyBuffIsActive() {
         return holyBuffIsActive;
     }
@@ -214,7 +220,7 @@ public class Hero extends Card{
             case "holyBuff":
                 this.setHolyBuffIsActive(false);
                 break;
-            case "attackPowerbuff":
+            case "attackPowerBuff":
                 this.deactivateAttackPowerBuff(buff);
                 break;
             case "attackPowerWeaknessBuff":

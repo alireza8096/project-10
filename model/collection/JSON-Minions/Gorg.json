@@ -1,5 +1,5 @@
 {"healthPoint":6,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":1,
   "mana":3,
   "attackType":"melee",
@@ -8,5 +8,13 @@
   "id":24,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower": "decrease 6 health points on next turn"
+  "specialPower": "decrease 6 health points on next turn",
+  "numOfTargets" :"1",
+  "targetsSpecified":"minion",
+  "actsOn":"owner",
+  "forHowManyTurns" :"1",
+  "typeOfAction" :"addsBuff",
+  "whichBuff" :"healthPointWeaknessBuff",
+  "howMuchChange" :"6",
+  "locationOfTarget" :"null"
 }
