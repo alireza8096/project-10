@@ -329,11 +329,7 @@ public class Minion extends Card {
             case flag:
                 break;
             case poison:
-                Buff buff = new Buff();
-                buff.setForHowManyTurns(3);
-                buff.setHowMuchImpact(1);
-                buff.setName("poisonBuff");
-                buff.setType("negative");
+                Buff buff = new Buff(1,3,"poisonBuff","negative");
                 this.getMinionPositiveBuffs().add(buff);
                 break;
         }

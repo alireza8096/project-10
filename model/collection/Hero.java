@@ -288,8 +288,31 @@ public class Hero extends Card{
         this.setCanCounterAttack(true);
     }
 
-    public void applyCellImpact(Hero hero, Map map)
+    public void applyCellImpact(Minion minion, Map map)
     {
+        int x=minion.getX();
+        int y=minion.getY();
+        switch (((map.getCells())[x][y]).getCellSituation())
+        {
+            case fire:
+                this.setHealthPoint(this.getHealthPoint()-2);
+                break;
+            case holy:
+                this.setHolyBuffIsActive(true);
+                break;
+            case empty:
+                break;
+            case flag:
+                break;
+            case poison:
+                Buff buff = new Buff(1,3,"poisonBuff","negative");
+                buff.setForHowManyTurns(3);
+                buff.setHowMuchImpact(1);
+                buff.setName("poisonBuff");
+                buff.setType("negative");
+                this.getNegativeBuffs().add(buff);
+                break;
+        }
 
     }
 }
