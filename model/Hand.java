@@ -48,6 +48,7 @@ public class Hand {
     public void addCardToHandFromDeck() throws IOException, ParseException {
         if (this.checkIfNumberOfCardsInHandIsValid()) {
             Deck mainDeck = Game.getInstance().getPlayer1().getMainDeck();
+            Collections.shuffle(mainDeck.getCardsInDeckNames());
             String nextCardName = mainDeck.getCardsInDeckNames().get(0);
             mainDeck.getCardsInDeckNames().remove(nextCardName);
             Card nextCard = Card.getCardByName(nextCardName);
@@ -63,12 +64,30 @@ public class Hand {
         return false;
     }
 
-    public void insertCardFromHandInMap(String cardName, int x, int y)
-    {
+    public void insertCardFromHandInMap(String cardName, int x, int y) throws IOException, ParseException {
         if (!checkIfCardIsInHand(cardName)){
             System.out.println("Invalid card name!");
         }else{
-
+            Card card = Card.getCardByName(cardName);
+            int playerMana = Game.getInstance().getPlayer1().getNumOfMana();
+            if (card.getMana() > playerMana){
+                System.out.println("You don't have enough mana!");
+            }else{
+                if (!Map.checkIfCanInsertCardInThisCoordination(x, y)){
+                    System.out.println("Invalid target!");
+                }else{
+                    Game.getInstance().getPlayer1().setNumOfMana(playerMana - card.getMana());
+                    String cardType = card.getCardType();
+                    CellType cellType;
+                    if (cardType.equals("minion"))
+                        cellType = CellType.selfMinion;
+                    else if (cardType.equals("spell"))
+                        cellType = CellType.selfSpell;
+                    else
+                        cellType = CellType.empty;
+                    Map.getCells()[x][y].setCellSituation(cellType);
+                }
+            }
         }
     }
 

@@ -11,26 +11,18 @@ import java.util.ArrayList;
 
 public class Card {
     private static ArrayList<String> cardNames = new ArrayList<>();
-    private int mana;
-    private int id;
-    private String cardType;
-    private String name;
-    private AttackType targetType;
-    private boolean isActive;
-    private boolean hasAttackedInThisTurn;
-    private boolean hasMovedInThisTurn;
-    private int price;
-    private int counterOfCard;
-    private int x;
-    private int y;
-
-    public AttackType getTargetType() {
-        return targetType;
-    }
-
-    public void setTargetType(AttackType targetType) {
-        this.targetType = targetType;
-    }
+    protected int mana;
+    protected int id;
+    protected String cardType;
+    protected String name;
+    protected AttackType targetType;
+    protected boolean isActive;
+    protected boolean hasAttackedInThisTurn;
+    protected boolean hasMovedInThisTurn;
+    protected int price;
+    protected int counterOfCard;
+    protected int x;
+    protected int y;
 
     public int getMana() {
         return mana;
@@ -48,14 +40,6 @@ public class Card {
         this.id = id;
     }
 
-    public static ArrayList<String> getCardNames() {
-        return cardNames;
-    }
-
-    public static void setCardNames(ArrayList<String> cardNames) {
-        Card.cardNames = cardNames;
-    }
-
     public String getCardType() {
         return cardType;
     }
@@ -70,6 +54,14 @@ public class Card {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public AttackType getTargetType() {
+        return targetType;
+    }
+
+    public void setTargetType(AttackType targetType) {
+        this.targetType = targetType;
     }
 
     public boolean isActive() {
@@ -127,6 +119,7 @@ public class Card {
     public void setY(int y) {
         this.y = y;
     }
+
 
 //    public boolean checkIfCardCanBePlaced(int x, int y){
 //
