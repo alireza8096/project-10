@@ -2,18 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c27b9bde-d14b-4a85-a148-38ebed7bb2a3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Item.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Arash.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Arash.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Div Sefid.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Div Sefid.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Ejhdeha Haftsar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Ejhdeha Haftsar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Esfandiyar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Esfandiyar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Kaveh.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Kaveh.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Rakhsh.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Rakhsh.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Heroes/Zahhak.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Heroes/Zahhak.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Hero.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Asbsavar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Asbsavar Fars.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ashkboos.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ashkboos.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Bahman.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Bahman.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Gorazsavar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Gorazsavar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Siah.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Siah.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ejhdeha Atashandaz.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ejhdeha Atashandaz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Foolad Zereh.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Foolad Zereh.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghollabsangdar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghollabsangdar Toorani.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Bozorg.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Bozorg.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Dosar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Dosar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Sangandaz.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Sangandaz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Giv.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Giv.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg Sefid.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg Sefid.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorzdar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorzdar Toorani.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Iraj.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Iraj.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar Aazam.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar Aazam.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jasoos Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jasoos Toorani.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jen.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jen.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Mar Sammi.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Mar Sammi.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Fars.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Toorani.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Oghab.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Oghab.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Pahlevan Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Pahlevan Fars.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Palang.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Palang.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Piran.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Piran.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Sepahsalar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Sepahsalar Fars.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shah Ghool.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shah Ghool.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shahzade Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shahzade Toorani.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shamshirzan Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shamshirzan Fars.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,29 +52,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1571">
+              <caret line="262" selection-start-line="262" selection-end-line="262" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Simorgh.json">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Zahhak.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" selection-start-line="11" selection-end-line="11" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Madness.json">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
   </component>
   <component name="Git.Settings">
+    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Zahhak.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Div Sefid.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Arash.json" />
@@ -55,6 +92,48 @@
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Kaveh.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Rakhsh.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Rostam.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Simorgh.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Zahhak.json" />
+        <option value="$PROJECT_DIR$/model/collection/Hero.java" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Asbsavar Fars.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Ashkboos.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Bahman.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Div Gorazsavar.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Div Siah.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Ejhdeha Atashandaz.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Foolad Zereh.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Ghollabsangdar Toorani.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Bozorg.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Dosar.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Sangandaz.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Giv.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Goraz Vahshi.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg Sefid.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Gorzdar Toorani.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Iraj.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar Aazam.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Jasoos Toorani.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Jen.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Mar Sammi.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Fars.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Toorani.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Oghab.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Pahlevan Fars.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Palang.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Piran.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Sepahsalar Fars.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Shah Ghool.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Shahzade Toorani.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Shamshirzan Fars.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json" />
+        <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json" />
       </list>
     </option>
   </component>
@@ -98,7 +177,14 @@
               <item name="project-10" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
               <item name="collection" type="462c0819:PsiDirectoryNode" />
-              <item name="JSON-Heroes" type="462c0819:PsiDirectoryNode" />
+              <item name="JSON-Minions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="project-10" type="b2602c69:ProjectViewProjectNode" />
+              <item name="project-10" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="collection" type="462c0819:PsiDirectoryNode" />
+              <item name="JSON-Spells" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="project-10" type="b2602c69:ProjectViewProjectNode" />
@@ -114,6 +200,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556913223991" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Desktop/json-simple-1.1.1.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -144,138 +231,417 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556894387556</updated>
-      <workItem from="1556894390711" duration="1159000" />
+      <workItem from="1556894390711" duration="12020000" />
     </task>
+    <task id="LOCAL-00001" summary="add special powers to hero's json files">
+      <created>1556895945859</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1556895945859</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1159000" />
+    <option name="totallyTimeSpent" value="12020000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <frame x="-7" y="0" width="749" height="687" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24939272" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info id="Designer" order="0" />
+      <window_info id="UI Designer" order="1" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.34687954" />
+      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Database Changes" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Find" order="6" />
+      <window_info anchor="bottom" id="Run" order="7" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="right" id="Theme Preview" order="0" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Designer" order="0" />
+      <window_info id="UI Designer" order="1" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.42857143" />
+      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="0" />
+      <window_info anchor="bottom" id="Terminal" order="1" />
+      <window_info anchor="bottom" id="Database Changes" order="2" />
+      <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Find" order="6" />
+      <window_info anchor="bottom" id="Run" order="7" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="right" id="Theme Preview" order="0" />
+      <window_info anchor="right" id="Capture Analysis" order="1" />
+      <window_info anchor="right" id="Palette&#9;" order="2" />
+      <window_info anchor="right" id="Maven" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add special powers to hero's json files" />
+    <option name="LAST_COMMIT_MESSAGE" value="add special powers to hero's json files" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/model/CellType.java">
+    <entry file="file://$PROJECT_DIR$/model/collection/Minion.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="-1360">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/GameView.java">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Dispel.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="50" column="86" selection-start-line="50" selection-start-column="86" selection-end-line="50" selection-end-column="86" />
-          <folding>
-            <element signature="method#searchTypeAndShow#0;class#GameView#0" />
-            <element signature="method#showCard#0;class#GameView#0" />
-            <element signature="e#1395#1447#1" />
-            <element signature="method#showItem#0;class#GameView#0" />
-            <element signature="method#showMinion#0;class#GameView#0" />
-            <element signature="method#showSpell#0;class#GameView#0" />
-          </folding>
+        <state relative-caret-position="255">
+          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Zahhak.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Health With Profit.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Poison Lake.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Hell Fire.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/All Power.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Area Dispel.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/All Poison.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/All Disarm.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Madness.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Asbsavar Fars.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ashkboos.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Bahman.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Div Gorazsavar.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="18" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Div Siah.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="22" lean-forward="true" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ejhdeha Atashandaz.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Foolad Zereh.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghollabsangdar Toorani.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Bozorg.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Dosar.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Sangandaz.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Goraz Vahshi.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+        <state relative-caret-position="170">
+          <caret line="10" column="37" selection-start-line="10" selection-start-column="37" selection-end-line="10" selection-end-column="37" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Arash.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Giv.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="66" selection-start-line="10" selection-start-column="66" selection-end-line="10" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Gorg.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Gorzdar Toorani.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Iraj.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Gorg Sefid.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="122" lean-forward="true" selection-start-line="10" selection-start-column="122" selection-end-line="10" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar Aazam.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Jasoos Toorani.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="1" lean-forward="true" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Jen.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="17" lean-forward="true" selection-start-column="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Mar Ghoolpeikar.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="42" lean-forward="true" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Mar Sammi.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="7" lean-forward="true" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Div Sefid.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Fars.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Toorani.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Oghab.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="25" lean-forward="true" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Pahlevan Fars.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" column="84" selection-start-line="10" selection-start-column="84" selection-end-line="10" selection-end-column="84" />
+          <caret line="10" column="93" selection-start-line="10" selection-start-column="93" selection-end-line="10" selection-end-column="93" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Ejhdeha Haftsar.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Palang.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="9" lean-forward="true" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
+        <state relative-caret-position="306">
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Esfandiyar.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Piran.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+        <state relative-caret-position="272">
+          <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Kaveh.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Sepahsalar Fars.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="59" selection-start-line="10" selection-start-column="59" selection-end-line="10" selection-end-column="59" />
+        <state relative-caret-position="306">
+          <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Rakhsh.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Shah Ghool.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+        <state relative-caret-position="306">
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Rostam.json">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Shahzade Toorani.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+        <state relative-caret-position="221">
+          <caret line="13" column="18" lean-forward="true" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Simorgh.json">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Shamshirzan Fars.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="24" selection-start-line="16" selection-start-column="24" selection-end-line="16" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1571">
+          <caret line="262" selection-start-line="262" selection-end-line="262" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="26" lean-forward="true" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">

@@ -1,5 +1,5 @@
 {"healthPoint":8,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":2,
   "mana":5,
   "attackType":"melee",

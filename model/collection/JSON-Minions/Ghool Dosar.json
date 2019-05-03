@@ -1,5 +1,5 @@
 {"healthPoint":10,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":4,
   "mana":4,
   "attackType":"melee",
@@ -8,5 +8,13 @@
   "id":35,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower": "while attacking it dactivate all of positive buffs of the attacked card"
+  "specialPower": "while attacking it dactivate all of positive buffs of the attacked card",
+  "numOfTargets" :"1",
+  "targetsSpecified":"minion/hero",
+  "actsOn":"enemy",
+  "forHowManyTurns" :"1",
+  "typeOfAction" :"removesBuff",
+  "whichBuff" :"allBuff",
+  "howMuchChange" :"null",
+  "locationOfTarget" :"null"
 }

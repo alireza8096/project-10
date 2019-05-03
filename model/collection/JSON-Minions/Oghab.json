@@ -8,5 +8,13 @@
   "id":15,
   "activationTime":"Passive",
   "type":"minion",
-  "specialPower": "add 10 health point"
+  "specialPower": "add 10 health point",
+  "numOfTargets" :"1",
+  "targetsSpecified":"minion",
+  "actsOn":"owner",
+  "forHowManyTurns" :"1",
+  "typeOfAction" :"addsBuff",
+  "whichBuff" :"healthPowerBuff",
+  "howMuchChange" :"10",
+  "locationOfTarget" :"null"
 }

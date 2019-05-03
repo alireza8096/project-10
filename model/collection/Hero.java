@@ -204,7 +204,7 @@ public class Hero extends Card{
             case "holyBuff":
                 this.setHolyBuffIsActive(false);
                 break;
-            case "attackPowerbuff":
+            case "attackPowerBuff":
                 this.deactivateAttackPowerBuff(buff);
                 break;
             case "attackPowerWeaknessBuff":

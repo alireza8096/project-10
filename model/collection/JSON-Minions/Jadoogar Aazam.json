@@ -8,5 +8,13 @@
   "id":26,
   "activationTime":"Passive",
   "type":"minion",
-  "specialPower": "it will add one power buff with 2 point impacrs and one holy continuously buff to irself and any self minions in 8 neighbour cells"
+  "specialPower": "it will add one power buff with 2 point impacrs and one holy continuously buff to irself and any self minions in 8 neighbour cells",
+  "numOfTargets" :"all,all",
+  "targetsSpecified":"minion.minio",
+  "actsOn":"owner,owner",
+  "forHowManyTurns" :"all,all",
+  "typeOfAction" :"addsBuff,addsBuff",
+  "whichBuff" :"attackPowerBuff,holyBuff",
+  "howMuchChange" :"2,1",
+  "locationOfTarget" :"8round,8round"
 }

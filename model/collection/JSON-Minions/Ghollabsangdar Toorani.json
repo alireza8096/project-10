@@ -6,7 +6,15 @@
   "price":600,
   "name":"Ghollabsangdar Toorani",
   "id":8,
-  "activationTime":null,
+  "activationTime":"null",
   "type":"minion",
-  "specialPower": "Does not have special power"
+  "specialPower": "Does not have special power",
+  "numOfTargets" :"null",
+  "targetsSpecified":"null",
+  "actsOn":"null",
+  "forHowManyTurns" :"null",
+  "typeOfAction" :"null",
+  "whichBuff" :"null",
+  "howMuchChange" :"null",
+  "locationOfTarget" :"null"
 }

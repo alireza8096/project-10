@@ -1,5 +1,5 @@
 {"healthPoint":12,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":4,
   "mana":7,
   "attackType":"melee",
@@ -8,5 +8,13 @@
   "id":6,
   "activationTime":"Combo",
   "type":"minion",
-  "specialPower": "combo"
+  "specialPower": "combo",
+  "numOfTargets" :"null",
+  "targetsSpecified":"null",
+  "actsOn":"null",
+  "forHowManyTurns" :"null",
+  "typeOfAction" :"null",
+  "whichBuff" :"null",
+  "howMuchChange" :"null",
+  "locationOfTarget" :"null"
 }

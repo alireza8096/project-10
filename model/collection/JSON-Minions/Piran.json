@@ -1,5 +1,5 @@
 {"healthPoint":20,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":12,
   "mana":8,
   "attackType":"melee",
@@ -8,5 +8,13 @@
   "id":29,
   "activationTime":"On Defend",
   "type":"minion",
-  "specialPower": "does not get poisoned"
+  "specialPower": "does not get poisoned",
+  "numOfTargets" :"null",
+  "targetsSpecified":"null",
+  "actsOn":"null",
+  "forHowManyTurns" :"null",
+  "typeOfAction" :"null",
+  "whichBuff" :"null",
+  "howMuchChange" :"null",
+  "locationOfTarget" :"null"
 }
