@@ -23,6 +23,7 @@ public class Minion extends Card {
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
 
+
     public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana){
         this.healthPoint = healthPoint;
         this.setName(name);
@@ -352,4 +353,28 @@ public class Minion extends Card {
         return null;
 
     }
+
+    public void addSpecialPowerToBuffs(ArrayList<String> minionNames) throws IOException, ParseException {
+        for(String minionName:minionNames)
+        {
+            JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
+                    (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" +minionName+".json");
+            int howMuchImpact=Integer.parseInt(jsonObject.get("howMuchChange").toString());
+            int forHowManyTurns=Integer.parseInt(jsonObject.get("forHowManyTurns").toString());
+            String name=jsonObject.get("whichBuff").toString();
+            String activationTime=jsonObject.get("activationTime").toString();
+            String type=Buff.getTypeOfBuffByItsName("name");
+            if(type.equals("negative"))
+            {
+                Buff buff=new Buff(howMuchImpact,forHowManyTurns,name,type,activationTime);
+                ((Minion) getMinionByName(name)).getMinionNegativeBuffs().add(buff);
+            }
+            if(type.equals("positive"))
+            {
+                Buff buff=new Buff(howMuchImpact,forHowManyTurns,name,type,activationTime);
+                ((Minion) getMinionByName(name)).getMinionPositiveBuffs().add(buff);
+            }
+        }
+    }
+
 }
