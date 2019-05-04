@@ -110,6 +110,15 @@ public class Spell extends Card {
         }
     }
 
+    public static ArrayList<String> getSpellNames() {
+        return spellNames;
+    }
+
+    public static void setSpellNames(ArrayList<String> spellNames) {
+        Spell.spellNames = spellNames;
+    }
+
+    //just adds buffs to the Buff arrayList of a hero
     public static void insertSpellInThisCoordination(String spellName, int x, int y) throws IOException, ParseException {
 
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
@@ -131,8 +140,17 @@ public class Spell extends Card {
                         if (typeOfAction[i].equals("addsBuff")){
                             if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("negative")){
                                 Hero.findHeroInMap(x, y).getNegativeBuffs().add(buff);
+                                Hero.findHeroInMap(x, y).applyBuffsOnHero();
                             }else{
+                                System.out.println("4");
                                 Hero.findHeroInMap(x, y).getPositiveBuffs().add(buff);
+                                Hero.findHeroInMap(x, y).applyBuffsOnHero();
+                            }
+                        }else{
+                            if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("negative")){
+                                Hero.findHeroInMap(x, y).removeBuffFromHero(buff);
+                            }else{
+                                Hero.findHeroInMap(x, y).removeBuffFromHero(buff);
                             }
                         }
                     }
