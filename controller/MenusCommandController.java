@@ -97,10 +97,10 @@ public interface MenusCommandController {
         ShopController.showCollection(commandsSplitted);
         ShopController.searchInShop(commandsSplitted);
         ShopController.searchInCollection(commandsSplitted);
-//        ShopController.buy();
-//        ShopController.sell();
+        ShopController.buy(commandsSplitted);
+        ShopController.sell(commandsSplitted);
         ShopController.showShop(commandsSplitted);
-//        ShopController.help();
+        ShopController.help("Shop",commandsSplitted);
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.shop.setNowInThisMenu(false);
             AllDatas.commandLine.setNowInThisMenu(true);

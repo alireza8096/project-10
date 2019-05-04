@@ -1,6 +1,7 @@
 package model.collection;
 
 
+import model.Shop;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -59,6 +60,17 @@ public class HandleFiles {
     }
 
 
+    public static void createStringOfUsableItems() throws Exception{
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
+        File[] listOfFiles = folder.listFiles();
+        for(int i=0; i<listOfFiles.length; i++){
+            JSONObject item = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items/"+listOfFiles[i].getName());
+            if(item.get("itemType").toString().matches("usable")){
+                String itemName = listOfFiles[i].getName().split("\\.")[0];
+                Shop.usableItems.add(itemName);
+            }
+        }
+    }
     public static Object readJsonFiles(String fileName) throws IOException, ParseException {
         FileReader fileReader = new FileReader(fileName);
         JSONParser jsonParser = new JSONParser();

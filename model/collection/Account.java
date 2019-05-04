@@ -42,7 +42,8 @@ public class Account {
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");
         Player player = new Player(
                 (String) jsonObject.get("username"),
-                (String) jsonObject.get("password")
+                (String) jsonObject.get("password"),
+                15000
         );
         Game createGame = new Game();
         Game.setCurrentGame(createGame);

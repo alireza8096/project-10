@@ -1,9 +1,6 @@
 package controller;
 
-import model.AllDatas;
-import model.Game;
-import model.Hand;
-import model.Shop;
+import model.*;
 import model.collection.Hero;
 import model.collection.Item;
 import model.collection.Minion;
@@ -75,6 +72,22 @@ public interface ShopController {
             }
         }
     }
+     static void buy(String[] commands) throws Exception{
+         if(commands.length>=2 && commands[0].compareToIgnoreCase("buy") == 0){
+                AllDatas.hasEnteredShop = true;
+                String cardName = CollectionController.createName(commands,1);
+                Shop.buy(cardName);
+         }
+     }
+     static void sell(String[] commands) throws Exception{
+         if(commands.length == 2 && commands[0].compareToIgnoreCase("sell")==0){
+             int id = Integer.parseInt(commands[1]);
+             int cardType = id/100;
+             int cardId = id%100;
+             Shop.sell(cardType,cardId);
+             AllDatas.hasEnteredShop = true;
+         }
+     }
      static void showShop(String[] commands) throws Exception{
         if(commands.length == 1 && commands[0].compareToIgnoreCase("show") == 0) {
             AllDatas.hasEnteredShop = true;
@@ -96,5 +109,16 @@ public interface ShopController {
                 System.out.println("                " + i + " : " + GameView.showMinion(Minion.minionNames.get(i - 1)));
             }
         }
+    }
+    static void help(String parentName,String[] commands){
+         if(commands.length == 1 && commands[0].compareToIgnoreCase("help") ==0){
+             AllDatas.help.setParent(AllDatas.shop);
+             AllDatas.help.setNowInThisMenu(true);
+             LinkedListMenus.findMenuByName(parentName).setNowInThisMenu(false);
+             for(String commandName : LinkedListMenus.findMenuByName(parentName).getCommandsForHelp()){
+                 System.out.println(commandName);
+             }
+             AllDatas.hasEnteredShop = true;
+         }
     }
 }

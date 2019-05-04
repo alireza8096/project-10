@@ -35,9 +35,10 @@ public class Player {
         this.setUserName(name);
     }
 
-    public Player(String userName, String password){
+    public Player(String userName, String password,int daric){
         this.setUserName(userName);
         this.setPassword(password);
+        this.setDaric(daric);
     }
 
     public ArrayList<String> getCardsInCollectionNames() {
