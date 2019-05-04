@@ -118,7 +118,6 @@ public class Spell extends Card {
         Spell.spellNames = spellNames;
     }
 
-    //just adds buffs to the Buff arrayList of a hero
     public static void insertSpellInThisCoordination(String spellName, int x, int y) throws IOException, ParseException {
 
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
@@ -142,16 +141,11 @@ public class Spell extends Card {
                                 Hero.findHeroInMap(x, y).getNegativeBuffs().add(buff);
                                 Hero.findHeroInMap(x, y).applyBuffsOnHero();
                             }else{
-                                System.out.println("4");
                                 Hero.findHeroInMap(x, y).getPositiveBuffs().add(buff);
                                 Hero.findHeroInMap(x, y).applyBuffsOnHero();
                             }
                         }else{
-                            if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("negative")){
-                                Hero.findHeroInMap(x, y).removeBuffFromHero(buff);
-                            }else{
-                                Hero.findHeroInMap(x, y).removeBuffFromHero(buff);
-                            }
+                            Hero.findHeroInMap(x, y).removeBuffFromHero(buff);
                         }
                     }
                 }else{
@@ -161,26 +155,69 @@ public class Spell extends Card {
             case selfMinion:
                 if ((targetsSpecified.equals("minion") || targetsSpecified.equals("minion/hero")) && actsOn.equals("owner")){
 
+                    for (int i = 0; i < buffNames.length; i++) {
+                        Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                                buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+                        if (typeOfAction[i].equals("addsBuff")){
+                            if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("negative")){
+                                Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
+                                Minion.getMinionInThisCoordination(x, y).applyBuffsOnMinion();
+                            }else{
+                                Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
+                                Minion.getMinionInThisCoordination(x, y).applyBuffsOnMinion();
+                            }
+                        }else{
+                            Minion.getMinionInThisCoordination(x, y).removeBuffFromMinion(buff);
+                        }
+                    }
                 }else{
                     System.out.println("Invalid target!");
                 }
                 break;
             case enemyHero:
                 if ((targetsSpecified.equals("hero") || targetsSpecified.equals("minion/hero")) && actsOn.equals("enemy")){
-
+                    for (int i = 0; i < buffNames.length; i++) {
+                        Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                                buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+                        if (typeOfAction[i].equals("addsBuff")){
+                            if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("negative")){
+                                Hero.findHeroInMap(x, y).getNegativeBuffs().add(buff);
+                                Hero.findHeroInMap(x, y).applyBuffsOnHero();
+                            }else{
+                                Hero.findHeroInMap(x, y).getPositiveBuffs().add(buff);
+                                Hero.findHeroInMap(x, y).applyBuffsOnHero();
+                            }
+                        }else{
+                            Hero.findHeroInMap(x, y).removeBuffFromHero(buff);
+                        }
+                    }
                 }else{
                     System.out.println("Invalid target!");
                 }
                 break;
             case enemyMinion:
                 if ((targetsSpecified.equals("minion") || targetsSpecified.equals("minion/hero")) && actsOn.equals("enemy")){
-
+                    for (int i = 0; i < buffNames.length; i++) {
+                        Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                                buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+                        if (typeOfAction[i].equals("addsBuff")){
+                            if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("negative")){
+                                Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
+                                Minion.getMinionInThisCoordination(x, y).applyBuffsOnMinion();
+                            }else{
+                                Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
+                                Minion.getMinionInThisCoordination(x, y).applyBuffsOnMinion();
+                            }
+                        }else{
+                            Minion.getMinionInThisCoordination(x, y).removeBuffFromMinion(buff);
+                        }
+                    }
                 }else{
                     System.out.println("Invalid target!");
                 }
                 break;
             case empty:
-             //   if ((targetsSpecified.equals("")))
+               // if (targetsSpecified.equals())
                 break;
         }
     }
