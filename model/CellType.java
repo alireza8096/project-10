@@ -10,7 +10,5 @@ public enum CellType {
     enemySpell,
     flag,
     collectableItem,
-    poison,
-    fire,
-    holy;
+
 }

@@ -324,7 +324,7 @@ public class Minion extends Card {
     {
         int x=minion.getX();
         int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellSituation())
+        switch (((map.getCells())[x][y]).getCellImpactType())
         {
             case fire:
                 this.setHealthPoint(this.getHealthPoint()-2);
@@ -334,8 +334,8 @@ public class Minion extends Card {
                 break;
             case empty:
                 break;
-            case flag:
-                break;
+//            case flag:
+//                break;
             case poison:
                 Buff buff = new Buff(1,3,"poisonBuff","negative");
                 this.getMinionPositiveBuffs().add(buff);

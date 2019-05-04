@@ -4,6 +4,15 @@ public class Cell {
     private int coordinateX;
     private int coordinateY;
     private CellType cellSituation;
+    private CellImpactType cellImpactType;
+
+    public CellImpactType getCellImpactType() {
+        return cellImpactType;
+    }
+
+    public void setCellImpactType(CellImpactType cellImpactType) {
+        this.cellImpactType = cellImpactType;
+    }
 
     public int getCoordinateX() {
         return coordinateX;

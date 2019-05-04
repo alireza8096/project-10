@@ -217,7 +217,7 @@ public class Spell extends Card {
                 }
                 break;
             case empty:
-               // if (targetsSpecified.equals())
+
                 break;
         }
     }
@@ -238,6 +238,41 @@ public class Spell extends Card {
 //
 //        String[] buffsThatSpellHas = jsonObject.get("whichBuff").toString().split(",");
 //    }
+
+//    public static boolean checkIfThisCoordinationIsProperForSpell(String spellName, int x, int y) throws IOException, ParseException {
+//        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+//                + "JSON-Spells/" + spellName + ".json");
+//        CellType cellType = Map.getCells()[x][y].getCellSituation();
+//
+//        String numOfTargets = jsonObject.get("numOfTargets").toString();
+//        if (cellType == CellType.selfHero){
+//            switch (numOfTargets){
+//                case "1":
+//
+//                    break;
+//                case "all":
+//
+//                    break;
+//                case "inArea":
+//
+//                    break;
+//            }
+//
+//        }else if (cellType == CellType.enemyHero){
+//
+//        }else if (cellType == CellType.selfMinion){
+//
+//        }else if (cellType == CellType.enemyMinion){
+//
+//        }else if (cellType == CellType.empty){
+//
+//        }
+//
+//    }
+
+    public static void applySpellOn2x2Square(JSONObject jsonObject, int x, int y){
+
+    }
 
 
 

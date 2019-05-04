@@ -36,16 +36,16 @@ public class Hand {
         }
     }
 
-    public void deleteCardFromHand(Card card){
-        this.getCardsInHand().remove(card);
-    }
-
     public boolean checkIfNumberOfCardsInHandIsValid(){
         int numberOfCardsInHand = this.getCardsInHand().size();
         if (numberOfCardsInHand > 5)
             return false;
         else
             return true;
+    }
+
+    public void deleteCardFromHand(Card card){
+        this.getCardsInHand().remove(card);
     }
 
     public void addCardToHandFromDeck() throws IOException, ParseException {
