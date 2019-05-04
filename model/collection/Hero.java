@@ -26,7 +26,8 @@ public class Hero extends Card{
     private boolean canCounterAttack;
     private boolean holyBuffIsActive;
 
-    public Hero(int healthPoint, int attackPower, String attackType, int attackRange, int coolDown){
+    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown){
+        this.name = name;
         this.healthPoint = healthPoint;
         this.attackPower = attackPower;
         this.attackType = attackType;
@@ -333,14 +334,17 @@ public class Hero extends Card{
 
     public static void insertHeroInMap() throws IOException, ParseException {
         String heroName = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeckName();
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + heroName + ".json");
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES  +
+                "JSON-Heroes/" + heroName + ".json");
         int healthPoint = Integer.parseInt(jsonObject.get("healthPoint").toString());
         int attackPower = Integer.parseInt(jsonObject.get("attackPower").toString());
         String attackType = jsonObject.get("attackType").toString();
         int attackRange = Integer.parseInt(jsonObject.get("attackRange").toString());
         int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
 
-        Hero hero = new Hero(healthPoint, attackPower, attackType, attackRange, coolDown);
+        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown);
+        hero.setX(3);
+        hero.setY(4);
         Game.getInstance().getMap().getHeroes().add(hero);
     }
 

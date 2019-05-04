@@ -86,6 +86,7 @@ public class GameView {
         return ("Type : Spell - Name : " +
                 name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price);
     }
+
     public static String showHero(String heroName) throws IOException, ParseException {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes" );
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles

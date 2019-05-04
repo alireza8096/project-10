@@ -216,8 +216,12 @@ public class Deck {
         String cardName = findNameOfCardByID(cardID, cardType);
         Deck deck = Deck.findDeckByName(deckName);
 
-        if (deck.getHeroInDeckName().equals(cardName))
-            return true;
+
+
+        if (deck.checkIfDeckHasHero()) {
+            if (deck.getHeroInDeckName().equals(cardName))
+                return true;
+        }
 
         for (String name : deck.getCardsInDeckNames()){
             if (name.equals(cardName))
