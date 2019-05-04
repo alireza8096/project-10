@@ -1,8 +1,6 @@
 package view;
 
 import model.Deck;
-import model.Game;
-import model.collection.Card;
 import model.collection.Item;
 import model.GraveYard;
 import model.collection.HandleFiles;
@@ -19,12 +17,6 @@ import java.util.Scanner;
 
 public class GameView {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
-
-    private static GameView view = new GameView();
-
-    public static GameView getInstance(){
-        return view;
-    }
 
     public static String searchTypeAndShow(String name) throws Exception{
         String returnString = "";

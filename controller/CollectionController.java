@@ -1,18 +1,14 @@
 package controller;
 
-import com.sun.tools.javac.Main;
 import model.*;
-import model.collection.Minion;
-import org.json.simple.JSONObject;
+import model.Game;
 import view.GameView;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public interface CollectionController {
 
-    public static String createName(String[] commands, int start) {
+    static String createName(String[] commands, int start) {
         String cardName = "";
         for (int i = start; i < commands.length - 1; i++) {
             cardName = cardName + commands[i] + " ";
@@ -20,35 +16,31 @@ public interface CollectionController {
         return cardName + commands[commands.length - 1];
     }
 
-    public static void show(String[] commands) throws Exception {
-        try {
-            if (commands.length == 1 && commands[0].compareToIgnoreCase("show") == 0) {
-                Player player = Game.getInstance().getPlayer1();
-                int num = player.getItemsInCollectionNames().size() + player.getCardsInCollectionNames().size() + player.getHeroesInCollectionName().size();
-                if (num == 0) {
-                    System.out.println("No card or item is available in collection");
-                } else {
-                    System.out.println("Heroes :");
-                    for (int i = 1; i <= player.getHeroesInCollectionName().size(); i++) {
-                        System.out.println(i + " : " + GameView.showHero(player.getHeroesInCollectionName().get(i - 1)));
-                    }
-                    System.out.println("Items :");
-                    for (int i = 1; i <= player.getItemsInCollectionNames().size(); i++) {
-                        System.out.println(i + " : " + GameView.showItem(player.getItemsInCollectionNames().get(i - 1)));
-                    }
-                    System.out.println("Cards :");
-                    for (int i = 1; i <= player.getCardsInCollectionNames().size(); i++) {
-                        System.out.println(i + " : " + GameView.showCard(player.getCardsInCollectionNames().get(i - 1)));
-                    }
-                    AllDatas.hasEnteredCollection = true;
+    static void show(String[] commands) throws Exception {
+        if (commands.length == 1 && commands[0].compareToIgnoreCase("show") == 0) {
+            Player player = Game.getInstance().getPlayer1();
+            int num = player.getItemsInCollectionNames().size() + player.getCardsInCollectionNames().size() + player.getHeroesInCollectionName().size();
+            if (num == 0) {
+                System.out.println("No card or item is available in collection");
+            } else {
+                System.out.println("Heroes :");
+                for (int i = 1; i <= player.getHeroesInCollectionName().size(); i++) {
+                    System.out.println(i + " : " + GameView.showHero(player.getHeroesInCollectionName().get(i - 1)));
                 }
+                System.out.println("Items :");
+                for (int i = 1; i <= player.getItemsInCollectionNames().size(); i++) {
+                    System.out.println(i + " : " + GameView.showItem(player.getItemsInCollectionNames().get(i - 1)));
+                }
+                System.out.println("Cards :");
+                for (int i = 1; i <= player.getCardsInCollectionNames().size(); i++) {
+                    System.out.println(i + " : " + GameView.showCard(player.getCardsInCollectionNames().get(i - 1)));
+                }
+                AllDatas.hasEnteredCollection = true;
             }
-        } catch (Exception e) {
-            System.out.println("No item was available");
         }
     }
 
-    public static void search(String[] commands) throws Exception {
+    static void search(String[] commands) throws Exception {
         if (commands.length >= 2 && commands[0].compareToIgnoreCase("search") == 0) {
             String cardName = createName(commands, 1);
             if (Game.getInstance().getPlayer1().thisCardOrItemIsAvailableInCollection(cardName)) {
@@ -58,14 +50,14 @@ public interface CollectionController {
         }
     }
 
-    public static void save(String[] commands) {
+    static void save(String[] commands) {
         if (commands.length == 1 && commands[0].compareToIgnoreCase("save") == 0) {
             AllDatas.hasEnteredCollection = true;
             System.out.println("saved !");
         }
     }
 
-    public static void createDeck(String[] commands) {
+    static void createDeck(String[] commands) {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("create") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
@@ -74,7 +66,7 @@ public interface CollectionController {
         }
     }
 
-    public static void deleteDeck(String[] commands) {
+    static void deleteDeck(String[] commands) {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("delete") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
@@ -83,7 +75,7 @@ public interface CollectionController {
         }
     }
 
-    public static void addToDeck(String[] commands, String command) throws Exception {
+    static void addToDeck(String[] commands, String command) throws Exception {
         if (command.contains("add") && command.contains("to deck") && command.length() >= 5) {
             AllDatas.hasEnteredCollection = true;
             int id = Integer.parseInt(commands[1])%100;
@@ -116,9 +108,8 @@ public interface CollectionController {
         }
     }
 
-    public static void remove(String[] commands, String command) throws Exception {
+    static void remove(String[] commands, String command) throws Exception {
         if (command.contains("remove") && command.contains("from deck") && command.length() >= 5) {
-            AllDatas.hasEnteredCollection = true;
             int id = Integer.parseInt(commands[1])%100;
             int type = Integer.parseInt(commands[1])/100;
             String deckName = "";
@@ -145,10 +136,11 @@ public interface CollectionController {
                 default:
                     System.out.println("Type is not valid");
             }
+            AllDatas.hasEnteredCollection = true;
         }
     }
 
-    public static void validateDeck(String[] commands) {
+    static void validateDeck(String[] commands) {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("validate") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
@@ -160,7 +152,7 @@ public interface CollectionController {
         }
     }
 
-    public static void selectDeck(String[] commands) {
+    static void selectDeck(String[] commands) {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
@@ -169,7 +161,7 @@ public interface CollectionController {
         }
     }
 
-    public static void showAllDecks(String[] commands) throws Exception {
+    static void showAllDecks(String[] commands) throws Exception {
         if (commands.length == 3 && commands[0].compareToIgnoreCase("show") == 0
                 && commands[1].compareToIgnoreCase("all") == 0 && commands[2].compareToIgnoreCase("decks") == 0) {
             ArrayList<Deck> decks = new ArrayList<>(Game.getInstance().getPlayer1().getDecksOfPlayer());
@@ -196,7 +188,7 @@ public interface CollectionController {
         }
     }
 
-    public static void showDeckByName(String[] commands) throws Exception {
+    static void showDeckByName(String[] commands) throws Exception {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("show") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
@@ -205,12 +197,12 @@ public interface CollectionController {
         }
     }
 
-    public static void help(String parentName, String[] commands) {
+    static void help(String[] commands) {
         if (commands.length == 1 && commands[0].compareToIgnoreCase("help") == 0) {
             AllDatas.help.setParent(AllDatas.collection);
             AllDatas.help.setNowInThisMenu(true);
-            LinkedListMenus.findMenuByName(parentName).setNowInThisMenu(false);
-            for (String commandName : LinkedListMenus.findMenuByName(parentName).getCommandsForHelp()) {
+            AllDatas.collection.setNowInThisMenu(false);
+            for (String commandName : AllDatas.collection.getCommandsForHelp()) {
                 System.out.println(commandName);
             }
             AllDatas.hasEnteredCollection = true;

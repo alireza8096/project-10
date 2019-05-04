@@ -1,16 +1,11 @@
 package model;
 
-import model.Deck;
-import model.Game;
-import model.GraveYard;
 import model.collection.Hero;
 import model.collection.Item;
 import model.collection.Minion;
 import model.collection.Spell;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Arrays;
 import java.lang.String;
 public class Player {
 

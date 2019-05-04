@@ -1,19 +1,17 @@
 package controller;
 
 import model.AllDatas;
-import model.Game;
-import model.Hand;
 import model.LinkedListMenus;
 import model.collection.HandleFiles;
 
 import java.util.Scanner;
 
 public interface Controller {
-    public static void createAll() throws Exception{
+    static void createAll() throws Exception{
         createAllMenus();
         createAllDataFromJSON();
     }
-    public static void createAllDataFromJSON() throws Exception{
+    static void createAllDataFromJSON() throws Exception{
         HandleFiles.createStringOfHeroes();
         HandleFiles.createStringOfItems();
         HandleFiles.createStringOfMinions();
@@ -21,7 +19,7 @@ public interface Controller {
         HandleFiles.createStringOfSpells();
         HandleFiles.createStringOfUsableItems();
     }
-    public static void createAllMenus(){
+    static void createAllMenus(){
         AllDatas.account= new LinkedListMenus("Account",true);
         AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
         AllDatas.commandLine = new LinkedListMenus("Command Line",false);
@@ -38,9 +36,9 @@ public interface Controller {
         AllDatas.collection.setParent(AllDatas.commandLine);
         AllDatas.shop.setParent(AllDatas.commandLine);
         AllDatas.battle.setParent(AllDatas.commandLine);
-        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save","logout");
+        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
         AllDatas.leaderboard.setCommandsForHelp("exit");
-        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help");
+        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help","logout");
         AllDatas.collection.setCommandsForHelp("exit","show","search [card name | item name]","save","create deck[deck name]"
         ,"delete deck [deck name]","add [card id | card id | hero id] to deck [deck name]",
                 "remove [card id | card id| hero id] from deck [deck name]","validate deck [deck name]","select deck [deck name]"
@@ -56,7 +54,7 @@ public interface Controller {
         LinkedListMenus.allMenus.add(AllDatas.help);
 
     }
-    public static void handleCommands(Scanner scanner) throws Exception{
+    static void handleCommands(Scanner scanner) throws Exception{
         switch (LinkedListMenus.whichMenuNow().getMenuName()){
             case "Account":
                 System.out.println("account");

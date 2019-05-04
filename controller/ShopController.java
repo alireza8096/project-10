@@ -5,35 +5,22 @@ import model.collection.Hero;
 import model.collection.Item;
 import model.collection.Minion;
 import model.collection.Spell;
+import model.Game;
 import view.GameView;
 
-import javax.swing.*;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
 public interface ShopController {
-     static void showCollection(String[] commands) throws Exception{
-        if(commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0 &&
+    static void showCollection(String[] commands) throws Exception{
+         if(commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0 &&
         commands[1].compareToIgnoreCase("collection") == 0){
-            ArrayList<String> heroesInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getHeroesInCollectionName());
-            ArrayList<String> itemsInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getItemsInCollectionNames());
-            ArrayList<String> cardsInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getCardsInCollectionNames());
-            System.out.println("Heroes :");
-            for(int i=1; i<=heroesInCollection.size(); i++){
-                System.out.println(i + " : " + GameView.showHero(heroesInCollection.get(i-1)));
-            }
-            System.out.println("Items :");
-            for(int i=1; i<=itemsInCollection.size(); i++){
-                System.out.println(i + " : " + GameView.showItem(itemsInCollection.get(i-1)));
-            }
-            System.out.println("Cards :");
-            for(int i=1; i<=cardsInCollection.size(); i++){
-                System.out.println(i + " : " + GameView.showCard(cardsInCollection.get(i-1)));
-            }
+            showHeroesInCollection();
+            showItemsInCollection();
+            showCardsInCollection();
             AllDatas.hasEnteredShop = true;
         }
     }
-     static void searchInShop(String[] commands) throws Exception{
+    static void searchInShop(String[] commands) throws Exception{
         if(commands.length >= 2 && commands[0].compareToIgnoreCase("search") == 0 && commands[1].compareToIgnoreCase("collection") != 0) {
             String cardName = CollectionController.createName(commands,1);
             if(Hero.thisCardIsHero(cardName)){
@@ -54,7 +41,7 @@ public interface ShopController {
             AllDatas.hasEnteredShop = true;
         }
     }
-     static void searchInCollection(String[] commands) throws Exception{
+    static void searchInCollection(String[] commands) throws Exception{
         if(commands.length>=3 && commands[0].compareToIgnoreCase("search") == 0
         && commands[1].compareToIgnoreCase("collection") == 0){
             AllDatas.hasEnteredShop = true;
@@ -72,14 +59,14 @@ public interface ShopController {
             }
         }
     }
-     static void buy(String[] commands) throws Exception{
+    static void buy(String[] commands) throws Exception{
          if(commands.length>=2 && commands[0].compareToIgnoreCase("buy") == 0){
                 AllDatas.hasEnteredShop = true;
                 String cardName = CollectionController.createName(commands,1);
                 Shop.buy(cardName);
          }
      }
-     static void sell(String[] commands) throws Exception{
+    static void sell(String[] commands) throws Exception{
          if(commands.length == 2 && commands[0].compareToIgnoreCase("sell")==0){
              int id = Integer.parseInt(commands[1]);
              int cardType = id/100;
@@ -88,7 +75,7 @@ public interface ShopController {
              AllDatas.hasEnteredShop = true;
          }
      }
-     static void showShop(String[] commands) throws Exception{
+    static void showShop(String[] commands) throws Exception{
         if(commands.length == 1 && commands[0].compareToIgnoreCase("show") == 0) {
             AllDatas.hasEnteredShop = true;
             System.out.println("Heroes :");
@@ -110,15 +97,36 @@ public interface ShopController {
             }
         }
     }
-    static void help(String parentName,String[] commands){
+    static void help(String[] commands){
          if(commands.length == 1 && commands[0].compareToIgnoreCase("help") ==0){
              AllDatas.help.setParent(AllDatas.shop);
              AllDatas.help.setNowInThisMenu(true);
-             LinkedListMenus.findMenuByName(parentName).setNowInThisMenu(false);
-             for(String commandName : LinkedListMenus.findMenuByName(parentName).getCommandsForHelp()){
+             AllDatas.shop.setNowInThisMenu(false);
+             for(String commandName : AllDatas.shop.getCommandsForHelp()){
                  System.out.println(commandName);
              }
              AllDatas.hasEnteredShop = true;
          }
+    }
+    static void showHeroesInCollection() throws Exception{
+        ArrayList<String> heroesInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getHeroesInCollectionName());
+        System.out.println("Heroes :");
+        for(int i=1; i<=heroesInCollection.size(); i++){
+            System.out.println(i + " : " + GameView.showHero(heroesInCollection.get(i-1)));
+        }
+    }
+    static void showItemsInCollection() throws Exception{
+        ArrayList<String> itemsInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getItemsInCollectionNames());
+        System.out.println("Items :");
+        for(int i=1; i<=itemsInCollection.size(); i++){
+            System.out.println(i + " : " + GameView.showItem(itemsInCollection.get(i-1)));
+        }
+    }
+    static void showCardsInCollection() throws Exception{
+        ArrayList<String> cardsInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getCardsInCollectionNames());
+        System.out.println("Cards :");
+        for(int i=1; i<=cardsInCollection.size(); i++){
+            System.out.println(i + " : " + GameView.showCard(cardsInCollection.get(i-1)));
+        }
     }
 }

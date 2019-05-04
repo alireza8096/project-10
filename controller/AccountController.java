@@ -7,33 +7,24 @@ import model.collection.Account;
 import java.util.Scanner;
 
 public interface AccountController{
-     public static void createAccount(String[] commands, Scanner scanner) throws Exception{
+     static void createAccount(String[] commands, Scanner scanner) throws Exception{
         if(commands[0].compareToIgnoreCase("create") == 0
                 && commands[1].compareToIgnoreCase("account") == 0
                 && commands.length > 2){
-            String username="";
-            for(int i=2; i<commands.length-1; i++){
-                username = username + commands[i] + " ";
-            }
-            username = username + commands[commands.length-1];
-            System.out.println(username);
+            String username=CollectionController.createName(commands,2);
             Account.createAccount(username,scanner);
             AllDatas.hasEnteredAccount = true;
         }
     }
-     public static void login(String[] commands, Scanner scanner) throws Exception{
+     static void login(String[] commands, Scanner scanner) throws Exception{
         if(commands[0].compareToIgnoreCase("login") == 0 && commands.length>1){
-            String username="";
-            for(int i=2; i<commands.length-1; i++){
-                username = username + commands[i];
-            }
-            username = username + commands[commands.length-1];
+            String username=CollectionController.createName(commands,2);
             Account.login(username,scanner);
             AllDatas.hasEnteredAccount = true;
         }
     }
     //showLeaderBoard does not have num of wins yet
-     public static void showLeaderboard(String[] commands, Scanner scanner) throws Exception {
+     static void showLeaderboard(String[] commands, Scanner scanner) throws Exception {
          if (commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0
                  && commands[1].compareToIgnoreCase("leaderboard") == 0) {
              AllDatas.leaderboard.setNowInThisMenu(true);
@@ -43,36 +34,28 @@ public interface AccountController{
                      System.out.println(i + " -UserName :" + Account.getPlayers().get(i - 1));
                  }
              } else {
-                 System.out.println("no players exists in leaderboard");
+                 System.out.println("no player exists in leaderboard");
              }
              AllDatas.hasEnteredAccount = true;
          }
      }
      //save is bullshit :)
-     public static void save(String[] commands){
+     static void save(String[] commands){
          if(commands.length == 1 && commands[0].compareToIgnoreCase("save") == 0){
              System.out.println("Saved!");
              AllDatas.hasEnteredAccount = true;
          }
      }
-     //logout is more bullshit than save :))
-    public static void logout(String[] commands){
-         if(commands.length == 1 && commands[0].compareToIgnoreCase("logout") == 0){
-             System.out.println("logout :/ ");
-             AllDatas.hasEnteredAccount = true;
-         }
-    }
-    public static void help(String parentName,String[] commands){
+
+    static void help(String[] commands){
          if(commands.length == 1 && commands[0].compareToIgnoreCase("help") == 0){
              AllDatas.help.setParent(AllDatas.account);
              AllDatas.help.setNowInThisMenu(true);
-             LinkedListMenus.findMenuByName(parentName).setNowInThisMenu(false);
-             for (String commandName:
-                  LinkedListMenus.findMenuByName(parentName).getCommandsForHelp()) {
+             AllDatas.account.setNowInThisMenu(false);
+             for (String commandName: AllDatas.account.getCommandsForHelp()) {
                  System.out.println(commandName);
              }
              AllDatas.hasEnteredAccount = true;
          }
     }
-
 }
