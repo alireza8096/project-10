@@ -15,7 +15,7 @@ import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
 public interface ShopController {
-    public static void showCollection(String[] commands) throws Exception{
+     static void showCollection(String[] commands) throws Exception{
         if(commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0 &&
         commands[1].compareToIgnoreCase("collection") == 0){
             ArrayList<String> heroesInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getHeroesInCollectionName());
@@ -36,7 +36,7 @@ public interface ShopController {
             AllDatas.hasEnteredShop = true;
         }
     }
-    public static void searchInShop(String[] commands) throws Exception{
+     static void searchInShop(String[] commands) throws Exception{
         if(commands.length >= 2 && commands[0].compareToIgnoreCase("search") == 0 && commands[1].compareToIgnoreCase("collection") != 0) {
             String cardName = CollectionController.createName(commands,1);
             if(Hero.thisCardIsHero(cardName)){
@@ -57,7 +57,7 @@ public interface ShopController {
             AllDatas.hasEnteredShop = true;
         }
     }
-    public static void searchInCollection(String[] commands) throws Exception{
+     static void searchInCollection(String[] commands) throws Exception{
         if(commands.length>=3 && commands[0].compareToIgnoreCase("search") == 0
         && commands[1].compareToIgnoreCase("collection") == 0){
             AllDatas.hasEnteredShop = true;
@@ -75,25 +75,25 @@ public interface ShopController {
             }
         }
     }
-    public static void showShop(String[] commands) throws Exception{
+     static void showShop(String[] commands) throws Exception{
         if(commands.length == 1 && commands[0].compareToIgnoreCase("show") == 0) {
             AllDatas.hasEnteredShop = true;
             System.out.println("Heroes :");
             for (int i = 1; i <= Hero.heroNames.size(); i++) {
-                System.out.println(i + " : " + GameView.showHero(Hero.heroNames.get(i - 1)));
+                System.out.println("        "+i + " : " + GameView.showHero(Hero.heroNames.get(i - 1)));
             }
             System.out.println("Items :");
             for (int i = 1; i <= Item.itemNames.size(); i++) {
-                System.out.println(i + " : " + GameView.showItem(Item.itemNames.get(i - 1)));
+                System.out.println("        "+i + " : " + GameView.showItem(Item.itemNames.get(i - 1)));
             }
             System.out.println("Cards :");
             System.out.println("        Spells :");
             for (int i = 1; i <= Spell.spellNames.size(); i++) {
-                System.out.println("        " + i + " : " + GameView.showSpell(Spell.spellNames.get(i - 1)));
+                System.out.println("                " + i + " : " + GameView.showSpell(Spell.spellNames.get(i - 1)));
             }
             System.out.println("        Minions :");
             for (int i = 1; i <= Minion.minionNames.size(); i++) {
-                System.out.println("       " + i + " : " + GameView.showMinion(Minion.minionNames.get(i - 1)));
+                System.out.println("                " + i + " : " + GameView.showMinion(Minion.minionNames.get(i - 1)));
             }
         }
     }
