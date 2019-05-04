@@ -16,7 +16,6 @@ public interface MenusCommandController {
         AccountController.login(commandsSplitted, scanner);
         AccountController.showLeaderboard(commandsSplitted, scanner);
         AccountController.save(commandsSplitted);
-        AccountController.logout(commandsSplitted);
         AccountController.help(commandsSplitted);
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.gameBoolean = false;
@@ -61,7 +60,11 @@ public interface MenusCommandController {
             AllDatas.gameBoolean = false;
         } else if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("help") == 0) {
             CommandLineController.help();
-        } else {
+        }
+        else if(commandsSplitted.length ==1 && commandsSplitted[0].compareToIgnoreCase("logout") == 0){
+            CommandLineController.logout(commandsSplitted);
+        }
+        else {
             System.out.println("Command is not supported in this menu");
         }
     }

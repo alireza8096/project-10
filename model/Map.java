@@ -49,25 +49,25 @@ public class Map {
         Map.cells = cells;
     }
 
-    public static boolean checkIfMinionInsertCardInThisCoordination(int x, int y){
-        if (thisCellIsEmpty(x, y)){
-            if ((x - 1) >= 0 && !thisCellIsEmpty(x - 1, y))
-                return true;
-            else if ((x + 1) <= 4 && !thisCellIsEmpty(x + 1, y))
-                return true;
-            else if ((y - 1) >= 0 && !thisCellIsEmpty(x, y - 1))
-                return true;
-            else return (y + 1) <= 8 && !thisCellIsEmpty(x, y + 1);
-        }else
-            return false;
-    }
+//    public static boolean checkIfMinionInsertCardInThisCoordination(int x, int y){
+//        if (thisCellIsEmpty(x, y)){
+//            if ((x - 1) >= 0 && !thisCellIsEmpty(x - 1, y))
+//                return true;
+//            else if ((x + 1) <= 4 && !thisCellIsEmpty(x + 1, y))
+//                return true;
+//            else if ((y - 1) >= 0 && !thisCellIsEmpty(x, y - 1))
+//                return true;
+//            else return (y + 1) <= 8 && !thisCellIsEmpty(x, y + 1);
+//        }else
+//            return false;
+//    }
 
-    public static boolean thisCellIsEmpty(int x, int y){
-        Cell cell = Cell.getCellByCoordination(x, y);
-        CellType cellType = cell.getCellSituation();
-        return cellType != CellType.selfHero && cellType != CellType.enemyHero &&
-                cellType != CellType.selfMinion && cellType != CellType.enemyMinion;
-    }
+//    public static boolean thisCellIsEmpty(int x, int y){
+//        Cell cell = Cell.getCellByCoordination(x, y);
+//        CellType cellType = cell.getCellSituation();
+//        return cellType != CellType.selfHero && cellType != CellType.enemyHero &&
+//                cellType != CellType.selfMinion && cellType != CellType.enemyMinion;
+//    }
 
 
 }

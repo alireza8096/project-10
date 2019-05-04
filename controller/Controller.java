@@ -36,9 +36,9 @@ public interface Controller {
         AllDatas.collection.setParent(AllDatas.commandLine);
         AllDatas.shop.setParent(AllDatas.commandLine);
         AllDatas.battle.setParent(AllDatas.commandLine);
-        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save","logout");
+        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
         AllDatas.leaderboard.setCommandsForHelp("exit");
-        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help");
+        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help","logout");
         AllDatas.collection.setCommandsForHelp("exit","show","search [card name | item name]","save","create deck[deck name]"
         ,"delete deck [deck name]","add [card id | card id | hero id] to deck [deck name]",
                 "remove [card id | card id| hero id] from deck [deck name]","validate deck [deck name]","select deck [deck name]"

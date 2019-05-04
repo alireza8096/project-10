@@ -338,32 +338,32 @@ public class Hero extends Card{
         this.setCanCounterAttack(true);
     }
 
-    public void applyCellImpact(Minion minion, Map map)
-    {
-        int x=minion.getX();
-        int y=minion.getY();
-        switch (((Map.getCells())[x][y]).getCellSituation())
-        {
-            case fire:
-                this.setHealthPoint(this.getHealthPoint()-2);
-                break;
-            case holy:
-                this.setHolyBuffIsActive(true);
-                break;
-            case empty:
-                break;
-            case flag:
-                break;
-            case poison:
-                Buff buff = new Buff(1,3,"poisonBuff","negative");
-                buff.setForHowManyTurns(3);
-                buff.setHowMuchImpact(1);
-                buff.setName("poisonBuff");
-                buff.setType("negative");
-                this.getNegativeBuffs().add(buff);
-                break;
-        }
-    }
+//    public void applyCellImpact(Minion minion, Map map)
+//    {
+//        int x=minion.getX();
+//        int y=minion.getY();
+//        switch (((Map.getCells())[x][y]).getCellSituation())
+//        {
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHolyBuffIsActive(true);
+//                break;
+//            case empty:
+//                break;
+//            case flag:
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                buff.setForHowManyTurns(3);
+//                buff.setHowMuchImpact(1);
+//                buff.setName("poisonBuff");
+//                buff.setType("negative");
+//                this.getNegativeBuffs().add(buff);
+//                break;
+//        }
+//    }
 
     public static void insertHeroInMap() throws IOException, ParseException {
         String heroName = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeckName();
@@ -374,8 +374,9 @@ public class Hero extends Card{
         String attackType = jsonObject.get("attackType").toString();
         int attackRange = Integer.parseInt(jsonObject.get("attackRange").toString());
         int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
+        String specialPower = jsonObject.get("specialPower").toString();
 
-        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown);
+        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown,specialPower);
         hero.setX(3);
         hero.setY(4);
         Game.getInstance().getMap().getHeroes().add(hero);

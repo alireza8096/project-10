@@ -45,8 +45,9 @@ public interface BattleController {
                 return card;
         }
         if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)) return Game.getInstance().getHeroOfPlayer1();
-        if(Game.getInstance().getHeroOfPlayer2().getName().equals(checkCard)) return true;
-        return false;
+//        if(Game.getInstance().getHeroOfPlayer2().getName().equals(checkCard)) return true;
+//        return false;
+        return null;
     }
     public static boolean thisCardIsYours(String cardName){
         for (Card card:

@@ -4,6 +4,7 @@ import model.AllDatas;
 import model.LinkedListMenus;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public interface CommandLineController {
     static void enterMenu(String menuName){
@@ -29,6 +30,13 @@ public interface CommandLineController {
         AllDatas.commandLine.setNowInThisMenu(false);
         for (String commandName: AllDatas.commandLine.getCommandsForHelp()) {
             System.out.println(commandName);
+        }
+    }
+    //logout is more bullshit than save :))
+    static void logout(String[] commands){
+        if(commands.length == 1 && commands[0].compareToIgnoreCase("logout") == 0){
+            AllDatas.commandLine.setNowInThisMenu(false);
+            AllDatas.account.setNowInThisMenu(true);
         }
     }
 }

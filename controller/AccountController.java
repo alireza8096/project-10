@@ -46,13 +46,7 @@ public interface AccountController{
              AllDatas.hasEnteredAccount = true;
          }
      }
-     //logout is more bullshit than save :))
-    static void logout(String[] commands){
-         if(commands.length == 1 && commands[0].compareToIgnoreCase("logout") == 0){
-             System.out.println("logout :/ ");
-             AllDatas.hasEnteredAccount = true;
-         }
-    }
+
     static void help(String[] commands){
          if(commands.length == 1 && commands[0].compareToIgnoreCase("help") == 0){
              AllDatas.help.setParent(AllDatas.account);

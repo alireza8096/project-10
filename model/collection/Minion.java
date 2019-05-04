@@ -166,10 +166,11 @@ public class Minion extends Card {
                 int attackRange = Integer.parseInt(attackRangeString);
                 String attackType = jsonObject.get("attackType").toString();
                 String activationTime = jsonObject.get("activationTime").toString();
-                String manaString = jsonObject.get("price").toString();
+                String manaString = jsonObject.get("mana").toString();
+                String priceString = jsonObject.get("price").toString();
+                int price = Integer.parseInt(priceString);
                 int mana = Integer.parseInt(manaString);
-
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana);
+                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana,price);
                 return minion;
             }
         }
@@ -326,28 +327,28 @@ public class Minion extends Card {
         setHasHolyBuff(false);
     }
 
-    public void applyCellImpact(Minion minion, Map map)
-    {
-        int x=minion.getX();
-        int y=minion.getY();
-        switch (((Map.getCells())[x][y]).getCellSituation())
-        {
-            case fire:
-                this.setHealthPoint(this.getHealthPoint()-2);
-                break;
-            case holy:
-                this.setHasHolyBuff(true);
-                break;
-            case empty:
-                break;
-            case flag:
-                break;
-            case poison:
-                Buff buff = new Buff(1,3,"poisonBuff","negative");
-                this.getMinionPositiveBuffs().add(buff);
-                break;
-        }
-    }
+//    public void applyCellImpact(Minion minion, Map map)
+//    {
+//        int x=minion.getX();
+//        int y=minion.getY();
+//        switch (((Map.getCells())[x][y]).getCellSituation())
+//        {
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHasHolyBuff(true);
+//                break;
+//            case empty:
+//                break;
+//            case flag:
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                this.getMinionPositiveBuffs().add(buff);
+//                break;
+//        }
+//    }
 
     public static Minion getMinionInThisCoordination(int x, int y){
         Map map = Game.getInstance().getMap();
