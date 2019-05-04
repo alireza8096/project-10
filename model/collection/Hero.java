@@ -1,7 +1,6 @@
 package model.collection;
 
 import model.Game;
-import model.Hand;
 import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -22,17 +21,19 @@ public class Hero extends Card{
     private String attackType;
     private int attackRange;
     private int coolDown;
+    private String specialPower;
     private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean holyBuffIsActive;
 
-    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown){
+    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown,String specialPower){
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPower = attackPower;
         this.attackType = attackType;
         this.attackRange = attackRange;
         this.coolDown = coolDown;
+        this.specialPower = specialPower;
     }
 
     public static int getHeroIDByName(String heroName) throws Exception{
@@ -311,24 +312,24 @@ public class Hero extends Card{
         int y=minion.getY();
         switch (((map.getCells())[x][y]).getCellSituation())
         {
-            case fire:
-                this.setHealthPoint(this.getHealthPoint()-2);
-                break;
-            case holy:
-                this.setHolyBuffIsActive(true);
-                break;
-            case empty:
-                break;
-            case flag:
-                break;
-            case poison:
-                Buff buff = new Buff(1,3,"poisonBuff","negative");
-                buff.setForHowManyTurns(3);
-                buff.setHowMuchImpact(1);
-                buff.setName("poisonBuff");
-                buff.setType("negative");
-                this.getNegativeBuffs().add(buff);
-                break;
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHolyBuffIsActive(true);
+//                break;
+//            case empty:
+//                break;
+//            case flag:
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                buff.setForHowManyTurns(3);
+//                buff.setHowMuchImpact(1);
+//                buff.setName("poisonBuff");
+//                buff.setType("negative");
+//                this.getNegativeBuffs().add(buff);
+//                break;
         }
     }
 
@@ -341,8 +342,9 @@ public class Hero extends Card{
         String attackType = jsonObject.get("attackType").toString();
         int attackRange = Integer.parseInt(jsonObject.get("attackRange").toString());
         int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
+        String specialPower = jsonObject.get("specialPower").toString();
 
-        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown);
+        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown,specialPower);
         hero.setX(3);
         hero.setY(4);
         Game.getInstance().getMap().getHeroes().add(hero);

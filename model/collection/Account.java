@@ -1,13 +1,11 @@
 package model.collection;
 
-import controller.Controller;
 import model.AllDatas;
 import model.Game;
 import model.Player;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,9 +32,7 @@ public class Account {
     }
     public static boolean checkCorrectPassword(String name,String password) throws Exception{
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");
-        if(jsonObject.get("password").toString().matches(password))
-            return true;
-        return false;
+        return jsonObject.get("password").toString().matches(password);
     }
     public static void setPlayer(String name) throws Exception {
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");

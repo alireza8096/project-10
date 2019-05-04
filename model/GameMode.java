@@ -2,6 +2,6 @@ package model;
 
 public enum GameMode {
     killingHeroOfEnemy,
-    collectingNadKeepingFlags,
-    collectingHalfOfTheFlags;
+    collectingAndKeepingFlags,
+    collectingHalfOfTheFlags
 }

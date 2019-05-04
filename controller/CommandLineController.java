@@ -4,9 +4,10 @@ import model.AllDatas;
 import model.LinkedListMenus;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public interface CommandLineController {
-    public static void enterMenu(String menuName){
+    static void enterMenu(String menuName){
         if(menuName.compareToIgnoreCase("collection") == 0){
             AllDatas.collection.setNowInThisMenu(true);
             AllDatas.commandLine.setNowInThisMenu(false);
@@ -23,13 +24,19 @@ public interface CommandLineController {
             System.out.println("Menu name is not correct");
         }
     }
-    public static void help(String parentName){
+    static void help(){
         AllDatas.help.setParent(AllDatas.commandLine);
         AllDatas.help.setNowInThisMenu(true);
-        LinkedListMenus.findMenuByName(parentName).setNowInThisMenu(false);
-        for (String commandName:
-             LinkedListMenus.findMenuByName(parentName).getCommandsForHelp()) {
+        AllDatas.commandLine.setNowInThisMenu(false);
+        for (String commandName: AllDatas.commandLine.getCommandsForHelp()) {
             System.out.println(commandName);
+        }
+    }
+    //logout is more bullshit than save :))
+    static void logout(String[] commands){
+        if(commands.length == 1 && commands[0].compareToIgnoreCase("logout") == 0){
+            AllDatas.commandLine.setNowInThisMenu(false);
+            AllDatas.account.setNowInThisMenu(true);
         }
     }
 }

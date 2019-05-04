@@ -1,7 +1,6 @@
 package model;
 
 import model.collection.Card;
-import model.collection.Hero;
 import model.collection.Minion;
 import model.collection.Spell;
 import org.json.simple.parser.ParseException;
@@ -9,7 +8,6 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Hand {
     private ArrayList<Card> cardsInHand = new ArrayList<>();
@@ -36,16 +34,13 @@ public class Hand {
         }
     }
 
-    public void deleteCardFromHand(Card card){
-        this.getCardsInHand().remove(card);
-    }
-
     public boolean checkIfNumberOfCardsInHandIsValid(){
         int numberOfCardsInHand = this.getCardsInHand().size();
-        if (numberOfCardsInHand > 5)
-            return false;
-        else
-            return true;
+        return numberOfCardsInHand <= 5;
+    }
+
+    public void deleteCardFromHand(Card card){
+        this.getCardsInHand().remove(card);
     }
 
     public void addCardToHandFromDeck() throws IOException, ParseException {
@@ -72,34 +67,34 @@ public class Hand {
         return false;
     }
 
-    public void insertCardFromHandInMap(String cardName, int x, int y) throws IOException, ParseException {
-        if (!checkIfCardIsInHand(cardName)){
-            System.out.println("Invalid card name!");
-        }else{
-            Card card = Card.getCardByName(cardName);
-            int playerMana = Game.getInstance().getPlayer1().getNumOfMana();
-            if (card.getMana() > playerMana){
-                System.out.println("You don't have enough mana!");
-            }else{
-                String cardType = card.getCardType();
-                if (cardType.equals("minion")){
-                    if (!Map.checkIfMinionInsertCardInThisCoordination(x, y)){
-                        System.out.println("Invalid target!");
-                    }else {
-                        Game.getInstance().getPlayer1().setNumOfMana(playerMana - card.getMana());
-                        Map.getCells()[x][y].setCellSituation(CellType.selfMinion);
-                        card.setX(x);
-                        card.setY(y);
-                        card.setInGame(true);
-                        Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().remove(card);
-                        Game.getInstance().getMap().getMinions().add(card);
-                    }
-                }else if (cardType.equals("spell")){
-//                    Spell.insertSpellInMap
-                }
-            }
-        }
-    }
+//    public void insertCardFromHandInMap(String cardName, int x, int y) throws IOException, ParseException {
+//        if (!checkIfCardIsInHand(cardName)){
+//            System.out.println("Invalid card name!");
+//        }else{
+//            Card card = Card.getCardByName(cardName);
+//            int playerMana = Game.getInstance().getPlayer1().getNumOfMana();
+//            if (card.getMana() > playerMana){
+//                System.out.println("You don't have enough mana!");
+//            }else{
+//                String cardType = card.getCardType();
+//                if (cardType.equals("minion")){
+//                    if (!Map.checkIfMinionInsertCardInThisCoordination(x, y)){
+//                        System.out.println("Invalid target!");
+//                    }else {
+//                        Game.getInstance().getPlayer1().setNumOfMana(playerMana - card.getMana());
+//                        Map.getCells()[x][y].getCellTypes().add(CellType.selfMinion);
+//                        card.setX(x);
+//                        card.setY(y);
+//                        card.setInGame(true);
+//                        Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().remove(card);
+//                        Game.getInstance().getMap().getMinions().add(card);
+//                    }
+//                }else if (cardType.equals("spell")){
+//                    Spell.insertSpellInThisCoordination(cardName, x, y);
+//                }
+//            }
+//        }
+//    }
 
 
 }
