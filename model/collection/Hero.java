@@ -311,24 +311,24 @@ public class Hero extends Card{
         int y=minion.getY();
         switch (((map.getCells())[x][y]).getCellSituation())
         {
-            case fire:
-                this.setHealthPoint(this.getHealthPoint()-2);
-                break;
-            case holy:
-                this.setHolyBuffIsActive(true);
-                break;
-            case empty:
-                break;
-            case flag:
-                break;
-            case poison:
-                Buff buff = new Buff(1,3,"poisonBuff","negative");
-                buff.setForHowManyTurns(3);
-                buff.setHowMuchImpact(1);
-                buff.setName("poisonBuff");
-                buff.setType("negative");
-                this.getNegativeBuffs().add(buff);
-                break;
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHolyBuffIsActive(true);
+//                break;
+//            case empty:
+//                break;
+//            case flag:
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                buff.setForHowManyTurns(3);
+//                buff.setHowMuchImpact(1);
+//                buff.setName("poisonBuff");
+//                buff.setType("negative");
+//                this.getNegativeBuffs().add(buff);
+//                break;
         }
     }
 
@@ -355,5 +355,9 @@ public class Hero extends Card{
         }
         return null;
     }
+
+//    public static Hero getHeroByCoordination(int x, int y){
+//
+//    }
 
 }
