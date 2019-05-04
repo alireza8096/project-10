@@ -1,10 +1,7 @@
 package model.collection;
 
-import model.Cell;
 import model.CellType;
-import model.Game;
 import model.Map;
-import model.Hand;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -13,15 +10,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Spell extends Card {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
     public static ArrayList<String> spellNames = new ArrayList<>();
     private String desc;
 
     public Spell(String name, int price, int mana, String desc){
-        this.setName(name);
-        this.setPrice(price);
-        this.setMana(mana);
+        this.name = name;
+        this.price = price;
+        this.mana = mana;
         this.desc = desc;
     }
 

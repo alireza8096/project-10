@@ -1,16 +1,9 @@
 package model;
 
-import model.Player;
 import model.collection.*;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Shop {
     private Game game;

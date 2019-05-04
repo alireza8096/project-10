@@ -1,7 +1,6 @@
 package model.collection;
 
 import model.Game;
-import model.Hand;
 import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -22,17 +21,19 @@ public class Hero extends Card{
     private String attackType;
     private int attackRange;
     private int coolDown;
+    private String specialPower;
     private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean holyBuffIsActive;
 
-    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown){
+    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown,String specialPower){
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPower = attackPower;
         this.attackType = attackType;
         this.attackRange = attackRange;
         this.coolDown = coolDown;
+        this.specialPower = specialPower;
     }
 
     public static int getHeroIDByName(String heroName) throws Exception{
@@ -272,6 +273,38 @@ public class Hero extends Card{
             buff.setUsed(true);
         }
     }
+    public static Hero getHeroByName(String heroName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
+        File[] listOfFiles = folder.listFiles();
+        String fileName;
+        JSONObject jsonObject;
+        for (int i = 0; i < listOfFiles.length; i++) {
+            fileName = listOfFiles[i].getName().split("\\.")[0];
+            if (fileName.equals(heroName)){
+                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + fileName + ".json");
+                String name = jsonObject.get("name").toString();
+                String healthPointString = jsonObject.get("healthPoint").toString();
+                int healthPoint = Integer.parseInt(healthPointString);
+                String attackPowerString = jsonObject.get("attackPower").toString();
+                int attackPower = Integer.parseInt(attackPowerString);
+                String attackRangeString = jsonObject.get("attackRange").toString();
+                int attackRange = Integer.parseInt(attackRangeString);
+                String attackType = jsonObject.get("attackType").toString();
+//                String activationTime = jsonObject.get("activationTime").toString();
+                String priceString = jsonObject.get("price").toString();
+//                int price = Integer.parseInt(priceString);
+                String manaString = jsonObject.get("mana").toString();
+//                int mana = Integer.parseInt(manaString);
+//                int id = Integer.parseInt(jsonObject.get("id").toString());
+                int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
+                String specialPower = jsonObject.get("specialPower").toString();
+
+                Hero hero = new Hero(name,healthPoint,attackPower,attackType,attackRange,coolDown,specialPower);
+                return hero;
+            }
+        }
+        return null;
+    }
 
     public void applyStunBuff(){
         this.setCanAttackOrMove(false);
@@ -291,6 +324,10 @@ public class Hero extends Card{
         int howMuchImpact = buff.getHowMuchImpact();
         int currentAttackPower = this.getAttackPower();
         setAttackPower(currentAttackPower + howMuchImpact);
+    }
+
+    public String getSpecialPower() {
+        return specialPower;
     }
 
     public void deactivateStunBuff(){

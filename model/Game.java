@@ -1,10 +1,8 @@
 package model;
 
 import model.collection.Card;
-import model.Player;
 import model.collection.Hero;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Game {

@@ -1,13 +1,11 @@
 package model.collection;
 
-import controller.Controller;
 import model.AllDatas;
 import model.Game;
 import model.Player;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;

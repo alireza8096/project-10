@@ -1,6 +1,7 @@
 package model.collection;
 
 import model.*;
+import model.Game;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -22,9 +23,13 @@ public class Minion extends Card {
     private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
+    private String specialPower;
 
+    public String getSpecialPower() {
+        return specialPower;
+    }
 
-    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana){
+    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price){
         this.healthPoint = healthPoint;
         this.setName(name);
         this.attackPower = attackPower;
@@ -32,6 +37,7 @@ public class Minion extends Card {
         this.attackType = attackType;
         this.activationTime = activationTime;
         this.mana = mana;
+        this.price = price;
     }
 
     public ArrayList<Buff> getMinionPositiveBuffs() {

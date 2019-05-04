@@ -1,8 +1,6 @@
 package controller;
 
 import model.AllDatas;
-import model.Game;
-import model.Hand;
 import model.LinkedListMenus;
 import model.collection.HandleFiles;
 

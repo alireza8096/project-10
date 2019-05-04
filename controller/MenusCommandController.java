@@ -80,7 +80,7 @@ public interface MenusCommandController {
         CollectionController.selectDeck(commandsSplitted);
         CollectionController.showAllDecks(commandsSplitted);
         CollectionController.showDeckByName(commandsSplitted);
-        CollectionController.help("Collection", commandsSplitted);
+        CollectionController.help(commandsSplitted);
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.collection.setNowInThisMenu(false);
             AllDatas.commandLine.setNowInThisMenu(true);
@@ -101,7 +101,7 @@ public interface MenusCommandController {
         ShopController.buy(commandsSplitted);
         ShopController.sell(commandsSplitted);
         ShopController.showShop(commandsSplitted);
-        ShopController.help("Shop",commandsSplitted);
+        ShopController.help(commandsSplitted);
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.shop.setNowInThisMenu(false);
             AllDatas.commandLine.setNowInThisMenu(true);

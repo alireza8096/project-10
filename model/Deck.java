@@ -5,7 +5,6 @@ import model.collection.Item;
 import model.collection.Minion;
 import model.collection.Spell;
 import org.json.simple.parser.ParseException;
-import view.GameView;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,8 +1,6 @@
 package view;
 
 import model.Deck;
-import model.Game;
-import model.collection.Card;
 import model.collection.Item;
 import model.GraveYard;
 import model.collection.HandleFiles;

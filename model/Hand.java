@@ -1,7 +1,6 @@
 package model;
 
 import model.collection.Card;
-import model.collection.Hero;
 import model.collection.Minion;
 import model.collection.Spell;
 import org.json.simple.parser.ParseException;
@@ -9,7 +8,6 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Hand {
     private ArrayList<Card> cardsInHand = new ArrayList<>();
