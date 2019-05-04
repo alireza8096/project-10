@@ -9,11 +9,11 @@ import model.collection.HandleFiles;
 import java.util.Scanner;
 
 public interface Controller {
-    public static void createAll() throws Exception{
+    static void createAll() throws Exception{
         createAllMenus();
         createAllDataFromJSON();
     }
-    public static void createAllDataFromJSON() throws Exception{
+    static void createAllDataFromJSON() throws Exception{
         HandleFiles.createStringOfHeroes();
         HandleFiles.createStringOfItems();
         HandleFiles.createStringOfMinions();
@@ -21,7 +21,7 @@ public interface Controller {
         HandleFiles.createStringOfSpells();
         HandleFiles.createStringOfUsableItems();
     }
-    public static void createAllMenus(){
+    static void createAllMenus(){
         AllDatas.account= new LinkedListMenus("Account",true);
         AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
         AllDatas.commandLine = new LinkedListMenus("Command Line",false);
@@ -56,7 +56,7 @@ public interface Controller {
         LinkedListMenus.allMenus.add(AllDatas.help);
 
     }
-    public static void handleCommands(Scanner scanner) throws Exception{
+    static void handleCommands(Scanner scanner) throws Exception{
         switch (LinkedListMenus.whichMenuNow().getMenuName()){
             case "Account":
                 System.out.println("account");

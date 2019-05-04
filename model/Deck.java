@@ -172,11 +172,7 @@ public class Deck {
     }
 
     public boolean checkIfNumberOfCardsInDeckIsValid(){
-        if (this.getCardsInDeckNames().size() >= 20){
-            return false;
-        }else{
-            return true;
-        }
+        return this.getCardsInDeckNames().size() < 20;
     }
 
     public boolean checkIfDeckHasHero(){
@@ -267,11 +263,8 @@ public class Deck {
         if (!deck.checkIfDeckHasHero()){
             return false;
         }else{
-            if (deck.getCardsInDeckNames().size() != 20){
-                return false;
-            }
+            return deck.getCardsInDeckNames().size() == 20;
         }
-        return true;
     }
 
     public static void selectDeck(String deckName){
@@ -288,10 +281,7 @@ public class Deck {
     }
     public boolean deckIsEmpty(){
         int deckSize = this.getCardsInDeckNames().size();
-        if (deckSize <= 0)
-            return true;
-        else
-            return false;
+        return deckSize <= 0;
     }
     public static void showAllDecks(){
         //GameView.showDeck();

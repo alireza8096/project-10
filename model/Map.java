@@ -57,9 +57,7 @@ public class Map {
                 return true;
             else if ((y - 1) >= 0 && !thisCellIsEmpty(x, y - 1))
                 return true;
-            else if ((y + 1) <= 8 && !thisCellIsEmpty(x, y + 1))
-                return true;
-            return false;
+            else return (y + 1) <= 8 && !thisCellIsEmpty(x, y + 1);
         }else
             return false;
     }
@@ -67,11 +65,8 @@ public class Map {
     public static boolean thisCellIsEmpty(int x, int y){
         Cell cell = Cell.getCellByCoordination(x, y);
         CellType cellType = cell.getCellSituation();
-        if (cellType != CellType.selfHero && cellType != CellType.enemyHero &&
-                cellType != CellType.selfMinion && cellType != CellType.enemyMinion ){
-            return true;
-        }else
-            return false;
+        return cellType != CellType.selfHero && cellType != CellType.enemyHero &&
+                cellType != CellType.selfMinion && cellType != CellType.enemyMinion;
     }
 
 

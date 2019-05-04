@@ -2,6 +2,7 @@ package model;
 
 import model.collection.Card;
 import model.Player;
+import model.collection.Hero;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -22,10 +23,28 @@ public class Game {
     private GameType gameType;
     private ArrayList<Card> player1CardsInField = new ArrayList<>();
     private ArrayList<Card> player2CardsInField = new ArrayList<>();
+    private Hero heroOfPlayer1;
+    private Hero heroOfPlayer2;
     private Hand hand;
 
     public Game(){
 
+    }
+
+    public Hero getHeroOfPlayer1() {
+        return heroOfPlayer1;
+    }
+
+    public Hero getHeroOfPlayer2() {
+        return heroOfPlayer2;
+    }
+
+    public void setHeroOfPlayer1(Hero heroOfPlayer1) {
+        this.heroOfPlayer1 = heroOfPlayer1;
+    }
+
+    public void setHeroOfPlayer2(Hero heroOfPlayer2) {
+        this.heroOfPlayer2 = heroOfPlayer2;
     }
 
     public Game(Player player1, Player player2){

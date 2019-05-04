@@ -42,10 +42,7 @@ public class Hand {
 
     public boolean checkIfNumberOfCardsInHandIsValid(){
         int numberOfCardsInHand = this.getCardsInHand().size();
-        if (numberOfCardsInHand > 5)
-            return false;
-        else
-            return true;
+        return numberOfCardsInHand <= 5;
     }
 
     public void addCardToHandFromDeck() throws IOException, ParseException {
@@ -87,7 +84,7 @@ public class Hand {
                         System.out.println("Invalid target!");
                     }else {
                         Game.getInstance().getPlayer1().setNumOfMana(playerMana - card.getMana());
-                        Map.getCells()[x][y].setCellSituation(CellType.selfMinion);
+                        Map.getCells()[x][y].getCellTypes().add(CellType.selfMinion);
                         card.setX(x);
                         card.setY(y);
                         card.setInGame(true);

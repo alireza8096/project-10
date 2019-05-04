@@ -1,9 +1,19 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Cell {
     private int coordinateX;
     private int coordinateY;
-    private CellType cellSituation;
+    private ArrayList<CellType> cellTypes = new ArrayList<>();
+
+    public ArrayList<CellType> getCellTypes() {
+        return cellTypes;
+    }
+
+    public void setCellTypes(ArrayList<CellType> cellTypes) {
+        this.cellTypes = cellTypes;
+    }
 
     public int getCoordinateX() {
         return coordinateX;
@@ -21,17 +31,11 @@ public class Cell {
         this.coordinateY = coordinateY;
     }
 
-    public CellType getCellSituation() {
-        return cellSituation;
-    }
-
-    public void setCellSituation(CellType cellSituation) {
-        this.cellSituation = cellSituation;
-    }
-
     public static Cell getCellByCoordination(int x, int y){
         return Map.getCells()[x][y];
     }
+
+
 
 
 

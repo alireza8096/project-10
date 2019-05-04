@@ -20,12 +20,6 @@ import java.util.Scanner;
 public class GameView {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
-    private static GameView view = new GameView();
-
-    public static GameView getInstance(){
-        return view;
-    }
-
     public static String searchTypeAndShow(String name) throws Exception{
         String returnString = "";
         if(Minion.thisCardIsMinion(name))

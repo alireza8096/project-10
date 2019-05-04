@@ -323,7 +323,7 @@ public class Minion extends Card {
     {
         int x=minion.getX();
         int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellSituation())
+        switch (((Map.getCells())[x][y]).getCellSituation())
         {
             case fire:
                 this.setHealthPoint(this.getHealthPoint()-2);

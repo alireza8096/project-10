@@ -34,9 +34,7 @@ public class Account {
     }
     public static boolean checkCorrectPassword(String name,String password) throws Exception{
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");
-        if(jsonObject.get("password").toString().matches(password))
-            return true;
-        return false;
+        return jsonObject.get("password").toString().matches(password);
     }
     public static void setPlayer(String name) throws Exception {
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");

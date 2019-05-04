@@ -176,11 +176,7 @@ public class Hero extends Card{
 
     public boolean checkIfBuffIsActive(Buff buff){
         int numberOfTurns = buff.getForHowManyTurns();
-        if (numberOfTurns > 0){
-            return true;
-        }else{
-            return false;
-        }
+        return numberOfTurns > 0;
     }
 
     public void applyBuffOnHeroForOneTurn(Buff buff){
@@ -309,7 +305,7 @@ public class Hero extends Card{
     {
         int x=minion.getX();
         int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellSituation())
+        switch (((Map.getCells())[x][y]).getCellSituation())
         {
             case fire:
                 this.setHealthPoint(this.getHealthPoint()-2);

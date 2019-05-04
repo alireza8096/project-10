@@ -12,5 +12,5 @@ public enum CellType {
     collectableItem,
     poison,
     fire,
-    holy;
+    holy
 }

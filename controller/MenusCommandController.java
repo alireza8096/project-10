@@ -1,6 +1,7 @@
 package controller;
 
 import model.AllDatas;
+import model.LinkedListMenus;
 import model.Shop;
 import model.collection.Account;
 
@@ -8,16 +9,16 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public interface MenusCommandController {
-    public static void accountController(Scanner scanner) throws Exception {
+    static void accountController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
-        String[] commandSplitted = command.split(" ");
-        AccountController.createAccount(commandSplitted, scanner);
-        AccountController.login(commandSplitted, scanner);
-        AccountController.showLeaderboard(commandSplitted, scanner);
-        AccountController.save(commandSplitted);
-        AccountController.logout(commandSplitted);
-        AccountController.help("Account", commandSplitted);
-        if (commandSplitted.length == 1 && commandSplitted[0].compareToIgnoreCase("exit") == 0) {
+        String[] commandsSplitted = command.split(" ");
+        AccountController.createAccount(commandsSplitted, scanner);
+        AccountController.login(commandsSplitted, scanner);
+        AccountController.showLeaderboard(commandsSplitted, scanner);
+        AccountController.save(commandsSplitted);
+        AccountController.logout(commandsSplitted);
+        AccountController.help(commandsSplitted);
+        if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.gameBoolean = false;
             AllDatas.hasEnteredAccount = true;
         }
@@ -27,7 +28,7 @@ public interface MenusCommandController {
         AllDatas.hasEnteredAccount = false;
     }
 
-    public static void leaderboardController(Scanner scanner) throws Exception {
+    static void leaderboardController(Scanner scanner){
         String command = scanner.nextLine();
         if (command.compareToIgnoreCase("exit") == 0) {
             AllDatas.leaderboard.setNowInThisMenu(false);
@@ -37,7 +38,7 @@ public interface MenusCommandController {
         }
     }
 
-    public static void helpController(Scanner scanner) throws Exception {
+    static void helpController(Scanner scanner){
         System.out.println("Type \"exit\" to return");
         String command = scanner.nextLine();
         if (command.compareToIgnoreCase("exit") == 0) {
@@ -48,9 +49,9 @@ public interface MenusCommandController {
         }
     }
 
-    public static void commandLineController(Scanner scanner) throws Exception {
-        for (int i = 1; i <= AllDatas.commandLine.getCommandsForHelp().size(); i++) {
-            System.out.println(AllDatas.commandLine.getCommandsForHelp().get(i - 1));
+    static void commandLineController(Scanner scanner) {
+        for (String command: AllDatas.commandLine.getCommandsForHelp()) {
+            System.out.println(command);
         }
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
@@ -59,13 +60,13 @@ public interface MenusCommandController {
         } else if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.gameBoolean = false;
         } else if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("help") == 0) {
-            CommandLineController.help("Command Line");
+            CommandLineController.help();
         } else {
             System.out.println("Command is not supported in this menu");
         }
     }
 
-    public static void collectionController(Scanner scanner) throws Exception {
+    static void collectionController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
         CollectionController.show(commandsSplitted);
@@ -91,7 +92,7 @@ public interface MenusCommandController {
         AllDatas.hasEnteredCollection = false;
     }
 
-    public static void shopController(Scanner scanner) throws Exception {
+    static void shopController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
         ShopController.showCollection(commandsSplitted);
