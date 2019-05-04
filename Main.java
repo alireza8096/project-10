@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+
 //        Game game = new Game();
 //        Game.setCurrentGame(game);
 //
@@ -22,13 +23,13 @@ public class Main {
 //
 //        Game.getInstance().getPlayer1().setMainDeck(deck);
 //
-//        Spell spell = new Spell("All Attack", 1500, 4, "spell!");
-//        Spell.getSpellNames().add("All Attack");
-//        player.getCardsInCollectionNames().add("All Attack");
+//        Spell spell = new Spell("Lighting Bolt", 450, 2, "spell!");
+//        Spell.getSpellNames().add("Lighting Bolt");
+//        player.getCardsInCollectionNames().add("Lighting Bolt");
 //
 //        Hand hand = new Hand();
 //        Game.getInstance().getPlayer1().getMainDeck().setHand(hand);
-//        Deck.addCardOrItemToDeck(16, "spell", "deck1");
+//        Deck.addCardOrItemToDeck(7, "spell", "deck1");
 //
 //        hand.addCardToHandFromDeck();
 //
@@ -44,22 +45,17 @@ public class Main {
 //        for (Card card : Game.getInstance().getMap().getHeroes()){
 //            Hero hero = (Hero) card;
 //            System.out.println("name" + hero.getName());
-//            System.out.println("HP : " + ((Hero) card).getHealthPoint());
+//            System.out.println("AP : " + ((Hero) card).getAttackPower());
 //        }
 //
-//        Spell.insertSpellInThisCoordination("All Attack", 3, 4);
+//        Spell.insertSpellInThisCoordination("Lighting Bolt", 3, 4);
 //        System.out.println("***");
 //
 //        for (Card card : Game.getInstance().getMap().getHeroes()){
 //            Hero hero = (Hero) card;
 //            System.out.println("name" + hero.getName());
-//            System.out.println("HP : " + ((Hero) card).getHealthPoint());
+//            System.out.println("AP : " + ((Hero) card).getAttackPower());
 //        }
-
-
-
-
-
 
     }
 }
