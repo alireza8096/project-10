@@ -7,7 +7,7 @@
   "numOfTargets" : "all",
   "Square" : "null",
   "targetsSpecified" : "minion/hero",
-  "actsOn": "enemy",
+  "actsOn": "owner",
   "forHowManyTurns" : "1",
   "typeOfAction" : "addsBuff",
   "whichBuff" : "healthPointWeaknessBuff",

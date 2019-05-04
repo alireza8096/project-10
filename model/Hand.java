@@ -95,7 +95,7 @@ public class Hand {
                         Game.getInstance().getMap().getMinions().add(card);
                     }
                 }else if (cardType.equals("spell")){
-                    Spell.insertSpellInMap
+//                    Spell.insertSpellInMap
                 }
             }
         }

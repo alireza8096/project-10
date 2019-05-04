@@ -2,22 +2,24 @@ package controller;
 
 import model.AllDatas;
 import model.Game;
+import model.Hand;
 import model.LinkedListMenus;
 import model.collection.HandleFiles;
 
 import java.util.Scanner;
 
 public interface Controller {
-    public static void createAll(){
+    public static void createAll() throws Exception{
         createAllMenus();
         createAllDataFromJSON();
     }
-    public static void createAllDataFromJSON(){
+    public static void createAllDataFromJSON() throws Exception{
         HandleFiles.createStringOfHeroes();
         HandleFiles.createStringOfItems();
         HandleFiles.createStringOfMinions();
         HandleFiles.createStringOfPlayers();
         HandleFiles.createStringOfSpells();
+        HandleFiles.createStringOfUsableItems();
     }
     public static void createAllMenus(){
         AllDatas.account= new LinkedListMenus("Account",true);
