@@ -2,46 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c27b9bde-d14b-4a85-a148-38ebed7bb2a3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/Hero.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Hero.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Asbsavar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Asbsavar Fars.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ashkboos.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ashkboos.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Bahman.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Bahman.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Gorazsavar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Gorazsavar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Siah.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Div Siah.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ejhdeha Atashandaz.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ejhdeha Atashandaz.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Foolad Zereh.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Foolad Zereh.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghollabsangdar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghollabsangdar Toorani.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Bozorg.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Bozorg.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Dosar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Dosar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Sangandaz.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Sangandaz.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Giv.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Giv.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg Sefid.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg Sefid.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorg.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorzdar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Gorzdar Toorani.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Iraj.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Iraj.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar Aazam.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar Aazam.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jadoogar.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jasoos Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jasoos Toorani.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Jen.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Jen.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Mar Sammi.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Mar Sammi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Fars.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Neyzedar Toorani.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Oghab.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Oghab.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Pahlevan Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Pahlevan Fars.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Palang.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Palang.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Piran.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Piran.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Sepahsalar Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Sepahsalar Fars.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shah Ghool.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shah Ghool.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shahzade Toorani.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shahzade Toorani.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shamshirzan Fars.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shamshirzan Fars.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/Buff.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Buff.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/collection/Minion.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Minion.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -55,17 +19,204 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1571">
-              <caret line="262" selection-start-line="262" selection-end-line="262" />
+            <state relative-caret-position="-2941">
+              <caret line="15" column="50" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+              <folding>
+                <element signature="e#1505#1506#0" expanded="true" />
+                <element signature="e#1544#1545#0" expanded="true" />
+                <element signature="e#1609#1610#0" expanded="true" />
+                <element signature="e#1665#1666#0" expanded="true" />
+                <element signature="e#1708#1709#0" expanded="true" />
+                <element signature="e#1747#1748#0" expanded="true" />
+                <element signature="e#1812#1813#0" expanded="true" />
+                <element signature="e#1868#1869#0" expanded="true" />
+                <element signature="e#1910#1911#0" expanded="true" />
+                <element signature="e#1948#1949#0" expanded="true" />
+                <element signature="e#2011#2012#0" expanded="true" />
+                <element signature="e#2065#2066#0" expanded="true" />
+                <element signature="e#2114#2115#0" expanded="true" />
+                <element signature="e#2150#2151#0" expanded="true" />
+                <element signature="e#2217#2218#0" expanded="true" />
+                <element signature="e#2267#2268#0" expanded="true" />
+                <element signature="e#2316#2317#0" expanded="true" />
+                <element signature="e#2352#2353#0" expanded="true" />
+                <element signature="e#2419#2420#0" expanded="true" />
+                <element signature="e#2469#2470#0" expanded="true" />
+                <element signature="e#2504#2505#0" expanded="true" />
+                <element signature="e#2538#2539#0" expanded="true" />
+                <element signature="e#2589#2590#0" expanded="true" />
+                <element signature="e#2635#2636#0" expanded="true" />
+                <element signature="e#2670#2671#0" expanded="true" />
+                <element signature="e#2704#2705#0" expanded="true" />
+                <element signature="e#2755#2756#0" expanded="true" />
+                <element signature="e#2801#2802#0" expanded="true" />
+                <element signature="e#2838#2839#0" expanded="true" />
+                <element signature="e#2871#2872#0" expanded="true" />
+                <element signature="e#2923#2924#0" expanded="true" />
+                <element signature="e#2967#2968#0" expanded="true" />
+                <element signature="e#3002#3003#0" expanded="true" />
+                <element signature="e#3036#3037#0" expanded="true" />
+                <element signature="e#3087#3088#0" expanded="true" />
+                <element signature="e#3133#3134#0" expanded="true" />
+                <element signature="e#3165#3166#0" expanded="true" />
+                <element signature="e#3196#3197#0" expanded="true" />
+                <element signature="e#3241#3242#0" expanded="true" />
+                <element signature="e#3281#3282#0" expanded="true" />
+                <element signature="e#3335#3336#0" expanded="true" />
+                <element signature="e#3367#3368#0" expanded="true" />
+                <element signature="e#3435#3436#0" expanded="true" />
+                <element signature="e#3477#3478#0" expanded="true" />
+                <element signature="e#8632#8633#0" expanded="true" />
+                <element signature="e#8678#8679#0" expanded="true" />
+                <element signature="e#8714#8715#0" expanded="true" />
+                <element signature="e#8761#8762#0" expanded="true" />
+                <element signature="e#9268#9269#0" expanded="true" />
+                <element signature="e#9313#9314#0" expanded="true" />
+                <element signature="e#9354#9355#0" expanded="true" />
+                <element signature="e#9400#9401#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json">
+        <entry file="file://$PROJECT_DIR$/model/collection/Minion.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+            <state relative-caret-position="161">
+              <caret line="186" column="35" lean-forward="true" selection-start-line="186" selection-start-column="35" selection-end-line="186" selection-end-column="35" />
+              <folding>
+                <element signature="e#1293#1294#0" expanded="true" />
+                <element signature="e#1335#1336#0" expanded="true" />
+                <element signature="e#1373#1374#0" expanded="true" />
+                <element signature="e#1407#1408#0" expanded="true" />
+                <element signature="e#1462#1463#0" expanded="true" />
+                <element signature="e#1508#1509#0" expanded="true" />
+                <element signature="e#1550#1551#0" expanded="true" />
+                <element signature="e#1588#1589#0" expanded="true" />
+                <element signature="e#1651#1652#0" expanded="true" />
+                <element signature="e#1705#1706#0" expanded="true" />
+                <element signature="e#1748#1749#0" expanded="true" />
+                <element signature="e#1787#1788#0" expanded="true" />
+                <element signature="e#1852#1853#0" expanded="true" />
+                <element signature="e#1908#1909#0" expanded="true" />
+                <element signature="e#2104#2105#0" expanded="true" />
+                <element signature="e#2146#2147#0" expanded="true" />
+                <element signature="e#2322#2323#0" expanded="true" />
+                <element signature="e#2356#2357#0" expanded="true" />
+                <element signature="e#2407#2408#0" expanded="true" />
+                <element signature="e#2453#2454#0" expanded="true" />
+                <element signature="e#2488#2489#0" expanded="true" />
+                <element signature="e#2522#2523#0" expanded="true" />
+                <element signature="e#2573#2574#0" expanded="true" />
+                <element signature="e#2619#2620#0" expanded="true" />
+                <element signature="e#2656#2657#0" expanded="true" />
+                <element signature="e#2689#2690#0" expanded="true" />
+                <element signature="e#2741#2742#0" expanded="true" />
+                <element signature="e#2785#2786#0" expanded="true" />
+                <element signature="e#2820#2821#0" expanded="true" />
+                <element signature="e#2854#2855#0" expanded="true" />
+                <element signature="e#2905#2906#0" expanded="true" />
+                <element signature="e#2951#2952#0" expanded="true" />
+                <element signature="e#2992#2993#0" expanded="true" />
+                <element signature="e#3029#3030#0" expanded="true" />
+                <element signature="e#3089#3090#0" expanded="true" />
+                <element signature="e#3141#3142#0" expanded="true" />
+                <element signature="e#8938#8939#0" expanded="true" />
+                <element signature="e#8985#8986#0" expanded="true" />
+                <element signature="e#9029#9030#0" expanded="true" />
+                <element signature="e#9075#9076#0" expanded="true" />
+                <element signature="e#9121#9122#0" expanded="true" />
+                <element signature="e#9200#9201#0" expanded="true" />
+                <element signature="e#9251#9252#0" expanded="true" />
+                <element signature="e#9330#9331#0" expanded="true" />
+                <element signature="e#9381#9382#0" expanded="true" />
+                <element signature="e#9460#9461#0" expanded="true" />
+                <element signature="e#9504#9505#0" expanded="true" />
+                <element signature="e#9540#9541#0" expanded="true" />
+                <element signature="e#9596#9597#0" expanded="true" />
+                <element signature="e#9675#9676#0" expanded="true" />
+                <element signature="e#9869#9870#0" expanded="true" />
+                <element signature="e#9914#9915#0" expanded="true" />
+                <element signature="e#9963#9964#0" expanded="true" />
+                <element signature="e#10009#10010#0" expanded="true" />
+                <element signature="e#10058#10059#0" expanded="true" />
+                <element signature="e#10095#10096#0" expanded="true" />
+                <element signature="e#10102#10766#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/GameView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="340">
+              <caret line="92" column="22" lean-forward="true" selection-start-line="92" selection-start-column="22" selection-end-line="92" selection-end-column="55" />
+              <folding>
+                <element signature="method#searchTypeAndShow#0;class#GameView#0" />
+                <element signature="method#showCard#0;class#GameView#0" />
+                <element signature="method#showItem#0;class#GameView#0" />
+                <element signature="method#showMinion#0;class#GameView#0" />
+                <element signature="method#showSpell#0;class#GameView#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/Buff.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="850">
+              <caret line="76" column="4" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
+              <folding>
+                <element signature="method#getTypeOfBuffByItsName#0;class#Buff#0" />
+                <element signature="method#getTypeOfBuffByName#0;class#Buff#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="19" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/Spell.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="688">
+              <caret line="128" column="27" lean-forward="true" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -84,7 +235,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Div Sefid.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Arash.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Heroes/Ejhdeha Haftsar.json" />
@@ -134,6 +284,8 @@
         <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Shamshirzan Fars.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json" />
         <option value="$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json" />
+        <option value="$PROJECT_DIR$/model/collection/Buff.java" />
+        <option value="$PROJECT_DIR$/model/collection/Minion.java" />
       </list>
     </option>
   </component>
@@ -182,13 +334,6 @@
             <path>
               <item name="project-10" type="b2602c69:ProjectViewProjectNode" />
               <item name="project-10" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-              <item name="collection" type="462c0819:PsiDirectoryNode" />
-              <item name="JSON-Spells" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="project-10" type="b2602c69:ProjectViewProjectNode" />
-              <item name="project-10" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -200,7 +345,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556913223991" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556962029603" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Desktop/json-simple-1.1.1.jar!/" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -231,7 +376,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1556894387556</updated>
-      <workItem from="1556894390711" duration="12020000" />
+      <workItem from="1556894390711" duration="22776000" />
     </task>
     <task id="LOCAL-00001" summary="add special powers to hero's json files">
       <created>1556895945859</created>
@@ -240,14 +385,21 @@
       <option name="project" value="LOCAL" />
       <updated>1556895945859</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add buff deatils for minions to json files">
+      <created>1556913365747</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1556913365747</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12020000" />
+    <option name="totallyTimeSpent" value="22776000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="749" height="687" extended-state="0" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" order="0" />
@@ -255,7 +407,7 @@
       <window_info id="Capture Tool" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Image Layers" order="4" />
-      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.34687954" />
+      <window_info active="true" content_ui="combo" id="Project" order="5" visible="true" weight="0.19352227" />
       <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" order="0" />
       <window_info anchor="bottom" id="Terminal" order="1" />
@@ -315,32 +467,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add special powers to hero's json files" />
-    <option name="LAST_COMMIT_MESSAGE" value="add special powers to hero's json files" />
+    <MESSAGE value="add buff deatils for minions to json files" />
+    <option name="LAST_COMMIT_MESSAGE" value="add buff deatils for minions to json files" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/model/collection/Minion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1360">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Dispel.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="22" lean-forward="true" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Health With Profit.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Poison Lake.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Hell Fire.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/All Power.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -351,9 +481,6 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/All Disarm.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Madness.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json">
@@ -440,13 +567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Goraz Vahshi.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -517,20 +637,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="17" lean-forward="true" selection-start-column="17" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Mar Ghoolpeikar.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -542,13 +648,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -622,13 +721,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1571">
-          <caret line="262" selection-start-line="262" selection-end-line="262" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Siavash.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -639,7 +731,204 @@
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Shir Darrande.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
-          <caret line="1" column="21" selection-start-line="1" selection-start-column="21" selection-end-line="1" selection-end-column="21" />
+          <caret line="1" column="23" lean-forward="true" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/Item.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Ghool Takcheshm,.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="9" selection-start-line="11" selection-start-column="9" selection-end-line="11" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/Spell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="688">
+          <caret line="128" column="27" lean-forward="true" selection-start-line="128" selection-start-column="27" selection-end-line="128" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Spells/Madness.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Nane Sarma.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="5" lean-forward="true" selection-start-line="10" selection-start-column="5" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2941">
+          <caret line="15" column="50" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+          <folding>
+            <element signature="e#1505#1506#0" expanded="true" />
+            <element signature="e#1544#1545#0" expanded="true" />
+            <element signature="e#1609#1610#0" expanded="true" />
+            <element signature="e#1665#1666#0" expanded="true" />
+            <element signature="e#1708#1709#0" expanded="true" />
+            <element signature="e#1747#1748#0" expanded="true" />
+            <element signature="e#1812#1813#0" expanded="true" />
+            <element signature="e#1868#1869#0" expanded="true" />
+            <element signature="e#1910#1911#0" expanded="true" />
+            <element signature="e#1948#1949#0" expanded="true" />
+            <element signature="e#2011#2012#0" expanded="true" />
+            <element signature="e#2065#2066#0" expanded="true" />
+            <element signature="e#2114#2115#0" expanded="true" />
+            <element signature="e#2150#2151#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
+            <element signature="e#2267#2268#0" expanded="true" />
+            <element signature="e#2316#2317#0" expanded="true" />
+            <element signature="e#2352#2353#0" expanded="true" />
+            <element signature="e#2419#2420#0" expanded="true" />
+            <element signature="e#2469#2470#0" expanded="true" />
+            <element signature="e#2504#2505#0" expanded="true" />
+            <element signature="e#2538#2539#0" expanded="true" />
+            <element signature="e#2589#2590#0" expanded="true" />
+            <element signature="e#2635#2636#0" expanded="true" />
+            <element signature="e#2670#2671#0" expanded="true" />
+            <element signature="e#2704#2705#0" expanded="true" />
+            <element signature="e#2755#2756#0" expanded="true" />
+            <element signature="e#2801#2802#0" expanded="true" />
+            <element signature="e#2838#2839#0" expanded="true" />
+            <element signature="e#2871#2872#0" expanded="true" />
+            <element signature="e#2923#2924#0" expanded="true" />
+            <element signature="e#2967#2968#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="e#3036#3037#0" expanded="true" />
+            <element signature="e#3087#3088#0" expanded="true" />
+            <element signature="e#3133#3134#0" expanded="true" />
+            <element signature="e#3165#3166#0" expanded="true" />
+            <element signature="e#3196#3197#0" expanded="true" />
+            <element signature="e#3241#3242#0" expanded="true" />
+            <element signature="e#3281#3282#0" expanded="true" />
+            <element signature="e#3335#3336#0" expanded="true" />
+            <element signature="e#3367#3368#0" expanded="true" />
+            <element signature="e#3435#3436#0" expanded="true" />
+            <element signature="e#3477#3478#0" expanded="true" />
+            <element signature="e#8632#8633#0" expanded="true" />
+            <element signature="e#8678#8679#0" expanded="true" />
+            <element signature="e#8714#8715#0" expanded="true" />
+            <element signature="e#8761#8762#0" expanded="true" />
+            <element signature="e#9268#9269#0" expanded="true" />
+            <element signature="e#9313#9314#0" expanded="true" />
+            <element signature="e#9354#9355#0" expanded="true" />
+            <element signature="e#9400#9401#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Toorani.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Kamandar Fars.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="28" lean-forward="true" selection-start-line="18" selection-start-column="28" selection-end-line="18" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="92" column="22" lean-forward="true" selection-start-line="92" selection-start-column="22" selection-end-line="92" selection-end-column="55" />
+          <folding>
+            <element signature="method#searchTypeAndShow#0;class#GameView#0" />
+            <element signature="method#showCard#0;class#GameView#0" />
+            <element signature="method#showItem#0;class#GameView#0" />
+            <element signature="method#showMinion#0;class#GameView#0" />
+            <element signature="method#showSpell#0;class#GameView#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/Buff.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="76" column="4" selection-start-line="76" selection-start-column="4" selection-end-line="76" selection-end-column="4" />
+          <folding>
+            <element signature="method#getTypeOfBuffByItsName#0;class#Buff#0" />
+            <element signature="method#getTypeOfBuffByName#0;class#Buff#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/Minion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="186" column="35" lean-forward="true" selection-start-line="186" selection-start-column="35" selection-end-line="186" selection-end-column="35" />
+          <folding>
+            <element signature="e#1293#1294#0" expanded="true" />
+            <element signature="e#1335#1336#0" expanded="true" />
+            <element signature="e#1373#1374#0" expanded="true" />
+            <element signature="e#1407#1408#0" expanded="true" />
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1508#1509#0" expanded="true" />
+            <element signature="e#1550#1551#0" expanded="true" />
+            <element signature="e#1588#1589#0" expanded="true" />
+            <element signature="e#1651#1652#0" expanded="true" />
+            <element signature="e#1705#1706#0" expanded="true" />
+            <element signature="e#1748#1749#0" expanded="true" />
+            <element signature="e#1787#1788#0" expanded="true" />
+            <element signature="e#1852#1853#0" expanded="true" />
+            <element signature="e#1908#1909#0" expanded="true" />
+            <element signature="e#2104#2105#0" expanded="true" />
+            <element signature="e#2146#2147#0" expanded="true" />
+            <element signature="e#2322#2323#0" expanded="true" />
+            <element signature="e#2356#2357#0" expanded="true" />
+            <element signature="e#2407#2408#0" expanded="true" />
+            <element signature="e#2453#2454#0" expanded="true" />
+            <element signature="e#2488#2489#0" expanded="true" />
+            <element signature="e#2522#2523#0" expanded="true" />
+            <element signature="e#2573#2574#0" expanded="true" />
+            <element signature="e#2619#2620#0" expanded="true" />
+            <element signature="e#2656#2657#0" expanded="true" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2741#2742#0" expanded="true" />
+            <element signature="e#2785#2786#0" expanded="true" />
+            <element signature="e#2820#2821#0" expanded="true" />
+            <element signature="e#2854#2855#0" expanded="true" />
+            <element signature="e#2905#2906#0" expanded="true" />
+            <element signature="e#2951#2952#0" expanded="true" />
+            <element signature="e#2992#2993#0" expanded="true" />
+            <element signature="e#3029#3030#0" expanded="true" />
+            <element signature="e#3089#3090#0" expanded="true" />
+            <element signature="e#3141#3142#0" expanded="true" />
+            <element signature="e#8938#8939#0" expanded="true" />
+            <element signature="e#8985#8986#0" expanded="true" />
+            <element signature="e#9029#9030#0" expanded="true" />
+            <element signature="e#9075#9076#0" expanded="true" />
+            <element signature="e#9121#9122#0" expanded="true" />
+            <element signature="e#9200#9201#0" expanded="true" />
+            <element signature="e#9251#9252#0" expanded="true" />
+            <element signature="e#9330#9331#0" expanded="true" />
+            <element signature="e#9381#9382#0" expanded="true" />
+            <element signature="e#9460#9461#0" expanded="true" />
+            <element signature="e#9504#9505#0" expanded="true" />
+            <element signature="e#9540#9541#0" expanded="true" />
+            <element signature="e#9596#9597#0" expanded="true" />
+            <element signature="e#9675#9676#0" expanded="true" />
+            <element signature="e#9869#9870#0" expanded="true" />
+            <element signature="e#9914#9915#0" expanded="true" />
+            <element signature="e#9963#9964#0" expanded="true" />
+            <element signature="e#10009#10010#0" expanded="true" />
+            <element signature="e#10058#10059#0" expanded="true" />
+            <element signature="e#10095#10096#0" expanded="true" />
+            <element signature="e#10102#10766#0" />
+          </folding>
         </state>
       </provider>
     </entry>

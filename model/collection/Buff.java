@@ -8,12 +8,21 @@ public class Buff {
     private String type;
     private int howMuchImpact;
     private boolean isUsed;
+    private String activationTime;
 
     public Buff(int howMuchImpact, int forHowManyTurns, String name, String type){
         this.howMuchImpact = howMuchImpact;
         this.forHowManyTurns = forHowManyTurns;
         this.name = name;
         this.type = type;
+    }
+    public Buff(int howMuchImpact,int forHowManyTurns,String name,String type,String activationTime)
+    {
+        this.howMuchImpact=howMuchImpact;
+        this.forHowManyTurns=forHowManyTurns;
+        this.name=name;
+        this.type=type;
+        this.activationTime=activationTime;
     }
 
     public boolean isUsed() {
@@ -62,6 +71,16 @@ public class Buff {
             return "negative";
         }else
             return "positive";
+    }
+
+    public String getTypeOfBuffByName(String name)
+    {
+        if(name.equals("holyBuff")||name.equals("attackPowerBuff")||name.equals("healthPowerBuff"))
+        {
+            return "positive";
+        }
+        else
+            return "negative";
     }
 
 }
