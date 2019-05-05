@@ -17,7 +17,7 @@ public enum CellImpactType {
             ((Minion) card).setHealthPoint(currentHP - 2);
         }else if (card.getCardType().equals("hero")){
             int currentHP = ((Hero) card).getHealthPoint();
-            ((Hero) card).setHealthPoint(currentHP);
+            ((Hero) card).setHealthPoint(currentHP - 2);
         }
     }
 

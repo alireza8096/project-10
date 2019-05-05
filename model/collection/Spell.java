@@ -1,10 +1,6 @@
 package model.collection;
 
-import model.Cell;
-import model.CellType;
-import model.Game;
-import model.Map;
-import model.Hand;
+import model.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -512,15 +508,8 @@ public class Spell extends Card {
             Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
                     buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
 
-//            for (int j = x; j < x + 2; j++) {
-//                for (int k = y; k < y + 2; k++) {
-//
-//
-//                }
-//            }
-
             if (actsOn[i].equals("enemy/owner")){
-                applySpellOn2x2SquareOnForces(x, y, buff);
+                applySpellOn2x2SquareOnForces(x, y);
             }else if (actsOn[i].equals("map")){
                 applySpellOn2x2SquareOnMap(x, y, buff);
             }
@@ -530,7 +519,7 @@ public class Spell extends Card {
     }
 
     //method for spell that removes positive buffs from enemy forces and negative buffs from self forces
-    public static void applySpellOn2x2SquareOnForces(int x, int y, Buff buff){
+    public static void applySpellOn2x2SquareOnForces(int x, int y){
         for (int i = x; i < x + 3; i++) {
             for (int j = y; j < y + 3; j++) {
                 if (Map.getCells()[i][j].getCellSituation() == CellType.selfHero){
@@ -547,7 +536,24 @@ public class Spell extends Card {
     }
 
     public static void applySpellOn2x2SquareOnMap(int x, int y, Buff buff){
+        for (int i = x; i < x + 2; i++) {
+            for (int j = y; j < y + 2; j++) {
+                Map.getCells()[i][j].setCellImpactType(CellImpactType.fire);
+            }
+        }
 
+        for (int i = x; i < x + 2; i++) {
+            for (int j = y; j < y + 2; j++) {
+                if (Map.getCells()[i][j].getCellSituation() == CellType.selfHero){
+                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer1());
+                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyHero){
+                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer2());
+                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyMinion ||
+                        Map.getCells()[i][j].getCellSituation() == CellType.selfMinion){
+                    CellImpactType.applyFireImpactOnCard(Minion.getMinionInThisCoordination(x, y));
+                }
+            }
+        }
     }
 
 

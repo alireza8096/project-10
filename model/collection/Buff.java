@@ -81,16 +81,6 @@ public class Buff {
             return "positive";
     }
 
-    public String getTypeOfBuffByName(String name)
-    {
-        if(name.equals("holyBuff")||name.equals("attackPowerBuff")||name.equals("healthPowerBuff"))
-        {
-            return "positive";
-        }
-        else
-            return "negative";
-    }
-
     public static boolean checkIfBuffIsActive(Buff buff){
         int numberOfTurns = buff.getForHowManyTurns();
         if (numberOfTurns > 0){
