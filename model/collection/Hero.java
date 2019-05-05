@@ -160,7 +160,7 @@ public class Hero extends Card{
     public void applyBuffsOnHero(){
         ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
         for (Buff buff : positiveBuffsCopy){
-            if (checkIfBuffIsActive(buff))
+            if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnHeroForOneTurn(buff);
             else
                 this.removeBuffFromHero(buff);
@@ -168,21 +168,14 @@ public class Hero extends Card{
 
         ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
         for (Buff buff : negativeBuffsCopy){
-            if (checkIfBuffIsActive(buff))
+            if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnHeroForOneTurn(buff);
             else
                 this.removeBuffFromHero(buff);
         }
     }
 
-    public boolean checkIfBuffIsActive(Buff buff){
-        int numberOfTurns = buff.getForHowManyTurns();
-        if (numberOfTurns > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
     public void applyBuffOnHeroForOneTurn(Buff buff){
         int currentNumberOfTurns = buff.getForHowManyTurns();

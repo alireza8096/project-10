@@ -291,7 +291,7 @@ public class Minion extends Card {
             }
         }
     }
-    public void applyPassvibeBuffs()
+    public void applyPassiveBuffs()
     {
         for(Buff buff: this.getMinionNegativeBuffs())
         {
@@ -444,7 +444,7 @@ public class Minion extends Card {
         for(String minionName:minionNames)
         {
             JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                    (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" +minionName+".json");
+                    (ADDRESS_OF_JSON_FILES + "JSON-Minions/" +minionName+".json");
             int howMuchImpact=Integer.parseInt(jsonObject.get("howMuchChange").toString());
             int forHowManyTurns=Integer.parseInt(jsonObject.get("forHowManyTurns").toString());
             String name=jsonObject.get("whichBuff").toString();
@@ -462,5 +462,10 @@ public class Minion extends Card {
             }
         }
     }
-
+    public void applySpceialPower(String minionName) throws IOException, ParseException {
+        JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
+        String targetsSpecified=jsonObject.get("targetsSpecified").toString();
+        String actsOn=jsonObject.get("actsOn").toString();
+    }
 }
