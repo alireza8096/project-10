@@ -1,18 +1,17 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Cell {
     private int coordinateX;
     private int coordinateY;
-    private ArrayList<CellType> cellTypes = new ArrayList<>();
+    private CellType cellSituation;
+    private CellImpactType cellImpactType;
 
-    public ArrayList<CellType> getCellTypes() {
-        return cellTypes;
+    public CellImpactType getCellImpactType() {
+        return cellImpactType;
     }
 
-    public void setCellTypes(ArrayList<CellType> cellTypes) {
-        this.cellTypes = cellTypes;
+    public void setCellImpactType(CellImpactType cellImpactType) {
+        this.cellImpactType = cellImpactType;
     }
 
     public int getCoordinateX() {
@@ -31,11 +30,17 @@ public class Cell {
         this.coordinateY = coordinateY;
     }
 
+    public CellType getCellSituation() {
+        return cellSituation;
+    }
+
+    public void setCellSituation(CellType cellSituation) {
+        this.cellSituation = cellSituation;
+    }
+
     public static Cell getCellByCoordination(int x, int y){
         return Map.getCells()[x][y];
     }
-
-
 
 
 
