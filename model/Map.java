@@ -62,12 +62,12 @@ public class Map {
 //            return false;
 //    }
 
-//    public static boolean thisCellIsEmpty(int x, int y){
-//        Cell cell = Cell.getCellByCoordination(x, y);
-//        CellType cellType = cell.getCellSituation();
-//        return cellType != CellType.selfHero && cellType != CellType.enemyHero &&
-//                cellType != CellType.selfMinion && cellType != CellType.enemyMinion;
-//    }
+    public static boolean thisCellIsEmpty(int x, int y){
+        Cell cell = Cell.getCellByCoordination(x, y);
+        CellType cellType = cell.getCellSituation();
+        return cellType != CellType.selfHero && cellType != CellType.enemyHero &&
+                cellType != CellType.selfMinion && cellType != CellType.enemyMinion;
+    }
 
 
 }

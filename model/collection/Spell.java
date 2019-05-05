@@ -375,7 +375,7 @@ public class Spell extends Card {
 //    }
         switch (cellType){
             case selfHero:
-
+                insertSpellInCellTypeSelfHero(jsonObject, x, y);
                 break;
             case selfMinion:
 
@@ -408,12 +408,15 @@ public class Spell extends Card {
             case "all":
                 if (!locationOfTarget.equals("null")){//when target is all self forces
                     applySpellOnAllSelfForces(jsonObject, x, y);
-                }else{//when target is all enemy forces in a column
-                    applySpellOnAllEnemyForcesInColumn(jsonObject, x, y);
                 }
                 break;
             case "inArea":
-
+                String square = jsonObject.get("Square").toString();
+                if (square.equals("2")){
+                    applySpellOn2x2Square(jsonObject, x, y);
+                }else{
+                    applySpellOn3x3Square();
+                }
                 break;
         }
     }
@@ -496,6 +499,58 @@ public class Spell extends Card {
 
 
     }
+
+    public static void applySpellOn2x2Square(JSONObject jsonObject, int x, int y){
+        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
+        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+        String[] actsOn = jsonObject.get("actsOn").toString().split(",");
+
+        for (int i = 0; i < buffNames[i].length(); i++) {
+
+            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                    buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+
+//            for (int j = x; j < x + 2; j++) {
+//                for (int k = y; k < y + 2; k++) {
+//
+//
+//                }
+//            }
+
+            if (actsOn[i].equals("enemy/owner")){
+                applySpellOn2x2SquareOnForces(x, y, buff);
+            }else if (actsOn[i].equals("map")){
+                applySpellOn2x2SquareOnMap(x, y, buff);
+            }
+
+
+        }
+    }
+
+    //method for spell that removes positive buffs from enemy forces and negative buffs from self forces
+    public static void applySpellOn2x2SquareOnForces(int x, int y, Buff buff){
+        for (int i = x; i < x + 3; i++) {
+            for (int j = y; j < y + 3; j++) {
+                if (Map.getCells()[i][j].getCellSituation() == CellType.selfHero){
+                    Game.getInstance().getHeroOfPlayer1().getNegativeBuffs().clear();
+                }else if (Map.getCells()[i][j].getCellSituation() == CellType.selfMinion){
+                    Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().clear();
+                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyHero){
+                    Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().clear();
+                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyMinion){
+                    Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().clear();
+                }
+            }
+        }
+    }
+
+    public static void applySpellOn2x2SquareOnMap(int x, int y, Buff buff){
+
+    }
+
+
 
 
 
