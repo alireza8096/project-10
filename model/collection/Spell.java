@@ -231,14 +231,7 @@ public class Spell extends Card {
         int selfHeroX = Game.getInstance().getHeroOfPlayer1().getX();
         int selfHeroY = Game.getInstance().getHeroOfPlayer1().getY();
 
-        if ( ((x == selfHeroX - 1) && (y == selfHeroY - 1)) ||
-                ((x == selfHeroX) && (y == selfHeroY - 1)) ||
-                ((x == selfHeroX + 1) && (y == selfHeroY - 1)) ||
-                ((x == selfHeroX - 1) && (y == selfHeroY)) ||
-                ((x == selfHeroX + 1) && (y == selfHeroY)) ||
-                ((x == selfHeroX - 1) && (y == selfHeroY + 1)) ||
-                ((x == selfHeroX) && (y == selfHeroY + 1)) ||
-                ((x == selfHeroX + 1) && (y == selfHeroY + 1))){
+        if (Map.thisCellsAreAdjusting(x, y, selfHeroX, selfHeroY)){
             return true;
         }
         return false;

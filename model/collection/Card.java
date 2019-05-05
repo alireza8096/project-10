@@ -1,5 +1,6 @@
 package model.collection;
 import model.AttackType;
+import model.Map;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -183,6 +184,71 @@ public class Card {
             return Spell.getSpellByName(cardName);
         }
         return null;
+    }
+
+    public static boolean thisCardIsMelee(String cardName) throws IOException, ParseException {
+        Card card = getCardByName(cardName);
+        if (card.getCardType().equals("minion")){
+            if (((Minion)card).getAttackType().equals("melee"))
+                return true;
+
+        }else if (card.getCardType().equals("hero")){
+            if (((Hero)card).getAttackType().equals("melee"))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean thisCardIsRanged(String cardName) throws IOException, ParseException {
+        Card card = getCardByName(cardName);
+        if (card.getCardType().equals("minion")){
+            if (((Minion)card).getAttackType().equals("ranged"))
+                return true;
+        }else if (card.getCardType().equals("hero")){
+            if (((Hero)card).getAttackType().equals("ranged"))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean thisCardIsHybrid(String cardName) throws IOException, ParseException {
+        Card card = getCardByName(cardName);
+        if (card.getCardType().equals("minion")){
+            if (((Minion)card).getAttackType().equals("hybrid"))
+                return true;
+        }else if (card.getCardType().equals("hero")){
+            if (((Hero)card).getAttackType().equals("hybrid"))
+                return true;
+        }
+        return false;
+    }
+
+    public static boolean checkIfCardCanAttack(Card card, int targetX, int targetY){
+        int cardX = card.getX();
+        int cardY = card.getY();
+
+        String attackType = null;
+        if (card.getCardType().equals("minion")){
+            attackType = ((Minion)card).getAttackType();
+        }else if (card.getCardType().equals("hero")){
+            attackType = ((Hero)card).getAttackType();
+        }
+
+        switch (attackType){
+            case "melee":
+                if (Map.thisCellsAreAdjusting(cardX, cardY, targetX, targetY))
+                    return true;
+                else
+                    return false;
+            case "ranged":
+                if (!Map.thisCellsAreAdjusting(cardX, cardY, targetX, targetY))
+                    return true;
+                else
+                    return false;
+            case "hybrid":
+                return true;
+        }
+        return true;
     }
 
 }
