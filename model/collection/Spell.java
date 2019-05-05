@@ -374,19 +374,70 @@ public class Spell extends Card {
                 insertSpellInCellTypeSelfHero(jsonObject, x, y);
                 break;
             case selfMinion:
-
+                insertSpellInCellTypeSelfMinion(jsonObject, x, y);
                 break;
             case enemyHero:
-
+                insertSpellInCellTypeEnemyHero();
                 break;
             case enemyMinion:
-
+                insertSpellInCellTypeEnemyMinion();
                 break;
             case empty:
 
                 break;
         }
     }
+
+    public static void insertSpellInCellTypeSelfMinion(JSONObject jsonObject, int x, int y){
+        String numOfTargets = jsonObject.get("numOfTargets").toString();
+        String actsOn = jsonObject.get("actsOn").toString();
+        String locationOfTarget = jsonObject.get("locationOfTarget").toString();
+
+        switch (numOfTargets){
+            case "1":
+                if (actsOn.equals("map")){
+                    System.out.println("Invalid target!");
+                }else{
+                    applySpellOnSelfMinion(jsonObject, x, y);
+                }
+                break;
+            case "all":
+
+                break;
+            case "inArea":
+
+                break;
+        }
+    }
+
+    public static void applySpellOnSelfMinion(JSONObject jsonObject, int x, int y){
+        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
+        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+
+        for (int i = 0; i < buffNames.length; i++) {
+            if (typeOfAction[i].equals("addsBuff")){
+                Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                        buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+                if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("positive")) {
+                    Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
+                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinion(buff);
+                }else{
+                    Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
+                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinion(buff);
+                }
+            }else if (typeOfAction[i].equals("removesBuff")){
+                Minion.getMinionInThisCoordination(x, y).removeBuffFromBuffArrayListOfMinion(buffNames[i]);
+            }
+        }
+
+    }
+
+
+
+
+
 
     public static void insertSpellInCellTypeSelfHero(JSONObject jsonObject, int x, int y){
         String numOfTargets = jsonObject.get("numOfTargets").toString();
@@ -395,7 +446,7 @@ public class Spell extends Card {
 
         switch (numOfTargets){
             case "1":
-                if (actsOn.equals("enemy") || actsOn.equals("map")){
+                if (actsOn.equals("map")){
                     System.out.println("Invalid target!");
                 }else{
                     applySpellOnSelfHero(jsonObject, x, y);
@@ -411,7 +462,7 @@ public class Spell extends Card {
                 if (square.equals("2")){
                     applySpellOn2x2Square(jsonObject, x, y);
                 }else{
-                    applySpellOn3x3Square();
+                    applySpellOn3x3Square(jsonObject, x, y);
                 }
                 break;
         }
@@ -474,13 +525,13 @@ public class Spell extends Card {
             Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i])
                     , buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
             for (int j = 0; j < 5; j++) {
-                if (Map.getCells()[j][y].getCellSituation() == CellType.enemyMinion){
+                if (Map.getCells()[j][y].getCellType() == CellType.enemyMinion){
                     if (buff.getType().equals("positive")){
                         Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
                     }else{
                         Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
                     }
-                }else if (Map.getCells()[j][y].getCellSituation() == CellType.enemyHero){
+                }else if (Map.getCells()[j][y].getCellType() == CellType.enemyHero){
                     if (buff.getType().equals("positive")){
                         Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().add(buff);
                     }else{
@@ -499,12 +550,10 @@ public class Spell extends Card {
     public static void applySpellOn2x2Square(JSONObject jsonObject, int x, int y){
         String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
         String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
         String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
         String[] actsOn = jsonObject.get("actsOn").toString().split(",");
 
         for (int i = 0; i < buffNames[i].length(); i++) {
-
             Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
                     buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
 
@@ -522,13 +571,13 @@ public class Spell extends Card {
     public static void applySpellOn2x2SquareOnForces(int x, int y){
         for (int i = x; i < x + 3; i++) {
             for (int j = y; j < y + 3; j++) {
-                if (Map.getCells()[i][j].getCellSituation() == CellType.selfHero){
+                if (Map.getCells()[i][j].getCellType() == CellType.selfHero){
                     Game.getInstance().getHeroOfPlayer1().getNegativeBuffs().clear();
-                }else if (Map.getCells()[i][j].getCellSituation() == CellType.selfMinion){
+                }else if (Map.getCells()[i][j].getCellType() == CellType.selfMinion){
                     Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().clear();
-                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyHero){
+                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyHero){
                     Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().clear();
-                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyMinion){
+                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyMinion){
                     Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().clear();
                 }
             }
@@ -544,13 +593,49 @@ public class Spell extends Card {
 
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
-                if (Map.getCells()[i][j].getCellSituation() == CellType.selfHero){
-                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer1());
-                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyHero){
-                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer2());
-                }else if (Map.getCells()[i][j].getCellSituation() == CellType.enemyMinion ||
-                        Map.getCells()[i][j].getCellSituation() == CellType.selfMinion){
-                    CellImpactType.applyFireImpactOnCard(Minion.getMinionInThisCoordination(x, y));
+                if (Map.getCells()[i][j].getCellType() == CellType.selfHero){
+                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
+                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyHero){
+                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
+                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyMinion ||
+                        Map.getCells()[i][j].getCellType() == CellType.selfMinion){
+                    CellImpactType.applyFireImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);
+                }
+            }
+        }
+    }
+
+    //method for applying buff on 3x3 square
+    public static void applySpellOn3x3Square(JSONObject jsonObject, int x, int y){
+        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+        String[] actsOn = jsonObject.get("actsOn").toString().split(",");
+
+        for (int i = 0; i < buffNames.length; i++) {
+            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                    buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+
+            applySpellOn3x3SquareOnMap(x, y, buff);
+        }
+    }
+
+    public static void applySpellOn3x3SquareOnMap(int x, int y, Buff buff){
+        for (int i = x; i < x + 2; i++) {
+            for (int j = y; j < y + 2; j++) {
+                Map.getCells()[i][j].setCellImpactType(CellImpactType.poison);
+            }
+        }
+
+        for (int i = x; i < x + 2; i++) {
+            for (int j = y; j < y + 2; j++) {
+                if (Map.getCells()[i][j].getCellType() == CellType.selfHero){
+                    CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
+                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyHero){
+                    CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
+                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyMinion ||
+                        Map.getCells()[i][j].getCellType() == CellType.selfMinion){
+                    CellImpactType.applyPoisonImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);
                 }
             }
         }

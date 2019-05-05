@@ -488,4 +488,21 @@ public class Minion extends Card {
         String targetsSpecified=jsonObject.get("targetsSpecified").toString();
         String actsOn=jsonObject.get("actsOn").toString();
     }
+
+    public void removeBuffFromBuffArrayListOfMinion(String buffName){
+        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")){
+            for (Buff buff : this.getMinionPositiveBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionPositiveBuffs().remove(buff);
+                    return ;
+                }
+        }else{
+            for (Buff buff : this.getMinionNegativeBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionNegativeBuffs().remove(buff);
+                    return;
+                }
+        }
+    }
+
 }
