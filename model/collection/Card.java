@@ -1,11 +1,7 @@
 package model.collection;
 import model.AttackType;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,11 +15,29 @@ public class Card {
     protected boolean isActive;
     protected boolean hasAttackedInThisTurn;
     protected boolean hasMovedInThisTurn;
+    protected boolean movable;
+    protected boolean ableToAttack;
     protected int price;
     protected int counterOfCard;
     protected int x;
     protected int y;
     protected boolean inGame;
+
+    public boolean isMovable() {
+        return movable;
+    }
+
+    public void setMovable(boolean movable) {
+        this.movable = movable;
+    }
+
+    public boolean isAbleToAttack() {
+        return ableToAttack;
+    }
+
+    public void setAbleToAttack(boolean ableToAttack) {
+        this.ableToAttack = ableToAttack;
+    }
 
     public boolean isInGame() {
         return inGame;
@@ -148,10 +162,20 @@ public class Card {
 
     }
 
-    public void showCardInfo(){
-
+    public int returnCompleteId(String cardName,int id){
+        if (Hero.thisCardIsHero(cardName)) {
+            return 100+id;
+        }
+        else if(Item.thisCardIsItem(cardName)){
+            return 200+id;
+        }
+        else if(Minion.thisCardIsMinion(cardName)){
+            return 300+id;
+        }
+        else {
+            return 400+id;
+        }
     }
-
     public static Card getCardByName(String cardName) throws IOException, ParseException {
         if (Minion.thisCardIsMinion(cardName)){
             return Minion.getMinionByName(cardName);

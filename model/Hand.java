@@ -11,7 +11,15 @@ import java.util.Collections;
 
 public class Hand {
     private ArrayList<Card> cardsInHand = new ArrayList<>();
+    private String nextCardName;
 
+    public String getNextCardName() {
+        return nextCardName;
+    }
+
+    public void setNextCardName(String nextCardName) {
+        this.nextCardName = nextCardName;
+    }
 
     public ArrayList<Card> getCardsInHand() {
         return cardsInHand;
@@ -47,7 +55,7 @@ public class Hand {
         if (this.checkIfNumberOfCardsInHandIsValid()) {
             Deck mainDeck = Game.getInstance().getPlayer1().getMainDeck();
             Collections.shuffle(mainDeck.getCardsInDeckNames());
-            String nextCardName = mainDeck.getCardsInDeckNames().get(0);
+            nextCardName = mainDeck.getCardsInDeckNames().get(0);
             mainDeck.getCardsInDeckNames().remove(nextCardName);
             if (Minion.thisCardIsMinion(nextCardName)){
                 Minion minion = (Minion) Minion.getMinionByName(nextCardName);

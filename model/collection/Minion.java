@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Minion extends Card {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
     public static ArrayList<String> minionNames = new ArrayList<>();
     private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
@@ -19,10 +19,17 @@ public class Minion extends Card {
     private String attackType;
     private int attackRange;
     private String activationTime;
-    private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
+    private String specialPower;
 
+    public String getSpecialPower() {
+        return specialPower;
+    }
+
+    public void setSpecialPower(String specialPower) {
+        this.specialPower = specialPower;
+    }
 
     public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price){
         this.healthPoint = healthPoint;
@@ -33,6 +40,8 @@ public class Minion extends Card {
         this.activationTime = activationTime;
         this.mana = mana;
         this.price = price;
+        this.setMovable(true);
+        this.setAbleToAttack(true);
     }
 
     public ArrayList<Buff> getMinionPositiveBuffs() {
@@ -45,14 +54,6 @@ public class Minion extends Card {
 
     public void setHasHolyBuff(boolean hasHolyBuff) {
         this.hasHolyBuff = hasHolyBuff;
-    }
-
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
-    }
-
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
     }
 
     public boolean isCanCounterAttack() {
@@ -161,10 +162,12 @@ public class Minion extends Card {
                 int attackRange = Integer.parseInt(attackRangeString);
                 String attackType = jsonObject.get("attackType").toString();
                 String activationTime = jsonObject.get("activationTime").toString();
-                String manaString = jsonObject.get("price").toString();
+                String manaString = jsonObject.get("mana").toString();
                 int mana = Integer.parseInt(manaString);
+                String priceString = jsonObject.get("price").toString();
+                int price = Integer.parseInt(priceString);
 
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana);
+                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana,price);
                 return minion;
             }
         }
@@ -291,7 +294,7 @@ public class Minion extends Card {
             }
         }
     }
-    public void applyPassiveBuffs()
+    public void applyPassvibeBuffs()
     {
         for(Buff buff: this.getMinionNegativeBuffs())
         {
@@ -362,7 +365,8 @@ public class Minion extends Card {
     }
 
     public void applyStunBuff(Buff buff) {
-        this.setCanAttackOrMove(false);
+        this.setMovable(false);
+        this.setAbleToAttack(false);
     }
 
     public void applyPoisonBuff(Buff buff) {
@@ -393,7 +397,8 @@ public class Minion extends Card {
 
     public void removeDisarmBuff(Buff buff)
     {
-        this.setCanAttackOrMove(true);
+        this.setMovable(true);
+        this.setAbleToAttack(true);
     }
 
     public void removeStunBuff(Buff buff)
@@ -459,7 +464,7 @@ public class Minion extends Card {
         for(String minionName:minionNames)
         {
             JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                    (ADDRESS_OF_JSON_FILES + "JSON-Minions/" +minionName+".json");
+                    (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" +minionName+".json");
             int howMuchImpact=Integer.parseInt(jsonObject.get("howMuchChange").toString());
             int forHowManyTurns=Integer.parseInt(jsonObject.get("forHowManyTurns").toString());
             String name=jsonObject.get("whichBuff").toString();

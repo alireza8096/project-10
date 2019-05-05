@@ -8,5 +8,5 @@
   "id":10,
   "coolDown":null,
   "type": "hero",
-  "specialPower" : "null"
+  "specialPower" : "Does not have special power"
 }
