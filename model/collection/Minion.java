@@ -24,7 +24,6 @@ public class Minion extends Card {
     private boolean hasHolyBuff;
 
 
-
     public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price){
         this.healthPoint = healthPoint;
         this.setName(name);
@@ -231,17 +230,102 @@ public class Minion extends Card {
             this.applyPowerAttackWeaknessBuff(buff);
         }
     }
-//
-//    public void applyBuffsOnHero(){
-//        for (Buff buff : this.getMinionPositiveBuffs()){
-//            this.applyBuffOnMinion(buff);
-//        }
-//
-//        for (Buff buff : this.getMinionNegativeBuffs()){
-//            this.applyBuffOnMinion(buff);
-//        }
-//    }
 
+    public void applyBuffsOnHero(){
+        for (Buff buff : this.getMinionPositiveBuffs()){
+            this.applyBuffOnMinion(buff);
+        }
+
+        for (Buff buff : this.getMinionNegativeBuffs()){
+            this.applyBuffOnMinion(buff);
+        }
+    }
+    public void applyOnAttackBuffs()
+    {
+        for(Buff buff: this.getMinionNegativeBuffs())
+        {
+            if(buff.getActivationTime().equals("On Attack"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+        for(Buff buff: this.getMinionPositiveBuffs())
+        {
+            if(buff.getActivationTime().equals("On Attack"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+    }
+    public void applyOnSpawnBuffs()
+    {
+        for(Buff buff: this.getMinionNegativeBuffs())
+        {
+            if(buff.getActivationTime().equals("On Spawn"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+        for(Buff buff: this.getMinionPositiveBuffs())
+        {
+            if(buff.getActivationTime().equals("On Spawn"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+    }
+    public void applyOnDeathBuffs()
+    {
+        for(Buff buff: this.getMinionNegativeBuffs())
+        {
+            if(buff.getActivationTime().equals("On Death"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+        for(Buff buff: this.getMinionPositiveBuffs())
+        {
+            if(buff.getActivationTime().equals("On Death"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+    }
+    public void applyPassvibeBuffs()
+    {
+        for(Buff buff: this.getMinionNegativeBuffs())
+        {
+            if(buff.getActivationTime().equals("Passvive"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+        for(Buff buff: this.getMinionPositiveBuffs())
+        {
+            if(buff.getActivationTime().equals("Passive"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+    }
+
+    public void applyOnDefendBuffs()
+    {
+        for(Buff buff: this.getMinionNegativeBuffs())
+        {
+            if(buff.getActivationTime().equals("On Defend"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+        for(Buff buff: this.getMinionPositiveBuffs())
+        {
+            if(buff.getActivationTime().equals("On Defend"))
+            {
+                this.applyBuffOnMinion(buff);
+            }
+        }
+    }
     public void removeBuffFromMinion(Buff buff){
         String buffName = buff.getName();
         if(buffName.equals("attackPowerWeaknessBuff"))
