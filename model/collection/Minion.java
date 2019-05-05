@@ -23,7 +23,6 @@ public class Minion extends Card {
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
 
-
     public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price){
         this.healthPoint = healthPoint;
         this.setName(name);
@@ -163,8 +162,10 @@ public class Minion extends Card {
                 String activationTime = jsonObject.get("activationTime").toString();
                 String manaString = jsonObject.get("price").toString();
                 int mana = Integer.parseInt(manaString);
+                String priceString = jsonObject.get("price").toString();
+                int price = Integer.parseInt(priceString);
 
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana);
+                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana, price);
                 return minion;
             }
         }
@@ -475,4 +476,22 @@ public class Minion extends Card {
         }
         return false;
     }
+
+    public void removeBuffFromBuffArrayListOfMinion(String buffName){
+        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")){
+            for (Buff buff : this.getMinionPositiveBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionPositiveBuffs().remove(buff);
+                    return ;
+                }
+        }else{
+            for (Buff buff : this.getMinionNegativeBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionNegativeBuffs().remove(buff);
+                    return;
+                }
+        }
+    }
+
+
 }

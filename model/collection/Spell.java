@@ -139,6 +139,7 @@ public class Spell extends Card {
         }
     }
 
+
     public static void insertSpellInAnEmptyCell(JSONObject jsonObject, int x, int y){
         String numOfTargets = jsonObject.get("numOfTargets").toString();
         String square = jsonObject.get("Square").toString();
@@ -159,9 +160,6 @@ public class Spell extends Card {
                 break;
         }
     }
-
-
-
 
     public static void insertSpellInCellTypeEnemyMinion(JSONObject jsonObject, int x, int y){
         String numOfTargets = jsonObject.get("numOfTargets").toString();
