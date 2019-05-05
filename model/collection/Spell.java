@@ -270,17 +270,17 @@ public class Spell extends Card {
 //
 //    }
 
-    public static void insertSpellInThisCoordination(String spellName, int x, int y) throws IOException, ParseException {
-
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-                + "JSON-Spells/" + spellName + ".json");
-//        CellType cellType = Map.getCells()[x][y].getCellSituation();
-        String targetsSpecified = jsonObject.get("targetsSpecified").toString();
-        String actsOn = jsonObject.get("actsOn").toString();
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+//    public static void insertSpellInThisCoordination(String spellName, int x, int y) throws IOException, ParseException {
+//
+//        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
+//                + "JSON-Spells/" + spellName + ".json");
+////        CellType cellType = Map.getCells()[x][y].getCellSituation();
+//        String targetsSpecified = jsonObject.get("targetsSpecified").toString();
+//        String actsOn = jsonObject.get("actsOn").toString();
+//        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+//        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+//        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
+//        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
 
 //        switch (cellType){
 //            case selfHero:
@@ -373,45 +373,45 @@ public class Spell extends Card {
 //                break;
 //        }
 //    }
-        switch (cellType){
-            case selfHero:
+//        switch (cellType){
+//            case selfHero:
+//
+//                break;
+//            case selfMinion:
+//
+//                break;
+//            case enemyHero:
+//
+//                break;
+//            case enemyMinion:
+//
+//                break;
+//            case empty:
+//
+//                break;
+//        }
+//    }
 
-                break;
-            case selfMinion:
-
-                break;
-            case enemyHero:
-
-                break;
-            case enemyMinion:
-
-                break;
-            case empty:
-
-                break;
-        }
-    }
-
-    public static void insertSpellInCellTypeSelfHero(JSONObject jsonObject, int x, int y){
-        String numOfTargets = jsonObject.get("numOfTargets").toString();
-        String actsOn = jsonObject.get("actsOn").toString();
-
-        switch (numOfTargets){
-            case "1":
-                if (actsOn.equals("enemy") || actsOn.equals("map")){
-                    System.out.println("Invalid target!");
-                }else{
-
-                }
-                break;
-            case "all":
-
-                break;
-            case "inArea":
-
-                break;
-        }
-    }
+//    public static void insertSpellInCellTypeSelfHero(JSONObject jsonObject, int x, int y){
+//        String numOfTargets = jsonObject.get("numOfTargets").toString();
+//        String actsOn = jsonObject.get("actsOn").toString();
+//
+//        switch (numOfTargets){
+//            case "1":
+//                if (actsOn.equals("enemy") || actsOn.equals("map")){
+//                    System.out.println("Invalid target!");
+//                }else{
+//
+//                }
+//                break;
+//            case "all":
+//
+//                break;
+//            case "inArea":
+//
+//                break;
+//        }
+//    }
 
 
 

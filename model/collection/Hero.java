@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Hero extends Card{
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
@@ -24,7 +24,15 @@ public class Hero extends Card{
     private boolean canCounterAttack;
     private boolean holyBuffIsActive;
 
-    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown,String specialPower){
+    public String getSpecialPower() {
+        return specialPower;
+    }
+
+    public void setSpecialPower(String specialPower) {
+        this.specialPower = specialPower;
+    }
+
+    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown, String specialPower){
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPower = attackPower;
@@ -300,12 +308,12 @@ public class Hero extends Card{
         this.setCanCounterAttack(true);
     }
 
-    public void applyCellImpact(Minion minion, Map map)
-    {
-        int x=minion.getX();
-        int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellSituation())
-        {
+//    public void applyCellImpact(Minion minion, Map map)
+//    {
+//        int x=minion.getX();
+//        int y=minion.getY();
+//        switch (((map.getCells())[x][y]).getCellSituation())
+//        {
 //            case fire:
 //                this.setHealthPoint(this.getHealthPoint()-2);
 //                break;
@@ -324,8 +332,8 @@ public class Hero extends Card{
 //                buff.setType("negative");
 //                this.getNegativeBuffs().add(buff);
 //                break;
-        }
-    }
+//        }
+//    }
 
     public static void insertHeroInMap() throws IOException, ParseException {
         String heroName = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeckName();

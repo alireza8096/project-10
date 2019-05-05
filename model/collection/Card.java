@@ -15,7 +15,7 @@ public class Card {
     protected boolean isActive;
     protected boolean hasAttackedInThisTurn;
     protected boolean hasMovedInThisTurn;
-    protected boolean movabl;
+    protected boolean movable;
     protected boolean ableToAttack;
     protected int price;
     protected int counterOfCard;
@@ -162,10 +162,20 @@ public class Card {
 
     }
 
-    public void showCardInfo(){
-
+    public int returnCompleteId(String cardName,int id){
+        if (Hero.thisCardIsHero(cardName)) {
+            return 100+id;
+        }
+        else if(Item.thisCardIsItem(cardName)){
+            return 200+id;
+        }
+        else if(Minion.thisCardIsMinion(cardName)){
+            return 300+id;
+        }
+        else {
+            return 400+id;
+        }
     }
-
     public static Card getCardByName(String cardName) throws IOException, ParseException {
         if (Minion.thisCardIsMinion(cardName)){
             return Minion.getMinionByName(cardName);

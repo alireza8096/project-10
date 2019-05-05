@@ -3,8 +3,9 @@ package model;
 public class Cell {
     private int coordinateX;
     private int coordinateY;
-    private CellType cellSituation;
+    private CellType cellType;
     private CellImpactType cellImpactType;
+    private CellItemType cellItemType;
 
     public CellImpactType getCellImpactType() {
         return cellImpactType;
@@ -30,12 +31,20 @@ public class Cell {
         this.coordinateY = coordinateY;
     }
 
-    public CellType getCellSituation() {
-        return cellSituation;
+    public CellItemType getCellItemType() {
+        return cellItemType;
     }
 
-    public void setCellSituation(CellType cellSituation) {
-        this.cellSituation = cellSituation;
+    public CellType getCellType() {
+        return cellType;
+    }
+
+    public void setCellType(CellType cellType) {
+        this.cellType = cellType;
+    }
+
+    public void setCellItemType(CellItemType cellItemType) {
+        this.cellItemType = cellItemType;
     }
 
     public static Cell getCellByCoordination(int x, int y){

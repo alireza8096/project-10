@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Minion extends Card {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
 
     public static ArrayList<String> minionNames = new ArrayList<>();
     private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
@@ -21,7 +21,15 @@ public class Minion extends Card {
     private String activationTime;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
+    private String specialPower;
 
+    public String getSpecialPower() {
+        return specialPower;
+    }
+
+    public void setSpecialPower(String specialPower) {
+        this.specialPower = specialPower;
+    }
 
     public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price){
         this.healthPoint = healthPoint;
@@ -154,10 +162,12 @@ public class Minion extends Card {
                 int attackRange = Integer.parseInt(attackRangeString);
                 String attackType = jsonObject.get("attackType").toString();
                 String activationTime = jsonObject.get("activationTime").toString();
-                String manaString = jsonObject.get("price").toString();
+                String manaString = jsonObject.get("mana").toString();
                 int mana = Integer.parseInt(manaString);
+                String priceString = jsonObject.get("price").toString();
+                int price = Integer.parseInt(priceString);
 
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana);
+                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana,price);
                 return minion;
             }
         }
@@ -401,28 +411,28 @@ public class Minion extends Card {
         setHasHolyBuff(false);
     }
 
-    public void applyCellImpact(Minion minion, Map map)
-    {
-        int x=minion.getX();
-        int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellSituation())
-        {
-            case fire:
-                this.setHealthPoint(this.getHealthPoint()-2);
-                break;
-            case holy:
-                this.setHasHolyBuff(true);
-                break;
-            case empty:
-                break;
-            case flag:
-                break;
-            case poison:
-                Buff buff = new Buff(1,3,"poisonBuff","negative");
-                this.getMinionPositiveBuffs().add(buff);
-                break;
-        }
-    }
+//    public void applyCellImpact(Minion minion, Map map)
+//    {
+//        int x=minion.getX();
+//        int y=minion.getY();
+//        switch (((map.getCells())[x][y]).getCellSituation())
+//        {
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHasHolyBuff(true);
+//                break;
+//            case empty:
+//                break;
+//            case flag:
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                this.getMinionPositiveBuffs().add(buff);
+//                break;
+//        }
+//    }
 
     public static Minion getMinionInThisCoordination(int x, int y){
         Map map = Game.getInstance().getMap();

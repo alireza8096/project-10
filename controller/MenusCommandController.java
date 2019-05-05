@@ -120,11 +120,12 @@ public interface MenusCommandController {
     static void battleController(Scanner scanner) throws Exception{
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
-        BattleView.showGameInfo();
-        BattleView.showMyMinions();
-        BattleView.showOpponentMinions();
-        BattleView.showCardInfo();
-        BattleController.selectCardById();
+        BattleView.showGameInfo(commandsSplitted);
+        BattleView.showMyMinions(commandsSplitted);
+        BattleView.showOpponentMinions(commandsSplitted);
+        BattleView.showCardInfo(commandsSplitted);
+        BattleController.selectCardById(commandsSplitted,scanner);
+        BattleView.showHand(commandsSplitted);
         
     }
 }

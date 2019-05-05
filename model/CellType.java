@@ -6,9 +6,4 @@ public enum CellType {
     enemyHero,
     selfMinion,
     enemyMinion,
-    selfSpell,
-    enemySpell,
-    flag,
-    collectableItem,
-
 }

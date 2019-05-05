@@ -60,9 +60,6 @@ public class Map {
             return false;
     }
 
-    public static int distance(int x1,int y1,int x2,int y2){
-        return Math.abs(x1-x2)+Math.abs(y1-y2);
-    }
     public static boolean cardCanBeMovedToThisCell(Card card,int x,int y){
         if(distance(card.getX(),card.getY(),x,y)>2) {
             return false;
@@ -74,6 +71,21 @@ public class Map {
             return false;
         }
         return true;
+    }
+    public static int distance(int x1,int y1,int x2,int y2){
+        return Math.abs(x1-x2)+Math.abs(y1-y2);
+    }
+    public static boolean thisCellIsEmpty(int x, int y){
+        Cell cell = Cell.getCellByCoordination(x, y);
+        if(cell.getCellType() == CellType.empty)
+            return true;
+        return false;
+    }
+    public static boolean thisCellIsEnemy(int x,int y) {
+        Cell cell = Cell.getCellByCoordination(x, y);
+        if (cell.getCellType() == CellType.enemyMinion || cell.getCellType() == CellType.enemyHero)
+            return true;
+        return false;
     }
     public static boolean enemyInWay(int x1,int y1,int x2,int y2){
         if(distance(x1,y1,x2,y2) == 1)
@@ -115,25 +127,4 @@ public class Map {
             return false;
         }
     }
-    public static boolean thisCellIsEmpty(int x, int y){
-        Cell cell = Cell.getCellByCoordination(x, y);
-        ArrayList<CellType> cellTypes = cell.getCellTypes();
-        for (CellType type:
-             cellTypes) {
-            if(type == CellType.empty)
-                return true;
-        }
-        return false;
-    }
-    public static boolean thisCellIsEnemy(int x,int y){
-        Cell cell = Cell.getCellByCoordination(x,y);
-        for (CellType type:
-             cell.getCellTypes()) {
-            if(type == CellType.enemyMinion || type==CellType.enemyHero)
-                return true;
-        }
-        return false;
-    }
-
-
 }

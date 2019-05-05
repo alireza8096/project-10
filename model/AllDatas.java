@@ -13,4 +13,5 @@ public class AllDatas {
     public static boolean hasEnteredCollection = false;
     public static boolean hasEnteredShop = false;
     public static boolean hasEnteredBattle = false;
+    public static boolean didAction = false;
 }
