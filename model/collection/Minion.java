@@ -24,6 +24,7 @@ public class Minion extends Card {
     private boolean hasHolyBuff;
 
 
+
     public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price){
         this.healthPoint = healthPoint;
         this.setName(name);
@@ -230,16 +231,16 @@ public class Minion extends Card {
             this.applyPowerAttackWeaknessBuff(buff);
         }
     }
-
-    public void applyBuffsOnHero(){
-        for (Buff buff : this.getMinionPositiveBuffs()){
-            this.applyBuffOnMinion(buff);
-        }
-
-        for (Buff buff : this.getMinionNegativeBuffs()){
-            this.applyBuffOnMinion(buff);
-        }
-    }
+//
+//    public void applyBuffsOnHero(){
+//        for (Buff buff : this.getMinionPositiveBuffs()){
+//            this.applyBuffOnMinion(buff);
+//        }
+//
+//        for (Buff buff : this.getMinionNegativeBuffs()){
+//            this.applyBuffOnMinion(buff);
+//        }
+//    }
 
     public void removeBuffFromMinion(Buff buff){
         String buffName = buff.getName();
@@ -375,6 +376,22 @@ public class Minion extends Card {
                 Buff buff=new Buff(howMuchImpact,forHowManyTurns,name,type,activationTime);
                 ((Minion) getMinionByName(name)).getMinionPositiveBuffs().add(buff);
             }
+        }
+    }
+
+    public void removeBuffFromBuffArrayListOfMinion(String buffName){
+        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")){
+            for (Buff buff : this.getMinionPositiveBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionPositiveBuffs().remove(buff);
+                    return ;
+                }
+        }else{
+            for (Buff buff : this.getMinionNegativeBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionNegativeBuffs().remove(buff);
+                    return;
+                }
         }
     }
 
