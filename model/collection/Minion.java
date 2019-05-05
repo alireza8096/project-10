@@ -406,25 +406,40 @@ public class Minion extends Card {
         setHasHolyBuff(false);
     }
 
-    public void applyCellImpact(Minion minion, Map map)
-    {
-        int x=minion.getX();
-        int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellSituation())
-        {
+//    public void applyCellImpact(Map map)
+//    {
+//        int x=this.getX();
+//        int y=this.getY();
+//        switch (((map.getCells())[x][y]).getCellSituation())
+//        {
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHasHolyBuff(true);
+//                break;
+//            case empty:
+//                break;
+//            case flag:
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                this.getMinionPositiveBuffs().add(buff);
+//                break;
+//        }
+//    }
+
+    public void applyCellImpactOnMinion(int x, int y){
+        CellImpactType cellImpactType = Map.getCells()[x][y].getCellImpactType();
+        switch (cellImpactType){
             case fire:
-                this.setHealthPoint(this.getHealthPoint()-2);
+
                 break;
             case holy:
-                this.setHasHolyBuff(true);
-                break;
-            case empty:
-                break;
-            case flag:
+
                 break;
             case poison:
-                Buff buff = new Buff(1,3,"poisonBuff","negative");
-                this.getMinionPositiveBuffs().add(buff);
+
                 break;
         }
     }
