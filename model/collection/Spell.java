@@ -407,11 +407,10 @@ public class Spell extends Card {
                 break;
             case "all":
                 if (!locationOfTarget.equals("null")){//when target is all self forces
-
+                    applySpellOnAllSelfForces(jsonObject, x, y);
                 }else{//when target is all enemy forces in a column
-
+                    applySpellOnAllEnemyForcesInColumn(jsonObject, x, y);
                 }
-
                 break;
             case "inArea":
 
@@ -461,6 +460,37 @@ public class Spell extends Card {
                 }
             }
         }
+
+
+
+
+    }
+
+    public static void applySpellOnAllEnemyForcesInColumn(JSONObject jsonObject, int x, int y){
+        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+
+        for (int i = 0; i < buffNames.length; i++) {
+            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i])
+                    , buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+            for (int j = 0; j < 5; j++) {
+                if (Map.getCells()[j][y].getCellSituation() == CellType.enemyMinion){
+                    if (buff.getType().equals("positive")){
+                        Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
+                    }else{
+                        Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
+                    }
+                }else if (Map.getCells()[j][y].getCellSituation() == CellType.enemyHero){
+                    if (buff.getType().equals("positive")){
+                        Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().add(buff);
+                    }else{
+                        Game.getInstance().getHeroOfPlayer2().getNegativeBuffs().add(buff);
+                    }
+                }
+            }
+        }
+
 
 
 
