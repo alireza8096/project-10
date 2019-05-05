@@ -160,7 +160,7 @@ public class Hero extends Card{
     public void applyBuffsOnHero(){
         ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
         for (Buff buff : positiveBuffsCopy){
-            if (checkIfBuffIsActive(buff))
+            if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnHeroForOneTurn(buff);
             else
                 this.removeBuffFromHero(buff);
@@ -168,21 +168,14 @@ public class Hero extends Card{
 
         ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
         for (Buff buff : negativeBuffsCopy){
-            if (checkIfBuffIsActive(buff))
+            if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnHeroForOneTurn(buff);
             else
                 this.removeBuffFromHero(buff);
         }
     }
 
-    public boolean checkIfBuffIsActive(Buff buff){
-        int numberOfTurns = buff.getForHowManyTurns();
-        if (numberOfTurns > 0){
-            return true;
-        }else{
-            return false;
-        }
-    }
+
 
     public void applyBuffOnHeroForOneTurn(Buff buff){
         int currentNumberOfTurns = buff.getForHowManyTurns();
@@ -358,6 +351,31 @@ public class Hero extends Card{
                 return (Hero) card;
         }
         return null;
+    }
+
+    public static Hero getHeroByCoordiantion(int x, int y){
+        if (Game.getInstance().getHeroOfPlayer1().getX() == x && Game.getInstance().getHeroOfPlayer1().getY() == y){
+            return Game.getInstance().getHeroOfPlayer1();
+        }else if (Game.getInstance().getHeroOfPlayer2().getX() == x && Game.getInstance().getHeroOfPlayer2().getY() == y){
+            return Game.getInstance().getHeroOfPlayer2();
+        }
+
+    }
+
+    public void removeBuffFromBuffArrayListOfHero(String buffName){
+        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")){
+            for (Buff buff : this.getPositiveBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getPositiveBuffs().remove(buff);
+                    return ;
+                }
+        }else{
+            for (Buff buff : this.getNegativeBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getNegativeBuffs().remove(buff);
+                    return;
+                }
+        }
     }
 
 }

@@ -411,10 +411,10 @@ public class Minion extends Card {
         setHasHolyBuff(false);
     }
 
-//    public void applyCellImpact(Minion minion, Map map)
+//    public void applyCellImpact(Map map)
 //    {
-//        int x=minion.getX();
-//        int y=minion.getY();
+//        int x=this.getX();
+//        int y=this.getY();
 //        switch (((map.getCells())[x][y]).getCellSituation())
 //        {
 //            case fire:
@@ -433,6 +433,21 @@ public class Minion extends Card {
 //                break;
 //        }
 //    }
+
+    public void applyCellImpactOnMinion(int x, int y){
+        CellImpactType cellImpactType = Map.getCells()[x][y].getCellImpactType();
+        switch (cellImpactType){
+            case fire:
+
+                break;
+            case holy:
+
+                break;
+            case poison:
+
+                break;
+        }
+    }
 
     public static Minion getMinionInThisCoordination(int x, int y){
         Map map = Game.getInstance().getMap();
@@ -467,5 +482,10 @@ public class Minion extends Card {
             }
         }
     }
-
+    public void applySpceialPower(String minionName) throws IOException, ParseException {
+        JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
+        String targetsSpecified=jsonObject.get("targetsSpecified").toString();
+        String actsOn=jsonObject.get("actsOn").toString();
+    }
 }

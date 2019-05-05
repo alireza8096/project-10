@@ -91,4 +91,12 @@ public class Buff {
             return "negative";
     }
 
+    public static boolean checkIfBuffIsActive(Buff buff){
+        int numberOfTurns = buff.getForHowManyTurns();
+        if (numberOfTurns > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
