@@ -2,8 +2,11 @@ package controller;
 
 import model.*;
 import model.Game;
+import model.collection.Hero;
+import org.json.simple.parser.ParseException;
 import view.GameView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public interface CollectionController {
@@ -152,11 +155,13 @@ public interface CollectionController {
         }
     }
 
-    static void selectDeck(String[] commands) {
+    static void selectDeck(String[] commands) throws IOException, ParseException {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
             Deck.selectDeck(deckName);
+            Hero hero =(Hero) Hero.getCardByName(Deck.findDeckByName(deckName).getHeroInDeckName());
+            Game.getInstance().setHeroOfPlayer1(hero);
             AllDatas.hasEnteredCollection = true;
         }
     }

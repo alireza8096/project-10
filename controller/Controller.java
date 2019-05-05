@@ -78,6 +78,7 @@ public interface Controller {
                 break;
             case "Battle" :
                 System.out.println("battle");
+                MenusCommandController.battleController(scanner);
                 break;
             case "Help" :
                 System.out.println("help");
