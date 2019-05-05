@@ -274,7 +274,7 @@ public class Spell extends Card {
 
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
                 + "JSON-Spells/" + spellName + ".json");
-//        CellType cellType = Map.getCells()[x][y].getCellSituation();
+        CellType cellType = Map.getCells()[x][y].getCellSituation();
         String targetsSpecified = jsonObject.get("targetsSpecified").toString();
         String actsOn = jsonObject.get("actsOn").toString();
         String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
@@ -395,16 +395,22 @@ public class Spell extends Card {
     public static void insertSpellInCellTypeSelfHero(JSONObject jsonObject, int x, int y){
         String numOfTargets = jsonObject.get("numOfTargets").toString();
         String actsOn = jsonObject.get("actsOn").toString();
+        String locationOfTarget = jsonObject.get("locationOfTarget").toString();
 
         switch (numOfTargets){
             case "1":
                 if (actsOn.equals("enemy") || actsOn.equals("map")){
                     System.out.println("Invalid target!");
                 }else{
-
+                    applySpellOnSelfHero(jsonObject, x, y);
                 }
                 break;
             case "all":
+                if (!locationOfTarget.equals("null")){//when target is all self forces
+
+                }else{//when target is all enemy forces in a column
+
+                }
 
                 break;
             case "inArea":
@@ -412,6 +418,55 @@ public class Spell extends Card {
                 break;
         }
     }
+
+    public static void applySpellOnSelfHero(JSONObject jsonObject, int x, int y){
+        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
+        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+
+        for (int i = 0; i < buffNames.length; i++) {
+            if (typeOfAction[i].equals("addsBuff")){
+                Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+                        buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+                if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("positive")) {
+                    Game.getInstance().getHeroOfPlayer1().getPositiveBuffs().add(buff);
+                    Game.getInstance().getHeroOfPlayer1().applyBuffsOnHero();
+                }else{
+                    Game.getInstance().getHeroOfPlayer1().getNegativeBuffs().add(buff);
+                    Game.getInstance().getHeroOfPlayer1().applyBuffsOnHero();
+                }
+            }else if (typeOfAction[i].equals("removesBuff")){
+                Game.getInstance().getHeroOfPlayer1().removeBuffFromBuffArrayListOfHero(buffNames[i]);
+            }
+        }
+    }
+
+    public static void applySpellOnAllSelfForces(JSONObject jsonObject, int x, int y){
+        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
+        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+
+        for (int i = 0; i < buffNames.length; i++) {
+            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i])
+                    , buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+            for (Card card : Game.getInstance().getPlayer1CardsInField()) {
+                if (buff.getType().equals("positive")) {
+                    ((Minion) card).getMinionPositiveBuffs().add(buff);
+                    ((Minion) card).applyBuffOnMinion(buff);
+                } else {
+                    ((Minion) card).getMinionNegativeBuffs().add(buff);
+                    ((Minion) card).applyBuffOnMinion(buff);
+                }
+            }
+        }
+
+
+
+
+    }
+
 
 
 
