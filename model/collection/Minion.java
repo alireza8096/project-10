@@ -20,7 +20,6 @@ public class Minion extends Card {
     private String attackType;
     private int attackRange;
     private String activationTime;
-    private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
@@ -38,6 +37,8 @@ public class Minion extends Card {
         this.activationTime = activationTime;
         this.mana = mana;
         this.price = price;
+        this.setMovable(true);
+        this.setAbleToAttack(true);
     }
 
     public ArrayList<Buff> getMinionPositiveBuffs() {
@@ -50,14 +51,6 @@ public class Minion extends Card {
 
     public void setHasHolyBuff(boolean hasHolyBuff) {
         this.hasHolyBuff = hasHolyBuff;
-    }
-
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
-    }
-
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
     }
 
     public boolean isCanCounterAttack() {
@@ -283,7 +276,8 @@ public class Minion extends Card {
     }
 
     public void applyStunBuff(Buff buff) {
-        this.setCanAttackOrMove(false);
+        this.setMovable(false);
+        this.setAbleToAttack(false);
     }
 
     public void applyPoisonBuff(Buff buff) {
@@ -314,7 +308,8 @@ public class Minion extends Card {
 
     public void removeDisarmBuff(Buff buff)
     {
-        this.setCanAttackOrMove(true);
+        this.setMovable(true);
+        this.setAbleToAttack(true);
     }
 
     public void removeStunBuff(Buff buff)

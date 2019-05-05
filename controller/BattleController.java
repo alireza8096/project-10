@@ -1,11 +1,8 @@
 package controller;
 
-import model.Game;
-import model.Shop;
+import model.*;
 import model.collection.*;
-import view.BattleView;
 
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 public interface BattleController {
@@ -76,7 +73,12 @@ public interface BattleController {
         if(Shop.checkValidId(id)){
             String cardName = returnNameById(id);
             if(cardIsInGame(cardName)){
-                doActionOnCard(cardName,scanner);
+                if(thisCardIsYours(cardName)) {
+                    doActionOnCard(cardName, scanner);
+                }
+                else {
+                    System.out.println("This card does not belong to you");
+                }
             }
         }
         else {
@@ -86,9 +88,39 @@ public interface BattleController {
     public static void doActionOnCard(String cardName,Scanner scanner){
         String command = scanner.nextLine();
         String[] commands = command.split(" ");
+        moveCardToCheckConditions(commands,cardName);
     }
-    public static void moveCardTo(String cardName,int x, int y){
+    public static void move(Card card,int x,int y){
+        Cell.getCellByCoordination(card.getX(),card.getY()).getCellTypes()
+        card.setX(x);
+        card.setY(y);
 
     }
+    public static void moveCardToCheckConditions(String[] commands,String cardName){
+        //enter everything right
+        Card card=null;
+        for (Card check : Game.getInstance().getPlayer1CardsInField()) {
+            if(check.getName().equals(cardName))
+                card = check;
+        }
+        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)){
+            card = Game.getInstance().getHeroOfPlayer1();
+        }
+        int x;
+        int y;
+        if(card.isMovable()) {
+            if (!Map.cardCanBeMovedToThisCell(card,x,y)) {
+                System.out.println("Invalid target");
+            } else {
+                move(card,x,y);
+            }
+        }
+        else {
+            System.out.println("This card is not movable");
+        }
+//        Game.getInstance().getPlayer1().
+
+    }
+
 
 }

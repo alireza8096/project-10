@@ -10,22 +10,22 @@ import model.collection.Spell;
 
 public interface BattleView {
     //not completed
-    public static void showGameInfo(){
-        System.out.println("Game info :");
-        int ownMana = Game.getInstance().getPlayer1().getNumOfMana();
-        int enemyMana = Game.getInstance().getPlayer2().getNumOfMana();
-        System.out.println("Your mana point : " + ownMana);
-        System.out.println("Enemy's mana point : " + enemyMana);
-        switch (Game.getInstance().getGameMode()){
-            case killingHeroOfEnemy:
-                BattleView.showGameForFirstMode();
-                break;
-            case collectingAndKeepingFlags:
-                break;
-            case collectingHalfOfTheFlags:
-                break;
-        }
-    }
+//    public static void showGameInfo(){
+//        System.out.println("Game info :");
+//        int ownMana = Game.getInstance().getPlayer1().getNumOfMana();
+//        int enemyMana = Game.getInstance().getPlayer2().getNumOfMana();
+//        System.out.println("Your mana point : " + ownMana);
+//        System.out.println("Enemy's mana point : " + enemyMana);
+//        switch (Game.getInstance().getGameMode()){
+//            case killingHeroOfEnemy:
+//                BattleView.showGameForFirstMode();
+//                break;
+//            case collectingAndKeepingFlags:
+//                break;
+//            case collectingHalfOfTheFlags:
+//                break;
+//        }
+//    }
     public static void showMyMinions(){
         Hero hero = Game.getInstance().getHeroOfPlayer1();
         System.out.println((300+hero.getId())+" : "+hero.getName()+", health : "+hero.getHealthPoint()+", location : "+"("+hero.getX()+", "+hero.getY()+"), power : "+hero.getAttackPower());

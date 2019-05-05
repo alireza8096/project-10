@@ -20,8 +20,8 @@ public class Player {
     private GraveYard graveYard = new GraveYard();
     private int numOfMana;
     private int numOfwins;
-    private int coordinateX;
-    private int coordinateY;
+//    private int coordinateX;
+//    private int coordinateY;
     private ArrayList<String> cardsInCollectionNames = new ArrayList<>();
     private ArrayList<String> itemsInCollectionNames = new ArrayList<>();
     private ArrayList<String> heroesInCollectionName = new ArrayList<>();
@@ -136,21 +136,21 @@ public class Player {
         this.numOfwins = numOfwins;
     }
 
-    public int getCoordinateX() {
-        return coordinateX;
-    }
+//    public int getCoordinateX() {
+//        return coordinateX;
+//    }
 
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
-    }
+//    public void setCoordinateX(int coordinateX) {
+//        this.coordinateX = coordinateX;
+//    }
 
-    public int getCoordinateY() {
-        return coordinateY;
-    }
+//    public int getCoordinateY() {
+//        return coordinateY;
+//    }
 
-    public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
-    }
+//    public void setCoordinateY(int coordinateY) {
+//        this.coordinateY = coordinateY;
+//    }
 
     public Player findPlayerByName(String playerName)
     {

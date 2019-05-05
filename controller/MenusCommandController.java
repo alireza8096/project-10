@@ -4,6 +4,7 @@ import model.AllDatas;
 import model.LinkedListMenus;
 import model.Shop;
 import model.collection.Account;
+import view.BattleView;
 
 import java.util.Collection;
 import java.util.Scanner;
@@ -114,5 +115,16 @@ public interface MenusCommandController {
             System.out.println("Command is not supported in this menu");
         }
         AllDatas.hasEnteredShop= false;
+    }
+
+    static void battleController(Scanner scanner) throws Exception{
+        String command = scanner.nextLine();
+        String[] commandsSplitted = command.split(" ");
+        BattleView.showGameInfo();
+        BattleView.showMyMinions();
+        BattleView.showOpponentMinions();
+        BattleView.showCardInfo();
+        BattleController.selectCardById();
+        
     }
 }

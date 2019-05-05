@@ -1,7 +1,6 @@
 package model.collection;
 
 import model.Game;
-import model.Map;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -22,7 +21,6 @@ public class Hero extends Card{
     private int attackRange;
     private int coolDown;
     private String specialPower;
-    private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean holyBuffIsActive;
 
@@ -34,6 +32,8 @@ public class Hero extends Card{
         this.attackRange = attackRange;
         this.coolDown = coolDown;
         this.specialPower = specialPower;
+        this.setMovable(true);
+        this.setAbleToAttack(true);
     }
 
     public static int getHeroIDByName(String heroName) throws Exception{
@@ -56,14 +56,6 @@ public class Hero extends Card{
 
     public void setCanCounterAttack(boolean canCounterAttack) {
         this.canCounterAttack = canCounterAttack;
-    }
-
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
-    }
-
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
     }
 
     public ArrayList<Buff> getPositiveBuffs() {
@@ -307,7 +299,8 @@ public class Hero extends Card{
     }
 
     public void applyStunBuff(){
-        this.setCanAttackOrMove(false);
+        this.setAbleToAttack(false);
+        this.setMovable(false);
     }
 
     public void applyDisarmBuff(){
@@ -331,7 +324,8 @@ public class Hero extends Card{
     }
 
     public void deactivateStunBuff(){
-        this.setCanAttackOrMove(true);
+        this.setMovable(true);
+        this.setAbleToAttack(true);
     }
 
     public void deactivateDisarmBuff(){
