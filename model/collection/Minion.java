@@ -410,17 +410,13 @@ public class Minion extends Card {
     {
         int x=minion.getX();
         int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellSituation())
+        switch (((map.getCells())[x][y]).getCellImpactType())
         {
             case fire:
                 this.setHealthPoint(this.getHealthPoint()-2);
                 break;
             case holy:
                 this.setHasHolyBuff(true);
-                break;
-            case empty:
-                break;
-            case flag:
                 break;
             case poison:
                 Buff buff = new Buff(1,3,"poisonBuff","negative");
@@ -467,5 +463,16 @@ public class Minion extends Card {
                 (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
         String targetsSpecified=jsonObject.get("targetsSpecified").toString();
         String actsOn=jsonObject.get("actsOn").toString();
+        if(actsOn.equals("hero") && )
+    }
+    public boolean ifMinionHasComboAttack(String minionName) throws IOException, ParseException {
+        JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
+        String specialPower=jsonObject.get("specialPower").toString();
+        if(specialPower.equals("combo"))
+        {
+            return true;
+        }
+        return false;
     }
 }
