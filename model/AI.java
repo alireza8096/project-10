@@ -1,4 +1,4 @@
-package model.players;
+package model;
 
 import model.Deck;
 import model.Game;
@@ -41,7 +41,7 @@ public class AI {
     }
     public static void insertCardToDeck(int[] array,Deck deck){
         for(int i=0; i<array.length; i++){
-            deck.getCardsInDeckNames().add(Card.getCardByName())
+//            deck.getCardsInDeckNames().add(Card.getCardByName());
         }
     }
     public static void insertItemToDeck(int[] array,Deck deck){

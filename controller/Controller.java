@@ -55,7 +55,7 @@ public interface Controller {
 
     }
     static void handleCommands(Scanner scanner) throws Exception{
-        switch (LinkedListMenus.whichMenuNow().getMenuName()){
+        switch (LinkedListMenus.whichMenuNow().getMenuName()) {
             case "Account":
                 System.out.println("account");
                 MenusCommandController.accountController(scanner);
@@ -68,19 +68,19 @@ public interface Controller {
                 System.out.println("command line");
                 MenusCommandController.commandLineController(scanner);
                 break;
-            case "Collection" :
+            case "Collection":
                 System.out.println("collection");
                 MenusCommandController.collectionController(scanner);
                 break;
-            case "Shop" :
+            case "Shop":
                 System.out.println("shop");
                 MenusCommandController.shopController(scanner);
                 break;
-            case "Battle" :
+            case "Battle":
                 System.out.println("battle");
                 MenusCommandController.battleController(scanner);
                 break;
-            case "Help" :
+            case "Help":
                 System.out.println("help");
                 MenusCommandController.helpController(scanner);
                 break;

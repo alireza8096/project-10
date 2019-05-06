@@ -1,6 +1,8 @@
 package model.collection;
 
 
+import model.Deck;
+import model.Player;
 import model.Hand;
 import model.Shop;
 import org.json.simple.JSONObject;
@@ -11,7 +13,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";

@@ -491,6 +491,9 @@ public class Minion extends Card {
             }
         }
 
+        String targetsSpecified=jsonObject.get("targetsSpecified").toString();
+        String actsOn=jsonObject.get("actsOn").toString();
+//        if(actsOn.equals("hero") && )
     }
     public boolean ifMinionHasComboAttack(String minionName) throws IOException, ParseException {
         JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles

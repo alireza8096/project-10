@@ -3,11 +3,16 @@ package controller;
 import model.*;
 import model.Game;
 import model.collection.Hero;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import view.GameView;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+
+import static model.collection.Account.PLAYERS_FOLDER;
 
 public interface CollectionController {
 
