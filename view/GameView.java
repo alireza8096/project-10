@@ -1,6 +1,7 @@
 package view;
 
 import model.Deck;
+import model.Game;
 import model.collection.Item;
 import model.GraveYard;
 import model.collection.HandleFiles;
@@ -13,6 +14,7 @@ import org.json.simple.parser.ParseException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class GameView {
@@ -135,6 +137,17 @@ public class GameView {
         {
             System.out.print(counter+" ");
             showMinion(name);
+        }
+    }
+
+    public static void showNextCard() throws IOException, ParseException {
+        String nextCardName = Game.getInstance().getPlayer1().getMainDeck().getHand().getNextCardName();
+        if (Minion.thisCardIsMinion(nextCardName)){
+            showMinion(nextCardName);
+        }else if (Spell.thisCardIsSpell(nextCardName)){
+            showSpell(nextCardName);
+        }else if (Item.thisCardIsItem(nextCardName)){
+            showItem(nextCardName);
         }
     }
 }
