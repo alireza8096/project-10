@@ -1,5 +1,7 @@
 package model.collection;
 
+import model.Game;
+import model.Hand;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -77,6 +79,47 @@ public class Item {
                 return true;
         }
         return false;
+    }
+
+    public static String getItemTypeByName(String itemName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
+        File[] listOfFiles = folder.listFiles();
+        String fileName;
+        for (int i = 0; i < listOfFiles[i].length(); i++) {
+            fileName = listOfFiles[i].getName().split("\\.")[0];
+            if (fileName.equals(itemName)){
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(fileName);
+                return jsonObject.get("itemType").toString();
+            }
+        }
+        return null;
+    }
+
+    public static void applyItem(String itemName) throws IOException, ParseException {
+  //      String itemType = getItemTypeByName(itemName);
+
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items" + itemName + ".json");
+        String typeOfAction = jsonObject.get("typeOfAction").toString();
+
+        switch (typeOfAction){
+            case "addMana":
+                applyAddingManaByItem(jsonObject);
+                break;
+            case "addBuff":
+             //   applyAddingBuffbyItem();
+                break;
+        }
+
+
+    }
+
+    public static void applyAddingManaByItem(JSONObject jsonObject){
+        int howManyMana = Integer.parseInt(jsonObject.get("howManyMana").toString());
+        int howManyTurns = Integer.parseInt(jsonObject.get("howManyTurns").toString());
+
+        Buff buff = new Buff("addingManaBuff", howManyMana, howManyTurns);
+        Buff.applyAddingManaBuff(Game.getInstance().getPlayer1(), buff);
+
     }
 
     

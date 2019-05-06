@@ -1,5 +1,6 @@
 package model.collection;
 
+import model.Player;
 import org.json.simple.JSONObject;
 
 public class Buff {
@@ -9,6 +10,12 @@ public class Buff {
     private int howMuchImpact;
     private boolean isUsed;
     private String activationTime;
+
+    public Buff(String name, int howMuchImpact, int forHowManyTurns){
+        this.name = name;
+        this.howMuchImpact = howMuchImpact;
+        this.forHowManyTurns = forHowManyTurns;
+    }
 
     public Buff(int howMuchImpact, int forHowManyTurns, String name, String type){
         this.howMuchImpact = howMuchImpact;
@@ -88,5 +95,26 @@ public class Buff {
         }else{
             return false;
         }
+    }
+
+    //Todo : in the first of the turn, check if adding mana buff in active or not before invoking this method
+    public static void applyAddingManaBuff(Player player, Buff buff){
+        if (checkIfAddingManaBuffIsActiveYet(buff)){
+            int numberOfAddingMana = buff.getHowMuchImpact();
+            int currentPlayerMana = player.getNumOfMana();
+            player.setNumOfMana(currentPlayerMana + numberOfAddingMana);
+            buff.setForHowManyTurns(buff.getForHowManyTurns() - 1);
+        }else{
+            player.setAddingManaBuffIsActive(false);
+        }
+
+    }
+
+    public static boolean checkIfAddingManaBuffIsActiveYet(Buff buff){
+        int howManyTurns = buff.getForHowManyTurns();
+        if (howManyTurns > 0){
+            return true;
+        }
+        return false;
     }
 }

@@ -193,6 +193,7 @@ public interface BattleController {
             System.out.println("This card is not movable");
         }
     }
+
     public static void checkAllConditionsToAttack(String command,String cardName) throws Exception {
         int opponentId = Integer.parseInt(command);
         Card card = Card.getCardByName(cardName);
@@ -213,9 +214,16 @@ public interface BattleController {
                     System.out.println("The minion has attacked in this turn");
                 }
             }
+        }else{
+            System.out.println("opponent minion is unavailable for attack");
         }
-
     }
+
+
+
+
+
+
     public static boolean thisIdIsAvailableForOpponent(int id) throws Exception {
         if(Shop.checkValidId(id)){
             String cardName = returnNameById(id);
@@ -254,6 +262,79 @@ public interface BattleController {
 //
 //
 //    }
+
+    public static void insertThisCardinThisCoordination(String cardName, int x, int y) throws Exception {
+        int coordinateX = x - 1;
+        int coordinateY = y - 1;
+
+        if(checkIfCardIsInHandForInsertingCardsInMap(cardName, coordinateX, coordinateY)) {
+
+            if (Minion.thisCardIsMinion(cardName)) {
+                if (checkConditionsForInsertingMinionInMap(cardName, coordinateX, coordinateY)) {
+                    insertMinionInThisCoordination(cardName, coordinateX, coordinateY);
+                    int cardID = Minion.getMinionIDByName(cardName);
+                    System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+                }
+
+            } else if (Spell.thisCardIsSpell(cardName)) {
+                Spell.insertSpellInThisCoordination(cardName, coordinateX, coordinateY);
+            }
+        }
+    }
+
+    public static boolean checkIfCardIsInHandForInsertingCardsInMap(String cardName, int x, int y){
+        Hand hand = Game.getInstance().getPlayer1().getMainDeck().getHand();
+        if (!hand.checkIfCardIsInHand(cardName)) {
+            System.out.println("Invalid card name");
+            return false;
+        }else
+            return true;
+    }
+
+    public static boolean checkConditionsForInsertingMinionInMap(String minionName, int x, int y) throws IOException, ParseException {
+        if (!Map.checkIfMinionCardCanBeInsertedInThisCoordination(x, y)){
+            System.out.println("Invalid target");
+        }else{
+            if (!playerHasEnoughManaToInsertMinion(minionName)){
+                System.out.println("You don′t have enough mana");
+            }else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean playerHasEnoughManaToInsertMinion(String minionName) throws IOException, ParseException {
+        int playerMana = Game.getInstance().getPlayer1().getNumOfMana();
+        int minionMana = Minion.getMinionByName(minionName).getMana();
+        if (playerMana >= minionMana){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static void insertMinionInThisCoordination(String minionName, int x, int y) throws IOException, ParseException {
+
+        Card card = Game.getInstance().getPlayer1().getMainDeck().getHand().returnCardInHand(minionName);
+        card.setX(x);
+        card.setY(y);
+        Map.getCells()[x][y].setCellType(CellType.selfMinion);
+        handleManaOfPlayerAfterInsertingCardInMap(minionName);
+
+        Game.getInstance().getPlayer1CardsInField().add(card);
+
+        Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(minionName);
+    }
+
+    public static void handleManaOfPlayerAfterInsertingCardInMap(String cardName) throws IOException, ParseException {
+        int currentPlayerMana = Game.getInstance().getPlayer1().getNumOfMana();
+        int cardMana = Card.getCardByName(cardName).getMana();
+        Game.getInstance().getPlayer1().setNumOfMana(currentPlayerMana - cardMana);
+    }
+
+
+
 
 
 }

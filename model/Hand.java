@@ -104,5 +104,22 @@ public class Hand {
 //        }
 //    }
 
+    public Card returnCardInHand(String cardName){
+        for (Card card : this.getCardsInHand()){
+            if (card.getName().equals(cardName)){
+                return card;
+            }
+        }
+        return null;
+    }
+
+    public void removeCardFromHand(String cardName){
+        for (Card card : this.getCardsInHand()){
+            if (card.getName().equals(cardName)){
+                this.getCardsInHand().remove(card);
+            }
+        }
+    }
+
 
 }

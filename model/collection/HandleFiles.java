@@ -3,6 +3,7 @@ package model.collection;
 
 import model.Deck;
 import model.Player;
+import model.Hand;
 import model.Shop;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -64,6 +65,8 @@ public class HandleFiles {
             Spell.spellNames.add(fileName);
         }
     }
+
+
     public static void createStringOfUsableItems() throws Exception{
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
         File[] listOfFiles = folder.listFiles();
@@ -79,5 +82,14 @@ public class HandleFiles {
         FileReader fileReader = new FileReader(fileName);
         JSONParser jsonParser = new JSONParser();
         return jsonParser.parse(fileReader);
+    }
+
+    public static JSONObject returnJsonObjectByItsAddress(String fileName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
+        File[] listOfFiles = folder.listFiles();
+        for (int i = 0; i < listOfFiles[i].length(); i++) {
+            return (JSONObject) readJsonFiles(fileName);
+        }
+        return null;
     }
 }
