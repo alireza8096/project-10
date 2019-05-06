@@ -1,5 +1,6 @@
 package model.collection;
 
+import model.Cell;
 import model.Game;
 import model.Hand;
 import org.json.simple.JSONObject;
@@ -17,6 +18,33 @@ public class Item {
     private String name;
     private String itemType;
     private int price;
+    private int x;
+    private int y;
+
+    public Item(){ }
+
+    public Item(String name, String itemType, int x, int y){
+        this.name = name;
+        this.itemType = itemType;
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public int getId() {
         return id;
@@ -120,6 +148,14 @@ public class Item {
         Buff buff = new Buff("addingManaBuff", howManyMana, howManyTurns);
         Buff.applyAddingManaBuff(Game.getInstance().getPlayer1(), buff);
 
+    }
+
+    public static Item returnFlagByRandomCoordination(){
+        int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
+        int y = Cell.returnRandomNumberForCoordinationInThisRange(0, 9);
+
+        Item flag = new Item("flag", "collectible", x, y);
+        return flag;
     }
 
     

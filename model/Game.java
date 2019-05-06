@@ -2,6 +2,7 @@ package model;
 
 import model.collection.Card;
 import model.collection.Hero;
+import model.collection.Item;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,47 @@ public class Game {
     private Hero heroOfPlayer2;
     private Hand hand;
     private GraveYard graveYard = new GraveYard();
+    private Item flag;
+    private ArrayList<Item> flags = new ArrayList<>();
+    private int numOfFlags;
 
+    static{
+        Map map = new Map();
+        Game.getInstance().setMap(map);
+    }
+
+    public Game(){
+
+    }
+
+    public Game(GameMode gameMode){
+        this.setGameMode(gameMode);
+        this.setPlayer1Turn(true);
+    }
+
+    public int getNumOfFlags() {
+        return numOfFlags;
+    }
+
+    public void setNumOfFlags(int numOfFlags) {
+        this.numOfFlags = numOfFlags;
+    }
+
+    public Item getFlag() {
+        return flag;
+    }
+
+    public void setFlag(Item flag) {
+        this.flag = flag;
+    }
+
+    public ArrayList<Item> getFlags() {
+        return flags;
+    }
+
+    public void setFlags(ArrayList<Item> flags) {
+        this.flags = flags;
+    }
 
     public GraveYard getGraveYard() {
         return graveYard;
@@ -35,9 +76,7 @@ public class Game {
         this.graveYard = graveYard;
     }
 
-    public Game(){
 
-    }
 
     public Hero getHeroOfPlayer1() {
         return heroOfPlayer1;

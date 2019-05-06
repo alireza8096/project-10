@@ -81,7 +81,7 @@ public class Account {
         jsonObject.put("username",player.getUserName());
         jsonObject.put("password",player.getPassword());
         jsonObject.put("daric",player.getDaric());
-        jsonObject.put("numOfWins",player.getNumOfwins());
+        jsonObject.put("numOfWins",player.setNumOfWins());
         jsonObject.put("justCreated","false");
         jsonObject.put("numOfAllDecks",player.getDecksOfPlayer().size());
         for(int i=0; i<player.getDecksOfPlayer().size(); i++){
@@ -172,7 +172,7 @@ public class Account {
                     (String) jsonObject.get("password")
             );
             player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
-            player.setNumOfwins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
+            player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
             writePlayerThatHasPlayedBefore(player);
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
@@ -187,7 +187,7 @@ public class Account {
                     (String) jsonObject.get("username"),
                     (String) jsonObject.get("password"));
             player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
-            player.setNumOfwins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
+            player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
             int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());
             for(int i=0; i<numOfDecks; i++){
                 Deck addDeck = createDeckFromString(jsonObject.get("deck").toString()+i);

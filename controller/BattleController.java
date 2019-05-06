@@ -8,8 +8,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public interface BattleController {
-
-    public static void selectCardById(String[] commands,Scanner scanner) throws Exception{
+    public static void selectCardById(String[] commands, Scanner scanner) throws Exception{
         if(commands.length == 2 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].matches("[\\d]+")) {
             int id = Integer.parseInt(commands[1]);
@@ -332,6 +331,36 @@ public interface BattleController {
         int cardMana = Card.getCardByName(cardName).getMana();
         Game.getInstance().getPlayer1().setNumOfMana(currentPlayerMana - cardMana);
     }
+
+    static void selectGameMode(String gameType){
+        switch (gameType){
+            case "killingHeroOfEnemy":
+                selectFirstGameMode();
+                break;
+            case "collectingAndKeepingFlags":
+                selectSecondGameMode();
+                break;
+            case "collectingHalfOfTheFlags":
+                selectThirdGameMode();
+                break;
+        }
+    }
+
+    static void selectFirstGameMode(){
+        Game.getInstance().setGameMode(GameMode.killingHeroOfEnemy);
+    }
+
+    static void selectSecondGameMode(){
+        Game.getInstance().setGameMode(GameMode.collectingAndKeepingFlags);
+        Item flag = Item.returnFlagByRandomCoordination();
+
+        Game.getInstance().setFlag(flag);
+    }
+
+    static void selectThirdGameMode(){
+        Game.getInstance().setGameMode(GameMode.collectingHalfOfTheFlags);
+    }
+
 
 
 

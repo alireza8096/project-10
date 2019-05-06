@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Cell {
     private int coordinateX;
     private int coordinateY;
@@ -50,6 +52,14 @@ public class Cell {
     public static Cell getCellByCoordination(int x, int y){
         return Map.getCells()[x][y];
     }
+
+    public static int returnRandomNumberForCoordinationInThisRange(int i1, int i2) {
+        Random randomGenerator = new Random();
+        int randomInt = randomGenerator.nextInt(i2) + i1;
+        return randomInt;
+    }
+
+
 
 
 

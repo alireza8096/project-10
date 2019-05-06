@@ -22,6 +22,15 @@ public class Player {
     private ArrayList<String> cardsInCollectionNames = new ArrayList<>();
     private ArrayList<String> itemsInCollectionNames = new ArrayList<>();
     private ArrayList<String> heroesInCollectionName = new ArrayList<>();
+    private int numberOfTurnsThatPlayerHasFlag;
+
+    public int getNumberOfTurnsThatPlayerHasFlag() {
+        return numberOfTurnsThatPlayerHasFlag;
+    }
+
+    public void setNumberOfTurnsThatPlayerHasFlag(int numberOfTurnsThatPlayerHasFlag) {
+        this.numberOfTurnsThatPlayerHasFlag = numberOfTurnsThatPlayerHasFlag;
+    }
 
     public Player(String name){
         this.setUserName(name);
