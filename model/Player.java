@@ -8,7 +8,6 @@ import model.collection.Spell;
 import java.util.ArrayList;
 import java.lang.String;
 public class Player {
-
     private static ArrayList<Player> players = new ArrayList<>();
 
     private ArrayList<Deck> decksOfPlayer = new ArrayList<>();
@@ -18,9 +17,8 @@ public class Player {
     private int daric;
     private Game lastGame;
     private int numOfMana;
-    private int numOfwins;
-//    private int coordinateX;
-//    private int coordinateY;
+    private int numOfWins;
+    private boolean addingManaBuffIsActive;//Todo maybe have problems when applying several buffs
     private ArrayList<String> cardsInCollectionNames = new ArrayList<>();
     private ArrayList<String> itemsInCollectionNames = new ArrayList<>();
     private ArrayList<String> heroesInCollectionName = new ArrayList<>();
@@ -54,6 +52,14 @@ public class Player {
 
     public void setItemsInCollectionNames(ArrayList<String> itemsInCollectionNames) {
         this.itemsInCollectionNames = itemsInCollectionNames;
+    }
+
+    public boolean isAddingManaBuffIsActive() {
+        return addingManaBuffIsActive;
+    }
+
+    public void setAddingManaBuffIsActive(boolean addingManaBuffIsActive) {
+        this.addingManaBuffIsActive = addingManaBuffIsActive;
     }
 
     public ArrayList<Deck> getDecksOfPlayer() {
@@ -124,12 +130,12 @@ public class Player {
         this.numOfMana = numOfMana;
     }
 
-    public int getNumOfwins() {
-        return numOfwins;
+    public int getNumOfWins() {
+        return numOfWins;
     }
 
-    public void setNumOfwins(int numOfwins) {
-        this.numOfwins = numOfwins;
+    public void setNumOfWins(int numOfWins) {
+        this.numOfWins = numOfWins;
     }
 
 //    public int getCoordinateX() {
@@ -181,4 +187,5 @@ public class Player {
         System.out.println("This name is not valid for crad");
         return false;
     }
+
 }

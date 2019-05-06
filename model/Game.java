@@ -26,6 +26,7 @@ public class Game {
     private Hand hand;
     private GraveYard graveYard = new GraveYard();
 
+
     public GraveYard getGraveYard() {
         return graveYard;
     }
