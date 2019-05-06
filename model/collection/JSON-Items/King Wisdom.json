@@ -3,5 +3,7 @@
   "name":"King Wisdom",
   "id":14,
   "type": "item",
-  "desc": "add 1 mana for each turn"
+  "desc": "add 1 mana for each turn",
+  "typeOfAction": "addMana",
+  "whenAddMana":"allTurns"
 }

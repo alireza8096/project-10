@@ -3,5 +3,6 @@
   "name":"Poisonous Dagger",
   "id":16,
   "type": "item",
-  "desc": "when self hero/minion attacks,one random enemy hero/minion will have poison buff for one turn"
+  "desc": "when self hero/minion attacks,one random enemy hero/minion will have poison buff for one turn",
+  "typeOfAction": "addBuff"
 }

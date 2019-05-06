@@ -3,5 +3,6 @@
   "name":"Shock Hammer",
   "id":17,
   "type": "item",
-  "desc": "when attacking enemy hero/minion will be disarmed for 1 turn"
+  "desc": "when attacking enemy hero/minion will be disarmed for 1 turn",
+  "typeOfAction": "addBuff"
 }

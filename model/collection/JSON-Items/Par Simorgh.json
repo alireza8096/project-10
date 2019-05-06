@@ -3,5 +3,6 @@
   "name":"Par Simorgh",
   "id":6,
   "type": "item",
-  "desc":"decrease 2 points from attack power of enemy hybrid/ranged hero"
+  "desc":"decrease 2 points from attack power of enemy hybrid/ranged hero",
+  "typeOfAction": "addBuff"
 }

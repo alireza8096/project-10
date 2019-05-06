@@ -3,5 +3,6 @@
   "name":"Soul Eater",
   "id":18,
   "type": "item",
-  "desc": "when any self hero/minion dies,it will apply one power buff with 1 point of impact on attack power to one of the self minion/heroes"
+  "desc": "when any self hero/minion dies,it will apply one power buff with 1 point of impact on attack power to one of the self minion/heroes",
+  "typeOfAction": "addBuff"
 }

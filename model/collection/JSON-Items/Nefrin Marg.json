@@ -3,5 +3,6 @@
   "name":"Nefrin Marg",
   "id":10,
   "type": "item",
-  "desc": "one random minion while dying can decrease one of the random nearest cards' health point"
+  "desc": "one random minion while dying can decrease one of the random nearest cards' health point",
+  "typeOfAction": "addBuff"
 }

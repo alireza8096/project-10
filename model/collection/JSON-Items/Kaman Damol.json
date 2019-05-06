@@ -3,5 +3,6 @@
   "name":"Kaman Damol",
   "id":3,
   "type": "item",
-  "desc": "ranged/hybrid self hero can disarm enemy hero/minion for 1 turn while attacking"
+  "desc": "ranged/hybrid self hero can disarm enemy hero/minion for 1 turn while attacking",
+  "typeOfAction": "addBuff"
 }

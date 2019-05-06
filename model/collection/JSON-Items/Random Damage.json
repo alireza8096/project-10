@@ -3,5 +3,6 @@
   "name":"Random Damage",
   "id":11,
   "type": "item",
-  "desc": "increases 2 points of attack power of a random card in the game"
+  "desc": "increases 2 points of attack power of a random card in the game",
+  "typeOfAction": "addBuff"
 }

@@ -3,5 +3,7 @@
   "name":"Majoon Mana",
   "id":8,
   "type": "item",
-  "desc": "will add 3 points to mana in next turn"
+  "desc": "will add 3 points to mana in next turn",
+  "typeOfAction": "addMana",
+  "whenAddMana": "nextTurn"
 }

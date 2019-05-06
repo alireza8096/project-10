@@ -3,5 +3,6 @@
   "name":"Exir",
   "id":7,
   "type": "item",
-  "desc": "add 3 health points and apply one power buff with 3 points of impact on one random minion"
+  "desc": "add 3 health points and apply one power buff with 3 points of impact on one random minion",
+  "typeOfAction": "addBuff"
 }

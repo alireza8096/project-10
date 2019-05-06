@@ -3,5 +3,6 @@
   "name":"Tir Doshakh",
   "id":5,
   "type": "item",
-  "desc": "add 2 points to attack power of one random ranged/hybrid minion/hero"
+  "desc": "add 2 points to attack power of one random ranged/hybrid minion/hero",
+  "typeOfAction": "addBuff"
 }

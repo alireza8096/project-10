@@ -3,5 +3,6 @@
   "name":"Terror Hood",
   "id":12,
   "type": "item",
-  "desc": "while attacking apply one weakness buff with impact of 2 on random enemy hero/minion"
+  "desc": "while attacking apply one weakness buff with impact of 2 on random enemy hero/minion",
+  "typeOfAction": "addBuff"
 }

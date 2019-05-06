@@ -3,5 +3,6 @@
   "name":"Assassination Dagger",
   "id":15,
   "type": "item",
-  "desc": "while putting any self hero/minion , it decrease one point from enemy hero's health point"
+  "desc": "while putting any self hero/minion , it decrease one point from enemy hero's health point",
+  "typeOfAction": "addBuff"
 }

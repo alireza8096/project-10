@@ -3,5 +3,6 @@
   "name":"Nooshdaroo",
   "id":4,
   "type": "item",
-  "desc": "decreases 6 points from health point of random minion/hero"
+  "desc": "decreases 6 points from health point of random minion/hero",
+  "typeOfAction": "addBuff"
 }

@@ -3,5 +3,6 @@
   "name":"Majoon Rooeintani",
   "id":9,
   "type": "item",
-  "desc": "for 2 turns,10 holly buffs will be activated for random self minion/hero"
+  "desc": "for 2 turns,10 holly buffs will be activated for random self minion/hero",
+  "typeOfAction": "addBuff"
 }
