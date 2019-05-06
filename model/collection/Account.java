@@ -82,7 +82,7 @@ public class Account {
         jsonObject.put("username",player.getUserName());
         jsonObject.put("password",player.getPassword());
         jsonObject.put("daric",player.getDaric());
-        jsonObject.put("numOfWins",player.getNumOfwins());
+        jsonObject.put("numOfWins",player.getNumOfWins());
         jsonObject.put("justCreated","false");
         jsonObject.put("numOfAllDecks",player.getDecksOfPlayer().size());
         for(int i=0; i<player.getDecksOfPlayer().size(); i++){
