@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c17c220b-4783-4ca8-a4bb-b17eb30c20b5" name="Default Changelist" comment="added methods for type of attacks in Card class and a method to find out if 2 cells are adjusting or not">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/GraveYard.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/GraveYard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/collection/Spell.java" beforeDir="false" afterPath="$PROJECT_DIR$/model/collection/Spell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/view/GameView.java" afterDir="false" />
-    </list>
+    <list default="true" id="c17c220b-4783-4ca8-a4bb-b17eb30c20b5" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,118 +12,58 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/Map.java">
+        <entry file="file://$PROJECT_DIR$/model/collection/Spell.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="876">
-              <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/controller/BattleController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="689">
-              <caret line="333" column="5" selection-start-line="333" selection-start-column="5" selection-end-line="333" selection-end-column="5" />
+            <state relative-caret-position="400">
+              <caret line="413" lean-forward="true" selection-start-line="413" selection-end-line="413" />
               <folding>
-                <element signature="method#move#0;class#BattleController#0" />
-                <element signature="method#thisIdIsAvailableForOpponent#0;class#BattleController#0" />
-                <element signature="e#9504#9569#0" />
-                <element signature="method#checkIfCardIsInHandForInsertingCardsInMap#0;class#BattleController#0" />
-                <element signature="method#checkConditionsForInsertingMinionInMap#0;class#BattleController#0" />
-                <element signature="method#playerHasEnoughManaToInsertMinion#0;class#BattleController#0" />
-                <element signature="method#insertMinionInThisCoordination#0;class#BattleController#0" />
-                <element signature="method#handleManaOfPlayerAfterInsertingCardInMap#0;class#BattleController#0" />
+                <element signature="method#getSpellByName#0;class#Spell#0" />
+                <element signature="method#getSpellIDByName#0;class#Spell#0" />
+                <element signature="method#applySpell#0;class#Spell#0" />
+                <element signature="method#insertSpellInThisCoordination#0;class#Spell#0" />
+                <element signature="method#insertSpellInAnEmptyCell#0;class#Spell#0" />
+                <element signature="method#insertSpellInCellTypeEnemyMinion#0;class#Spell#0" />
+                <element signature="method#applySpellOnMinion#0;class#Spell#0" />
+                <element signature="method#checkIfThisCoordinationIsAroundSelfMinion#0;class#Spell#0" />
+                <element signature="method#insertSpellInCellTypeEnemyHero#0;class#Spell#0" />
+                <element signature="method#applySpellOnEnemyHero#0;class#Spell#0" />
+                <element signature="method#applySpellOnAllEnemyForces#0;class#Spell#0" />
+                <element signature="method#insertSpellInCellTypeSelfMinion#0;class#Spell#0" />
+                <element signature="method#insertSpellInCellTypeSelfHero#0;class#Spell#0" />
+                <element signature="method#applySpellOnSelfHero#0;class#Spell#0" />
+                <element signature="method#applySpellOnAllSelfForces#0;class#Spell#0" />
+                <element signature="method#applySpellOnAllEnemyForcesInColumn#0;class#Spell#0" />
+                <element signature="method#applySpellOn2x2Square#0;class#Spell#0" />
+                <element signature="method#applySpellOn2x2SquareOnForces#0;class#Spell#0" />
+                <element signature="method#applySpellOn2x2SquareOnMap#0;class#Spell#0" />
+                <element signature="method#applySpellOn3x3Square#0;class#Spell#0" />
+                <element signature="method#applySpellOn3x3SquareOnMap#0;class#Spell#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/GraveYard.java">
+        <entry file="file://$PROJECT_DIR$/model/collection/Item.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#setCardsDeletedFromHandName#0;class#GraveYard#0" />
-                <element signature="method#setGraveYardIsBeingUsed#0;class#GraveYard#0" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Items/Assassination Dagger.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="10" selection-start-column="10" selection-end-column="10" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/view/GameView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="158" column="14" lean-forward="true" selection-start-line="158" selection-start-column="14" selection-end-line="158" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/collection/HandleFiles.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="723">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/Game.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="28" column="37" selection-start-line="28" selection-start-column="37" selection-end-line="28" selection-end-column="37" />
-              <folding>
-                <element signature="e#896#897#0" expanded="true" />
-                <element signature="e#949#950#0" expanded="true" />
-                <element signature="e#991#992#0" expanded="true" />
-                <element signature="e#839#840#0" expanded="true" />
-                <element signature="e#875#876#0" expanded="true" />
-                <element signature="e#913#914#0" expanded="true" />
-                <element signature="e#949#950#0" expanded="true" />
-                <element signature="e#1005#1006#0" expanded="true" />
-                <element signature="e#1055#1056#0" expanded="true" />
-                <element signature="e#1111#1112#0" expanded="true" />
-                <element signature="e#1161#1162#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/Hand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1683">
-              <caret line="116" column="48" selection-start-line="116" selection-start-column="48" selection-end-line="116" selection-end-column="48" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/Player.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/collection/Minion.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5576">
-              <caret line="376" column="8" selection-start-line="376" selection-start-column="8" selection-end-line="376" selection-end-column="8" />
-              <folding>
-                <element signature="e#909#910#0" expanded="true" />
-                <element signature="e#944#945#0" expanded="true" />
-                <element signature="e#1000#1001#0" expanded="true" />
-                <element signature="e#1048#1049#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -245,7 +178,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="model" type="462c0819:PsiDirectoryNode" />
               <item name="collection" type="462c0819:PsiDirectoryNode" />
-              <item name="JSON-Spells" type="462c0819:PsiDirectoryNode" />
+              <item name="JSON-Heroes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="src" type="b2602c69:ProjectViewProjectNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="collection" type="462c0819:PsiDirectoryNode" />
+              <item name="JSON-Items" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="src" type="b2602c69:ProjectViewProjectNode" />
@@ -420,7 +360,14 @@
       <option name="project" value="LOCAL" />
       <updated>1557135897029</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="added method in GameView class for showing information of grave yard cards">
+      <created>1557138383682</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1557138383682</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -502,7 +449,8 @@
     <MESSAGE value="added another constructor for player with 2 parameters (username and passWord)" />
     <MESSAGE value="added methods for type of attacks in Card class and a method to find out if 2 cells are adjusting or not" />
     <MESSAGE value="added methods for inserting a card in map and check if it is valid" />
-    <option name="LAST_COMMIT_MESSAGE" value="added methods for inserting a card in map and check if it is valid" />
+    <MESSAGE value="added method in GameView class for showing information of grave yard cards" />
+    <option name="LAST_COMMIT_MESSAGE" value="added method in GameView class for showing information of grave yard cards" />
   </component>
   <component name="editorHistoryManager">
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home/lib/src.zip!/java.base/java/io/FileInputStream.java">
@@ -633,19 +581,6 @@
     <entry file="file://$PROJECT_DIR$/model/collection/JSON-Items/Blades Of Agility.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Items/Assassination Dagger.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/Item.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-178">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/Hero.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5372">
@@ -730,13 +665,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="15" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/BattleView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1606">
@@ -805,10 +733,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="876">
+          <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/collection/HandleFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="723">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/GameView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2261">
+          <caret line="145" column="52" selection-start-line="145" selection-start-column="52" selection-end-line="145" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/GraveYard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#setCardsDeletedFromHandName#0;class#GraveYard#0" />
+            <element signature="method#setGraveYardIsBeingUsed#0;class#GraveYard#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/BattleController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="689">
+          <caret line="333" column="5" selection-start-line="333" selection-start-column="5" selection-end-line="333" selection-end-column="5" />
+          <folding>
+            <element signature="method#move#0;class#BattleController#0" />
+            <element signature="method#thisIdIsAvailableForOpponent#0;class#BattleController#0" />
+            <element signature="e#9504#9569#0" />
+            <element signature="method#checkIfCardIsInHandForInsertingCardsInMap#0;class#BattleController#0" />
+            <element signature="method#checkConditionsForInsertingMinionInMap#0;class#BattleController#0" />
+            <element signature="method#playerHasEnoughManaToInsertMinion#0;class#BattleController#0" />
+            <element signature="method#insertMinionInThisCoordination#0;class#BattleController#0" />
+            <element signature="method#handleManaOfPlayerAfterInsertingCardInMap#0;class#BattleController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/model/collection/Spell.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="230" column="48" lean-forward="true" selection-start-line="230" selection-start-column="48" selection-end-line="230" selection-end-column="48" />
+        <state relative-caret-position="400">
+          <caret line="413" lean-forward="true" selection-start-line="413" selection-end-line="413" />
           <folding>
             <element signature="method#getSpellByName#0;class#Spell#0" />
             <element signature="method#getSpellIDByName#0;class#Spell#0" />
@@ -831,60 +809,33 @@
             <element signature="method#applySpellOn2x2SquareOnMap#0;class#Spell#0" />
             <element signature="method#applySpellOn3x3Square#0;class#Spell#0" />
             <element signature="method#applySpellOn3x3SquareOnMap#0;class#Spell#0" />
-            <element signature="e#23641#23735#1" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/Map.java">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Minions/Arjhang Div.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="876">
-          <caret line="134" column="22" selection-start-line="134" selection-start-column="22" selection-end-line="134" selection-end-column="22" />
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/collection/HandleFiles.java">
+    <entry file="file://$PROJECT_DIR$/model/collection/Item.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="723">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        <state relative-caret-position="68">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/BattleController.java">
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Items/Assassination Dagger.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="689">
-          <caret line="333" column="5" selection-start-line="333" selection-start-column="5" selection-end-line="333" selection-end-column="5" />
-          <folding>
-            <element signature="method#move#0;class#BattleController#0" />
-            <element signature="method#thisIdIsAvailableForOpponent#0;class#BattleController#0" />
-            <element signature="e#9504#9569#0" />
-            <element signature="method#checkIfCardIsInHandForInsertingCardsInMap#0;class#BattleController#0" />
-            <element signature="method#checkConditionsForInsertingMinionInMap#0;class#BattleController#0" />
-            <element signature="method#playerHasEnoughManaToInsertMinion#0;class#BattleController#0" />
-            <element signature="method#insertMinionInThisCoordination#0;class#BattleController#0" />
-            <element signature="method#handleManaOfPlayerAfterInsertingCardInMap#0;class#BattleController#0" />
-          </folding>
+        <state>
+          <caret column="10" selection-start-column="10" selection-end-column="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/GraveYard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#setCardsDeletedFromHandName#0;class#GraveYard#0" />
-            <element signature="method#setGraveYardIsBeingUsed#0;class#GraveYard#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/GameView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="158" column="14" lean-forward="true" selection-start-line="158" selection-start-column="14" selection-end-line="158" selection-end-column="14" />
-        </state>
-      </provider>
+    <entry file="file://$PROJECT_DIR$/model/collection/JSON-Heroes/Afsaneh.json">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">
