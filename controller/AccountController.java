@@ -3,8 +3,12 @@ package controller;
 import model.AllDatas;
 import model.LinkedListMenus;
 import model.collection.Account;
+import org.json.simple.JSONObject;
 
-import java.util.Scanner;
+import java.io.ObjectOutputStream;
+import java.security.KeyStore;
+import java.util.*;
+import java.util.function.IntBinaryOperator;
 
 public interface AccountController{
      static void createAccount(String[] commands, Scanner scanner) throws Exception{
@@ -24,14 +28,30 @@ public interface AccountController{
             AllDatas.hasEnteredAccount = true;
         }
     }
-     static void showLeaderboard(String[] commands, Scanner scanner) throws Exception {
+     static void showLeaderboard(String[] commands) throws Exception {
          if (commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0
                  && commands[1].compareToIgnoreCase("leaderboard") == 0) {
              AllDatas.leaderboard.setNowInThisMenu(true);
              AllDatas.leaderboard.getParent().setNowInThisMenu(false);
              if (Account.getPlayers().size() != 0) {
+                 HashMap<String,Integer> leaderBoard = new HashMap<>();
                  for (int i = 1; i <= Account.getPlayers().size(); i++) {
-                     System.out.println(i + " -UserName :" + Account.getPlayers().get(i - 1));
+                     String name = Account.getPlayers().get(i-1);
+                     JSONObject json =(JSONObject) Account.readPlayerFromFile(Account.PLAYERS_FOLDER+name+".json");
+                     leaderBoard.put(name,Integer.parseInt(json.get("numOfWins").toString()));
+                 }
+                 Object[] sorted = leaderBoard.entrySet().toArray();
+                 Arrays.sort(sorted, new Comparator<Object>() {
+                     public int compare(Object o1,Object o2){
+                         return ((Map.Entry<String,Integer>) o2).getValue()
+                                 .compareTo(((Map.Entry<String,Integer>)o1).getValue());
+                     }
+                 });
+                 int counter =1;
+                 for (Object e : sorted) {
+                     System.out.println(counter +" - UserName : " + ((Map.Entry<String, Integer>) e).getKey() + " - Wins : "
+                             + ((Map.Entry<String, Integer>) e).getValue());
+                     counter++;
                  }
              } else {
                  System.out.println("no player exists in leaderboard");

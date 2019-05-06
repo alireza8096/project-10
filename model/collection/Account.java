@@ -11,10 +11,10 @@ import javax.print.DocFlavor;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.Inet4Address;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Account {
     public static final String PLAYERS_FOLDER = "/Users/hamilamailee/Documents/Duelyst Project/model/players/";
@@ -75,6 +75,7 @@ public class Account {
     }
     /////////////////////
 
+
     public static void writePlayerThatHasPlayedBefore(Player player) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("username",player.getUserName());
@@ -95,30 +96,35 @@ public class Account {
         return jsonObject.get("password").toString().matches(password);
     }
     public static String returnStringOfDeck(Deck deck){
-        String list = deck.getDeckName();
-        list = "," + deck.getHeroInDeckName();
-        for (String item:
-                deck.getItemsInDeckNames()) {
-            list = "," + item;
-        }
-        for(String card : deck.getCardsInDeckNames()){
-            list = "," + card;
+        String list = "";
+        if(deck!=null) {
+            list = deck.getDeckName();
+            list = "," + deck.getHeroInDeckName();
+            for (String item :
+                    deck.getItemsInDeckNames()) {
+                list = "," + item;
+            }
+            for (String card : deck.getCardsInDeckNames()) {
+                list = "," + card;
+            }
         }
         return list;
     }
     public static Deck createDeckFromString(String deckString){
-        String[] parts = deckString.split(",");
-        Deck deck = new Deck(parts[0]);
-        deck.setHeroInDeckName(parts[1]);
-        for(int i=2; i<parts.length; i++){
-            if(Item.thisCardIsItem(parts[i])){
-                deck.getItemsInDeckNames().add(parts[i]);
+        if(!deckString.matches("")) {
+            String[] parts = deckString.split(",");
+            Deck deck = new Deck(parts[0]);
+            deck.setHeroInDeckName(parts[1]);
+            for (int i = 2; i < parts.length; i++) {
+                if (Item.thisCardIsItem(parts[i])) {
+                    deck.getItemsInDeckNames().add(parts[i]);
+                } else {
+                    deck.getCardsInDeckNames().add(parts[i]);
+                }
             }
-            else{
-                deck.getCardsInDeckNames().add(parts[i]);
-            }
+            return deck;
         }
-        return deck;
+        return null;
     }
     public static void createCollectionFromString(Player player,String collection){
         String[] parts = collection.split(",");
@@ -136,9 +142,12 @@ public class Account {
     }
 
     public static String returnStringOfCollection(Player player){
-        String list = player.getHeroesInCollectionName().get(0);
-        for(int i=1; i<player.getHeroesInCollectionName().size(); i++){
-            list = list +","+ player.getHeroesInCollectionName().get(i);
+        String list = "";
+        if(player.getHeroesInCollectionName().size()!=0) {
+            list = player.getHeroesInCollectionName().get(0);
+            for (int i = 1; i < player.getHeroesInCollectionName().size(); i++) {
+                list = list + "," + player.getHeroesInCollectionName().get(i);
+            }
         }
         for (String item:
                 player.getItemsInCollectionNames()) {
@@ -160,11 +169,11 @@ public class Account {
         if(jsonObject.get("justCreated").toString().matches("true")) {
             player = new Player(
                     (String) jsonObject.get("username"),
-                    (String) jsonObject.get("password"),
-                    Integer.parseInt(jsonObject.get("daric").toString())
+                    (String) jsonObject.get("password")
             );
+            player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
             player.setNumOfwins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
-            writeJustCreatedPlayerToFile((String) jsonObject.get("username"), (String) jsonObject.get("password"), "false");
+            writePlayerThatHasPlayedBefore(player);
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
             Game.getInstance().setPlayer1(player);
@@ -176,12 +185,12 @@ public class Account {
         if(jsonObject.get("justCreated").toString().matches("false")){
             player = new Player(
                     (String) jsonObject.get("username"),
-                    (String) jsonObject.get("password"),
-                    Integer.parseInt((String)jsonObject.get("daric")));
-            player.setNumOfwins(Integer.parseInt((String)jsonObject.get("numOfWins")));
-            int numOfDecks = Integer.parseInt((String)jsonObject.get("numOfAllDecks"));
+                    (String) jsonObject.get("password"));
+            player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
+            player.setNumOfwins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
+            int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());
             for(int i=0; i<numOfDecks; i++){
-                Deck addDeck = createDeckFromString((String)jsonObject.get("deck")+i);
+                Deck addDeck = createDeckFromString(jsonObject.get("deck").toString()+i);
                 player.getDecksOfPlayer().add(addDeck);
             }
             player.setMainDeck(createDeckFromString((String)jsonObject.get("mainDeck")));

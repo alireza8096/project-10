@@ -15,7 +15,7 @@ public interface MenusCommandController {
         String[] commandsSplitted = command.split(" ");
         AccountController.createAccount(commandsSplitted, scanner);
         AccountController.login(commandsSplitted, scanner);
-        AccountController.showLeaderboard(commandsSplitted, scanner);
+        AccountController.showLeaderboard(commandsSplitted);
         AccountController.save(commandsSplitted);
         AccountController.help(commandsSplitted);
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {

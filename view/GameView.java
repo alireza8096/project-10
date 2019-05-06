@@ -31,14 +31,13 @@ public class GameView {
         return returnString;
     }
     public static String showCard(String cardName) throws IOException, ParseException {
-        String output = "";
         if(Minion.thisCardIsMinion(cardName)){
-            output = showMinion(cardName);
+           return showMinion(cardName);
         }
         else if(Spell.thisCardIsSpell(cardName)){
-            output = showSpell(cardName);
+            return showSpell(cardName);
         }
-        return output;
+        return null;
     }
     public static String showItem(String itemName) throws IOException, ParseException {
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
