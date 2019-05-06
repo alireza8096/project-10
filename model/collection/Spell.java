@@ -211,10 +211,10 @@ public class Spell extends Card {
                         buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
                 if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("positive")) {
                     Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
-                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinion(buff);
+                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinionForOneTurn(buff);
                 }else{
                     Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
-                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinion(buff);
+                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinionForOneTurn(buff);
                 }
             }else if (typeOfAction[i].equals("removesBuff")){
                 Minion.getMinionInThisCoordination(x, y).removeBuffFromBuffArrayListOfMinion(buffNames[i]);
@@ -225,6 +225,7 @@ public class Spell extends Card {
     }
 
     public static void applySpellOnRandomMinionIn8Round(JSONObject jsonObject, int x, int y){
+
         if (!checkIfThisCoordinationIsAroundSelfMinion(x, y)){
             System.out.println("Invalid target");
         }else{
@@ -315,10 +316,10 @@ public class Spell extends Card {
             for (Card card : Game.getInstance().getPlayer2CardsInField()) {
                 if (buff.getType().equals("positive")) {
                     ((Minion) card).getMinionPositiveBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinion(buff);
+                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
                 } else {
                     ((Minion) card).getMinionNegativeBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinion(buff);
+                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
                 }
             }
         }
@@ -427,10 +428,10 @@ public class Spell extends Card {
             for (Card card : Game.getInstance().getPlayer1CardsInField()) {
                 if (buff.getType().equals("positive")) {
                     ((Minion) card).getMinionPositiveBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinion(buff);
+                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
                 } else {
                     ((Minion) card).getMinionNegativeBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinion(buff);
+                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
                 }
             }
         }
