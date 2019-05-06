@@ -24,6 +24,15 @@ public class Game {
     private Hero heroOfPlayer1;
     private Hero heroOfPlayer2;
     private Hand hand;
+    private GraveYard graveYard = new GraveYard();
+
+    public GraveYard getGraveYard() {
+        return graveYard;
+    }
+
+    public void setGraveYard(GraveYard graveYard) {
+        this.graveYard = graveYard;
+    }
 
     public Game(){
 

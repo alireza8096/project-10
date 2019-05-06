@@ -17,7 +17,6 @@ public class Player {
     private String password;
     private int daric;
     private Game lastGame;
-    private GraveYard graveYard = new GraveYard();
     private int numOfMana;
     private int numOfwins;
 //    private int coordinateX;
@@ -115,14 +114,6 @@ public class Player {
 
     public void setLastGame(Game lastGame) {
         this.lastGame = lastGame;
-    }
-
-    public GraveYard getGraveYard() {
-        return graveYard;
-    }
-
-    public void setGraveYard(GraveYard graveYard) {
-        this.graveYard = graveYard;
     }
 
     public int getNumOfMana() {

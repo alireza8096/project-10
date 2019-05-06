@@ -22,8 +22,17 @@ public class Minion extends Card {
     private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
+    private String specialPower;
 
-    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price){
+    public String getSpecialPower() {
+        return specialPower;
+    }
+
+    public void setSpecialPower(String specialPower) {
+        this.specialPower = specialPower;
+    }
+
+    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price, String specialPower){
         this.healthPoint = healthPoint;
         this.setName(name);
         this.attackPower = attackPower;
@@ -32,6 +41,7 @@ public class Minion extends Card {
         this.activationTime = activationTime;
         this.mana = mana;
         this.price = price;
+        this.specialPower = specialPower;
     }
 
     public ArrayList<Buff> getMinionPositiveBuffs() {
@@ -165,7 +175,9 @@ public class Minion extends Card {
                 String priceString = jsonObject.get("price").toString();
                 int price = Integer.parseInt(priceString);
 
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana, price);
+                String specialPower = jsonObject.get("specialPower").toString();
+
+                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana, price, specialPower);
                 return minion;
             }
         }
@@ -350,7 +362,6 @@ public class Minion extends Card {
             this.removeHolyBuff(buff);
         }
     }
-
     public void applyPowerAttackWeaknessBuff(Buff buff) {
         setAttackPower(this.getAttackPower() - buff.getHowMuchImpact());
     }
@@ -397,7 +408,6 @@ public class Minion extends Card {
     {
         this.setCanAttackOrMove(true);
     }
-
 
     public void removeStunBuff(Buff buff)
     {
@@ -482,7 +492,6 @@ public class Minion extends Card {
         }
 
     }
-
     public boolean ifMinionHasComboAttack(String minionName) throws IOException, ParseException {
         JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
                 (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
