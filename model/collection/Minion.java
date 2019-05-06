@@ -19,6 +19,7 @@ public class Minion extends Card {
     private String attackType;
     private int attackRange;
     private String activationTime;
+    private boolean canAttackOrMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
@@ -54,14 +55,6 @@ public class Minion extends Card {
 
     public void setHasHolyBuff(boolean hasHolyBuff) {
         this.hasHolyBuff = hasHolyBuff;
-    }
-
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
-    }
-
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
     }
 
     public boolean isCanCounterAttack() {
@@ -419,77 +412,21 @@ public class Minion extends Card {
         setHasHolyBuff(false);
     }
 
-//    public void applyCellImpact(Map map)
-//    {
-//        int x=this.getX();
-//        int y=this.getY();
-//        switch (((map.getCells())[x][y]).getCellSituation())
-//        {
-//            case fire:
-//                this.setHealthPoint(this.getHealthPoint()-2);
-//                break;
-//            case holy:
-//                this.setHasHolyBuff(true);
-//                break;
-//            case empty:
-//                break;
-//            case flag:
-//                break;
-//            case poison:
-//                Buff buff = new Buff(1,3,"poisonBuff","negative");
-//                this.getMinionPositiveBuffs().add(buff);
-//                break;
-//        }
-//    }
-//    public void applyCellImpact(Map map)
-//    {
-//        int x=this.getX();
-//        int y=this.getY();
-//        switch (((map.getCells())[x][y]).getCellSituation())
-//        {
-//            case fire:
-//                this.setHealthPoint(this.getHealthPoint()-2);
-//                break;
-//            case holy:
-//                this.setHasHolyBuff(true);
-//                break;
-//            case empty:
-//                break;
-//            case flag:
-//                break;
-//            case poison:
-//                Buff buff = new Buff(1,3,"poisonBuff","negative");
-//                this.getMinionPositiveBuffs().add(buff);
-//                break;
-//        }
-//    }
-
-    public void applyCellImpactOnMinion(int x, int y){
-        CellImpactType cellImpactType = Map.getCells()[x][y].getCellImpactType();
-        switch (cellImpactType){
+    public void applyCellImpact(Minion minion, Map map)
+    {
+        int x=minion.getX();
+        int y=minion.getY();
+        switch (((map.getCells())[x][y]).getCellImpactType())
+        {
             case fire:
-
+                this.setHealthPoint(this.getHealthPoint()-2);
                 break;
             case holy:
-
+                this.setHasHolyBuff(true);
                 break;
             case poison:
-
-                break;
-        }
-    }
-
-    public void applyCellImpactOnMinion(int x, int y){
-        CellImpactType cellImpactType = Map.getCells()[x][y].getCellImpactType();
-        switch (cellImpactType){
-            case fire:
-
-                break;
-            case holy:
-
-                break;
-            case poison:
-
+                Buff buff = new Buff(1,3,"poisonBuff","negative");
+                this.getMinionPositiveBuffs().add(buff);
                 break;
         }
     }
@@ -532,5 +469,34 @@ public class Minion extends Card {
                 (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
         String targetsSpecified=jsonObject.get("targetsSpecified").toString();
         String actsOn=jsonObject.get("actsOn").toString();
+//        if(actsOn.equals("hero") && )
     }
+    public boolean ifMinionHasComboAttack(String minionName) throws IOException, ParseException {
+        JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
+                (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
+        String specialPower=jsonObject.get("specialPower").toString();
+        if(specialPower.equals("combo"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void removeBuffFromBuffArrayListOfMinion(String buffName){
+        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")){
+            for (Buff buff : this.getMinionPositiveBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionPositiveBuffs().remove(buff);
+                    return ;
+                }
+        }else{
+            for (Buff buff : this.getMinionNegativeBuffs())
+                if (buff.getName().equals(buffName)){
+                    this.getMinionNegativeBuffs().remove(buff);
+                    return;
+                }
+        }
+    }
+
+
 }

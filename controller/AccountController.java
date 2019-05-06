@@ -16,6 +16,7 @@ public interface AccountController{
             AllDatas.hasEnteredAccount = true;
         }
     }
+    ////////////////////////
      static void login(String[] commands, Scanner scanner) throws Exception{
         if(commands[0].compareToIgnoreCase("login") == 0 && commands.length>1){
             String username=CollectionController.createName(commands,2);
@@ -23,7 +24,6 @@ public interface AccountController{
             AllDatas.hasEnteredAccount = true;
         }
     }
-    //showLeaderBoard does not have num of wins yet
      static void showLeaderboard(String[] commands, Scanner scanner) throws Exception {
          if (commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0
                  && commands[1].compareToIgnoreCase("leaderboard") == 0) {
@@ -58,4 +58,5 @@ public interface AccountController{
              AllDatas.hasEnteredAccount = true;
          }
     }
+
 }

@@ -270,6 +270,12 @@ public class Hero extends Card{
             buff.setUsed(true);
         }
     }
+//
+//    public void applyFireBuff(Buff buff){
+//        int howMuchImpact = buff.getHowMuchImpact();
+//        int currentHP = this.getHealthPoint();
+//        this.setHealthPoint(currentHP - 2);
+//    }
 
     public void applyStunBuff(){
         this.setAbleToAttack(false);
@@ -359,7 +365,7 @@ public class Hero extends Card{
         }else if (Game.getInstance().getHeroOfPlayer2().getX() == x && Game.getInstance().getHeroOfPlayer2().getY() == y){
             return Game.getInstance().getHeroOfPlayer2();
         }
-
+        return null;
     }
 
     public void removeBuffFromBuffArrayListOfHero(String buffName){

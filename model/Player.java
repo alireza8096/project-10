@@ -30,6 +30,11 @@ public class Player {
         this.setUserName(name);
     }
 
+    public Player(String userName, String password){
+        this.userName = userName;
+        this.password = password;
+    }
+
     public Player(String userName, String password,int daric){
         this.setUserName(userName);
         this.setPassword(password);
