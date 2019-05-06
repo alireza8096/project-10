@@ -1,5 +1,6 @@
 package model.collection;
 
+import controller.AI;
 import model.AllDatas;
 import model.Deck;
 import model.Game;
@@ -82,6 +83,7 @@ public class Account {
         jsonObject.put("password",player.getPassword());
         jsonObject.put("daric",player.getDaric());
         jsonObject.put("numOfWins",player.setNumOfWins());
+        jsonObject.put("numOfWins",player.getNumOfWins());
         jsonObject.put("justCreated","false");
         jsonObject.put("numOfAllDecks",player.getDecksOfPlayer().size());
         for(int i=0; i<player.getDecksOfPlayer().size(); i++){
@@ -177,6 +179,7 @@ public class Account {
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
             Game.getInstance().setPlayer1(player);
+            AI.createAIPlayer();
         }
     }
     public static void setPlayerThatHasPlayedBefore(String name) throws Exception {
@@ -198,6 +201,7 @@ public class Account {
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
             Game.getInstance().setPlayer1(player);
+            AI.createAIPlayer();
         }
     }
 }

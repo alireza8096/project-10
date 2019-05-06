@@ -57,10 +57,10 @@ public interface BattleController {
         }
     }
     public static void useSpecialPowerXY(String[] commands,String cardName) throws IOException, ParseException {
-        if(commands.length == 4 && commands[0].compareToIgnoreCase("use") == 0 &&
-                commands[1].compareToIgnoreCase("special") ==0 && commands[2].compareToIgnoreCase("power") == 0 &&
-                commands[3].matches("\\([\\d]+,[\\d]+\\)")){
-            checkConditionsToApplySpecialPower(commands[3],cardName);
+        if (commands.length == 4 && commands[0].compareToIgnoreCase("use") == 0 &&
+                commands[1].compareToIgnoreCase("special") == 0 && commands[2].compareToIgnoreCase("power") == 0 &&
+                commands[3].matches("\\([\\d]+,[\\d]+\\)")) {
+            checkConditionsToApplySpecialPower(commands[3], cardName);
             AllDatas.didAction = true;
         }
     }

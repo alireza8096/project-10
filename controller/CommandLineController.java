@@ -1,6 +1,7 @@
 package controller;
 
 import model.AllDatas;
+import model.Game;
 import model.LinkedListMenus;
 
 import java.util.LinkedList;

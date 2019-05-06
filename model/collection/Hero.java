@@ -32,7 +32,8 @@ public class Hero extends Card{
         this.specialPower = specialPower;
     }
 
-    public Hero(String name, int healthPoint, int attackPower, String attackType, int attackRange, int coolDown, String specialPower){
+    public Hero(String name, int healthPoint, int attackPower,
+                String attackType, int attackRange, int coolDown, String specialPower, int mana){
         this.name = name;
         this.healthPoint = healthPoint;
         this.attackPower = attackPower;
@@ -40,6 +41,7 @@ public class Hero extends Card{
         this.attackRange = attackRange;
         this.coolDown = coolDown;
         this.specialPower = specialPower;
+        this.mana = mana;
         this.setMovable(true);
         this.setAbleToAttack(true);
     }
@@ -344,8 +346,9 @@ public class Hero extends Card{
         int attackRange = Integer.parseInt(jsonObject.get("attackRange").toString());
         int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
         String specialPower = jsonObject.get("specialPower").toString();
+        int mana = Integer.parseInt(jsonObject.get("mana").toString());
 
-        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown,specialPower);
+        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown,specialPower, mana);
         hero.setX(3);
         hero.setY(4);
         Game.getInstance().getMap().getHeroes().add(hero);
@@ -382,6 +385,36 @@ public class Hero extends Card{
                     return;
                 }
         }
+    }
+
+    public static Hero getHeroByName(String heroName) throws IOException, ParseException {
+        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
+        File[] listOfFiles = folder.listFiles();
+        String fileName;
+        JSONObject jsonObject;
+        for (int i = 0; i < listOfFiles.length; i++) {
+            fileName = listOfFiles[i].getName().split("\\.")[0];
+            if (fileName.equals(heroName)){
+                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + fileName + ".json");
+                String name = jsonObject.get("name").toString();
+                String healthPointString = jsonObject.get("healthPoint").toString();
+                int healthPoint = Integer.parseInt(healthPointString);
+                String attackPowerString = jsonObject.get("attackPower").toString();
+                int attackPower = Integer.parseInt(attackPowerString);
+                String attackRangeString = jsonObject.get("attackRange").toString();
+                int attackRange = Integer.parseInt(attackRangeString);
+                String attackType = jsonObject.get("attackType").toString();
+                String manaString = jsonObject.get("mana").toString();
+                int mana = Integer.parseInt(manaString);
+                int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
+
+                String specialPower = jsonObject.get("specialPower").toString();
+                Hero hero = new Hero(name, healthPoint, attackPower, attackType,
+                        attackRange, coolDown, specialPower,mana);
+                return hero;
+            }
+        }
+        return null;
     }
 
 }

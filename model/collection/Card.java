@@ -182,6 +182,8 @@ public class Card {
             return Minion.getMinionByName(cardName);
         }else if(Spell.thisCardIsSpell(cardName)){
             return Spell.getSpellByName(cardName);
+        }else if (Hero.thisCardIsHero(cardName)){
+            return Hero.getHeroByName(cardName);
         }
         return null;
     }

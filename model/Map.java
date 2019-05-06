@@ -12,6 +12,7 @@ public class Map {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
     private static Cell[][] cells = new Cell[5][9];
 
+
     private ArrayList<Card> minions = new ArrayList<>();
     private ArrayList<Card> heroes = new ArrayList<>();
 
@@ -19,10 +20,23 @@ public class Map {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 cells[i][j] = new Cell();
+                cells[i][j].setCellType(CellType.empty);
             }
         }
     }
 
+    public static void setFlagForGame(){
+        int x = (int)Math.random()%5;
+        int y = (int)Math.random()%9;
+        Cell.getCellByCoordination(x,y).setCellItemType(CellItemType.flag);
+    }
+    public static void setMultiFlag(){
+        for(int i=0; i<5; i++){
+            int x = (int)Math.random()%5;
+            int y = (int)Math.random()%9;
+            Cell.getCellByCoordination(x,y).setCellItemType(CellItemType.collectableItem);
+        }
+    }
     public ArrayList<Card> getMinions() {
         return minions;
     }
