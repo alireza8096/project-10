@@ -56,6 +56,14 @@ public class Minion extends Card {
         this.hasHolyBuff = hasHolyBuff;
     }
 
+    public boolean isCanAttackOrMove() {
+        return canAttackOrMove;
+    }
+
+    public void setCanAttackOrMove(boolean canAttackOrMove) {
+        this.canAttackOrMove = canAttackOrMove;
+    }
+
     public boolean isCanCounterAttack() {
         return canCounterAttack;
     }
@@ -433,6 +441,43 @@ public class Minion extends Card {
 //                break;
 //        }
 //    }
+//    public void applyCellImpact(Map map)
+//    {
+//        int x=this.getX();
+//        int y=this.getY();
+//        switch (((map.getCells())[x][y]).getCellSituation())
+//        {
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHasHolyBuff(true);
+//                break;
+//            case empty:
+//                break;
+//            case flag:
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                this.getMinionPositiveBuffs().add(buff);
+//                break;
+//        }
+//    }
+
+    public void applyCellImpactOnMinion(int x, int y){
+        CellImpactType cellImpactType = Map.getCells()[x][y].getCellImpactType();
+        switch (cellImpactType){
+            case fire:
+
+                break;
+            case holy:
+
+                break;
+            case poison:
+
+                break;
+        }
+    }
 
     public void applyCellImpactOnMinion(int x, int y){
         CellImpactType cellImpactType = Map.getCells()[x][y].getCellImpactType();
@@ -464,7 +509,7 @@ public class Minion extends Card {
         for(String minionName:minionNames)
         {
             JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                    (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" +minionName+".json");
+                    (ADDRESS_OF_JSON_FILES + "JSON-Minions/" +minionName+".json");
             int howMuchImpact=Integer.parseInt(jsonObject.get("howMuchChange").toString());
             int forHowManyTurns=Integer.parseInt(jsonObject.get("forHowManyTurns").toString());
             String name=jsonObject.get("whichBuff").toString();

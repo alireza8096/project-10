@@ -24,10 +24,13 @@ public class Account {
         JSONParser jsonParser = new JSONParser();
         return jsonParser.parse(reader);
     }
-    public static void writePlayerToFile(String name,String password) throws Exception{
+    public static void writeNewPlayerToFile(String name,String password) throws Exception{
         JSONObject tempPlayer = new JSONObject();
         tempPlayer.put("username",name);
         tempPlayer.put("password",password);
+        tempPlayer.put("daric",15000);
+        tempPlayer.put("numOfWins",0);
+        tempPlayer.put("justCreated","true");
         Files.write(Paths.get(PLAYERS_FOLDER+name+".json"),tempPlayer.toJSONString().getBytes());
     }
     public static boolean checkCorrectPassword(String name,String password) throws Exception{
@@ -36,11 +39,17 @@ public class Account {
     }
     public static void setPlayer(String name) throws Exception {
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");
-        Player player = new Player(
-                (String) jsonObject.get("username"),
-                (String) jsonObject.get("password"),
-                15000
-        );
+        Player player;
+        if(jsonObject.get("justCreated").toString().matches("true")) {
+           player = new Player(
+                    (String) jsonObject.get("username"),
+                    (String) jsonObject.get("password"),
+                    Integer.parseInt(jsonObject.get("daric").toString())
+            );
+        }
+        else{
+            readPlayerWithDeckAndCollection();
+        }
         Game createGame = new Game();
         Game.setCurrentGame(createGame);
         Game.getInstance().setPlayer1(player);
@@ -52,7 +61,7 @@ public class Account {
         else {
             System.out.println("Please enter password :");
             String password = scanner.nextLine();
-            writePlayerToFile(name,password);
+            writeNewPlayerToFile(name,password);
             players.add(name);
         }
     }
