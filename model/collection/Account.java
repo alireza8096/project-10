@@ -1,5 +1,6 @@
 package model.collection;
 
+import controller.AI;
 import model.AllDatas;
 import model.Deck;
 import model.Game;
@@ -172,11 +173,12 @@ public class Account {
                     (String) jsonObject.get("password")
             );
             player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
-            player.setNumOfwins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
+            player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
             writePlayerThatHasPlayedBefore(player);
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
             Game.getInstance().setPlayer1(player);
+            AI.createAIPlayer();
         }
     }
     public static void setPlayerThatHasPlayedBefore(String name) throws Exception {
@@ -187,7 +189,7 @@ public class Account {
                     (String) jsonObject.get("username"),
                     (String) jsonObject.get("password"));
             player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
-            player.setNumOfwins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
+            player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
             int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());
             for(int i=0; i<numOfDecks; i++){
                 Deck addDeck = createDeckFromString(jsonObject.get("deck").toString()+i);
@@ -198,6 +200,7 @@ public class Account {
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
             Game.getInstance().setPlayer1(player);
+            AI.createAIPlayer();
         }
     }
 }

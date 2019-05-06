@@ -31,15 +31,14 @@ public class Hand {
 
     public void setHand() throws IOException, ParseException {
         Hand hand = new Hand();
-        Game.getInstance().getPlayer1().getMainDeck().setHand(hand);
         ArrayList<String> cardNamesInDeck = Game.getInstance().getPlayer1().getMainDeck().getCardsInDeckNames();
-
         Collections.shuffle(cardNamesInDeck);
         for (int i = 0; i < 5; i++) {
             String cardName = cardNamesInDeck.get(i);
             this.getCardsInHand().add(Card.getCardByName(cardName));
             Game.getInstance().getPlayer1().getMainDeck().getCardsInDeckNames().remove(cardName);
         }
+        Game.getInstance().getPlayer1().getMainDeck().setHand(hand);
     }
 
     public boolean checkIfNumberOfCardsInHandIsValid(){

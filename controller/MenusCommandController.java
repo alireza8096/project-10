@@ -1,6 +1,7 @@
 package controller;
 
 import model.AllDatas;
+import model.Game;
 import model.LinkedListMenus;
 import model.Shop;
 import model.collection.Account;
@@ -120,12 +121,19 @@ public interface MenusCommandController {
     static void battleController(Scanner scanner) throws Exception{
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
-        BattleView.showGameInfo(commandsSplitted);
-        BattleView.showMyMinions(commandsSplitted);
-        BattleView.showOpponentMinions(commandsSplitted);
-        BattleView.showCardInfo(commandsSplitted);
-        BattleController.selectCardById(commandsSplitted,scanner);
-        BattleView.showHand(commandsSplitted);
+        if(Game.getInstance().isPlayer1Turn()) {
+            BattleView.showGameInfo(commandsSplitted);
+            BattleView.showMyMinions(commandsSplitted);
+            BattleView.showOpponentMinions(commandsSplitted);
+            BattleView.showCardInfo(commandsSplitted);
+            BattleController.selectCardById(commandsSplitted, scanner);
+            BattleView.showHand(commandsSplitted);
+        }
+        else{
+            AI.moveTillPossible();
+            AI.attckTillPossible();
+//            changeturn;
+        }
         
     }
 }
