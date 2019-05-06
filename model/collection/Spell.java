@@ -228,7 +228,7 @@ public class Spell extends Card {
         if (!checkIfThisCoordinationIsAroundSelfMinion(x, y)){
             System.out.println("Invalid target");
         }else{
-            applySpellOnEnemyHero(jsonObject, x, y);
+            applySpellOnMinion(jsonObject, x, y);
         }
     }
 

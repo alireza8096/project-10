@@ -1,13 +1,10 @@
 package view;
 
+import controller.BattleController;
 import model.Deck;
 import model.Game;
-import model.collection.Item;
+import model.collection.*;
 import model.GraveYard;
-import model.collection.HandleFiles;
-import model.collection.Hero;
-import model.collection.Minion;
-import model.collection.Spell;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -148,6 +145,25 @@ public class GameView {
             showSpell(nextCardName);
         }else if (Item.thisCardIsItem(nextCardName)){
             showItem(nextCardName);
+        }
+    }
+
+    public static void showCardInfoInGraveYard(int cardID) throws Exception {
+        String cardName = BattleController.returnNameById(cardID);
+
+        if (GraveYard.thisCardIsInGraveYard(cardName)){
+            for (String name : Game.getInstance().getGraveYard().getCardsDeletedFromHandName()){
+                if (name.equals(cardName))
+                    GameView.showCard(cardName);
+            }
+        }else{
+            System.out.println("Card is not in Grave yard!");
+        }
+    }
+
+    public static void showCardsInGraveYard() throws IOException, ParseException {
+        for (String cardName : Game.getInstance().getGraveYard().getCardsDeletedFromHandName()){
+            GameView.showCard(cardName);
         }
     }
 }
