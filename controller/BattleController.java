@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public interface BattleController {
+public class BattleController {
     public static void selectCardById(String[] commands, Scanner scanner) throws Exception{
         if(commands.length == 2 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].matches("[\\d]+")) {
@@ -187,12 +187,62 @@ public interface BattleController {
                 card.setY(y);
                 card.setHasMovedInThisTurn(true);
                 System.out.println(card.returnCompleteId(card.getName(),card.getId()) + " moved to (" +x + "," + y + ")");
+                applyEffectsOfTargetCellOnCard(card, x, y);
             }
         }
         else {
             System.out.println("This card is not movable");
         }
     }
+
+    public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y){
+        applyCellTypeOnCard(card, x, y);
+        applyCellImpactTypeOnCard(card, x, y);
+        applyCellItemTypeOnCard(card, x, y);
+    }
+
+    public static void applyCellTypeOnCard(Card card, int x, int y){
+        if (Minion.thisCardIsMinion(card.getName())){
+            Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
+        }else if (Hero.thisCardIsHero(card.getName())){
+            Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfHero);
+        }
+    }
+
+    public static void applyCellImpactTypeOnCard(Card card, int x, int y){
+        CellImpactType cellImpactType = Game.getInstance().getMap().getCells()[x][y].getCellImpactType();
+        Buff buff;
+        switch (cellImpactType){
+            case fire:
+                buff = new Buff("fireBuff", 2, 1);
+                CellImpactType.applyFireImpactOnCard(card, buff);
+                break;
+            case poison:
+                buff = new Buff("poisonBuff", 1, 1);
+                CellImpactType.applyPoisonImpactOnCard(card, buff);
+                break;
+            case holy:
+                CellImpactType.applyHolyImpactOnCard(card);
+                break;
+        }
+    }
+
+    public static void applyCellItemTypeOnCard(Card card, int x, int y){
+        CellItemType cellItemType = Game.getInstance().getMap().getCells()[x][y].getCellItemType();
+        switch (cellItemType){
+            case flag:
+                Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer1NumberOfFlags() + 1);
+                Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
+                break;
+            case collectibleItem:
+
+                break;
+        }
+    }
+
+
+
+
 
     public static void checkAllConditionsToAttack(String command,String cardName) throws Exception {
         int opponentId = Integer.parseInt(command);
@@ -257,11 +307,11 @@ public interface BattleController {
 
     //    }
 
-//    public static boolean checkAttackConditionsForMinion(Minion minion, int opponentCardID){
-//        int attackRange = minion.getAttackRange();
-//
-//
-//    }
+    public static boolean checkAttackConditionsForMinion(Minion minion, int opponentCardID){
+        int attackRange = minion.getAttackRange();
+        return false;
+
+    }
 
     public static void insertThisCardinThisCoordination(String cardName, int x, int y) throws Exception {
         int coordinateX = x - 1;
@@ -333,7 +383,7 @@ public interface BattleController {
         Game.getInstance().getPlayer1().setNumOfMana(currentPlayerMana - cardMana);
     }
 
-    static void selectGameMode(String gameType){
+    public static void selectGameMode(String gameType){
         switch (gameType){
             case "killingHeroOfEnemy":
                 selectFirstGameMode();
@@ -347,11 +397,11 @@ public interface BattleController {
         }
     }
 
-    static void selectFirstGameMode(){
+    public static void selectFirstGameMode(){
         Game.getInstance().setGameMode(GameMode.killingHeroOfEnemy);
     }
 
-    static void selectSecondGameMode(){
+    public static void selectSecondGameMode(){
         Game.getInstance().setGameMode(GameMode.collectingAndKeepingFlags);
       //  Item flag = Item.returnFlagByRandomCoordination();
         int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
@@ -360,7 +410,7 @@ public interface BattleController {
 
     }
 
-    static void selectThirdGameMode(){
+    public static void selectThirdGameMode(){
         Game.getInstance().setGameMode(GameMode.collectingHalfOfTheFlags);
         for (int i = 0; i < 7; i++) {
 
@@ -373,7 +423,7 @@ public interface BattleController {
         Game.getInstance().getMap().getCells()[0][0].setCellItemType(CellItemType.flag);
     }
 
-    static void changeTurn(){
+    public static void changeTurn(){
         Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
         Game.getInstance().setPlayer1Turn(false);
         Game.getInstance().getMap().changeCellTypesWhenTurnChanges();
@@ -393,10 +443,14 @@ public interface BattleController {
 
         //Todo : change hand of the game
 
+
         int tempNumberOfFlags = Game.getInstance().getPlayer1NumberOfFlags();
         Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer2NumberOfFlags());
         Game.getInstance().setPlayer2NumberOfFlags(tempNumberOfFlags);
 
+        Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
+
+        Game.getInstance().getPlayer1().handleManaAtTheFirstOfTurn();
 
     }
 

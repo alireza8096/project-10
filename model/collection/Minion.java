@@ -144,15 +144,6 @@ public class Minion extends Card {
         return null;
     }
 
-//    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime){
-//        this.healthPoint = healthPoint;
-//        this.setName(name);
-//        this.attackPower = attackPower;
-//        this.attackRange = attackRange;
-//        this.attackType = attackType;
-//        this.activationTime = activationTime;
-//    }
-
     public static Card getMinionByName(String minionName) throws IOException, ParseException {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions");
         File[] listOfFiles = folder.listFiles();
@@ -526,7 +517,7 @@ public class Minion extends Card {
     public void insertSpecialPowerInThisLocation(String minionName) throws IOException, ParseException {
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
                 + "JSON-Minions/" + minionName + ".json");
-        CellType cellType = Map.getCells()[x][y].getCellType();
+        CellType cellType = Game.getInstance().getMap().getCells()[x][y].getCellType();
         switch(cellType)
         {
             case selfHero:

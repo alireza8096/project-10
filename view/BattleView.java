@@ -14,9 +14,10 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
-public interface BattleView {
+public class BattleView {
     //not completed
     public static void showGameInfo(String[] commands){
+        System.out.println("***testing : " + Game.getInstance().getPlayer1());
         if(commands.length == 2 && commands[0].compareToIgnoreCase("game") == 0
         && commands[1].compareToIgnoreCase("info")==0) {
             System.out.println("Game info :");

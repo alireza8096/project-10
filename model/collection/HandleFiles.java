@@ -20,15 +20,15 @@ import java.util.ArrayList;
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
-    public static void createStringOfPlayers() {
-        File folder = new File("/Users/hamilamailee/Documents/Duelyst Project/model/players/");
-        File[] listOfFiles = folder.listFiles();
-        for (int i = 0; i < listOfFiles.length; i++) {
-            Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
-        }
-    }
+//    public static void createStringOfPlayers() {
+//        File folder = new File("/Users/hamilamailee/Documents/Duelyst Project/model/players/");
+//        File[] listOfFiles = folder.listFiles();
+//        for (int i = 0; i < listOfFiles.length; i++) {
+//            Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
+//        }
+//    }
 
     public static void createStringOfHeroes() {
         File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");

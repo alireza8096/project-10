@@ -32,11 +32,6 @@ public class Game {
     private int player2NumberOfFlags;
     private int numOfFlags;
 
-    static{
-        Map map = new Map();
-        Game.getInstance().setMap(map);
-    }
-
     public Game(){
 
     }
@@ -250,13 +245,16 @@ public class Game {
         this.gameType = gameType;
     }
 
-    public static void createNewGame(String player1Name, String player2Name){
+    public static void createNewGame(){
+        Game game = new Game();
 
-        Player player1 = new Player(player1Name);
-        Player player2 = new Player(player2Name);
+        Map map = new Map();
+        game.setMap(map);
+        game.setPlayer1Turn(true);
+        game.setNumOfRound(1);
 
-        Game game = new Game(player1, player2);
-        Game.getGames().add(game);
+        Game.setCurrentGame(game);
+
     }
 
 

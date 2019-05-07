@@ -4,6 +4,7 @@ import controller.AI;
 import model.AllDatas;
 import model.Deck;
 import model.Game;
+import model.Map;
 import model.Player;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -18,7 +19,7 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Account {
-    public static final String PLAYERS_FOLDER = "/Users/hamilamailee/Documents/Duelyst Project/model/players/";
+    public static final String PLAYERS_FOLDER = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
     private static ArrayList<String> players = new ArrayList<>();
     public static ArrayList<String> getPlayers() {
         return players;
@@ -74,7 +75,6 @@ public class Account {
         }
         return false;
     }
-    /////////////////////
 
 
     public static void writePlayerThatHasPlayedBefore(Player player) throws IOException {
@@ -82,7 +82,7 @@ public class Account {
         jsonObject.put("username",player.getUserName());
         jsonObject.put("password",player.getPassword());
         jsonObject.put("daric",player.getDaric());
-        jsonObject.put("numOfWins",player.setNumOfWins());
+        jsonObject.put("numOfWins",player.getNumOfWins());
         jsonObject.put("numOfWins",player.getNumOfWins());
         jsonObject.put("justCreated","false");
         jsonObject.put("numOfAllDecks",player.getDecksOfPlayer().size());
@@ -174,10 +174,13 @@ public class Account {
                     (String) jsonObject.get("password")
             );
             player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
+            player.setNumOfMana(2);
             player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
             writePlayerThatHasPlayedBefore(player);
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
+            model.Map map = new Map();
+            Game.getInstance().setMap(map);
             Game.getInstance().setPlayer1(player);
             AI.createAIPlayer();
         }

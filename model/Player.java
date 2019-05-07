@@ -191,4 +191,14 @@ public class Player {
         return false;
     }
 
+    public void handleManaAtTheFirstOfTurn(){
+        int turnNumber = Game.getInstance().getNumOfRound();
+        int key = turnNumber / 2;
+        if (turnNumber <= 14){
+            Game.getInstance().getPlayer1().setNumOfMana(2 + key);
+        }else{
+            Game.getInstance().getPlayer1().setNumOfMana(9);
+        }
+    }
+
 }

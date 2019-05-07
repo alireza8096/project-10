@@ -1,25 +1,26 @@
 package controller;
 
 import model.AllDatas;
+import model.Game;
 import model.LinkedListMenus;
 import model.collection.HandleFiles;
 
 import java.util.Scanner;
 
-public interface Controller {
-    static void createAll() throws Exception{
+public class Controller {
+    public static void createAll() throws Exception{
         createAllMenus();
         createAllDataFromJSON();
     }
-    static void createAllDataFromJSON() throws Exception{
+    public static void createAllDataFromJSON() throws Exception{
         HandleFiles.createStringOfHeroes();
         HandleFiles.createStringOfItems();
         HandleFiles.createStringOfMinions();
-        HandleFiles.createStringOfPlayers();
+     //   HandleFiles.createStringOfPlayers();
         HandleFiles.createStringOfSpells();
         HandleFiles.createStringOfUsableItems();
     }
-    static void createAllMenus(){
+    public static void createAllMenus(){
         AllDatas.account= new LinkedListMenus("Account",true);
         AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
         AllDatas.commandLine = new LinkedListMenus("Command Line",false);
@@ -54,7 +55,7 @@ public interface Controller {
         LinkedListMenus.allMenus.add(AllDatas.help);
 
     }
-    static void handleCommands(Scanner scanner) throws Exception{
+    public static void handleCommands(Scanner scanner) throws Exception{
         switch (LinkedListMenus.whichMenuNow().getMenuName()) {
             case "Account":
                 System.out.println("account");
@@ -78,6 +79,7 @@ public interface Controller {
                 break;
             case "Battle":
                 System.out.println("battle");
+                Game.createNewGame();
                 MenusCommandController.battleController(scanner);
                 break;
             case "Help":

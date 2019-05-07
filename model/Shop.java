@@ -9,7 +9,7 @@ public class Shop {
     private Game game;
     private Player player;
     public static ArrayList<String> usableItems = new ArrayList<>();
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public Game getGame() {
         return game;

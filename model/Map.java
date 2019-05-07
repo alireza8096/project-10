@@ -1,15 +1,10 @@
 package model;
 
 import model.collection.*;
-import java.math.*;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Map {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
     private Cell[][] cells = new Cell[5][9];
 
     private ArrayList<Card> minions = new ArrayList<>();
@@ -34,7 +29,7 @@ public class Map {
         for(int i=0; i<5; i++){
             int x = (int)Math.random()%5;
             int y = (int)Math.random()%9;
-            Cell.getCellByCoordination(x,y).setCellItemType(CellItemType.collectableItem);
+            Cell.getCellByCoordination(x,y).setCellItemType(CellItemType.collectibleItem);
         }
     }
     public ArrayList<Card> getMinions() {

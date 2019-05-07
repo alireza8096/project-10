@@ -10,8 +10,8 @@ import view.BattleView;
 import java.util.Collection;
 import java.util.Scanner;
 
-public interface MenusCommandController {
-    static void accountController(Scanner scanner) throws Exception {
+public class MenusCommandController {
+    public static void accountController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
         AccountController.createAccount(commandsSplitted, scanner);
@@ -29,7 +29,7 @@ public interface MenusCommandController {
         AllDatas.hasEnteredAccount = false;
     }
 
-    static void leaderboardController(Scanner scanner){
+    public static void leaderboardController(Scanner scanner){
         String command = scanner.nextLine();
         if (command.compareToIgnoreCase("exit") == 0) {
             AllDatas.leaderboard.setNowInThisMenu(false);
@@ -39,7 +39,7 @@ public interface MenusCommandController {
         }
     }
 
-    static void helpController(Scanner scanner){
+    public static void helpController(Scanner scanner){
         System.out.println("Type \"exit\" to return");
         String command = scanner.nextLine();
         if (command.compareToIgnoreCase("exit") == 0) {
@@ -50,7 +50,7 @@ public interface MenusCommandController {
         }
     }
 
-    static void commandLineController(Scanner scanner) {
+    public static void commandLineController(Scanner scanner) {
         for (String command: AllDatas.commandLine.getCommandsForHelp()) {
             System.out.println(command);
         }
@@ -71,7 +71,7 @@ public interface MenusCommandController {
         }
     }
 
-    static void collectionController(Scanner scanner) throws Exception {
+    public static void collectionController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
         CollectionController.show(commandsSplitted);
@@ -97,7 +97,7 @@ public interface MenusCommandController {
         AllDatas.hasEnteredCollection = false;
     }
 
-    static void shopController(Scanner scanner) throws Exception {
+    public static void shopController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
         ShopController.showCollection(commandsSplitted);
@@ -118,7 +118,7 @@ public interface MenusCommandController {
         AllDatas.hasEnteredShop= false;
     }
 
-    static void battleController(Scanner scanner) throws Exception{
+    public static void battleController(Scanner scanner) throws Exception{
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
         if(Game.getInstance().isPlayer1Turn()) {
@@ -128,11 +128,21 @@ public interface MenusCommandController {
             BattleView.showCardInfo(commandsSplitted);
             BattleController.selectCardById(commandsSplitted, scanner);
             BattleView.showHand(commandsSplitted);
+            if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
+                AllDatas.battle.setNowInThisMenu(false);
+                AllDatas.commandLine.setNowInThisMenu(true);
+                AllDatas.hasEnteredBattle = true;
+            }
+            if (!AllDatas.hasEnteredBattle) {
+                System.out.println("Command is not supported in this menu");
+            }
+            AllDatas.hasEnteredBattle= false;
+
         }
         else{
             AI.moveTillPossible();
             AI.attckTillPossible();
-//            changeturn;//Todo
+            BattleController.changeTurn();
         }
         
     }

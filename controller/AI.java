@@ -44,6 +44,7 @@ public class AI {
     public static void createAIPlayer() throws Exception {
         Player AIPlayer = new Player("AI", "AI");
         createDeckOfAI(AIPlayer);
+        AIPlayer.setNumOfMana(2);
         Game.getInstance().setPlayer2(AIPlayer);
     }
     public static void moveTillPossible() {

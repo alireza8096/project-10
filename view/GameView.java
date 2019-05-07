@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class GameView {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/hamilamailee/Documents/Duelyst Project/model/collection/";
+    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public static String searchTypeAndShow(String name) throws Exception{
         String returnString = "";
