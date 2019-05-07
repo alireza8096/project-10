@@ -50,7 +50,7 @@ public class Cell {
     }
 
     public static Cell getCellByCoordination(int x, int y){
-        return Map.getCells()[x][y];
+        return Game.getInstance().getMap().getCells()[x][y];
     }
 
     public static int returnRandomNumberForCoordinationInThisRange(int i1, int i2) {

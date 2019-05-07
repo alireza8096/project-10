@@ -10,13 +10,12 @@ import java.util.ArrayList;
 
 public class Map {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
-    private static Cell[][] cells = new Cell[5][9];
-
+    private Cell[][] cells = new Cell[5][9];
 
     private ArrayList<Card> minions = new ArrayList<>();
     private ArrayList<Card> heroes = new ArrayList<>();
 
-    static {
+    public Map(){
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 cells[i][j] = new Cell();
@@ -24,6 +23,7 @@ public class Map {
             }
         }
     }
+
 
     public static void setFlagForGame(){
         int x = (int)Math.random()%5;
@@ -53,12 +53,12 @@ public class Map {
         this.heroes = heroes;
     }
 
-    public static Cell[][] getCells() {
+    public Cell[][] getCells() {
         return cells;
     }
 
-    public static void setCells(Cell[][] cells) {
-        Map.cells = cells;
+    public void setCells(Cell[][] cells) {
+        this.cells = cells;
     }
 
     public static boolean checkIfMinionCardCanBeInsertedInThisCoordination(int x, int y){
@@ -154,5 +154,21 @@ public class Map {
             return true;
         }
         return false;
+    }
+
+    public void changeCellTypesWhenTurnChanges(){
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (this.getCells()[i][j].getCellType().equals(CellType.selfHero)){
+                    this.getCells()[i][j].setCellType(CellType.enemyHero);
+                }else if (this.getCells()[i][j].getCellType().equals(CellType.selfMinion)){
+                    this.getCells()[i][j].setCellType(CellType.enemyMinion);
+                }else if (this.getCells()[i][j].getCellType().equals(CellType.enemyHero)){
+                    this.getCells()[i][j].setCellType(CellType.selfHero);
+                }else if (this.getCells()[i][j].getCellType().equals(CellType.enemyMinion)){
+                    this.getCells()[i][j].setCellType(CellType.selfMinion);
+                }
+            }
+        }
     }
 }

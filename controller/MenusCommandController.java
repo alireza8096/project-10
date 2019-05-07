@@ -132,7 +132,7 @@ public interface MenusCommandController {
         else{
             AI.moveTillPossible();
             AI.attckTillPossible();
-//            changeturn;
+//            changeturn;//Todo
         }
         
     }

@@ -150,13 +150,13 @@ public class Item {
 
     }
 
-    public static Item returnFlagByRandomCoordination(){
-        int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
-        int y = Cell.returnRandomNumberForCoordinationInThisRange(0, 9);
-
-        Item flag = new Item("flag", "collectible", x, y);
-        return flag;
-    }
+//    public static Item returnFlagByRandomCoordination(){
+//        int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
+//        int y = Cell.returnRandomNumberForCoordinationInThisRange(0, 9);
+//
+//        Item flag = new Item("flag", "collectible", x, y);
+//        return flag;
+//    }
 
     
 

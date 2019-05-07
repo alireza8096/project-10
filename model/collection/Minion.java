@@ -23,6 +23,7 @@ public class Minion extends Card {
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
+    private boolean hasFlag;
 
     public String getSpecialPower() {
         return specialPower;

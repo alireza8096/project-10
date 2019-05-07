@@ -118,7 +118,7 @@ public class Spell extends Card {
 
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
                 + "JSON-Spells/" + spellName + ".json");
-        CellType cellType = Map.getCells()[x][y].getCellType();
+        CellType cellType = Game.getInstance().getMap().getCells()[x][y].getCellType();
 
         switch (cellType){
             case selfHero:
@@ -454,13 +454,13 @@ public class Spell extends Card {
             Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i])
                     , buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
             for (int j = 0; j < 5; j++) {
-                if (Map.getCells()[j][y].getCellType() == CellType.enemyMinion){
+                if (Game.getInstance().getMap().getCells()[j][y].getCellType() == CellType.enemyMinion){
                     if (buff.getType().equals("positive")){
                         Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
                     }else{
                         Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
                     }
-                }else if (Map.getCells()[j][y].getCellType() == CellType.enemyHero){
+                }else if (Game.getInstance().getMap().getCells()[j][y].getCellType() == CellType.enemyHero){
                     if (buff.getType().equals("positive")){
                         Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().add(buff);
                     }else{
@@ -508,13 +508,13 @@ public class Spell extends Card {
 
         for (int i = x; i < x + 3; i++) {
             for (int j = y; j < y + 3; j++) {
-                if (Map.getCells()[i][j].getCellType() == CellType.selfHero){
+                if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero){
                     Game.getInstance().getHeroOfPlayer1().getNegativeBuffs().clear();
-                }else if (Map.getCells()[i][j].getCellType() == CellType.selfMinion){
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion){
                     Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().clear();
-                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyHero){
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero){
                     Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().clear();
-                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyMinion){
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion){
                     Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().clear();
                 }
             }
@@ -524,7 +524,7 @@ public class Spell extends Card {
     public static void applySpellOn2x2SquareOnMap(JSONObject jsonObject, int x, int y, Buff buff){
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
-                Map.getCells()[i][j].setCellImpactType(CellImpactType.fire);
+                Game.getInstance().getMap().getCells()[i][j].setCellImpactType(CellImpactType.fire);
             }
         }
 
@@ -534,12 +534,12 @@ public class Spell extends Card {
 
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
-                if (Map.getCells()[i][j].getCellType() == CellType.selfHero){
+                if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero){
                     CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
-                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyHero){
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero){
                     CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
-                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyMinion ||
-                        Map.getCells()[i][j].getCellType() == CellType.selfMinion){
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion ||
+                        Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion){
                     CellImpactType.applyFireImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);
                 }
             }
@@ -567,7 +567,7 @@ public class Spell extends Card {
     public static void applySpellOn3x3SquareOnMap(JSONObject jsonObject, int x, int y, Buff buff){
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
-                Map.getCells()[i][j].setCellImpactType(CellImpactType.poison);
+                Game.getInstance().getMap().getCells()[i][j].setCellImpactType(CellImpactType.poison);
             }
         }
 
@@ -577,12 +577,12 @@ public class Spell extends Card {
 
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
-                if (Map.getCells()[i][j].getCellType() == CellType.selfHero){
+                if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero){
                     CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
-                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyHero){
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero){
                     CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
-                }else if (Map.getCells()[i][j].getCellType() == CellType.enemyMinion ||
-                        Map.getCells()[i][j].getCellType() == CellType.selfMinion){
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion ||
+                        Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion){
                     CellImpactType.applyPoisonImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);
                 }
             }

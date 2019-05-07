@@ -27,7 +27,9 @@ public class Game {
     private Hand hand;
     private GraveYard graveYard = new GraveYard();
     private Item flag;
-    private ArrayList<Item> flags = new ArrayList<>();
+ //   private ArrayList<Item> flags = new ArrayList<>();
+    private int player1NumberOfFlags;
+    private int player2NumberOfFlags;
     private int numOfFlags;
 
     static{
@@ -60,13 +62,43 @@ public class Game {
         this.flag = flag;
     }
 
-    public ArrayList<Item> getFlags() {
-        return flags;
+    public int getPlayer1NumberOfFlags() {
+        return player1NumberOfFlags;
     }
 
-    public void setFlags(ArrayList<Item> flags) {
-        this.flags = flags;
+    public void setPlayer1NumberOfFlags(int player1NumberOfFlags) {
+        this.player1NumberOfFlags = player1NumberOfFlags;
     }
+
+    public int getPlayer2NumberOfFlags() {
+        return player2NumberOfFlags;
+    }
+
+    public void setPlayer2NumberOfFlags(int player2NumberOfFlags) {
+        this.player2NumberOfFlags = player2NumberOfFlags;
+    }
+//    public ArrayList<Item> getPlayer1Flags() {
+//        return player1Flags;
+//    }
+//
+//    public void setPlayer1Flags(ArrayList<Item> player1Flags) {
+//        this.player1Flags = player1Flags;
+//    }
+//
+//    public ArrayList<Item> getPlayer2Flags() {
+//        return player2Flags;
+//    }
+//
+//    public void setPlayer2Flags(ArrayList<Item> player2Flags) {
+//        this.player2Flags = player2Flags;
+//    }
+//    public ArrayList<Item> getFlags() {
+//        return flags;
+//    }
+//
+//    public void setFlags(ArrayList<Item> flags) {
+//        this.flags = flags;
+//    }
 
     public GraveYard getGraveYard() {
         return graveYard;

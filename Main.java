@@ -43,7 +43,7 @@ public class Main {
 
         Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().add(spell);
 
-        Map.getCells()[3][4].setCellType(CellType.selfHero);
+        Game.getInstance().getMap().getCells()[3][4].setCellType(CellType.selfHero);
 
 
         for (Card card : Game.getInstance().getMap().getHeroes()){

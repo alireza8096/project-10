@@ -5,6 +5,7 @@ import model.collection.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public interface BattleController {
@@ -318,7 +319,7 @@ public interface BattleController {
         Card card = Game.getInstance().getPlayer1().getMainDeck().getHand().returnCardInHand(minionName);
         card.setX(x);
         card.setY(y);
-        Map.getCells()[x][y].setCellType(CellType.selfMinion);
+        Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
         handleManaOfPlayerAfterInsertingCardInMap(minionName);
 
         Game.getInstance().getPlayer1CardsInField().add(card);
@@ -352,18 +353,51 @@ public interface BattleController {
 
     static void selectSecondGameMode(){
         Game.getInstance().setGameMode(GameMode.collectingAndKeepingFlags);
-        Item flag = Item.returnFlagByRandomCoordination();
+      //  Item flag = Item.returnFlagByRandomCoordination();
+        int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
+        int y = Cell.returnRandomNumberForCoordinationInThisRange(0, 9);
+        Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.flag);
 
-        Game.getInstance().setFlag(flag);
     }
 
     static void selectThirdGameMode(){
         Game.getInstance().setGameMode(GameMode.collectingHalfOfTheFlags);
+        for (int i = 0; i < 7; i++) {
+
+            int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
+            int y = Cell.returnRandomNumberForCoordinationInThisRange(0, 9);
+       //     Item flag2 = new Item("flag", "collectible", 4 - x, 8 - y);
+            Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.flag);
+            Game.getInstance().getMap().getCells()[4 - x][8 - y].setCellItemType(CellItemType.flag);
+        }
+        Game.getInstance().getMap().getCells()[0][0].setCellItemType(CellItemType.flag);
     }
 
+    static void changeTurn(){
+        Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
+        Game.getInstance().setPlayer1Turn(false);
+        Game.getInstance().getMap().changeCellTypesWhenTurnChanges();
+
+        //change all fields of player1 and player2
+        Player tempPlayer = Game.getInstance().getPlayer1();
+        Game.getInstance().setPlayer1(Game.getInstance().getPlayer2());
+        Game.getInstance().setPlayer2(tempPlayer);
+
+        ArrayList<Card> tempCards = new ArrayList<>(Game.getInstance().getPlayer1CardsInField());
+        Game.getInstance().setPlayer1CardsInField(Game.getInstance().getPlayer2CardsInField());
+        Game.getInstance().setPlayer2CardsInField(tempCards);
+
+        Hero tempHero = Game.getInstance().getHeroOfPlayer1();
+        Game.getInstance().setHeroOfPlayer1(Game.getInstance().getHeroOfPlayer2());
+        Game.getInstance().setHeroOfPlayer2(tempHero);
+
+        //Todo : change hand of the game
+
+        int tempNumberOfFlags = Game.getInstance().getPlayer1NumberOfFlags();
+        Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer2NumberOfFlags());
+        Game.getInstance().setPlayer2NumberOfFlags(tempNumberOfFlags);
 
 
-
-
+    }
 
 }
