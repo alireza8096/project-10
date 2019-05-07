@@ -414,5 +414,48 @@ public class Hero extends Card{
         }
         return null;
     }
+    public void applySpecialPowerOnHero(String heroName) throws IOException, ParseException {
+        switch (heroName)
+        {
+            case "Afsaneh:
+                Buff buff1=new Buff(1,1,"poisonBuff","negative","onAttack");
+                getHeroByName("Afsaneh").getNegativeBuffs().add(buff1);
+                break;
+            case "Arash":
+                Buff buff2=new Buff(1,1,"poisonBuff","negative","onAttack");
+                getHeroByName("Arash").getNegativeBuffs().add(buff2);
+                break;
+            case "Div Sefid":
+                Buff buff3=new Buff(4,1,"powerAttackBuff","positive","continuously");
+                getHeroByName("Div Sefid").getPositiveBuffs().add(buff3);
+                break;
+            case "Ejdeha Haftsar":
+                Buff buff4=new Buff(1,1,"disarmBuff","negative","onTurn");
+                getHeroByName("Ejdeha Haftsar").getNegativeBuffs().add(buff4);
+                    break;
+            case "Esfandiyar":
+                Buff buff=new Buff(1,3,"holyBuff","positive","continiously");
+                getHeroByName("Esfandiyar").getPositiveBuffs().add(buff);
+                break;
+            case "Kaveh":
+                Buff buff5=new Buff(1,1,"holyBuff","positive","onTurn");
+                getHeroByName("Kaveh").getPositiveBuffs().add(buff5);
+                break;
+            case "Rakhsh":
+                Buff buff6=new Buff(1,1,"stunBuff","negative","passive");
+                getHeroByName("Rakhsh").getNegativeBuffs().add(buff6);
+                    break;
+            case "Rostam":
+                    break;
+            case "Simorgh":
+                Buff buff8=new Buff(1,1,"stunBuff","negative","onTurn");
+                getHeroByName("Simorgh").getNegativeBuffs().add(buff8);
+                break;
+            case "Zahhak":
+                Buff buff9=new Buff(1,1,"poisonBuff","negative","onAttack");
+                getHeroByName("Zahhak").getNegativeBuffs().add(buff9);
+                break;
+        }
+    }
 
 }
