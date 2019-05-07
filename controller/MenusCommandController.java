@@ -115,7 +115,7 @@ public class MenusCommandController {
         if (!AllDatas.hasEnteredShop) {
             System.out.println("Command is not supported in this menu");
         }
-        AllDatas.hasEnteredShop= false;
+        AllDatas.hasEnteredShop = false;
     }
 
     public static void battleController(Scanner scanner) throws Exception{

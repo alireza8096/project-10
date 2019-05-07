@@ -79,7 +79,8 @@ public class Controller {
                 break;
             case "Battle":
                 System.out.println("battle");
-                Game.createNewGame();
+                if (!Game.getInstance().isSet())
+                    Game.createNewGame(scanner);
                 MenusCommandController.battleController(scanner);
                 break;
             case "Help":
