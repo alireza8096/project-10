@@ -257,7 +257,6 @@ public class Game {
 
     }
 
-
     public Hand getHand() {
         return hand;
     }

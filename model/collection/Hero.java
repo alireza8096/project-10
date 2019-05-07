@@ -177,8 +177,6 @@ public class Hero extends Card{
         }
     }
 
-
-
     public void applyBuffOnHeroForOneTurn(Buff buff){
         int currentNumberOfTurns = buff.getForHowManyTurns();
         buff.setForHowManyTurns(currentNumberOfTurns - 1);

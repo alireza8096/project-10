@@ -487,6 +487,7 @@ public class Minion extends Card {
         String actsOn=jsonObject.get("actsOn").toString();
 //        if(actsOn.equals("hero") && )
     }
+
     public boolean ifMinionHasComboAttack(String minionName) throws IOException, ParseException {
         JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
                 (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
@@ -537,6 +538,7 @@ public class Minion extends Card {
                 break;
         }
     }
+
     public void insertSpecialPowerInAnEmptyCell(JSONObject jsonObject,int x,int y)
     {
         String numOfTargets = jsonObject.get("numOfTargets").toString();
@@ -550,6 +552,7 @@ public class Minion extends Card {
 
         }
     }
+
     public void insertSpecialPowerInCellTypeEnemyMinion(JSONObject jsonObject,int x,int y)
     {
         String numOfTargets = jsonObject.get("numOfTargets").toString();
@@ -575,10 +578,12 @@ public class Minion extends Card {
 
         }
     }
+    
     public static void applySpecialPowerOnMinion(JSONObject jsonObject, int x, int y)
     {
         Spell.applySpellOnMinion(jsonObject,x,y);
     }
+
     public static void applySpecialPowerOnMinionsIn8Round(JSONObject jsonObject, int x, int y){
 
         for(int i=x-1;i<=x+1;i++)
@@ -621,13 +626,16 @@ public class Minion extends Card {
                 }
         }
     }
+
     public static void applySpecialPowerOnEnemyHero (JSONObject jsonObject,int x,int y){
         Spell.applySpellOnEnemyHero(jsonObject, x, y);
     }
+
     public static void applySpecialPowerOnAllEnemyForces(JSONObject jsonObject,int x,int y)
     {
         Spell.applySpellOnAllEnemyForces(jsonObject,x,y);
     }
+
     public static void insertSpecialPowerInCellTypeSelfMinion(JSONObject jsonObject,int x,int y)
     {
         String numOfTargets = jsonObject.get("numOfTargets").toString();
@@ -650,6 +658,7 @@ public class Minion extends Card {
                 break;
         }
     }
+
     public static void insertSpecialPowerInCellTypeSelfHero(JSONObject jsonObject,int x,int y)
     {
         String numOfTargets = jsonObject.get("numOfTargets").toString();
@@ -672,10 +681,12 @@ public class Minion extends Card {
 
         }
     }
+
     public static void applySpecialPowerOnSelfHero(JSONObject jsonObject,int x,int y)
     {
         Spell.applySpellOnSelfHero(jsonObject,x,y);
     }
+
     public static void applySpecialPowerOnAllSelfForces(JSONObject jsonObject,int x,int y)
     {
         Spell.applySpellOnAllSelfForces(jsonObject,x,y);
