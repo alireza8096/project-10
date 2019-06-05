@@ -226,34 +226,22 @@ public class Spell extends Card {
         for (int i = 0; i < typeOfActions.size(); i++) {
             switch (typeOfActions.get(i)){
                 case "dispel":
-
+                    if (Card.getCardByCoordination(x, y).thisCardIsFriend())
+                        Card.getCardByCoordination(x, y).dispelThisForce("friend");
+                    else
+                        Card.getCardByCoordination(x, y).dispelThisForce("enemy");
                     break;
                 case "kill":
+                    Minion.getMinionInThisCoordination(x, y).killCard();
                     break;
                 case "addBuff":
+                    for (Buff buff : buffs)
+                        Minion.getMinionInThisCoordination(x, y).addBuffToMinion(buff);
                     break;
                 case "addAction":
                     break;
             }
         }
-
-
-//        for (int i = 0; i < buffNames.length; i++) {
-//            if (typeOfAction[i].equals("addsBuff")){
-//                Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
-//                        buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-//                if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("positive")) {
-//                    Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
-//                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinionForOneTurn(buff);
-//                }else{
-//                    Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
-//                    Minion.getMinionInThisCoordination(x, y).applyBuffOnMinionForOneTurn(buff);
-//                }
-//            }else if (typeOfAction[i].equals("removesBuff")){
-//                Minion.getMinionInThisCoordination(x, y).removeBuffFromBuffArrayListOfMinion(buffNames[i]);
-//            }
-//        }
-
 
     }
 
@@ -287,7 +275,7 @@ public class Spell extends Card {
 
         switch (numOfTargets){
             case "1":
-                if (actsOn.equals("map") || actsOn.equals("owner")){
+                if (actsOn.equals("cell") || actsOn.equals("friend")){
                     GameView.printInvalidCommandWhithThisContent("Invalid Target!");
                 }else{
                     applySpellOnEnemyHero(x, y);
@@ -310,52 +298,73 @@ public class Spell extends Card {
     }
 
     public void applySpellOnEnemyHero(int x, int y){
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+        ArrayList<Buff> buffs = this.buffs;
+        ArrayList<Buff> actions = this.actions;
+        ArrayList<String> typeOfActions = this.actionType;
 
-        for (int i = 0; i < buffNames.length; i++) {
-            if (typeOfAction[i].equals("addsBuff")){
-                Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
-                        buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-                if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("positive")) {
-                    Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().add(buff);
-                    Game.getInstance().getHeroOfPlayer2().applyBuffsOnHero();
-                }else{
-                    Game.getInstance().getHeroOfPlayer2().getNegativeBuffs().add(buff);
-                    Game.getInstance().getHeroOfPlayer2().applyBuffsOnHero();
-                }
-            }else if (typeOfAction[i].equals("removesBuff")){
-                Game.getInstance().getHeroOfPlayer2().removeBuffFromBuffArrayListOfHero(buffNames[i]);
+        for (int i = 0; i < typeOfActions.size(); i++) {
+            switch (typeOfActions.get(i)){
+                case "dispel":
+                    Hero.getHeroByCoordination(x, y).dispelThisForce("enemy");
+                    break;
+                case "kill":
+                    Hero.getHeroByCoordination(x, y).killCard();
+                    break;
+                case "addBuff":
+                    for (Buff buff : buffs)
+                        Hero.getHeroByCoordination(x, y).addBuffToHero(buff);
+                    break;
+                case "addAction":
+                    for (Buff actionBuff : actions){
+                        Hero.getHeroByCoordination(x, y).getActions().add(actionBuff);
+                    }
+                    break;
             }
         }
+
+
     }
 
     public void applySpellOnAllEnemyForces(int x, int y){
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+//        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+//        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+//        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+//
+//        int cardID = Integer.parseInt(jsonObject.get("id").toString());
+//        String cardName = jsonObject.get("name").toString();
+//        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+        ArrayList<Buff> buffs = this.buffs;
+        ArrayList<Buff> actions = this.actions;
+        ArrayList<String> typeOfActions = this.actionType;
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+        for (int i = 0; i < typeOfActions.size(); i++) {
+            switch (typeOfActions.get(i)){
+                case "dispel":
+                    for (Card card : Game.getInstance().getPlayer2CardsInField())
+                        card.dispelThisForce("enemy");
+                    break;
+                case "kill":
+                    for (Card card : Game.getInstance().getPlayer2CardsInField())
+                        card.killCard();
+                    break;
+                case "addBuff":
+                    for (Buff buff : buffs) {
+                        for (Card card : Game.getInstance().getMap().getEnemyMinions())
+                            ((Minion) card).addBuffToMinion(buff);
+                        for (Card card : Game.getInstance().getMap().getEnemyHeroes())
+                            ((Hero) card).addBuffToHero(buff);
+                    }
+                    break;
+                case "addAction":
+                    for (Buff actionBuff : actions){
+                        for (Card card : Game.getInstance().getMap().getEnemyHeroes())
+                            ((Hero) card).getActions().add(actionBuff);
+                        for (Card card : Game.getInstance().getMap().getEnemyMinions())
+                            ((Minion) card).getActions().add(actionBuff);
+                    }
 
-        for (int i = 0; i < buffNames.length; i++) {
-            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i])
-                    , buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-            for (Card card : Game.getInstance().getPlayer2CardsInField()) {
-                if (buff.getType().equals("positive")) {
-                    ((Minion) card).getMinionPositiveBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
-                } else {
-                    ((Minion) card).getMinionNegativeBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
-                }
+                    break;
             }
         }
     }
@@ -400,7 +409,7 @@ public class Spell extends Card {
 
         switch (numOfTargets){
             case "1":
-                if (actsOn.equals("map") || actsOn.equals("enemy")){
+                if (actsOn.equals("cell") || actsOn.equals("enemy")){
                     GameView.printInvalidCommandWhithThisContent("Invalid Target!");
                 }else{
                     applySpellOnSelfHero(x, y);
@@ -421,160 +430,172 @@ public class Spell extends Card {
     }
 
     public void applySpellOnSelfHero(int x, int y){
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+        ArrayList<Buff> buffs = this.buffs;
+        ArrayList<Buff> actions = this.actions;
+        ArrayList<String> typeOfActions = this.actionType;
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
-
-        for (int i = 0; i < buffNames.length; i++) {
-            if (typeOfAction[i].equals("addsBuff")){
-                Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
-                        buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-                if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("positive")) {
-                    Game.getInstance().getHeroOfPlayer1().getPositiveBuffs().add(buff);
-                    Game.getInstance().getHeroOfPlayer1().applyBuffsOnHero();
-                }else{
-                    Game.getInstance().getHeroOfPlayer1().getNegativeBuffs().add(buff);
-                    Game.getInstance().getHeroOfPlayer1().applyBuffsOnHero();
-                }
-            }else if (typeOfAction[i].equals("removesBuff")){
-                Game.getInstance().getHeroOfPlayer1().removeBuffFromBuffArrayListOfHero(buffNames[i]);
+        for (int i = 0; i < typeOfActions.size(); i++) {
+            switch (typeOfActions.get(i)){
+                case "dispel":
+                    Hero.getHeroByCoordination(x, y).dispelThisForce("friend");
+                    break;
+                case "kill":
+                    Hero.getHeroByCoordination(x, y).killCard();
+                    break;
+                case "addBuff":
+                    for (Buff buff : buffs)
+                        Hero.getHeroByCoordination(x, y).addBuffToHero(buff);
+                    break;
+                case "addAction":
+                    for (Buff actionBuff : actions){
+                        Hero.getHeroByCoordination(x, y).getActions().add(actionBuff);
+                    }
+                    break;
             }
         }
     }
 
     public void applySpellOnAllSelfForces(int x, int y){
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+        ArrayList<Buff> buffs = this.buffs;
+        ArrayList<Buff> actions = this.actions;
+        ArrayList<String> typeOfActions = this.actionType;
 
-        for (int i = 0; i < buffNames.length; i++) {
-            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i])
-                    , buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-            for (Card card : Game.getInstance().getPlayer1CardsInField()) {
-                if (buff.getType().equals("positive")) {
-                    ((Minion) card).getMinionPositiveBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
-                } else {
-                    ((Minion) card).getMinionNegativeBuffs().add(buff);
-                    ((Minion) card).applyBuffOnMinionForOneTurn(buff);
-                }
+        for (int i = 0; i < typeOfActions.size(); i++) {
+            switch (typeOfActions.get(i)){
+                case "dispel":
+                    for (Card card : Game.getInstance().getPlayer1CardsInField())
+                        card.dispelThisForce("friend");
+                    break;
+                case "kill":
+                    for (Card card : Game.getInstance().getPlayer1CardsInField())
+                        card.killCard();
+                    break;
+                case "addBuff":
+                    for (Buff buff : buffs) {
+                        for (Card card : Game.getInstance().getMap().getFriendMinions())
+                            ((Minion) card).addBuffToMinion(buff);
+                        for (Card card : Game.getInstance().getMap().getFriendHeroes())
+                            ((Hero) card).addBuffToHero(buff);
+                    }
+                    break;
+                case "addAction":
+                    for (Buff actionBuff : actions){
+                        for (Card card : Game.getInstance().getMap().getFriendMinions())
+                            ((Hero) card).getActions().add(actionBuff);
+                        for (Card card : Game.getInstance().getMap().getFriendHeroes())
+                            ((Minion) card).getActions().add(actionBuff);
+                    }
+
+                    break;
             }
         }
-
-
-
-
     }
 
     public void applySpellOnAllEnemyForcesInColumn(int x, int y){
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+        //Todo : check if the coordination is correct -> (x, y, i)
+        ArrayList<Buff> buffs = this.buffs;
+        ArrayList<Buff> actions = this.actions;
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
-
-        for (int i = 0; i < buffNames.length; i++) {
-            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i])
-                    , buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-            for (int j = 0; j < 5; j++) {
-                if (Game.getInstance().getMap().getCells()[j][y].getCellType() == CellType.enemyMinion){
-                    if (buff.getType().equals("positive")){
-                        Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().add(buff);
-                    }else{
-                        Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().add(buff);
-                    }
-                }else if (Game.getInstance().getMap().getCells()[j][y].getCellType() == CellType.enemyHero){
-                    if (buff.getType().equals("positive")){
-                        Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().add(buff);
-                    }else{
-                        Game.getInstance().getHeroOfPlayer2().getNegativeBuffs().add(buff);
-                    }
+        for (Buff buff : buffs){
+            for (int i = 0; i < 5; i++) {
+                if (Game.getInstance().getMap().getCells()[i][y].getCellType() == CellType.enemyMinion){
+                    ((Minion) Card.getCardByCoordination(i, y)).addBuffToMinion(buff);
+                }else if (Game.getInstance().getMap().getCells()[i][y].getCellType() == CellType.enemyHero){
+                    ((Hero) Card.getCardByCoordination(i, y)).addBuffToHero(buff);
                 }
             }
         }
 
-
-
-
-
+        for (Buff actionBuff : actions){
+            for (int i = 0; i < 5; i++) {
+                if (Game.getInstance().getMap().getCells()[i][y].getCellType() == CellType.enemyMinion){
+                    ((Minion) Card.getCardByCoordination(i, y)).getActions().add(actionBuff);
+                }else if (Game.getInstance().getMap().getCells()[i][y].getCellType() == CellType.enemyHero){
+                    ((Hero) Card.getCardByCoordination(i, y)).getActions().add(actionBuff);
+                }
+            }
+        }
     }
 
     public void applySpellOn2x2Square(int x, int y){
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
-        String[] actsOn = jsonObject.get("actsOn").toString().split(",");
+//        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
+//        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
+//        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
+//        String[] actsOn = jsonObject.get("actsOn").toString().split(",");
+//
+//        int cardID = Integer.parseInt(jsonObject.get("id").toString());
+//        String cardName = jsonObject.get("name").toString();
+//        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+        ArrayList<String> typeOfActions = this.actionType;
 
-        for (int i = 0; i < buffNames[i].length(); i++) {
-            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
-                    buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-
-            if (actsOn[i].equals("enemy/owner")){
-                applySpellOn2x2SquareOnForces(jsonObject, x, y);
-            }else if (actsOn[i].equals("map")){
-                applySpellOn2x2SquareOnMap(jsonObject, x, y, buff);
+        for (int i = 0; i < typeOfActions.size(); i++) {
+            switch (typeOfActions.get(i)){
+                case "dispel":
+                    applySpellOn2x2SquareOnForces(x, y);
+                    break;
+                case "addAction":
+                    applySpellOn2x2SquareOnMap(x, y);
+                break;
             }
-
-
         }
-    }
+
+//        for (int i = 0; i < buffNames[i].length(); i++) {
+//            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
+//                    buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
+//
+//            if (actsOn[i].equals("friend/enemy")){
+//                applySpellOn2x2SquareOnForces(jsonObject, x, y);
+//            }else if (actsOn[i].equals("cell")){
+//                applySpellOn2x2SquareOnMap(jsonObject, x, y, buff);
+//            }
+//
+//
+//        }
+    }//Todo **** : update cards in arrayList
 
     //method for spell that removes positive buffs from enemy forces and negative buffs from self forces
     public void applySpellOn2x2SquareOnForces(int x, int y){
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
 
         for (int i = x; i < x + 3; i++) {
             for (int j = y; j < y + 3; j++) {
-                if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero){
-                    Game.getInstance().getHeroOfPlayer1().getNegativeBuffs().clear();
-                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion){
-                    Minion.getMinionInThisCoordination(x, y).getMinionNegativeBuffs().clear();
-                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero){
-                    Game.getInstance().getHeroOfPlayer2().getPositiveBuffs().clear();
-                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion){
-                    Minion.getMinionInThisCoordination(x, y).getMinionPositiveBuffs().clear();
+                if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero ||
+                        Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion
+                ){
+                    Card.getCardByCoordination(x, y).dispelThisForce("friend");
+                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero ||
+                        Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion){
+                    Card.getCardByCoordination(x, y).dispelThisForce("enemy");
                 }
             }
         }
     }
 
-    public void applySpellOn2x2SquareOnMap(int x, int y, Buff buff){
+    public void applySpellOn2x2SquareOnMap(int x, int y){
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
                 Game.getInstance().getMap().getCells()[i][j].setCellImpactType(CellImpactType.fire);
             }
         }
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+        ArrayList<Buff> buffs = this.buffs;
 
-        for (int i = x; i < x + 2; i++) {
-            for (int j = y; j < y + 2; j++) {
-                if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero){
-                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
-                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero){
-                    CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
-                }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion ||
-                        Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion){
-                    CellImpactType.applyFireImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);
+//        int cardID = Integer.parseInt(jsonObject.get("id").toString());
+//        String cardName = jsonObject.get("name").toString();
+//        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+
+        for (Buff buff : buffs) {
+            for (int i = x; i < x + 2; i++) {
+                for (int j = y; j < y + 2; j++) {
+                    if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero) {
+                        CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
+                    } else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero) {
+                        CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
+                    } else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion ||
+                            Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion) {
+                        CellImpactType.applyFireImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);
+                    }
                 }
             }
         }
@@ -582,20 +603,11 @@ public class Spell extends Card {
 
     //method for applying buff on 3x3 square
     public void applySpellOn3x3Square(int x, int y){
-        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+        ArrayList<Buff> buffs = this.buffs;
 
-        for (int i = 0; i < buffNames.length; i++) {
-            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
-                    buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-
-            applySpellOn3x3SquareOnMap(jsonObject, x, y, buff);
-        }
+        for (Buff buff : buffs)
+            applySpellOn3x3SquareOnMap(x, y, buff);
     }
 
     public void applySpellOn3x3SquareOnMap(int x, int y, Buff buff){
@@ -605,10 +617,11 @@ public class Spell extends Card {
             }
         }
 
-        int cardID = Integer.parseInt(jsonObject.get("id").toString());
-        String cardName = jsonObject.get("name").toString();
-        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+//        int cardID = Integer.parseInt(jsonObject.get("id").toString());
+//        String cardName = jsonObject.get("name").toString();
+//        System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
 
+        //Todo : don't know what to do with cell impact
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
                 if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero){

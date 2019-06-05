@@ -13,6 +13,7 @@ public class Hero extends Card{
 
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
+    private ArrayList<Buff> actions = new ArrayList<>();
 
     public static ArrayList<String> heroNames = new ArrayList<>();
     private int healthPoint;
@@ -44,6 +45,14 @@ public class Hero extends Card{
         this.mana = mana;
         this.setMovable(true);
         this.setAbleToAttack(true);
+    }
+
+    public ArrayList<Buff> getActions() {
+        return actions;
+    }
+
+    public void setActions(ArrayList<Buff> actions) {
+        this.actions = actions;
     }
 
     public static int getHeroIDByName(String heroName) throws Exception{
@@ -360,7 +369,7 @@ public class Hero extends Card{
         return null;
     }
 
-    public static Hero getHeroByCoordiantion(int x, int y){
+    public static Hero getHeroByCoordination(int x, int y){
         if (Game.getInstance().getHeroOfPlayer1().getX() == x && Game.getInstance().getHeroOfPlayer1().getY() == y){
             return Game.getInstance().getHeroOfPlayer1();
         }else if (Game.getInstance().getHeroOfPlayer2().getX() == x && Game.getInstance().getHeroOfPlayer2().getY() == y){
@@ -417,7 +426,7 @@ public class Hero extends Card{
     public void applySpecialPowerOnHero(String heroName) throws IOException, ParseException {
         switch (heroName)
         {
-            case "Afsaneh:
+            case "Afsaneh":
                 Buff buff1=new Buff(1,1,"poisonBuff","negative","onAttack");
                 getHeroByName("Afsaneh").getNegativeBuffs().add(buff1);
                 break;
@@ -456,6 +465,13 @@ public class Hero extends Card{
                 getHeroByName("Zahhak").getNegativeBuffs().add(buff9);
                 break;
         }
+    }
+
+    public void addBuffToHero(Buff buff) {
+        if (buff.getType().equals("positive"))
+            positiveBuffs.add(buff);
+        else
+            negativeBuffs.add(buff);
     }
 
 }

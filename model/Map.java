@@ -2,13 +2,16 @@ package model;
 
 import model.collection.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Map {
     private Cell[][] cells = new Cell[5][9];
 
-    private ArrayList<Card> minions = new ArrayList<>();
-    private ArrayList<Card> heroes = new ArrayList<>();
+    private ArrayList<Card> enemyMinions = new ArrayList<>();
+    private ArrayList<Card> friendMinions = new ArrayList<>();
+    private ArrayList<Card> enemyHeroes = new ArrayList<>();
+    private ArrayList<Card> friendHeroes = new ArrayList<>();
 
     public Map(){
         for (int i = 0; i < 5; i++) {
@@ -32,20 +35,37 @@ public class Map {
             Cell.getCellByCoordination(x,y).setCellItemType(CellItemType.collectibleItem);
         }
     }
-    public ArrayList<Card> getMinions() {
-        return minions;
+
+    public ArrayList<Card> getEnemyMinions() {
+        return enemyMinions;
     }
 
-    public void setMinions(ArrayList<Card> minions) {
-        this.minions = minions;
+    public void setEnemyMinions(ArrayList<Card> enemyMinions) {
+        this.enemyMinions = enemyMinions;
     }
 
-    public ArrayList<Card> getHeroes() {
-        return heroes;
+    public ArrayList<Card> getFriendMinions() {
+        return friendMinions;
     }
 
-    public void setHeroes(ArrayList<Card> heroes) {
-        this.heroes = heroes;
+    public void setFriendMinions(ArrayList<Card> friendMinions) {
+        this.friendMinions = friendMinions;
+    }
+
+    public ArrayList<Card> getEnemyHeroes() {
+        return enemyHeroes;
+    }
+
+    public void setEnemyHeroes(ArrayList<Card> enemyHeroes) {
+        this.enemyHeroes = enemyHeroes;
+    }
+
+    public ArrayList<Card> getFriendHeroes() {
+        return friendHeroes;
+    }
+
+    public void setFriendHeroes(ArrayList<Card> friendHeroes) {
+        this.friendHeroes = friendHeroes;
     }
 
     public Cell[][] getCells() {
