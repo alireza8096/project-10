@@ -1,0 +1,16 @@
+{"mana":4,
+  "price":1500,
+  "name":"All Attack",
+  "id":16,
+  "type": "spell",
+  "desc": "adds 6AP to all enemy cards",
+  "target" : "minion/hero",
+  "numOfTarget" : "all",
+  "action" : "addAction",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "6",
+  "delay" : "null",
+  "last" :"1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "column"
+}

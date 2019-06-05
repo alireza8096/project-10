@@ -1,0 +1,16 @@
+{"mana":2,
+  "price":450,
+  "name":"God Strength",
+  "id":5,
+  "type":"spell",
+  "desc":"adds 4AP to the AP of hero",
+  "target" : "hero",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "attackPowerBuff",
+  "effectValue" : "4",
+  "delay" : "null",
+  "last" :"permanent",
+  "friendOrEnemy" : "friend",
+  "locationOfTarget" : "null"
+}

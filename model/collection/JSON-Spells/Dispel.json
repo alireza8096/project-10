@@ -1,0 +1,16 @@
+{"mana":0,
+  "price":2100,
+  "name":"Dispel",
+  "id":12,
+  "type":"spell",
+  "desc":"destroys positive buffs of enemy and negative buffs of self forces",
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "dispel",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" :"null",
+  "friendOrEnemy" : "friend/enemy",
+  "locationOfTarget" : "null"
+}

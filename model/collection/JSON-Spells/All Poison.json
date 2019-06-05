@@ -1,0 +1,16 @@
+{"mana":8,
+  "price":1500,
+  "name":"All Poison",
+  "id":11,
+  "type":"spell",
+  "desc":"all forces become poisonous for 4 turns",
+  "target" : "minion/hero",
+  "numOfTarget" : "all",
+  "action" : "addAction",
+  "buffs" : "poisonBuff",
+  "effectValue" : "3",
+  "delay" : "null",
+  "last" :"4",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null"
+}

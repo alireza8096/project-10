@@ -1,0 +1,16 @@
+{"mana":4,
+  "price":2000,
+  "name":"All Power",
+  "id":15,
+  "type":"spell",
+  "desc":"adds a power buff with 2AP to all self forces permanently",
+  "target" : "minion/hero",
+  "numOfTarget" : "all",
+  "action" : "addBuff",
+  "buffs" : "attackPowerBuff",
+  "effectValue" : "2",
+  "delay" : "null",
+  "last" :"permanent",
+  "friendOrEnemy" : "friend",
+  "locationOfTarget" : "null"
+}

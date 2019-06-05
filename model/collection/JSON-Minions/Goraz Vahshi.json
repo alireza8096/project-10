@@ -1,0 +1,12 @@
+{"healthPoint":10,
+  "attackRange":null,
+  "attackPower":14,
+  "mana":6,
+  "attackType":"melee",
+  "price":500,
+  "name":"Goraz Vahshi",
+  "id":28,
+  "activationTime":"On Defend",
+  "type":"minion",
+  "specialPower": "can't be disarmed"
+}

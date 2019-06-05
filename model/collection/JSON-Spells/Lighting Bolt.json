@@ -1,0 +1,16 @@
+{"mana":2,
+  "price":1250,
+  "name":"Lighting Bolt",
+  "id":7,
+  "type":"spell",
+  "desc":"attacks 8Ap to the hero of enemy",
+  "target" : "hero",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "8",
+  "delay" : "null",
+  "last" :"1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null"
+}

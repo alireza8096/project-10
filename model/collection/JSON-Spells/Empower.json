@@ -1,0 +1,16 @@
+{"mana":1,
+  "price":250,
+  "name":"Empower",
+  "id":3,
+  "type":"spell",
+  "desc":"adds 2AP to a card",
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "attackPowerBuff",
+  "effectValue" : "2",
+  "delay" : "null",
+  "last" :"permanent",
+  "friendOrEnemy" : "friend",
+  "locationOfTarget" : "null"
+}

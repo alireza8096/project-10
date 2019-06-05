@@ -1,0 +1,13 @@
+{"healthPoint":5,
+  "attackRange":5,
+  "attackPower":7,
+  "mana":4,
+  "attackType":"ranged",
+  "price":450,
+  "name":"Giv",
+  "id":30,
+  "activationTime":"On Defend",
+  "type":"minion",
+  "specialPower": "doesn't get any negative effects(buff/attacks)"
+
+}

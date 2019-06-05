@@ -1,0 +1,16 @@
+{"mana":1,
+  "price":1200,
+  "name":"Shock",
+  "id":20,
+  "type":"spell",
+  "desc":"becomes stun for 2 turns",
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addBuff",
+  "buffs" : "stunBuff",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" :"2",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null"
+}

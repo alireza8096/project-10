@@ -1,0 +1,16 @@
+{"mana":9,
+  "price":1750,
+  "name":"Kings Guard",
+  "id":19,
+  "type":"spell",
+  "desc":"kills a random enemy",
+  "target" : "minion",
+  "numOfTarget" : "1",
+  "action" : "kill",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" :"null",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "random8"
+}

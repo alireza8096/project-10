@@ -1,0 +1,12 @@
+{"healthPoint":14,
+  "attackRange":5,
+  "attackPower":7,
+  "mana":8,
+  "attackType":"ranged",
+  "price":500,
+  "name":"Mar Ghoolpeikar",
+  "id":21,
+  "activationTime":"On Spawn",
+  "type":"minion",
+  "specialPower": "holy buff's vice versa"
+}

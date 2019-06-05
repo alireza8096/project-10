@@ -1,0 +1,16 @@
+{"mana":9,
+  "price":2000,
+  "name":"All Disarm",
+  "id":10,
+  "type": "spell",
+  "desc":"adds disarm for 1 turn",
+  "target" : "minion/hero",
+  "numOfTarget" : "all",
+  "action" : "addBuff",
+  "buffs" : "disarm",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" :"1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null"
+}
