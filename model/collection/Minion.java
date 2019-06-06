@@ -8,41 +8,24 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Minion extends Card {
+public class Minion extends Force {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public static ArrayList<String> minionNames = new ArrayList<>();
     private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
     private ArrayList<Buff> minionNegativeBuffs=new ArrayList<>();
     private ArrayList<Buff> actions = new ArrayList<>();
-    private int healthPoint;
-    private int attackPower;
-    private String attackType;
-    private int attackRange;
+
     private String activationTime;
-    private boolean canAttackOrMove;
-    private boolean canCounterAttack;
-    private boolean hasHolyBuff;
-    private String specialPower;
 
-    public String getSpecialPower() {
-        return specialPower;
-    }
+    public Minion(String name, int healthPoint, int attackPower, String attackType,
+                  int attackRange, String activationTime, int mana, int price, String specialPower){
+        super(healthPoint, attackPower, attackType, attackRange, specialPower);
 
-    public void setSpecialPower(String specialPower) {
-        this.specialPower = specialPower;
-    }
-
-    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price, String specialPower){
-        this.healthPoint = healthPoint;
         this.setName(name);
-        this.attackPower = attackPower;
-        this.attackRange = attackRange;
-        this.attackType = attackType;
         this.activationTime = activationTime;
         this.mana = mana;
         this.price = price;
-        this.specialPower = specialPower;
     }
 
     public static ArrayList<String> getMinionNames() {
@@ -65,30 +48,6 @@ public class Minion extends Card {
         return minionPositiveBuffs;
     }
 
-    public boolean isHasHolyBuff() {
-        return hasHolyBuff;
-    }
-
-    public void setHasHolyBuff(boolean hasHolyBuff) {
-        this.hasHolyBuff = hasHolyBuff;
-    }
-
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
-    }
-
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
-    }
-
-    public boolean isCanCounterAttack() {
-        return canCounterAttack;
-    }
-
-    public void setCanCounterAttack(boolean canCounterAttack) {
-        this.canCounterAttack = canCounterAttack;
-    }
-
     public void setMinionPositiveBuffs(ArrayList<Buff> minionPositiveBuffs) {
         this.minionPositiveBuffs = minionPositiveBuffs;
     }
@@ -99,38 +58,6 @@ public class Minion extends Card {
 
     public void setMinionNegativeBuffs(ArrayList<Buff> minionNegativeBuffs) {
         this.minionNegativeBuffs = minionNegativeBuffs;
-    }
-
-    public int getHealthPoint() {
-        return healthPoint;
-    }
-
-    public void setHealthPoint(int healthPoint) {
-        this.healthPoint = healthPoint;
-    }
-
-    public int getAttackPower() {
-        return attackPower;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
-    public String getAttackType() {
-        return attackType;
-    }
-
-    public void setAttackType(String attackType) {
-        this.attackType = attackType;
-    }
-
-    public int getAttackRange() {
-        return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
     }
 
     public String getActivationTime() {
@@ -185,7 +112,7 @@ public class Minion extends Card {
 
                 String specialPower = jsonObject.get("specialPower").toString();
 
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana, price, specialPower);
+                Minion minion = new Minion(name, healthPoint, attackPower, attackType, attackRange, activationTime, mana, price, specialPower);
                 return minion;
             }
         }
@@ -194,7 +121,7 @@ public class Minion extends Card {
 
     public static int getMinionIDByName(String minionName) throws Exception{
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-        + "JSON-Minions/" + minionName + ".json");
+                + "JSON-Minions/" + minionName + ".json");
         return Integer.parseInt(jsonObject.get("id").toString())+300;
     }
     public static boolean thisCardIsMinion(String cardName){
@@ -723,3 +650,4 @@ public class Minion extends Card {
 
 
 }
+

@@ -8,10 +8,15 @@ import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Item {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+
+    private ArrayList<Buff> positiveBuffs = new ArrayList<>();
+    private ArrayList<Buff> negativeBuffs = new ArrayList<>();
+    private ArrayList<Buff> actions = new ArrayList<>();
 
     public static ArrayList<String> itemNames = new ArrayList<>();
     private int id;
@@ -124,7 +129,7 @@ public class Item {
     }
 
     public static void applyItem(String itemName) throws IOException, ParseException {
-  //      String itemType = getItemTypeByName(itemName);
+        //      String itemType = getItemTypeByName(itemName);
 
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items" + itemName + ".json");
         String typeOfAction = jsonObject.get("typeOfAction").toString();
@@ -134,7 +139,7 @@ public class Item {
                 applyAddingManaByItem(jsonObject);
                 break;
             case "addBuff":
-             //   applyAddingBuffbyItem();
+                //   applyAddingBuffbyItem();
                 break;
         }
 
@@ -158,13 +163,9 @@ public class Item {
 //        return flag;
 //    }
 
-    public void applyItem(){
-
-    }
 
 
 
-    
 
-    
 }
+

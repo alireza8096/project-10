@@ -537,7 +537,7 @@ public class Spell extends Card {
                     break;
                 case "addAction":
                     applySpellOn2x2SquareOnMap(x, y);
-                break;
+                    break;
             }
         }
 
@@ -647,4 +647,5 @@ public class Spell extends Card {
 
 
 }
+
 

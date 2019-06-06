@@ -4,9 +4,6 @@ import model.Player;
 import org.json.simple.JSONObject;
 
 public class Buff {
-
-
-    private int test;
     private int forHowManyTurns;
     private String name;
     private String type;
@@ -14,6 +11,7 @@ public class Buff {
     private int howMuchImpact;
     private boolean isUsed;
     private String activationTime;
+
 
     public Buff(String name, int howMuchImpact, int delay, int forHowManyTurns){
         this.name = name;
@@ -137,3 +135,4 @@ public class Buff {
         return false;
     }
 }
+
