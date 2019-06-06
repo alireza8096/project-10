@@ -158,6 +158,12 @@ public class Item {
 //        return flag;
 //    }
 
+    public void applyItem(){
+
+    }
+
+
+
     
 
     
