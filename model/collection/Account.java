@@ -17,7 +17,7 @@ import java.net.Inet4Address;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-
+//testing
 public class Account {
     public static final String PLAYERS_FOLDER = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
     private static ArrayList<String> players = new ArrayList<>();
