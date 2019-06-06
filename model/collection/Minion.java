@@ -6,15 +6,14 @@ import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Target;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Minion extends Force {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public static ArrayList<String> minionNames = new ArrayList<>();
-    private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
-    private ArrayList<Buff> minionNegativeBuffs=new ArrayList<>();
-    private ArrayList<Buff> actions = new ArrayList<>();
 
     private String activationTime;
 
@@ -34,30 +33,6 @@ public class Minion extends Force {
 
     public static void setMinionNames(ArrayList<String> minionNames) {
         Minion.minionNames = minionNames;
-    }
-
-    public ArrayList<Buff> getActions() {
-        return actions;
-    }
-
-    public void setActions(ArrayList<Buff> actions) {
-        this.actions = actions;
-    }
-
-    public ArrayList<Buff> getMinionPositiveBuffs() {
-        return minionPositiveBuffs;
-    }
-
-    public void setMinionPositiveBuffs(ArrayList<Buff> minionPositiveBuffs) {
-        this.minionPositiveBuffs = minionPositiveBuffs;
-    }
-
-    public ArrayList<Buff> getMinionNegativeBuffs() {
-        return minionNegativeBuffs;
-    }
-
-    public void setMinionNegativeBuffs(ArrayList<Buff> minionNegativeBuffs) {
-        this.minionNegativeBuffs = minionNegativeBuffs;
     }
 
     public String getActivationTime() {
@@ -134,7 +109,7 @@ public class Minion extends Force {
     }
 
     public void applyBuffsOnMinion(){
-        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getMinionPositiveBuffs());
+        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
         for (Buff buff : positiveBuffsCopy){
             if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnMinionForOneTurn(buff);
@@ -142,7 +117,7 @@ public class Minion extends Force {
                 this.removeBuffFromMinion(buff);
         }
 
-        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getMinionNegativeBuffs());
+        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
         for (Buff buff : negativeBuffsCopy){
             if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnMinionForOneTurn(buff);
@@ -190,14 +165,14 @@ public class Minion extends Force {
 
     public void applyOnAttackBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Attack"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Attack"))
             {
@@ -207,14 +182,14 @@ public class Minion extends Force {
     }
     public void applyOnSpawnBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Spawn"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Spawn"))
             {
@@ -224,14 +199,14 @@ public class Minion extends Force {
     }
     public void applyOnDeathBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Death"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Death"))
             {
@@ -241,14 +216,14 @@ public class Minion extends Force {
     }
     public void applyPassiveBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("Passvive"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("Passive"))
             {
@@ -259,14 +234,14 @@ public class Minion extends Force {
 
     public void applyOnDefendBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Defend"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Defend"))
             {
@@ -368,7 +343,7 @@ public class Minion extends Force {
                 break;
             case poison:
                 Buff buff = new Buff(1,3,"poisonBuff","negative");
-                this.getMinionPositiveBuffs().add(buff);
+                this.getPositiveBuffs().add(buff);
                 break;
         }
     }
@@ -390,9 +365,9 @@ public class Minion extends Force {
 
     public void addBuffToMinion(Buff buff){
         if (buff.getType().equals("positive")){
-            minionPositiveBuffs.add(buff);
+            getPositiveBuffs().add(buff);
         }else{
-            minionNegativeBuffs.add(buff);
+            getNegativeBuffs().add(buff);
         }
     }
 

@@ -1,8 +1,14 @@
 package model.collection;
 
+import model.Game;
+import model.Map;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Force extends Card{
+
+    private ArrayList<Spell> specialPowerBuffs = new ArrayList<>();
 
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
@@ -23,6 +29,14 @@ public class Force extends Card{
         this.attackType = attackType;
         this.attackRange = attackRange;
         this.specialPower = specialPower;
+    }
+
+    public ArrayList<Spell> getSpecialPowerBuffs() {
+        return specialPowerBuffs;
+    }
+
+    public void setSpecialPowerBuffs(ArrayList<Spell> specialPowerBuffs) {
+        this.specialPowerBuffs = specialPowerBuffs;
     }
 
     public ArrayList<Buff> getPositiveBuffs() {
@@ -111,6 +125,40 @@ public class Force extends Card{
 
     public void setSpecialPower(String specialPower) {
         this.specialPower = specialPower;
+    }
+
+    public Force getRandomEnemyForce(){
+        Random random = new Random();
+        int minionOrHero = random.nextInt(2);
+        if (minionOrHero == 0){//return a minion
+            int minionNumber = random.nextInt(Game.getInstance().getMap().getEnemyMinions().size());
+            return Game.getInstance().getMap().getEnemyMinions().get(minionNumber);
+        }else{//return a hero
+            return Game.getInstance().getMap().getEnemyHeroes().get(0);
+        }
+    }
+
+    public Force getRandomFriendForce(){
+        Random random = new Random();
+        int minionOrHero = random.nextInt(2);
+        if (minionOrHero == 0){//return a minion
+            int minionNumber = random.nextInt(Game.getInstance().getMap().getFriendMinions().size());
+            return Game.getInstance().getMap().getFriendMinions().get(minionNumber);
+        }else{//return a hero
+            return Game.getInstance().getMap().getFriendHeroes().get(0);
+        }
+    }
+
+    public static Force getRandomFriendMinion(){
+        Random random = new Random();
+        int minionIndex = random.nextInt(Game.getInstance().getMap().getFriendMinions().size());
+        return Game.getInstance().getMap().getFriendMinions().get(minionIndex);
+    }
+
+    public static Force getRandomEnemyMinion(){
+        Random random = new Random();
+        int minionIndex = random.nextInt(Game.getInstance().getMap().getEnemyMinions().size());
+        return Game.getInstance().getMap().getEnemyMinions().get(minionIndex);
     }
 }
 

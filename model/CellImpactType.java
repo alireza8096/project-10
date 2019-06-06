@@ -25,7 +25,7 @@ public enum CellImpactType {
         if (card.getCardType().equals("minion")){
             ((Minion) card).setHasHolyBuff(true);
         }else if (card.getCardType().equals("hero")){
-            ((Hero) card).setHolyBuffIsActive(true);
+            ((Hero) card).setHasHolyBuff(true);
         }
     }
 

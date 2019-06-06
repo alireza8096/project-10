@@ -8,10 +8,10 @@ import java.util.ArrayList;
 public class Map {
     private Cell[][] cells = new Cell[5][9];
 
-    private ArrayList<Card> enemyMinions = new ArrayList<>();
-    private ArrayList<Card> friendMinions = new ArrayList<>();
-    private ArrayList<Card> enemyHeroes = new ArrayList<>();
-    private ArrayList<Card> friendHeroes = new ArrayList<>();
+    private ArrayList<Force> enemyMinions = new ArrayList<>();
+    private ArrayList<Force> friendMinions = new ArrayList<>();
+    private ArrayList<Force> enemyHeroes = new ArrayList<>();
+    private ArrayList<Force> friendHeroes = new ArrayList<>();
 
     public Map(){
         for (int i = 0; i < 5; i++) {
@@ -36,35 +36,35 @@ public class Map {
         }
     }
 
-    public ArrayList<Card> getEnemyMinions() {
+    public ArrayList<Force> getEnemyMinions() {
         return enemyMinions;
     }
 
-    public void setEnemyMinions(ArrayList<Card> enemyMinions) {
+    public void setEnemyMinions(ArrayList<Force> enemyMinions) {
         this.enemyMinions = enemyMinions;
     }
 
-    public ArrayList<Card> getFriendMinions() {
+    public ArrayList<Force> getFriendMinions() {
         return friendMinions;
     }
 
-    public void setFriendMinions(ArrayList<Card> friendMinions) {
+    public void setFriendMinions(ArrayList<Force> friendMinions) {
         this.friendMinions = friendMinions;
     }
 
-    public ArrayList<Card> getEnemyHeroes() {
+    public ArrayList<Force> getEnemyHeroes() {
         return enemyHeroes;
     }
 
-    public void setEnemyHeroes(ArrayList<Card> enemyHeroes) {
+    public void setEnemyHeroes(ArrayList<Force> enemyHeroes) {
         this.enemyHeroes = enemyHeroes;
     }
 
-    public ArrayList<Card> getFriendHeroes() {
+    public ArrayList<Force> getFriendHeroes() {
         return friendHeroes;
     }
 
-    public void setFriendHeroes(ArrayList<Card> friendHeroes) {
+    public void setFriendHeroes(ArrayList<Force> friendHeroes) {
         this.friendHeroes = friendHeroes;
     }
 
