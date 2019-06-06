@@ -4,6 +4,9 @@ import model.Player;
 import org.json.simple.JSONObject;
 
 public class Buff {
+
+
+    private int test;
     private int forHowManyTurns;
     private String name;
     private String type;
