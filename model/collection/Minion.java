@@ -8,41 +8,79 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Minion extends Card {
+public class Minion extends Force {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
+    public static ArrayList<Minion> minions = new ArrayList<>();
+
     public static ArrayList<String> minionNames = new ArrayList<>();
-    private ArrayList<Buff> minionPositiveBuffs=new ArrayList<>();
-    private ArrayList<Buff> minionNegativeBuffs=new ArrayList<>();
-    private ArrayList<Buff> actions = new ArrayList<>();
-    private int healthPoint;
-    private int attackPower;
-    private String attackType;
-    private int attackRange;
+
+    private ArrayList<String> doesNotGetAttackBuffs = new ArrayList<>();
+
+    private ArrayList<String> targets = new ArrayList<>();
+    private ArrayList<String> numOfTargets = new ArrayList<>();
+    private ArrayList<String> friendOrEnemy = new ArrayList<>();
+    private ArrayList<String> locationOfTargets = new ArrayList<>();
+    private String doesNotGetAttack = new String();
     private String activationTime;
-    private boolean canAttackOrMove;
-    private boolean canCounterAttack;
-    private boolean hasHolyBuff;
-    private String specialPower;
+    private boolean isHeadOfCombo;
 
-    public String getSpecialPower() {
-        return specialPower;
-    }
+    public Minion(String name, int healthPoint, int attackPower, String attackType,
+                  int attackRange, String activationTime, int mana, int price, String specialPower){
+        super(healthPoint, attackPower, attackType, attackRange, specialPower);
 
-    public void setSpecialPower(String specialPower) {
-        this.specialPower = specialPower;
-    }
-
-    public Minion(String name, int healthPoint, int attackPower, int attackRange, String attackType, String activationTime, int mana, int price, String specialPower){
-        this.healthPoint = healthPoint;
         this.setName(name);
-        this.attackPower = attackPower;
-        this.attackRange = attackRange;
-        this.attackType = attackType;
         this.activationTime = activationTime;
         this.mana = mana;
         this.price = price;
-        this.specialPower = specialPower;
+    }
+
+    public ArrayList<String> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(ArrayList<String> targets) {
+        this.targets = targets;
+    }
+
+    public ArrayList<String> getNumOfTargets() {
+        return numOfTargets;
+    }
+
+    public void setNumOfTargets(ArrayList<String> numOfTargets) {
+        this.numOfTargets = numOfTargets;
+    }
+
+    public ArrayList<String> getFriendOrEnemy() {
+        return friendOrEnemy;
+    }
+
+    public void setFriendOrEnemy(ArrayList<String> friendOrEnemy) {
+        this.friendOrEnemy = friendOrEnemy;
+    }
+
+    public ArrayList<String> getLocationOfTargets() {
+        return locationOfTargets;
+    }
+
+    public void setLocationOfTargets(ArrayList<String> locationOfTargets) {
+        this.locationOfTargets = locationOfTargets;
+    }
+
+    public ArrayList<String> getDoesNotGetAttackBuffs() {
+        return doesNotGetAttackBuffs;
+    }
+
+    public void setDoesNotGetAttackBuffs(ArrayList<String> doesNotGetAttackBuffs) {
+        this.doesNotGetAttackBuffs = doesNotGetAttackBuffs;
+    }
+
+    public String getDoesNotGetAttack() {
+        return doesNotGetAttack;
+    }
+
+    public void setDoesNotGetAttack(String doesNotGetAttack) {
+        this.doesNotGetAttack = doesNotGetAttack;
     }
 
     public static ArrayList<String> getMinionNames() {
@@ -51,86 +89,6 @@ public class Minion extends Card {
 
     public static void setMinionNames(ArrayList<String> minionNames) {
         Minion.minionNames = minionNames;
-    }
-
-    public ArrayList<Buff> getActions() {
-        return actions;
-    }
-
-    public void setActions(ArrayList<Buff> actions) {
-        this.actions = actions;
-    }
-
-    public ArrayList<Buff> getMinionPositiveBuffs() {
-        return minionPositiveBuffs;
-    }
-
-    public boolean isHasHolyBuff() {
-        return hasHolyBuff;
-    }
-
-    public void setHasHolyBuff(boolean hasHolyBuff) {
-        this.hasHolyBuff = hasHolyBuff;
-    }
-
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
-    }
-
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
-    }
-
-    public boolean isCanCounterAttack() {
-        return canCounterAttack;
-    }
-
-    public void setCanCounterAttack(boolean canCounterAttack) {
-        this.canCounterAttack = canCounterAttack;
-    }
-
-    public void setMinionPositiveBuffs(ArrayList<Buff> minionPositiveBuffs) {
-        this.minionPositiveBuffs = minionPositiveBuffs;
-    }
-
-    public ArrayList<Buff> getMinionNegativeBuffs() {
-        return minionNegativeBuffs;
-    }
-
-    public void setMinionNegativeBuffs(ArrayList<Buff> minionNegativeBuffs) {
-        this.minionNegativeBuffs = minionNegativeBuffs;
-    }
-
-    public int getHealthPoint() {
-        return healthPoint;
-    }
-
-    public void setHealthPoint(int healthPoint) {
-        this.healthPoint = healthPoint;
-    }
-
-    public int getAttackPower() {
-        return attackPower;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
-    public String getAttackType() {
-        return attackType;
-    }
-
-    public void setAttackType(String attackType) {
-        this.attackType = attackType;
-    }
-
-    public int getAttackRange() {
-        return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
     }
 
     public String getActivationTime() {
@@ -185,7 +143,7 @@ public class Minion extends Card {
 
                 String specialPower = jsonObject.get("specialPower").toString();
 
-                Minion minion = new Minion(name, healthPoint, attackPower, attackRange, attackType, activationTime, mana, price, specialPower);
+                Minion minion = new Minion(name, healthPoint, attackPower, attackType, attackRange, activationTime, mana, price, specialPower);
                 return minion;
             }
         }
@@ -194,7 +152,7 @@ public class Minion extends Card {
 
     public static int getMinionIDByName(String minionName) throws Exception{
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-        + "JSON-Minions/" + minionName + ".json");
+                + "JSON-Minions/" + minionName + ".json");
         return Integer.parseInt(jsonObject.get("id").toString())+300;
     }
     public static boolean thisCardIsMinion(String cardName){
@@ -207,7 +165,7 @@ public class Minion extends Card {
     }
 
     public void applyBuffsOnMinion(){
-        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getMinionPositiveBuffs());
+        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
         for (Buff buff : positiveBuffsCopy){
             if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnMinionForOneTurn(buff);
@@ -215,7 +173,7 @@ public class Minion extends Card {
                 this.removeBuffFromMinion(buff);
         }
 
-        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getMinionNegativeBuffs());
+        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
         for (Buff buff : negativeBuffsCopy){
             if (Buff.checkIfBuffIsActive(buff))
                 this.applyBuffOnMinionForOneTurn(buff);
@@ -263,14 +221,14 @@ public class Minion extends Card {
 
     public void applyOnAttackBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Attack"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Attack"))
             {
@@ -280,14 +238,14 @@ public class Minion extends Card {
     }
     public void applyOnSpawnBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Spawn"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Spawn"))
             {
@@ -297,14 +255,14 @@ public class Minion extends Card {
     }
     public void applyOnDeathBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Death"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Death"))
             {
@@ -314,14 +272,14 @@ public class Minion extends Card {
     }
     public void applyPassiveBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("Passvive"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("Passive"))
             {
@@ -332,14 +290,14 @@ public class Minion extends Card {
 
     public void applyOnDefendBuffs()
     {
-        for(Buff buff: this.getMinionNegativeBuffs())
+        for(Buff buff: this.getNegativeBuffs())
         {
             if(buff.getActivationTime().equals("On Defend"))
             {
                 this.applyBuffOnMinionForOneTurn(buff);
             }
         }
-        for(Buff buff: this.getMinionPositiveBuffs())
+        for(Buff buff: this.getPositiveBuffs())
         {
             if(buff.getActivationTime().equals("On Defend"))
             {
@@ -441,7 +399,7 @@ public class Minion extends Card {
                 break;
             case poison:
                 Buff buff = new Buff(1,3,"poisonBuff","negative");
-                this.getMinionPositiveBuffs().add(buff);
+                this.getPositiveBuffs().add(buff);
                 break;
         }
     }
@@ -463,263 +421,134 @@ public class Minion extends Card {
 
     public void addBuffToMinion(Buff buff){
         if (buff.getType().equals("positive")){
-            minionPositiveBuffs.add(buff);
+            getPositiveBuffs().add(buff);
         }else{
-            minionNegativeBuffs.add(buff);
+            getNegativeBuffs().add(buff);
         }
     }
 
-//    public void addSpecialPowerToBuffs(ArrayList<String> minionNames) throws IOException, ParseException {
-//        for(String minionName:minionNames)
-//        {
-//            JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-//                    (ADDRESS_OF_JSON_FILES + "JSON-Minions/" +minionName+".json");
-//            int howMuchImpact=Integer.parseInt(jsonObject.get("howMuchChange").toString());
-//            int forHowManyTurns=Integer.parseInt(jsonObject.get("forHowManyTurns").toString());
-//            String name=jsonObject.get("whichBuff").toString();
-//            String activationTime=jsonObject.get("activationTime").toString();
-//            String type=Buff.getTypeOfBuffByItsName("name");
-//            if(type.equals("negative"))
-//            {
-//                Buff buff=new Buff(howMuchImpact,forHowManyTurns,name,type,activationTime);
-//                ((Minion) getMinionByName(name)).getMinionNegativeBuffs().add(buff);
-//            }
-//            if(type.equals("positive"))
-//            {
-//                Buff buff=new Buff(howMuchImpact,forHowManyTurns,name,type,activationTime);
-//                ((Minion) getMinionByName(name)).getMinionPositiveBuffs().add(buff);
-//            }
-//        }
-//    }
+    public void applyMinionSpecialPowerOnSpawn(){
+        //target : minion
+        for (String numOfTarget : this.numOfTargets){
+            if (numOfTarget.equals("all")){
+
+                //in this minion location of target is 8 round;
+                applyMinionOnAllMinionsIn8RoundCells();
+            }else{
+                String locationOfTarget = this.getLocationOfTargets().get(0);
+                if (locationOfTarget.equals("distance2")){
+                    applyMinionOnMinionsWithMax2CellDistance();
+                }else if (locationOfTarget.equals("random")){
+                    applyMinionOnARandomMinion();
+                }
+            }
+        }
+
+    }
+
+    public void applyMinionOnARandomMinion(){
+        Buff buff = this.getBuffActions().get(0);
+
+        Force.getRandomEnemyMinion().getActionBuffsOnItself().add(buff);
+    }
+
+    public void applyMinionOnMinionsWithMax2CellDistance(){
+        Buff antiHolyBuff = this.getBuffActions().get(0);
+
+        for (Minion enemyMinion : Game.getInstance().getMap().getEnemyMinions()){
+            //Todo : check if contains works correctly here!
+            if (Map.distance(this.x, this.y, enemyMinion.x, enemyMinion.y) <= 2){
+                if (!enemyMinion.getActionBuffsOnItself().contains(antiHolyBuff)){
+                    enemyMinion.getActionBuffsOnItself().add(antiHolyBuff);
+                }
+            }
+        }
+    }
+
+    public void applyMinionOnAllMinionsIn8RoundCells(){
+        //Todo : check if coordination are implemented right
+        int minionX  = this.x;
+        int minionY = this.y;
+
+        for (Buff buff : this.getNegativeBuffs()) {
+            if (Game.getInstance().getMap().getCells()[minionX - 1][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX - 1, minionY - 1).getNegativeBuffsOnItself().add(buff);
+            } else if (Game.getInstance().getMap().getCells()[minionX - 1][minionY].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX - 1, minionY).getNegativeBuffsOnItself().add(buff);
+            } else if (Game.getInstance().getMap().getCells()[minionX - 1][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX - 1, minionY + 1).getNegativeBuffsOnItself().add(buff);
+            } else if (Game.getInstance().getMap().getCells()[minionX][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX, minionY - 1).getNegativeBuffsOnItself().add(buff);
+            } else if (Game.getInstance().getMap().getCells()[minionX][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX, minionY + 1).getNegativeBuffsOnItself().add(buff);
+            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX +  1, minionY - 1).getNegativeBuffsOnItself().add(buff);
+            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX + 1, minionY).getNegativeBuffsOnItself().add(buff);
+            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
+                Minion.getMinionInThisCoordination(minionX + 1, minionY + 1).getNegativeBuffsOnItself().add(buff);
+            }
+        }
+    }
+
+    public void applyMinionSpecialPowerOnAttack(int x, int y){
+        ArrayList<String> targets = this.targets;
+
+        for (String target : targets){
+            switch (target){
+                case "itself":
+                    break;
+                case "minion":
+                    break;
+                case "minion/hero":
+                    break;
+            }
+        }
+    }
+
+//    public void applyMinionSpecialPower(){
+//        ArrayList<String> targets = this.targets;
 //
-//    public void applySpceialPower(String minionName) throws IOException, ParseException {
-//        JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
-//                (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
-//        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
-//        String[] forHowManyTurns = jsonObject.get("forHowManyTurns").toString().split(",");
-//        String[] typeOfAction = jsonObject.get("typeOfAction").toString().split(",");
-//        String[] howMuchChange = jsonObject.get("howMuchChange").toString().split(",");
-//
-//        for (int i = 0; i < buffNames.length; i++) {
-//            Buff buff = new Buff(Integer.parseInt(howMuchChange[i]), Integer.parseInt(forHowManyTurns[i]),
-//                    buffNames[i], Buff.getTypeOfBuffByItsName(buffNames[i]));
-//
-//            if (Buff.getTypeOfBuffByItsName(buffNames[i]).equals("positive")) {
-//                Minion.getMinionInThisCoordination(x, y).applyBuffOnMinionForOneTurn(buff);
-//            } else {
-//                Minion.getMinionInThisCoordination(x, y).applyBuffOnMinionForOneTurn(buff);
-//            }
-//        }
-//
-//        String targetsSpecified=jsonObject.get("targetsSpecified").toString();
-//        String actsOn=jsonObject.get("actsOn").toString();
-////        if(actsOn.equals("hero") && )
-//    }
-//
-//    public boolean ifMinionHasComboAttack(String minionName) throws IOException, ParseException {
-//        JSONObject jsonObject=(JSONObject) HandleFiles.readJsonFiles
-//                (ADDRESS_OF_JSON_FILES+"JSON-Minions/"+minionName+".json");
-//        String specialPower=jsonObject.get("specialPower").toString();
-//        if(specialPower.equals("combo"))
-//        {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public void removeBuffFromBuffArrayListOfMinion(String buffName){
-//        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")){
-//            for (Buff buff : this.getMinionPositiveBuffs())
-//                if (buff.getName().equals(buffName)){
-//                    this.getMinionPositiveBuffs().remove(buff);
-//                    return ;
-//                }
-//        }else{
-//            for (Buff buff : this.getMinionNegativeBuffs())
-//                if (buff.getName().equals(buffName)){
-//                    this.getMinionNegativeBuffs().remove(buff);
-//                    return;
-//                }
-//        }
-//    }
-//
-//    public void insertSpecialPowerInThisLocation(String minionName) throws IOException, ParseException {
-//        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-//                + "JSON-Minions/" + minionName + ".json");
-//        CellType cellType = Game.getInstance().getMap().getCells()[x][y].getCellType();
-//        switch(cellType)
-//        {
-//            case selfHero:
-//                insertSpecialPowerInCellTypeSelfHero(jsonObject, x, y);
-//                break;
-//            case selfMinion:
-//                insertSpecialPowerInCellTypeSelfMinion(jsonObject, x, y);
-//                break;
-//            case enemyHero:
-//                insertSpecialPowerInCellTypeEnemyHero(jsonObject, x, y);
-//                break;
-//            case enemyMinion:
-//                insertSpecialPowerInCellTypeEnemyMinion(jsonObject, x, y);
-//                break;
-//            case empty:
-//                insertSpecialPowerInAnEmptyCell(jsonObject, x, y);
-//                break;
-//        }
-//    }
-//
-//    public void insertSpecialPowerInAnEmptyCell(JSONObject jsonObject,int x,int y)
-//    {
-//        String numOfTargets = jsonObject.get("numOfTargets").toString();
-//        switch (numOfTargets){
-//            case "1":
-//                System.out.println("Invalid target!");
-//                break;
-//            case "all":
-//                System.out.println("Invalid target!");
-//                break;
-//
-//        }
-//    }
-//
-//    public void insertSpecialPowerInCellTypeEnemyMinion(JSONObject jsonObject,int x,int y)
-//    {
-//        String numOfTargets = jsonObject.get("numOfTargets").toString();
-//        String actsOn = jsonObject.get("actsOn").toString();
-//        String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-//        switch (numOfTargets){
-//            case "1":
-//                if (actsOn.equals("owner")){
-//                    System.out.println("Invalid target!");
-//                }else{
-//                    if (locationOfTarget.equals("random8around")){
-//                        applySpecialPowerOnMinionsIn8Round(jsonObject, x, y);
-//                    }else{
-//                        applySpecialPowerOnMinion(jsonObject, x, y);
-//                    }
-//                }
-//                break;
-//            case "all":
-//                if (locationOfTarget.equals("null")){//when target is all enemy forces
-//                    applySpecialPowerOnAllEnemyForces(jsonObject, x, y);
-//                }
-//                break;
-//
-//        }
-//    }
-//
-//    public static void applySpecialPowerOnMinion(JSONObject jsonObject, int x, int y)
-//    {
-//        Spell.applySpellOnMinion(jsonObject,x,y);
-//    }
-//
-//    public static void applySpecialPowerOnMinionsIn8Round(JSONObject jsonObject, int x, int y){
-//
-//        for(int i=x-1;i<=x+1;i++)
-//        {
-//            for(int j=y-1;j<y+1;j++)
-//            {
-//                applySpecialPowerOnMinion(jsonObject,i,j);
-//            }
-//        }
-//    }
-//
-//    public static boolean checkIfThisCoordinationIsAroundSelfMinion(int x, int y){
-//        int selfHeroX = Game.getInstance().getHeroOfPlayer1().getX();
-//        int selfHeroY = Game.getInstance().getHeroOfPlayer1().getY();
-//
-//        if (Map.thisCellsAreAdjusting(x, y, selfHeroX, selfHeroY)){
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//    public void insertSpecialPowerInCellTypeEnemyHero(JSONObject jsonObject,int x,int y)
-//    {
-//        String numOfTargets = jsonObject.get("numOfTargets").toString();
-//        String actsOn = jsonObject.get("actsOn").toString();
-//        String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-//
-//        switch (numOfTargets) {
-//            case "1":
-//                if (actsOn.equals("owner")) {
-//                    System.out.println("Invalid target!");
-//                } else {
-//                    applySpecialPowerOnEnemyHero(jsonObject, x, y);
-//                }
-//                break;
-//            case "all":
-//                if (locationOfTarget.equals("null")) {
-//                    applySpecialPowerOnAllEnemyForces(jsonObject, x, y);
+//        for (String target : targets){
+//            switch (target){
+//                case "null":
+//                    applyMinionWithNullTarget();
 //                    break;
-//                }
+//                case "itself":
+//                    applyMinionOnItself();
+//                    break;
+//
+//            }
 //        }
 //    }
 //
-//    public static void applySpecialPowerOnEnemyHero (JSONObject jsonObject,int x,int y){
-//        Spell.applySpellOnEnemyHero(jsonObject, x, y);
-//    }
+//    public void applyMinionSpecialPowerOnItself(){
 //
-//    public static void applySpecialPowerOnAllEnemyForces(JSONObject jsonObject,int x,int y)
-//    {
-//        Spell.applySpellOnAllEnemyForces(jsonObject,x,y);
-//    }
+//        for (Buff buff : this.getPositiveBuffs()){
+//            this.getPositiveBuffsOnItself().add(buff);
+//        }
 //
-//    public static void insertSpecialPowerInCellTypeSelfMinion(JSONObject jsonObject,int x,int y)
-//    {
-//        String numOfTargets = jsonObject.get("numOfTargets").toString();
-//        String actsOn = jsonObject.get("actsOn").toString();
+//        for (Buff buff : this.getNegativeBuffs()){
+//            this.getNegativeBuffsOnItself().add(buff);
+//        }
 //
-//        switch (numOfTargets){
-//            case "1":
-//                if (actsOn.equals("map")){
-//                    System.out.println("Invalid target!");
-//                }else{
-//                    applySpecialPowerOnMinion(jsonObject, x, y);
-//                }
-//                break;
-//            case "all":
-//                if (!actsOn.equals("owner")){
-//                    System.out.println("Invalid target!");
-//                }else{
-//                    applySpecialPowerOnAllSelfForces(jsonObject, x, y);
-//                }
-//                break;
+//        for (Buff buff : this.getBuffActions()){
+//            this.getActionBuffsOnItself().add(buff);
 //        }
 //    }
 //
-//    public static void insertSpecialPowerInCellTypeSelfHero(JSONObject jsonObject,int x,int y)
-//    {
-//        String numOfTargets = jsonObject.get("numOfTargets").toString();
-//        String actsOn = jsonObject.get("actsOn").toString();
-//        String locationOfTarget = jsonObject.get("locationOfTarget").toString();
+//    public void applyMinionWithNullTarget(){
+//        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
+//    }
 //
-//        switch (numOfTargets){
-//            case "1":
-//                if (actsOn.equals("map") || actsOn.equals("enemy")){
-//                    System.out.println("Invalid target!");
-//                }else{
-//                    applySpecialPowerOnSelfHero(jsonObject, x, y);
-//                }
-//                break;
-//            case "all":
-//                if (!locationOfTarget.equals("null")){//when target is all self forces
-//                    applySpecialPowerOnAllSelfForces(jsonObject, x, y);
-//                }
-//                break;
+//    public void minionComboAttack(){
+//        this.isHeadOfCombo = true;
+//        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
 //
 //        }
-//    }
-//
-//    public static void applySpecialPowerOnSelfHero(JSONObject jsonObject,int x,int y)
-//    {
-//        Spell.applySpellOnSelfHero(jsonObject,x,y);
-//    }
-//
-//    public static void applySpecialPowerOnAllSelfForces(JSONObject jsonObject,int x,int y)
-//    {
-//        Spell.applySpellOnAllSelfForces(jsonObject,x,y);
 //    }
 
 
 
 }
+

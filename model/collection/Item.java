@@ -1,10 +1,10 @@
 package model.collection;
 
-import model.Cell;
+import model.CellType;
 import model.Game;
-import model.Hand;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import view.GameView;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,18 @@ import java.util.ArrayList;
 
 public class Item {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+
+    private ArrayList<Buff> positiveBuffs = new ArrayList<>();
+    private ArrayList<Buff> negativeBuffs = new ArrayList<>();
+    private ArrayList<Buff> actionBuffs = new ArrayList<>();
+
+    private String target;
+    private String numOfTarget;
+    private ArrayList<String> typeOfActions = new ArrayList<>();
+    private String friendOrEnemy;
+    private String locationOfTarget;
+    private String specification;
+    private String user;
 
     public static ArrayList<String> itemNames = new ArrayList<>();
     private int id;
@@ -124,7 +136,7 @@ public class Item {
     }
 
     public static void applyItem(String itemName) throws IOException, ParseException {
-  //      String itemType = getItemTypeByName(itemName);
+        //      String itemType = getItemTypeByName(itemName);
 
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items" + itemName + ".json");
         String typeOfAction = jsonObject.get("typeOfAction").toString();
@@ -134,7 +146,7 @@ public class Item {
                 applyAddingManaByItem(jsonObject);
                 break;
             case "addBuff":
-             //   applyAddingBuffbyItem();
+                //   applyAddingBuffbyItem();
                 break;
         }
 
@@ -158,7 +170,126 @@ public class Item {
 //        return flag;
 //    }
 
-    
+    public void applyItem(int x, int y){
+        if (checkIfTargetHasBeenChosenCorrectly(x, y)) {
+            if (user.equals("null")) {
+                applyItemDirectly(x, y);//when item doesn't have a user
+            } else {
+                applyItemLikeSpell(x, y);//when item has a user
+            }
+        }else{
+            GameView.printInvalidCommandWhithThisContent("Invalid Target");
+        }
+    }
 
-    
+    public void applyItemLikeSpell(int x, int y){
+        String user = this.user;
+        if (user.equals("hero")){
+
+        }else{
+            String userNumber = user.substring(user.indexOf('(') + 1, user.length() - 1);
+            String userType = user.substring(0, user.indexOf('('));
+
+        }
+    }
+
+    public void applyItemDirectly(int x, int y){
+        Force force = (Force) Card.getCardByCoordination(x, y);
+        for (Buff buff : this.positiveBuffs){
+            force.getPositiveBuffs().add(buff);
+        }
+
+        for (Buff buff : this.negativeBuffs){
+            force.getNegativeBuffs().add(buff);
+        }
+
+        for (Buff buff : this.actionBuffs){
+            force.getBuffActions().add(buff);
+        }
+
+    }
+
+    public boolean checkIfTargetHasBeenChosenCorrectly(int x, int y){
+        CellType cellType = Game.getInstance().getMap().getCells()[x - 1][y - 1].getCellType();
+
+        switch (cellType){
+            case selfHero:
+                return checkIfTargetCanBeSelfHero();
+            case selfMinion:
+                return checkIfTargetCanBeSelfMinion();
+            case enemyHero:
+                return checkIfTargetCanBeEnemyHero();
+            case enemyMinion:
+                return checkIfTargetCanEnemyMinion();
+            case empty:
+                return false;
+        }
+        return false;
+    }
+
+    public boolean checkIfTargetCanBeSelfHero(){
+        String numOfTargets = this.numOfTarget;
+        String friendOrEnemy = this.friendOrEnemy;
+        String target = this.target;
+
+        if (numOfTargets.equals("null")){
+            return false;
+        }else{
+            if (friendOrEnemy.equals("enemy") || (!target.equals("hero") && !target.equals("minion/hero"))){
+                return false;
+            }else
+                return true;
+        }
+    }
+
+    public boolean checkIfTargetCanBeSelfMinion(){
+        String numOfTargets = this.numOfTarget;
+        String friendOrEnemy = this.friendOrEnemy;
+        String target = this.target;
+
+        if (numOfTargets.equals("null")){
+            return false;
+        }else{
+            if (friendOrEnemy.equals("enemy") || (!target.equals("minion") && !target.equals("minion/hero"))){
+                return false;
+            }else
+                return true;
+        }
+    }
+
+    public boolean checkIfTargetCanEnemyMinion(){
+        String numOfTargets = this.numOfTarget;
+        String friendOrEnemy = this.friendOrEnemy;
+        String target = this.target;
+
+        if (numOfTargets.equals("null")){
+            return false;
+        }else{
+            if (friendOrEnemy.equals("friend") || (!target.equals("minion") && !target.equals("minion/hero"))){
+                return false;
+            }else
+                return true;
+        }
+    }
+
+    public boolean checkIfTargetCanBeEnemyHero(){
+        String numOfTargets = this.numOfTarget;
+        String friendOrEnemy = this.friendOrEnemy;
+        String target = this.target;
+
+        if (numOfTargets.equals("null")){
+            return false;
+        }else{
+            if (friendOrEnemy.equals("friend") || (!target.equals("hero") && !target.equals("minion/hero"))){
+                return false;
+            }else
+                return true;
+        }
+    }
+
+    public void applyItem(){
+
+    }
+
 }
+

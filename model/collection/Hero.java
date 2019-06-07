@@ -8,121 +8,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Hero extends Card{
+public class Hero extends Force{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
-    private ArrayList<Buff> positiveBuffs = new ArrayList<>();
-    private ArrayList<Buff> negativeBuffs = new ArrayList<>();
-    private ArrayList<Buff> actions = new ArrayList<>();
+
 
     public static ArrayList<String> heroNames = new ArrayList<>();
-    private int healthPoint;
-    private int attackPower;
-    private String attackType;
-    private int attackRange;
     private int coolDown;
-    private String specialPower;
-    private boolean canCounterAttack;
-    private boolean holyBuffIsActive;
-
-    public String getSpecialPower() {
-        return specialPower;
-    }
-
-    public void setSpecialPower(String specialPower) {
-        this.specialPower = specialPower;
-    }
 
     public Hero(String name, int healthPoint, int attackPower,
                 String attackType, int attackRange, int coolDown, String specialPower, int mana){
+        super(healthPoint, attackPower, attackType, attackRange, specialPower);
         this.name = name;
-        this.healthPoint = healthPoint;
-        this.attackPower = attackPower;
-        this.attackType = attackType;
-        this.attackRange = attackRange;
         this.coolDown = coolDown;
-        this.specialPower = specialPower;
         this.mana = mana;
         this.setMovable(true);
         this.setAbleToAttack(true);
-    }
-
-    public ArrayList<Buff> getActions() {
-        return actions;
-    }
-
-    public void setActions(ArrayList<Buff> actions) {
-        this.actions = actions;
     }
 
     public static int getHeroIDByName(String heroName) throws Exception{
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
                 + "JSON-Heroes/" + heroName + ".json");
         return Integer.parseInt(jsonObject.get("id").toString()) + 100;
-    }
-
-    public boolean isHolyBuffIsActive() {
-        return holyBuffIsActive;
-    }
-
-    public void setHolyBuffIsActive(boolean holyBuffIsActive) {
-        this.holyBuffIsActive = holyBuffIsActive;
-    }
-
-    public boolean isCanCounterAttack() {
-        return canCounterAttack;
-    }
-
-    public void setCanCounterAttack(boolean canCounterAttack) {
-        this.canCounterAttack = canCounterAttack;
-    }
-
-    public ArrayList<Buff> getPositiveBuffs() {
-        return positiveBuffs;
-    }
-
-    public void setPositiveBuffs(ArrayList<Buff> positiveBuffs) {
-        this.positiveBuffs = positiveBuffs;
-    }
-
-    public ArrayList<Buff> getNegativeBuffs() {
-        return negativeBuffs;
-    }
-
-    public void setNegativeBuffs(ArrayList<Buff> negativeBuffs) {
-        this.negativeBuffs = negativeBuffs;
-    }
-
-    public int getHealthPoint() {
-        return healthPoint;
-    }
-
-    public void setHealthPoint(int healthPoint) {
-        this.healthPoint = healthPoint;
-    }
-
-    public int getAttackPower() {
-        return attackPower;
-    }
-
-    public void setAttackPower(int attackPower) {
-        this.attackPower = attackPower;
-    }
-
-    public String getAttackType() {
-        return attackType;
-    }
-
-    public void setAttackType(String attackType) {
-        this.attackType = attackType;
-    }
-
-    public int getAttackRange() {
-        return attackRange;
-    }
-
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
     }
 
     public int getCoolDown() {
@@ -192,7 +99,7 @@ public class Hero extends Card{
         String buffName = buff.getName();
         switch (buffName) {
             case "holyBuff":
-                this.setHolyBuffIsActive(true);
+                this.setHasHolyBuff(true);
                 break;
             case "attackPowerBuff":
                 this.applyAttackPowerBuff(buff);
@@ -222,7 +129,7 @@ public class Hero extends Card{
         String buffName = buff.getName();
         switch (buffName){
             case "holyBuff":
-                this.setHolyBuffIsActive(false);
+                this.setHasHolyBuff(false);
                 break;
             case "attackPowerBuff":
                 this.deactivateAttackPowerBuff(buff);
@@ -441,7 +348,7 @@ public class Hero extends Card{
             case "Ejdeha Haftsar":
                 Buff buff4=new Buff(1,1,"disarmBuff","negative","onTurn");
                 getHeroByName("Ejdeha Haftsar").getNegativeBuffs().add(buff4);
-                    break;
+                break;
             case "Esfandiyar":
                 Buff buff=new Buff(1,3,"holyBuff","positive","continiously");
                 getHeroByName("Esfandiyar").getPositiveBuffs().add(buff);
@@ -453,9 +360,9 @@ public class Hero extends Card{
             case "Rakhsh":
                 Buff buff6=new Buff(1,1,"stunBuff","negative","passive");
                 getHeroByName("Rakhsh").getNegativeBuffs().add(buff6);
-                    break;
+                break;
             case "Rostam":
-                    break;
+                break;
             case "Simorgh":
                 Buff buff8=new Buff(1,1,"stunBuff","negative","onTurn");
                 getHeroByName("Simorgh").getNegativeBuffs().add(buff8);
@@ -469,9 +376,10 @@ public class Hero extends Card{
 
     public void addBuffToHero(Buff buff) {
         if (buff.getType().equals("positive"))
-            positiveBuffs.add(buff);
+            getPositiveBuffs().add(buff);
         else
-            negativeBuffs.add(buff);
+            getNegativeBuffs().add(buff);
     }
 
 }
+

@@ -4,6 +4,7 @@ import model.collection.Card;
 import model.collection.Hero;
 import model.collection.Spell;
 
+
 import java.util.Scanner;
 
 public class Main {

@@ -2,16 +2,15 @@ package model;
 
 import model.collection.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Map {
     private Cell[][] cells = new Cell[5][9];
 
-    private ArrayList<Card> enemyMinions = new ArrayList<>();
-    private ArrayList<Card> friendMinions = new ArrayList<>();
-    private ArrayList<Card> enemyHeroes = new ArrayList<>();
-    private ArrayList<Card> friendHeroes = new ArrayList<>();
+    private ArrayList<Minion> enemyMinions = new ArrayList<>();
+    private ArrayList<Minion> friendMinions = new ArrayList<>();
+    private ArrayList<Hero> enemyHeroes = new ArrayList<>();
+    private ArrayList<Hero> friendHeroes = new ArrayList<>();
 
     public Map(){
         for (int i = 0; i < 5; i++) {
@@ -36,35 +35,35 @@ public class Map {
         }
     }
 
-    public ArrayList<Card> getEnemyMinions() {
+    public ArrayList<Minion> getEnemyMinions() {
         return enemyMinions;
     }
 
-    public void setEnemyMinions(ArrayList<Card> enemyMinions) {
+    public void setEnemyMinions(ArrayList<Minion> enemyMinions) {
         this.enemyMinions = enemyMinions;
     }
 
-    public ArrayList<Card> getFriendMinions() {
+    public ArrayList<Minion> getFriendMinions() {
         return friendMinions;
     }
 
-    public void setFriendMinions(ArrayList<Card> friendMinions) {
+    public void setFriendMinions(ArrayList<Minion> friendMinions) {
         this.friendMinions = friendMinions;
     }
 
-    public ArrayList<Card> getEnemyHeroes() {
+    public ArrayList<Hero> getEnemyHeroes() {
         return enemyHeroes;
     }
 
-    public void setEnemyHeroes(ArrayList<Card> enemyHeroes) {
+    public void setEnemyHeroes(ArrayList<Hero> enemyHeroes) {
         this.enemyHeroes = enemyHeroes;
     }
 
-    public ArrayList<Card> getFriendHeroes() {
+    public ArrayList<Hero> getFriendHeroes() {
         return friendHeroes;
     }
 
-    public void setFriendHeroes(ArrayList<Card> friendHeroes) {
+    public void setFriendHeroes(ArrayList<Hero> friendHeroes) {
         this.friendHeroes = friendHeroes;
     }
 
