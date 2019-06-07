@@ -11,7 +11,6 @@ public class Buff {
     private int howMuchImpact;
     private boolean isUsed;
     private String activationTime;
-    private String target
 
 
     public Buff(String name, int howMuchImpact, int delay, int forHowManyTurns){
