@@ -9,12 +9,14 @@
   "activationTime":"Combo",
   "type":"minion",
   "specialPower": "combo",
-  "numOfTargets" :"null",
-  "targetsSpecified":"null",
-  "actsOn":"null",
-  "forHowManyTurns" :"null",
-  "typeOfAction" :"null",
-  "whichBuff" :"null",
-  "howMuchChange" :"null",
-  "locationOfTarget" :"null"
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "combo",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "combo",
+  "delay" : "null",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

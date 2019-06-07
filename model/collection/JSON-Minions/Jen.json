@@ -9,12 +9,14 @@
   "activationTime":"On Turn",
   "type":"minion",
   "specialPower": "gives continuous power buff with impact of 1 to all of self minions",
-  "numOfTargets" :"all",
-  "targetsSpecified":"minion",
-  "actsOn":"owner",
-  "forHowManyTurns" :"all",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"powerAttackBuff",
-  "howMuchChange" :"1",
-  "locationOfTarget" :"null"
+  "target" : "minion",
+  "numOfTarget" : "all",
+  "action" : "addBuff",
+  "buffs" : "attackPowerBuff",
+  "effectValue" : "1",
+  "delay" : "null",
+  "last" : "continuous",
+  "friendOrEnemy" : "friend",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

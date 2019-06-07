@@ -8,6 +8,15 @@
   "id":30,
   "activationTime":"On Defend",
   "type":"minion",
-  "specialPower": "doesn't get any negative effects(buff/attacks)"
-
+  "specialPower": "doesn't get any negative effects(buff/attacks)",
+  "target" : "null",
+  "numOfTarget" : "null",
+  "action" : "null",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "null",
+  "friendOrEnemy" : "null",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "negative"
 }

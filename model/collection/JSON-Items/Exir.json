@@ -10,7 +10,7 @@
   "buffs" : "healthPointBuff,attackPowerBuff",
   "effectValue" : "3,3",
   "delay" : "null,null",
-  "last" : "permanent,1",
+  "last" : "1,1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "random",
   "specification" : "null",

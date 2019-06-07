@@ -9,13 +9,15 @@
   "activationTime":"On Spawn",
   "type":"minion",
   "specialPower": "the enemy minions on 8 neighbour cells will be stunned for 1 turn",
-  "numOfTargets" :"all",
-  "targetsSpecified":"minion",
-  "actsOn":"enemy",
-  "forHowManyTurns" :"1",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"stunBuff",
-  "howMuchChange" :"null",
-  "locationOfTarget" :"8round"
+  "target" : "minion",
+  "numOfTarget" : "all",
+  "action" : "addBuff",
+  "buffs" : "stunBuff",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "8around",
+  "doesNotGetAttack" : "null"
 
 }

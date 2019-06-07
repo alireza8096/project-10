@@ -9,12 +9,14 @@
   "activationTime":"On Attack",
   "type":"minion",
   "specialPower": "stuns minion/hero for that turn while attacking",
-  "numOfTargets" :"1",
-  "targetsSpecified":"minion/hero",
-  "actsOn":"enemy",
-  "forHowManyTurns" :"1",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"stunBuff",
-  "howMuchChange" :"null",
-  "locationOfTarget" :"null"
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addBuff",
+  "buffs" : "stunBuff",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

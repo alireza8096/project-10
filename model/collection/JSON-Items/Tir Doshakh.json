@@ -10,7 +10,7 @@
   "buffs" : "attackPowerBuff",
   "effectValue" : "2",
   "delay" : "null",
-  "last" : "permanent",
+  "last" : "1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "random",
   "specification" : "ranged/hybrid",

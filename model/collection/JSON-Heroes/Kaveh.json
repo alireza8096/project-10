@@ -12,7 +12,7 @@
   "target" : "cell",
   "numOfTarget" : "square1",
   "action" : "addAction",
-  "buffs" : "holyBuff",
+  "buffs" : "holy",
   "effectValue" : "3",
   "delay" : "null",
   "last" :"3",

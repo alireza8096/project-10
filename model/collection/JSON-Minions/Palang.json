@@ -9,12 +9,14 @@
   "activationTime":"On Attack",
   "type":"minion",
   "specialPower": "when attacking a minion,the minion will lose 8 health points in the next turn",
-  "numOfTargets" :"1",
-  "targetsSpecified":"minion",
-  "actsOn":"enemy",
-  "forHowManyTurns" :"1",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"healthPointWeaknessBuff",
-  "howMuchChange" :"8",
-  "locationOfTarget" :"null"
+  "target" : "minion",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "8",
+  "delay" : "1",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

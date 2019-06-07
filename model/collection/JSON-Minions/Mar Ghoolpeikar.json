@@ -8,5 +8,15 @@
   "id":21,
   "activationTime":"On Spawn",
   "type":"minion",
-  "specialPower": "holy buff's vice versa"
+  "specialPower": "holy buff's vice versa",
+  "target" : "minion",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "antiHolyBuff",
+  "effectValue" : "1",
+  "delay" : "null",
+  "last" : "permanent",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "distance2",
+  "doesNotGetAttack" : "null"
 }

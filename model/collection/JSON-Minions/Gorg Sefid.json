@@ -8,5 +8,15 @@
   "id":22,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower": "when attacking a minion,it will lose 6 health points on that turn and 4 health points on the next turn"
+  "specialPower": "when attacking a minion,it will lose 6 health points on that turn and 4 health points on the next turn",
+  "target" : "minion",
+  "numOfTarget" : "1",
+  "action" : "addAction,addAction",
+  "buffs" : "healthPointWeaknessBuff,healthPointWeaknessBuff",
+  "effectValue" : "6,4",
+  "delay" : "1,2",
+  "last" : "1,1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

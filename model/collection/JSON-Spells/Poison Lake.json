@@ -7,7 +7,7 @@
   "target" : "cell",
   "numOfTarget" : "square3",
   "action" : "addAction",
-  "buffs" : "poisonCellImpact",
+  "buffs" : "poison",
   "effectValue" : "null",
   "delay" : "null",
   "last" :"1",
