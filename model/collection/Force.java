@@ -1,18 +1,22 @@
 package model.collection;
 
 import model.Game;
-import model.Map;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class Force extends Card{
 
-    private ArrayList<Spell> specialPowerBuffs = new ArrayList<>();
+    //buffs that effect on the force itself
+    private ArrayList<Spell> specialPowerSpells = new ArrayList<>();
+    private ArrayList<Buff> specialPowerPositiveBuffs = new ArrayList<>();
+    private ArrayList<Buff> specialPowerNegativeBuffs = new ArrayList<>();
+    private ArrayList<Buff> specialPowerActionBuffs = new ArrayList<>();
 
+    //all buffs that force has in its special power
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
-    private ArrayList<Buff> actions = new ArrayList<>();
+    private ArrayList<Buff> buffActions = new ArrayList<>();
 
     private int healthPoint;
     private int attackPower;
@@ -31,12 +35,36 @@ public class Force extends Card{
         this.specialPower = specialPower;
     }
 
-    public ArrayList<Spell> getSpecialPowerBuffs() {
-        return specialPowerBuffs;
+    public ArrayList<Spell> getSpecialPowerSpells() {
+        return specialPowerSpells;
     }
 
-    public void setSpecialPowerBuffs(ArrayList<Spell> specialPowerBuffs) {
-        this.specialPowerBuffs = specialPowerBuffs;
+    public void setSpecialPowerSpells(ArrayList<Spell> specialPowerSpells) {
+        this.specialPowerSpells = specialPowerSpells;
+    }
+
+    public ArrayList<Buff> getSpecialPowerPositiveBuffs() {
+        return specialPowerPositiveBuffs;
+    }
+
+    public void setSpecialPowerPositiveBuffs(ArrayList<Buff> specialPowerPositiveBuffs) {
+        this.specialPowerPositiveBuffs = specialPowerPositiveBuffs;
+    }
+
+    public ArrayList<Buff> getSpecialPowerNegativeBuffs() {
+        return specialPowerNegativeBuffs;
+    }
+
+    public void setSpecialPowerNegativeBuffs(ArrayList<Buff> specialPowerNegativeBuffs) {
+        this.specialPowerNegativeBuffs = specialPowerNegativeBuffs;
+    }
+
+    public ArrayList<Buff> getSpecialPowerActionBuffs() {
+        return specialPowerActionBuffs;
+    }
+
+    public void setSpecialPowerActionBuffs(ArrayList<Buff> specialPowerActionBuffs) {
+        this.specialPowerActionBuffs = specialPowerActionBuffs;
     }
 
     public ArrayList<Buff> getPositiveBuffs() {
@@ -55,12 +83,12 @@ public class Force extends Card{
         this.negativeBuffs = negativeBuffs;
     }
 
-    public ArrayList<Buff> getActions() {
-        return actions;
+    public ArrayList<Buff> getBuffActions() {
+        return buffActions;
     }
 
-    public void setActions(ArrayList<Buff> actions) {
-        this.actions = actions;
+    public void setBuffActions(ArrayList<Buff> buffActions) {
+        this.buffActions = buffActions;
     }
 
     public int getHealthPoint() {

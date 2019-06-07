@@ -317,7 +317,7 @@ public class Spell extends Card {
                     break;
                 case "addAction":
                     for (Buff actionBuff : actions){
-                        Hero.getHeroByCoordination(x, y).getActions().add(actionBuff);
+                        Hero.getHeroByCoordination(x, y).getBuffActions().add(actionBuff);
                     }
                     break;
             }
@@ -359,9 +359,9 @@ public class Spell extends Card {
                 case "addAction":
                     for (Buff actionBuff : actions){
                         for (Card card : Game.getInstance().getMap().getEnemyHeroes())
-                            ((Hero) card).getActions().add(actionBuff);
+                            ((Hero) card).getBuffActions().add(actionBuff);
                         for (Card card : Game.getInstance().getMap().getEnemyMinions())
-                            ((Minion) card).getActions().add(actionBuff);
+                            ((Minion) card).getBuffActions().add(actionBuff);
                     }
 
                     break;
@@ -448,7 +448,7 @@ public class Spell extends Card {
                     break;
                 case "addAction":
                     for (Buff actionBuff : actions){
-                        Hero.getHeroByCoordination(x, y).getActions().add(actionBuff);
+                        Hero.getHeroByCoordination(x, y).getBuffActions().add(actionBuff);
                     }
                     break;
             }
@@ -482,9 +482,9 @@ public class Spell extends Card {
                 case "addAction":
                     for (Buff actionBuff : actions){
                         for (Card card : Game.getInstance().getMap().getFriendMinions())
-                            ((Hero) card).getActions().add(actionBuff);
+                            ((Hero) card).getBuffActions().add(actionBuff);
                         for (Card card : Game.getInstance().getMap().getFriendHeroes())
-                            ((Minion) card).getActions().add(actionBuff);
+                            ((Minion) card).getBuffActions().add(actionBuff);
                     }
 
                     break;
@@ -510,9 +510,9 @@ public class Spell extends Card {
         for (Buff actionBuff : actions){
             for (int i = 0; i < 5; i++) {
                 if (Game.getInstance().getMap().getCells()[i][y].getCellType() == CellType.enemyMinion){
-                    ((Minion) Card.getCardByCoordination(i, y)).getActions().add(actionBuff);
+                    ((Minion) Card.getCardByCoordination(i, y)).getBuffActions().add(actionBuff);
                 }else if (Game.getInstance().getMap().getCells()[i][y].getCellType() == CellType.enemyHero){
-                    ((Hero) Card.getCardByCoordination(i, y)).getActions().add(actionBuff);
+                    ((Hero) Card.getCardByCoordination(i, y)).getBuffActions().add(actionBuff);
                 }
             }
         }

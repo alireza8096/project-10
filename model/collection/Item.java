@@ -1,16 +1,13 @@
 package model.collection;
 
-import model.Cell;
 import model.CellType;
 import model.Game;
-import model.Hand;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import view.GameView;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Item {
@@ -207,7 +204,7 @@ public class Item {
         }
 
         for (Buff buff : this.actionBuffs){
-            force.getActions().add(buff);
+            force.getBuffActions().add(buff);
         }
 
     }
