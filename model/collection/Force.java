@@ -9,9 +9,9 @@ public class Force extends Card{
 
     //buffs that effect on the force itself
     private ArrayList<Spell> specialPowerSpells = new ArrayList<>();
-    private ArrayList<Buff> specialPowerPositiveBuffs = new ArrayList<>();
-    private ArrayList<Buff> specialPowerNegativeBuffs = new ArrayList<>();
-    private ArrayList<Buff> specialPowerActionBuffs = new ArrayList<>();
+    private ArrayList<Buff> positiveBuffsOnItself = new ArrayList<>();
+    private ArrayList<Buff> negativeBuffsOnItself = new ArrayList<>();
+    private ArrayList<Buff> actionBuffsOnItself = new ArrayList<>();
 
     //all buffs that force has in its special power
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
@@ -26,6 +26,7 @@ public class Force extends Card{
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
+    private ArrayList<String> actionTypes = new ArrayList<>();
 
     public Force(int healthPoint, int attackPower, String attackType, int attackRange, String specialPower){
         this.healthPoint = healthPoint;
@@ -33,6 +34,14 @@ public class Force extends Card{
         this.attackType = attackType;
         this.attackRange = attackRange;
         this.specialPower = specialPower;
+    }
+
+    public ArrayList<String> getActionTypes() {
+        return actionTypes;
+    }
+
+    public void setActionTypes(ArrayList<String> actionTypes) {
+        this.actionTypes = actionTypes;
     }
 
     public ArrayList<Spell> getSpecialPowerSpells() {
@@ -43,28 +52,28 @@ public class Force extends Card{
         this.specialPowerSpells = specialPowerSpells;
     }
 
-    public ArrayList<Buff> getSpecialPowerPositiveBuffs() {
-        return specialPowerPositiveBuffs;
+    public ArrayList<Buff> getPositiveBuffsOnItself() {
+        return positiveBuffsOnItself;
     }
 
-    public void setSpecialPowerPositiveBuffs(ArrayList<Buff> specialPowerPositiveBuffs) {
-        this.specialPowerPositiveBuffs = specialPowerPositiveBuffs;
+    public void setPositiveBuffsOnItself(ArrayList<Buff> positiveBuffsOnItself) {
+        this.positiveBuffsOnItself = positiveBuffsOnItself;
     }
 
-    public ArrayList<Buff> getSpecialPowerNegativeBuffs() {
-        return specialPowerNegativeBuffs;
+    public ArrayList<Buff> getNegativeBuffsOnItself() {
+        return negativeBuffsOnItself;
     }
 
-    public void setSpecialPowerNegativeBuffs(ArrayList<Buff> specialPowerNegativeBuffs) {
-        this.specialPowerNegativeBuffs = specialPowerNegativeBuffs;
+    public void setNegativeBuffsOnItself(ArrayList<Buff> negativeBuffsOnItself) {
+        this.negativeBuffsOnItself = negativeBuffsOnItself;
     }
 
-    public ArrayList<Buff> getSpecialPowerActionBuffs() {
-        return specialPowerActionBuffs;
+    public ArrayList<Buff> getActionBuffsOnItself() {
+        return actionBuffsOnItself;
     }
 
-    public void setSpecialPowerActionBuffs(ArrayList<Buff> specialPowerActionBuffs) {
-        this.specialPowerActionBuffs = specialPowerActionBuffs;
+    public void setActionBuffsOnItself(ArrayList<Buff> actionBuffsOnItself) {
+        this.actionBuffsOnItself = actionBuffsOnItself;
     }
 
     public ArrayList<Buff> getPositiveBuffs() {
