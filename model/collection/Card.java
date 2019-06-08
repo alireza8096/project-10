@@ -8,12 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Card {
-    private static ArrayList<String> cardNames = new ArrayList<>();
+//    private static ArrayList<String> cardNames = new ArrayList<>();
     protected int mana;
     protected int id;
     protected String cardType;
     protected String name;
-    protected AttackType targetType;
+//    protected AttackType targetType;
     protected boolean isActive;
     protected boolean hasAttackedInThisTurn;
     protected boolean hasMovedInThisTurn;
@@ -24,6 +24,16 @@ public class Card {
     protected int x;
     protected int y;
     protected boolean inGame;
+
+    public Card(String mana, String id, String cardType, String name,String price) {
+        if (mana.equals("null")) this.mana = 0;
+        else this.mana = Integer.parseInt(mana);
+        this.id = Integer.parseInt(id);
+        this.cardType = cardType;
+        this.name = name;
+        if (!price.equals("null")) this.price = Integer.parseInt(price);
+        else this.price = 0;
+    }
 
     public boolean isMovable() {
         return movable;
@@ -79,14 +89,6 @@ public class Card {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public AttackType getTargetType() {
-        return targetType;
-    }
-
-    public void setTargetType(AttackType targetType) {
-        this.targetType = targetType;
     }
 
     public boolean isActive() {

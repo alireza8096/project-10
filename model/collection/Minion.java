@@ -20,6 +20,7 @@ public class Minion extends Force {
     private ArrayList<String> doesNotGetAttackBuffs = new ArrayList<>();
 
     private String doesNotGetAttack = new String();
+    private String doesNotGetAttack;
     private String activationTime;
     private boolean isHeadOfCombo;
 
@@ -31,6 +32,38 @@ public class Minion extends Force {
         this.activationTime = activationTime;
         this.mana = mana;
         this.price = price;
+    }
+
+    public ArrayList<String> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(ArrayList<String> targets) {
+        this.targets = targets;
+    }
+
+    public ArrayList<String> getNumOfTargets() {
+        return numOfTargets;
+    }
+
+    public void setNumOfTargets(ArrayList<String> numOfTargets) {
+        this.numOfTargets = numOfTargets;
+    }
+
+    public ArrayList<String> getFriendOrEnemy() {
+        return friendOrEnemy;
+    }
+
+    public void setFriendOrEnemy(ArrayList<String> friendOrEnemy) {
+        this.friendOrEnemy = friendOrEnemy;
+    }
+
+    public ArrayList<String> getLocationOfTargets() {
+        return locationOfTargets;
+    }
+
+    public void setLocationOfTargets(ArrayList<String> locationOfTargets) {
+        this.locationOfTargets = locationOfTargets;
     }
 
     public ArrayList<String> getDoesNotGetAttackBuffs() {
