@@ -9,12 +9,14 @@
   "activationTime":"On Defend",
   "type":"minion",
   "specialPower": "does not get poisoned",
-  "numOfTargets" :"null",
-  "targetsSpecified":"null",
-  "actsOn":"null",
-  "forHowManyTurns" :"null",
-  "typeOfAction" :"null",
-  "whichBuff" :"null",
-  "howMuchChange" :"null",
-  "locationOfTarget" :"null"
+  "target" : "null",
+  "numOfTarget" : "null",
+  "action" : "null",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "null",
+  "friendOrEnemy" : "null",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "poisonBuff"
 }

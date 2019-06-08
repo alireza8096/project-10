@@ -1,5 +1,5 @@
 {"healthPoint":10,
-  "attackRange":null,
+  "attackRange":"null",
   "attackPower":14,
   "mana":6,
   "attackType":"melee",
@@ -8,5 +8,15 @@
   "id":28,
   "activationTime":"On Defend",
   "type":"minion",
-  "specialPower": "can't be disarmed"
+  "specialPower": "can't be disarmed",
+  "target" : "null",
+  "numOfTarget" : "null",
+  "action" : "null",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "null",
+  "friendOrEnemy" : "null",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "disarm"
 }

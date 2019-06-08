@@ -6,11 +6,11 @@
   "desc":"adds 4AP to the AP of a force for 3 turns but becomes disarm",
   "target" : "minion/hero",
   "numOfTarget" : "1",
-  "action" : "addAction,addBuff",
-  "buffs" : "attackPowerBuff,disarm",
-  "effectValue" : "4,null",
-  "delay" : "null,3",
-  "last" :"3,permanent",
+  "action" : "addAction,addAction,addBuff",
+  "buffs" : "attackPowerBuff,attackPowerWeaknessBuff,disarm",
+  "effectValue" : "4,4,null",
+  "delay" : "null,3,3",
+  "last" :"1,1,1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null"
 }

@@ -10,7 +10,7 @@
   "buffs" : "attackPowerWeaknessBuff",
   "effectValue" : "2",
   "delay" : "null",
-  "last" : "permanent",
+  "last" : "1",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "specification" : "ranged/hybrid",

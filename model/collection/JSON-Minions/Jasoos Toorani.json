@@ -9,12 +9,14 @@
   "activationTime":"On Attack",
   "type":"minion",
   "specialPower": "disarms enemy hero/minion for one term and poison it for 4 turns",
-  "numOfTargets" :"1,1",
-  "targetsSpecified":"minion/hero,minion/hero",
-  "actsOn":"enemy,enemy",
-  "forHowManyTurns" :"1,4",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"disarmBuff,poisonBuff",
-  "howMuchChange" :"null,1",
-  "locationOfTarget" :"null,null"
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addBuff,addBuff",
+  "buffs" : "disarm,poisonBuff",
+  "effectValue" : "null,3",
+  "delay" : "null,null",
+  "last" : "1,4",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

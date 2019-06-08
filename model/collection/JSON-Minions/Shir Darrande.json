@@ -9,12 +9,14 @@
   "activationTime":"On Attack",
   "type":"minion",
   "specialPower": "holy buff does not have effect on it's attack(it does not decrease attack power)",
-  "numOfTargets" :"1",
-  "targetsSpecified":"minion",
-  "actsOn":"owner",
-  "forHowManyTurns" :"all",
-  "typeOfAction" :"removesBuff",
-  "whichBuff" :"holyBuff",
-  "howMuchChange" :"null",
-  "locationOfTarget" :"null"
+  "target" : "null",
+  "numOfTarget" : "null",
+  "action" : "null",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "null",
+  "friendOrEnemy" : "null",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "holyBuff"
 }

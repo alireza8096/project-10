@@ -9,12 +9,14 @@
   "activationTime":"Passive",
   "type":"minion",
   "specialPower": "has 12 holy buff continuously",
-  "numOfTargets" :1,
-  "targetsSpecified":"minion",
-  "actsOn":"owner",
-  "forHowManyTurns" :"all",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"holyBuff",
-  "howMuchChange" :"12",
-  "locationOfTarget" :"null"
+  "target" : "itSelf",
+  "numOfTarget" : "1",
+  "action" : "addBuff",
+  "buffs" : "holyBuff",
+  "effectValue" : "12",
+  "delay" : "null",
+  "last" : "continuous",
+  "friendOrEnemy" : "friend",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

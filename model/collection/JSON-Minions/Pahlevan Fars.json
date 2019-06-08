@@ -8,6 +8,16 @@
   "id":5,
   "activationTime":"On Attack",
   "type":"minion",
-  "specialPower": "it will attack 5 points more than the number of attacks in previous turns"
+  "specialPower": "it will attack 5 points more than the number of attacks in previous turns",
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addAction,addAction",
+  "buffs" : "healthPointWeaknessBuff,healthPointWeaknessBuff",
+  "effectValue" : "numOfAttacksBefore,5",
+  "delay" : "null,null",
+  "last" : "1,1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 
 }

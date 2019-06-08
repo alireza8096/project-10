@@ -1,21 +1,14 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Cell {
     private int coordinateX;
     private int coordinateY;
     private CellType cellType;
-    private CellImpactType cellImpactType;
+    private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
     private CellItemType cellItemType;
-
-    public CellImpactType getCellImpactType() {
-        return cellImpactType;
-    }
-
-    public void setCellImpactType(CellImpactType cellImpactType) {
-        this.cellImpactType = cellImpactType;
-    }
 
     public int getCoordinateX() {
         return coordinateX;

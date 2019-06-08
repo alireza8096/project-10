@@ -9,12 +9,14 @@
   "activationTime":"On Death",
   "type":"minion",
   "specialPower": "on death,decreases enemy's hero 6 points;",
-  "numOfTargets" :"1",
-  "targetsSpecified":"hero",
-  "actsOn":"enemy",
-  "forHowManyTurns" :"1",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"healthPointWeaknessBuff",
-  "howMuchChange" :"6",
-  "locationOfTarget" :"null"
+  "target" : "hero",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "6",
+  "delay" : "null",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

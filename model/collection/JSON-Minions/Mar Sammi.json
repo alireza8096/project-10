@@ -9,12 +9,14 @@
   "activationTime":"On Attack",
   "type":"minion",
   "specialPower": "enemy minion/hero will have poison buff for 3 turns",
-  "numOfTargets" :"1",
-  "targetsSpecified":"minion/hero",
-  "actsOn":"enemy",
-  "forHowManyTurns" :"3",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"poisonBuff",
-  "howMuchChange" :"1",
-  "locationOfTarget" :"null"
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "poisonBuff",
+  "effectValue" : "3",
+  "delay" : "null",
+  "last" : "3",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

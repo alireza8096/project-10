@@ -9,12 +9,14 @@
   "activationTime":"On Spawn",
   "type":"minion",
   "specialPower": "randomly, decrease 16 points from one of enemy minions' health point",
-  "numOfTargets" :1,
-  "targetsSpecified":"minion",
-  "actsOn":"enemy",
-  "forHowManyTurns" :"1",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"healthPointWeaknessBuff",
-  "howMuchChange" :"16",
-  "locationOfTarget" :"random"
+  "target" : "minion",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "16",
+  "delay" : "null",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "random",
+  "doesNotGetAttack" : "null"
 }

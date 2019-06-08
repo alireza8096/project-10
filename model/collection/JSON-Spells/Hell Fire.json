@@ -7,7 +7,7 @@
   "target" : "cell",
   "numOfTarget" : "square2",
   "action" : "addAction",
-  "buffs" : "fireCellImpact",
+  "buffs" : "fire",
   "effectValue" : "null",
   "delay" : "null",
   "last" :"2",

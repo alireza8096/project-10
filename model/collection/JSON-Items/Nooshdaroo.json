@@ -10,7 +10,7 @@
   "buffs" : "healthPointBuff",
   "effectValue" : "6",
   "delay" : "null",
-  "last" : "permanent",
+    "last" : "1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
   "specification" : "null",

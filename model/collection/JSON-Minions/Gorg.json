@@ -9,12 +9,14 @@
   "activationTime":"On Attack",
   "type":"minion",
   "specialPower": "decrease 6 health points on next turn",
-  "numOfTargets" :"1",
-  "targetsSpecified":"minion",
-  "actsOn":"owner",
-  "forHowManyTurns" :"1",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"healthPointWeaknessBuff",
-  "howMuchChange" :"6",
-  "locationOfTarget" :"null"
+  "target" : "minion",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "6",
+  "delay" : "1",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

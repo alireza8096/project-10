@@ -9,12 +9,14 @@
   "activationTime":"Passive",
   "type":"minion",
   "specialPower": "add 10 health point",
-  "numOfTargets" :"1",
-  "targetsSpecified":"minion",
-  "actsOn":"owner",
-  "forHowManyTurns" :"1",
-  "typeOfAction" :"addsBuff",
-  "whichBuff" :"healthPowerBuff",
-  "howMuchChange" :"10",
-  "locationOfTarget" :"null"
+  "target" : "itSelf",
+  "numOfTarget" : "1",
+  "action" : "addBuff",
+  "buffs" : "healthPointBuff",
+  "effectValue" : "10",
+  "delay" : "null",
+  "last" : "permanent",
+  "friendOrEnemy" : "friend",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "null"
 }

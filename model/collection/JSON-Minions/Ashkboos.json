@@ -9,5 +9,14 @@
   "activationTime":"On Defend",
   "type":"minion",
   "specialPower": "doesn't get attack from minion/heroes with less attack power",
-
+  "target" : "null",
+  "numOfTarget" : "null",
+  "action" : "null",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "null",
+  "friendOrEnemy" : "null",
+  "locationOfTarget" : "null",
+  "doesNotGetAttack" : "leastAttackPower"
 }
