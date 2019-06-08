@@ -57,6 +57,7 @@ public class HandleFiles {
             Hero hero = new Hero(mana,id,"hero",name,price,target,numOfTarget,friendOrEnemy,healthPoint,attackPower,attackType,attackRange,
                     specialPower,action,locationOfTarget,coolDown);
             Buff.createBuffs(hero,action,buffs,effectValue,delay,last);
+            Hero.getHeroes().add(hero);
         }
     }
 

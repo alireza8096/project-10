@@ -2,7 +2,7 @@ package model.collection;
 
 import model.Game;
 
-import java.util.*
+import java.util.*;
 
 public class Force extends Card{
 
@@ -35,7 +35,8 @@ public class Force extends Card{
         if(!splitter[0].equals("null")) Collections.addAll(returnString,splitter);
         return returnString;
     }
-    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy,String healthPoint, String attackPower, String attackType, String attackRange, String specialPower,String locationOfTargets) {
+
+    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets) {
         super(mana, id, cardType, name, price);
         this.targets = returnArrayList(targets);
         this.numOfTargets = returnArrayList(numOfTargets);
@@ -45,6 +46,7 @@ public class Force extends Card{
         this.attackType = attackType;
         if(!attackRange.equals("null")) this.attackRange = Integer.parseInt(attackRange);
         else this.attackRange = 0;
+        this.actionTypes = returnArrayList(actionTypes);
         this.specialPower = specialPower;
         this.locationOfTargets = returnArrayList(locationOfTargets);
     }
