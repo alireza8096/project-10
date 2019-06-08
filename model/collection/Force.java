@@ -204,5 +204,15 @@ public class Force extends Card{
         int minionIndex = random.nextInt(Game.getInstance().getMap().getEnemyMinions().size());
         return Game.getInstance().getMap().getEnemyMinions().get(minionIndex);
     }
+
+    public void dispelPositiveActions(){
+        ArrayList<Buff> actionBuffsCopy = actionBuffsOnItself;
+
+        for (Buff buff : actionBuffsCopy){
+            if (buff.getType().equals("positive")){
+                actionBuffsOnItself.remove(buff);
+            }
+        }
+    }
 }
 

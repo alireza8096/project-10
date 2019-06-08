@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Minion extends Force {
@@ -427,7 +428,7 @@ public class Minion extends Force {
         for (String numOfTarget : this.numOfTargets){
             if (numOfTarget.equals("all")){
 
-                //in this minion location of target is 8 round;
+                //in this minion location of target is 8 round
                 applyMinionOnAllMinionsIn8RoundCells();
             }else{
                 String locationOfTarget = this.getLocationOfTargets().get(0);
@@ -492,14 +493,89 @@ public class Minion extends Force {
         for (String target : targets){
             switch (target){
                 case "itself":
+                    applyMinionSpecialPowerOnItself();
                     break;
                 case "minion":
+                    applyMinionSpecialPowerOnMinion(x, y);
                     break;
                 case "minion/hero":
+                    applyMinionSpecialPowerOnMinionOrHeroOnAttack(x, y);
+                    break;
+                case "null":
+                    applyMinionWithNullTarget();
                     break;
             }
         }
     }
+
+    public void applyMinionSpecialPowerOnMinionOrHeroOnAttack(int x, int y){
+        ArrayList<String> actionTypes = this.getActionTypes();
+
+        for (String actionType : actionTypes){
+            switch (actionType){
+                case "dispelAll":
+                    ((Force)Card.getCardByCoordination(x, y)).dispelPositiveActions();
+                    break;
+                case "addBuff":
+                    minionAddsBuffToThisForce(x, y);
+                    break;
+                case "addAction":
+                    minionAddActionToThisForce(x, y);
+                    break;
+            }
+        }
+    }
+
+    public void minionAddActionToThisForce(int x, int y){
+        for (Buff buff : this.getBuffActions()){
+            ((Force) Card.getCardByCoordination(x, y)).getActionBuffsOnItself().add(buff);
+        }
+    }
+
+    public void minionAddsBuffToThisForce(int x, int y){
+        for (Buff buff : this.getPositiveBuffs()){
+            ((Force) Card.getCardByCoordination(x, y)).getPositiveBuffsOnItself().add(buff);
+        }
+
+        for (Buff buff : this.getNegativeBuffs()){
+            ((Force) Card.getCardByCoordination(x, y)).getNegativeBuffsOnItself().add(buff);
+        }
+    }
+
+    public void applyMinionSpecialPowerOnMinion(int x, int y){
+        ArrayList<String> numOfTargets = this.getNumOfTargets();
+
+        for (String numOfTarget : numOfTargets){
+            if (numOfTarget.equals("1")){
+                for (Buff buff : this.getBuffActions()){
+                    Minion.getMinionInThisCoordination(x, y).getActionBuffsOnItself().add(buff);
+                }
+            }
+        }
+
+
+    }
+
+    public void applyMinionWithNullTarget(){
+        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
+    }
+
+    public void applyMinionSpecialPowerOnItself(){
+
+        for (Buff buff : this.getPositiveBuffs()){
+            this.getPositiveBuffsOnItself().add(buff);
+        }
+
+        for (Buff buff : this.getNegativeBuffs()){
+            this.getNegativeBuffsOnItself().add(buff);
+        }
+
+        for (Buff buff : this.getBuffActions()){
+            this.getActionBuffsOnItself().add(buff);
+        }
+    }
+
+
 
 //    public void applyMinionSpecialPower(){
 //        ArrayList<String> targets = this.targets;
@@ -516,25 +592,9 @@ public class Minion extends Force {
 //            }
 //        }
 //    }
+
 //
-//    public void applyMinionSpecialPowerOnItself(){
-//
-//        for (Buff buff : this.getPositiveBuffs()){
-//            this.getPositiveBuffsOnItself().add(buff);
-//        }
-//
-//        for (Buff buff : this.getNegativeBuffs()){
-//            this.getNegativeBuffsOnItself().add(buff);
-//        }
-//
-//        for (Buff buff : this.getBuffActions()){
-//            this.getActionBuffsOnItself().add(buff);
-//        }
-//    }
-//
-//    public void applyMinionWithNullTarget(){
-//        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
-//    }
+
 //
 //    public void minionComboAttack(){
 //        this.isHeadOfCombo = true;

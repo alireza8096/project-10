@@ -43,6 +43,14 @@ public class Buff {
         this.delay = delay;
     }
 
+    public String getActivationTime() {
+        return activationTime;
+    }
+
+    public void setActivationTime(String activationTime) {
+        this.activationTime = activationTime;
+    }
+
     public boolean isUsed() {
         return isUsed;
     }
