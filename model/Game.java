@@ -10,6 +10,7 @@ public class Game {
     private static Game currentGame;
     private static ArrayList<Game> games = new ArrayList<>();
     private boolean isPlayer1Turn;
+    private boolean isSet = false;
     private String winnerName;
     private Player player1;
     private Player player2;
@@ -26,11 +27,6 @@ public class Game {
     private Hero heroOfPlayer2;
     private Hand hand;
     private GraveYard graveYard = new GraveYard();
-    private Item flag;
- //   private ArrayList<Item> flags = new ArrayList<>();
-    private int player1NumberOfFlags;
-    private int player2NumberOfFlags;
-    private int numOfFlags;
 
     public Game(){
 
@@ -41,37 +37,6 @@ public class Game {
         this.setPlayer1Turn(true);
     }
 
-    public int getNumOfFlags() {
-        return numOfFlags;
-    }
-
-    public void setNumOfFlags(int numOfFlags) {
-        this.numOfFlags = numOfFlags;
-    }
-
-    public Item getFlag() {
-        return flag;
-    }
-
-    public void setFlag(Item flag) {
-        this.flag = flag;
-    }
-
-    public int getPlayer1NumberOfFlags() {
-        return player1NumberOfFlags;
-    }
-
-    public void setPlayer1NumberOfFlags(int player1NumberOfFlags) {
-        this.player1NumberOfFlags = player1NumberOfFlags;
-    }
-
-    public int getPlayer2NumberOfFlags() {
-        return player2NumberOfFlags;
-    }
-
-    public void setPlayer2NumberOfFlags(int player2NumberOfFlags) {
-        this.player2NumberOfFlags = player2NumberOfFlags;
-    }
 //    public ArrayList<Item> getPlayer1Flags() {
 //        return player1Flags;
 //    }

@@ -7,8 +7,7 @@ import java.util.ArrayList;
 
 public class Shop {
     private Game game;
-    private Player player;
-    public static ArrayList<String> usableItems = new ArrayList<>();
+//    public static ArrayList<String> usableItems = new ArrayList<>();
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public Game getGame() {

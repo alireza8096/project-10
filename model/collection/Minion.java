@@ -13,15 +13,10 @@ public class Minion extends Force {
 
     public static ArrayList<Minion> minions = new ArrayList<>();
 
-    public static ArrayList<String> minionNames = new ArrayList<>();
+//    public static ArrayList<String> minionNames = new ArrayList<>();
 
     private ArrayList<String> doesNotGetAttackBuffs = new ArrayList<>();
-
-    private ArrayList<String> targets = new ArrayList<>();
-    private ArrayList<String> numOfTargets = new ArrayList<>();
-    private ArrayList<String> friendOrEnemy = new ArrayList<>();
-    private ArrayList<String> locationOfTargets = new ArrayList<>();
-    private String doesNotGetAttack = new String();
+    private String doesNotGetAttack;
     private String activationTime;
     private boolean isHeadOfCombo;
 

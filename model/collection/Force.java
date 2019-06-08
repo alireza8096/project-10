@@ -2,17 +2,17 @@ package model.collection;
 
 import model.Game;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*
 
 public class Force extends Card{
 
+    private ArrayList<String> targets = new ArrayList<>();
+    private ArrayList<String> numOfTargets = new ArrayList<>();
+    private ArrayList<String> friendOrEnemy = new ArrayList<>();
     //buffs that effect on the force itself
-    private ArrayList<Spell> specialPowerSpells = new ArrayList<>();
     private ArrayList<Buff> positiveBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> negativeBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> actionBuffsOnItself = new ArrayList<>();
-
     //all buffs that force has in its special power
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
@@ -27,13 +27,26 @@ public class Force extends Card{
     private boolean hasHolyBuff;
     private String specialPower;
     private ArrayList<String> actionTypes = new ArrayList<>();
+    private ArrayList<String> locationOfTargets = new ArrayList<>();
 
-    public Force(int healthPoint, int attackPower, String attackType, int attackRange, String specialPower){
-        this.healthPoint = healthPoint;
-        this.attackPower = attackPower;
+    public ArrayList<String> returnArrayList(String toArray){
+        ArrayList<String> returnString = new ArrayList<>();
+        String[] splitter = toArray.split(",");
+        if(!splitter[0].equals("null")) Collections.addAll(returnString,splitter);
+        return returnString;
+    }
+    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy,String healthPoint, String attackPower, String attackType, String attackRange, String specialPower,String locationOfTargets) {
+        super(mana, id, cardType, name, price);
+        this.targets = returnArrayList(targets);
+        this.numOfTargets = returnArrayList(numOfTargets);
+        this.friendOrEnemy = returnArrayList(friendOrEnemy);
+        this.healthPoint = Integer.parseInt(healthPoint);
+        this.attackPower = Integer.parseInt(attackPower);
         this.attackType = attackType;
-        this.attackRange = attackRange;
+        if(!attackRange.equals("null")) this.attackRange = Integer.parseInt(attackRange);
+        else this.attackRange = 0;
         this.specialPower = specialPower;
+        this.locationOfTargets = returnArrayList(locationOfTargets);
     }
 
     public ArrayList<String> getActionTypes() {
@@ -44,13 +57,7 @@ public class Force extends Card{
         this.actionTypes = actionTypes;
     }
 
-    public ArrayList<Spell> getSpecialPowerSpells() {
-        return specialPowerSpells;
-    }
 
-    public void setSpecialPowerSpells(ArrayList<Spell> specialPowerSpells) {
-        this.specialPowerSpells = specialPowerSpells;
-    }
 
     public ArrayList<Buff> getPositiveBuffsOnItself() {
         return positiveBuffsOnItself;

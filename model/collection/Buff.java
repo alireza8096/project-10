@@ -3,7 +3,10 @@ package model.collection;
 import model.Player;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
+
 public class Buff {
+    public static final String[] negativeBuffs = {"healthPointWeaknessBuff","disarm","poisonBuff","fireCellImpact","poisonCellImpact","stunBuff","attackPowerWeaknessBuff","antiHolyBuff"};
     private int forHowManyTurns;
     private String name;
     private String type;
@@ -11,51 +14,33 @@ public class Buff {
     private int howMuchImpact;
     private boolean isUsed;
     private String activationTime;
-    private String target
 
-
-    public Buff(String name, int howMuchImpact, int delay, int forHowManyTurns){
-        this.name = name;
-        this.howMuchImpact = howMuchImpact;
-        this.delay = delay;
-        this.forHowManyTurns = forHowManyTurns;
-    }
-
-    public Buff(String name, int howMuchImpact, int forHowManyTurns){
-        this.name = name;
-        this.howMuchImpact = howMuchImpact;
-        this.forHowManyTurns = forHowManyTurns;
-    }
-
-    public Buff(int howMuchImpact, int forHowManyTurns, String name, String type){
-        this.howMuchImpact = howMuchImpact;
-        this.forHowManyTurns = forHowManyTurns;
+    public Buff(String forHowManyTurns, String name, String type, String delay, String howMuchImpact,String activationTime) {
+        if (!forHowManyTurns.equals("null"))this.forHowManyTurns = Integer.parseInt(forHowManyTurns);
+        else this.forHowManyTurns = 0;
         this.name = name;
         this.type = type;
-    }
-    public Buff(int howMuchImpact,int forHowManyTurns,String name,String type,String activationTime)
-    {
-        this.howMuchImpact=howMuchImpact;
-        this.forHowManyTurns=forHowManyTurns;
-        this.name=name;
-        this.type=type;
-        this.activationTime=activationTime;
+        if(!delay.equals("null")) this.delay = Integer.parseInt(delay);
+        else this.delay = 0;
+        if(!howMuchImpact.equals("null")) this.howMuchImpact = Integer.parseInt(howMuchImpact);
+        else this.howMuchImpact = 0;
+        this.activationTime = activationTime;
     }
 
+    public static boolean isNegative(String name){
+        for (String buff: negativeBuffs) {
+            if(name.equals(buff)){
+                return true;
+            }
+        }
+        return false;
+    }
     public int getDelay() {
         return delay;
     }
 
     public void setDelay(int delay) {
         this.delay = delay;
-    }
-
-    public String getActivationTime() {
-        return activationTime;
-    }
-
-    public void setActivationTime(String activationTime) {
-        this.activationTime = activationTime;
     }
 
     public boolean isUsed() {
