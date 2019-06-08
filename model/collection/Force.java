@@ -26,7 +26,8 @@ public class Force extends Card{
     private int attackPower;
     private String attackType;
     private int attackRange;
-    private boolean canAttackOrMove;
+    private boolean canAttack;
+    private boolean canMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
@@ -159,12 +160,20 @@ public class Force extends Card{
         this.attackRange = attackRange;
     }
 
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
+    public boolean isCanAttack() {
+        return canAttack;
     }
 
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
+    }
+
+    public boolean isCanMove() {
+        return canMove;
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
     }
 
     public boolean isCanCounterAttack() {
@@ -247,58 +256,17 @@ public class Force extends Card{
 
     public void applyAllBuffsOnForce(){
         for (Buff buff : this.positiveBuffsOnItself){
-
+            buff.applyBuffOnForce(this);
         }
 
         for (Buff buff : this.negativeBuffsOnItself){
-
+            buff.applyBuffOnForce(this);
         }
 
         for (Buff buff : this.actionBuffsOnItself){
-
+            buff.applyBuffOnForce(this);
         }
     }
 
-    public void applyThisBuffOnForce(Buff buff){
-        String buffName = buff.getName();
-
-        switch (buffName){
-            case "healthPointWeaknessBuff":
-                applyHealthPointWeaknessBuffOnForce(buff);
-                break;
-            case "attackPowerWeaknessBuff":
-                applyAttackPowerWeaknessBuffOnForce(buff);
-                break;
-            case "attackPowerBuff":
-                applyAttackPowerBuff(buff);
-                break;
-            case "healthPointBuff":
-                applyHealthPointBuff(buff);
-                break;
-            case "holyBuff":
-                applyHolyBuff(buff);
-                break;
-            case "disarm":
-                applyDisarmBuff(buff);
-                break;
-            case "poisonBuff":
-                applyPoisonBuff(buff);
-                break;
-            case "stunBuff":
-                applyStunBuff(buff);
-                break;
-        }
-    }
-
-    public void applyHealthPointWeaknessBuffOnForce(Buff buff){
-        int forHowManuTurns = buff.getForHowManyTurns();
-        int delay = buff.getDelay();
-
-    }
-
-
-    public void test(){
-
-    }
 }
 

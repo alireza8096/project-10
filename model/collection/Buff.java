@@ -152,5 +152,86 @@ public class Buff {
         }
         return false;
     }
+
+    public void applyBuffOnForce(Force force){
+        String buffName = this.getName();
+
+        switch (buffName){
+            case "healthPointWeaknessBuff":
+                applyHealthPointWeaknessBuffOnForce(force);
+                break;
+            case "attackPowerWeaknessBuff":
+                applyAttackPowerWeaknessBuffOnForce(force);
+                break;
+            case "attackPowerBuff":
+                applyAttackPowerBuff(force);
+                break;
+            case "healthPointBuff":
+                applyHealthPointBuff(force);
+                break;
+            case "holyBuff":
+                applyHolyBuff(force);
+                break;
+            case "disarm":
+                applyDisarmBuff(force);
+                break;
+            case "poisonBuff":
+                applyPoisonBuff(force);
+                break;
+            case "stunBuff":
+                applyStunBuff(force);
+                break;
+        }
+    }
+
+    public void applyHealthPointWeaknessBuffOnForce(Force force){
+        int howMuchImpact = this.howMuchImpact;
+        int currentHealthPoint = force.getHealthPoint();
+        force.setHealthPoint(currentHealthPoint - howMuchImpact);
+        this.isUsed = true;
+    }
+
+    public void applyAttackPowerWeaknessBuffOnForce(Force force){
+        int howMuchImpact = this.howMuchImpact;
+        int currentAttackPower = force.getAttackPower();
+        force.setAttackPower(currentAttackPower - howMuchImpact);
+        this.isUsed = true;
+    }
+
+    public void applyAttackPowerBuff(Force force){
+        int howMuchImpact = this.howMuchImpact;
+        int currentAttackPower = force.getAttackPower();
+        force.setAttackPower(currentAttackPower + howMuchImpact);
+        this.isUsed = true;
+    }
+
+    public void applyHealthPointBuff(Force force){
+        int howMuchImpact = this.howMuchImpact;
+        int currentHealthPoint = force.getHealthPoint();
+        force.setHealthPoint(currentHealthPoint - howMuchImpact);
+        this.isUsed = true;
+    }
+
+    public void applyHolyBuff(Force force){
+        force.setHasHolyBuff(true);
+    }
+
+    public void applyDisarmBuff(Force force){
+        force.setCanCounterAttack(false);
+    }
+
+    public void applyPoisonBuff(Force force){
+        int howMuchImpact = this.howMuchImpact;
+        int currentHealthPoint = force.getHealthPoint();
+        force.setHealthPoint(currentHealthPoint - howMuchImpact);
+        this.isUsed = true;
+    }
+
+    public void applyStunBuff(Force force){
+        force.setCanAttack(false);
+        force.setCanMove(false);
+    }
+
+
 }
 
