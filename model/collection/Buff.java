@@ -1,7 +1,6 @@
 package model.collection;
 
 import model.Player;
-import org.json.simple.JSONObject;
 
 public class Buff {
     private int forHowManyTurns;
@@ -11,6 +10,17 @@ public class Buff {
     private int howMuchImpact;
     private boolean isUsed;
     private String activationTime;
+   // private boolean hasAppliedEffect;
+
+    public Buff(Buff anotherBuff){
+        this.name = anotherBuff.name;
+        this.type = anotherBuff.type;
+        this.forHowManyTurns = anotherBuff.forHowManyTurns;
+        this.delay = anotherBuff.delay;
+        this.howMuchImpact = anotherBuff.howMuchImpact;
+        this.isUsed = anotherBuff.isUsed;
+    //    this.hasAppliedEffect = anotherBuff.hasAppliedEffect;
+    }
 
 
     public Buff(String name, int howMuchImpact, int delay, int forHowManyTurns){
@@ -40,6 +50,14 @@ public class Buff {
         this.type=type;
         this.activationTime=activationTime;
     }
+
+//    public boolean isHasAppliedEffect() {
+//        return hasAppliedEffect;
+//    }
+//
+//    public void setHasAppliedEffect(boolean hasAppliedEffect) {
+//        this.hasAppliedEffect = hasAppliedEffect;
+//    }
 
     public int getDelay() {
         return delay;

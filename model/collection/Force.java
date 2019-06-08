@@ -8,7 +8,6 @@ import java.util.Random;
 public class Force extends Card{
 
     //buffs that effect on the force itself
-    private ArrayList<Spell> specialPowerSpells = new ArrayList<>();
     private ArrayList<Buff> positiveBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> negativeBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> actionBuffsOnItself = new ArrayList<>();
@@ -18,6 +17,11 @@ public class Force extends Card{
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
     private ArrayList<Buff> buffActions = new ArrayList<>();
 
+    private ArrayList<String> targets = new ArrayList<>();
+    private ArrayList<String> numOfTargets = new ArrayList<>();
+    private ArrayList<String> friendOrEnemy = new ArrayList<>();
+    private ArrayList<String> locationOfTargets = new ArrayList<>();
+    private ArrayList<String> actionTypes = new ArrayList<>();
     private int healthPoint;
     private int attackPower;
     private String attackType;
@@ -26,7 +30,6 @@ public class Force extends Card{
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
-    private ArrayList<String> actionTypes = new ArrayList<>();
 
     public Force(int healthPoint, int attackPower, String attackType, int attackRange, String specialPower){
         this.healthPoint = healthPoint;
@@ -36,20 +39,44 @@ public class Force extends Card{
         this.specialPower = specialPower;
     }
 
+    public ArrayList<String> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(ArrayList<String> targets) {
+        this.targets = targets;
+    }
+
+    public ArrayList<String> getNumOfTargets() {
+        return numOfTargets;
+    }
+
+    public void setNumOfTargets(ArrayList<String> numOfTargets) {
+        this.numOfTargets = numOfTargets;
+    }
+
+    public ArrayList<String> getFriendOrEnemy() {
+        return friendOrEnemy;
+    }
+
+    public void setFriendOrEnemy(ArrayList<String> friendOrEnemy) {
+        this.friendOrEnemy = friendOrEnemy;
+    }
+
+    public ArrayList<String> getLocationOfTargets() {
+        return locationOfTargets;
+    }
+
+    public void setLocationOfTargets(ArrayList<String> locationOfTargets) {
+        this.locationOfTargets = locationOfTargets;
+    }
+
     public ArrayList<String> getActionTypes() {
         return actionTypes;
     }
 
     public void setActionTypes(ArrayList<String> actionTypes) {
         this.actionTypes = actionTypes;
-    }
-
-    public ArrayList<Spell> getSpecialPowerSpells() {
-        return specialPowerSpells;
-    }
-
-    public void setSpecialPowerSpells(ArrayList<Spell> specialPowerSpells) {
-        this.specialPowerSpells = specialPowerSpells;
     }
 
     public ArrayList<Buff> getPositiveBuffsOnItself() {
@@ -164,7 +191,17 @@ public class Force extends Card{
         this.specialPower = specialPower;
     }
 
-    public Force getRandomEnemyForce(){
+    public static Force getRandomForce(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(2);
+        if (randomNumber == 0){
+            return getRandomEnemyForce();
+        }else{
+            return getRandomFriendForce();
+        }
+    }
+
+    public static Force getRandomEnemyForce(){
         Random random = new Random();
         int minionOrHero = random.nextInt(2);
         if (minionOrHero == 0){//return a minion
@@ -175,7 +212,7 @@ public class Force extends Card{
         }
     }
 
-    public Force getRandomFriendForce(){
+    public static Force getRandomFriendForce(){
         Random random = new Random();
         int minionOrHero = random.nextInt(2);
         if (minionOrHero == 0){//return a minion
@@ -198,14 +235,70 @@ public class Force extends Card{
         return Game.getInstance().getMap().getEnemyMinions().get(minionIndex);
     }
 
-    public void dispelPositiveActions(){
+    public void dispelPositiveActions() {
         ArrayList<Buff> actionBuffsCopy = actionBuffsOnItself;
 
-        for (Buff buff : actionBuffsCopy){
-            if (buff.getType().equals("positive")){
+        for (Buff buff : actionBuffsCopy) {
+            if (buff.getType().equals("positive")) {
                 actionBuffsOnItself.remove(buff);
             }
         }
+    }
+
+    public void applyAllBuffsOnForce(){
+        for (Buff buff : this.positiveBuffsOnItself){
+
+        }
+
+        for (Buff buff : this.negativeBuffsOnItself){
+
+        }
+
+        for (Buff buff : this.actionBuffsOnItself){
+
+        }
+    }
+
+    public void applyThisBuffOnForce(Buff buff){
+        String buffName = buff.getName();
+
+        switch (buffName){
+            case "healthPointWeaknessBuff":
+                applyHealthPointWeaknessBuffOnForce(buff);
+                break;
+            case "attackPowerWeaknessBuff":
+                applyAttackPowerWeaknessBuffOnForce(buff);
+                break;
+            case "attackPowerBuff":
+                applyAttackPowerBuff(buff);
+                break;
+            case "healthPointBuff":
+                applyHealthPointBuff(buff);
+                break;
+            case "holyBuff":
+                applyHolyBuff(buff);
+                break;
+            case "disarm":
+                applyDisarmBuff(buff);
+                break;
+            case "poisonBuff":
+                applyPoisonBuff(buff);
+                break;
+            case "stunBuff":
+                applyStunBuff(buff);
+                break;
+        }
+    }
+
+    public void applyHealthPointWeaknessBuffOnForce(Buff buff){
+        int forHowManuTurns = buff.getForHowManyTurns();
+        int delay = buff.getDelay();
+
+    }
+
+
+    public void test(){
+
     }
 }
 

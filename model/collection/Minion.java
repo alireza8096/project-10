@@ -3,6 +3,7 @@ package model.collection;
 import model.*;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
+import view.GameView;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,10 +19,6 @@ public class Minion extends Force {
 
     private ArrayList<String> doesNotGetAttackBuffs = new ArrayList<>();
 
-    private ArrayList<String> targets = new ArrayList<>();
-    private ArrayList<String> numOfTargets = new ArrayList<>();
-    private ArrayList<String> friendOrEnemy = new ArrayList<>();
-    private ArrayList<String> locationOfTargets = new ArrayList<>();
     private String doesNotGetAttack = new String();
     private String activationTime;
     private boolean isHeadOfCombo;
@@ -34,38 +31,6 @@ public class Minion extends Force {
         this.activationTime = activationTime;
         this.mana = mana;
         this.price = price;
-    }
-
-    public ArrayList<String> getTargets() {
-        return targets;
-    }
-
-    public void setTargets(ArrayList<String> targets) {
-        this.targets = targets;
-    }
-
-    public ArrayList<String> getNumOfTargets() {
-        return numOfTargets;
-    }
-
-    public void setNumOfTargets(ArrayList<String> numOfTargets) {
-        this.numOfTargets = numOfTargets;
-    }
-
-    public ArrayList<String> getFriendOrEnemy() {
-        return friendOrEnemy;
-    }
-
-    public void setFriendOrEnemy(ArrayList<String> friendOrEnemy) {
-        this.friendOrEnemy = friendOrEnemy;
-    }
-
-    public ArrayList<String> getLocationOfTargets() {
-        return locationOfTargets;
-    }
-
-    public void setLocationOfTargets(ArrayList<String> locationOfTargets) {
-        this.locationOfTargets = locationOfTargets;
     }
 
     public ArrayList<String> getDoesNotGetAttackBuffs() {
@@ -430,7 +395,7 @@ public class Minion extends Force {
 
     public void applyMinionSpecialPowerOnSpawn(){
         //target : minion
-        for (String numOfTarget : this.numOfTargets){
+        for (String numOfTarget : this.getNumOfTargets()){
             if (numOfTarget.equals("all")){
 
                 //in this minion location of target is 8 round
@@ -493,7 +458,7 @@ public class Minion extends Force {
     }
 
     public void applyMinionSpecialPowerOnAttack(int x, int y){
-        ArrayList<String> targets = this.targets;
+        ArrayList<String> targets = this.getTargets();
 
         for (String target : targets){
             switch (target){
@@ -501,7 +466,7 @@ public class Minion extends Force {
                     applyMinionSpecialPowerOnItself();
                     break;
                 case "minion":
-                    applyMinionSpecialPowerOnMinion(x, y);
+                    applyMinionSpecialPowerOnMinionOnAttack(x, y);
                     break;
                 case "minion/hero":
                     applyMinionSpecialPowerOnMinionOrHeroOnAttack(x, y);
@@ -547,7 +512,7 @@ public class Minion extends Force {
         }
     }
 
-    public void applyMinionSpecialPowerOnMinion(int x, int y){
+    public void applyMinionSpecialPowerOnMinionOnAttack(int x, int y){
         ArrayList<String> numOfTargets = this.getNumOfTargets();
 
         for (String numOfTarget : numOfTargets){
@@ -578,6 +543,125 @@ public class Minion extends Force {
         for (Buff buff : this.getBuffActions()){
             this.getActionBuffsOnItself().add(buff);
         }
+    }
+
+    public void applyMinionSpecialPowerPassive(){
+        ArrayList<String> targets = this.getTargets();
+
+        for (String target : targets){
+            switch (target){
+                case "itself":
+                    applyMinionSpecialPowerOnItself();
+                    break;
+                case "minion":
+                    applyMinionSpecialPowerOnMinionPassive();
+                    break;
+            }
+        }
+    }
+
+    public void applyMinionSpecialPowerOnMinionPassive(){
+
+        //Todo : check if coordination are implemented right
+        //all have location of target 8around
+        int minionX  = this.x;
+        int minionY = this.y;
+
+        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+            if (Map.thisCellsAreAdjusting(minionX, minionY, minion.x, minion.y)){
+                for (Buff buff : this.getPositiveBuffs()){
+                    minion.getPositiveBuffsOnItself().add(buff);
+                }
+
+                for (Buff buff : this.getNegativeBuffs()){
+                    minion.getNegativeBuffsOnItself().add(buff);
+                }
+            }
+        }
+    }
+
+    public void applyMinionSpecialPowerCombo(int x, int y, int... otherComboCardsID){
+
+        for (Buff buff : this.getNegativeBuffs()){
+            Minion.getMinionInThisCoordination(x, y).getNegativeBuffs().add(buff);
+        }
+
+        for (int minionID : otherComboCardsID){
+            Minion minion = getFriendMinionByID(minionID);
+            if (minion.thisMinionIsCombo()){
+                for (Buff buff : minion.getNegativeBuffs()){
+                    Minion.getMinionInThisCoordination(x, y).getNegativeBuffsOnItself().add(buff);
+                }
+            }else{
+                GameView.printInvalidCommandWhithThisContent("Minion is not combo!");
+                return;
+            }
+        }
+    }
+
+    public boolean thisMinionIsCombo(){
+        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+            if (minion.getName().equals(this.name)){
+                return minion.getActivationTime().equals("Combo");
+            }
+        }
+        return false;
+    }
+
+    public static Minion getFriendMinionByID(int minionID){
+        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+            if (minion.id == minionID){
+                return minion;
+            }
+        }
+        return null;
+    }
+
+    public void applyMinionSpecialPowerOnDeath(){
+        ArrayList<String> targets = this.getTargets();
+        for (String target : targets){
+            switch (target){
+                case "minion":
+                    applyMinionSpecialPowerOnMinionOnDeath();
+                    break;
+                case "hero":
+                    applyMinionSpecialPowerOnHeroOnDeath();
+                    break;
+            }
+        }
+    }
+
+    public void applyMinionSpecialPowerOnMinionOnDeath(){
+        for (Minion enemyMinion : Game.getInstance().getMap().getEnemyMinions()){
+            if (Map.thisCellsAreAdjusting(x, y, enemyMinion.x, enemyMinion.y)){
+                for (Buff buff : this.getNegativeBuffs()){
+                    enemyMinion.getNegativeBuffsOnItself().add(buff);
+                }
+            }
+        }
+    }
+
+    public void applyMinionSpecialPowerOnHeroOnDeath(){
+        for (Buff buff : this.getNegativeBuffs())
+            Game.getInstance().getMap().getEnemyHeroes().get(0).getNegativeBuffsOnItself().add(buff);
+    }
+
+    public void applyMinionSpecialPowerOnDefend(){
+        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
+    }
+
+    public void applyMinionSpecialPowerInTurn(){
+        for (Buff buff : this.getPositiveBuffs()){
+            for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+                minion.getPositiveBuffsOnItself().add(buff);
+            }
+        }
+    }
+
+    public void minionAttacksNormally(int x, int y){
+        int currentHealthPoint = Minion.getMinionInThisCoordination(x, y).getHealthPoint();
+        int attackPowerOfAttacker = this.getAttackPower();
+        Minion.getMinionInThisCoordination(x, y).setHealthPoint(currentHealthPoint - attackPowerOfAttacker);
     }
 
 

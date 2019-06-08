@@ -11,10 +11,13 @@ import java.util.ArrayList;
 public class Hero extends Force{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
+    public static int turnCounterForPlayer1Hero;
+    public static int turnCounterForPlayer2Hero;
 
 
     public static ArrayList<String> heroNames = new ArrayList<>();
     private int coolDown;
+
 
     public Hero(String name, int healthPoint, int attackPower,
                 String attackType, int attackRange, int coolDown, String specialPower, int mana){
@@ -24,6 +27,22 @@ public class Hero extends Force{
         this.mana = mana;
         this.setMovable(true);
         this.setAbleToAttack(true);
+    }
+
+    public static int getTurnCounterForPlayer1Hero() {
+        return turnCounterForPlayer1Hero;
+    }
+
+    public static void setTurnCounterForPlayer1Hero(int turnCounterForPlayer1Hero) {
+        Hero.turnCounterForPlayer1Hero = turnCounterForPlayer1Hero;
+    }
+
+    public static int getTurnCounterForPlayer2Hero() {
+        return turnCounterForPlayer2Hero;
+    }
+
+    public static void setTurnCounterForPlayer2Hero(int turnCounterForPlayer2Hero) {
+        Hero.turnCounterForPlayer2Hero = turnCounterForPlayer2Hero;
     }
 
     public static int getHeroIDByName(String heroName) throws Exception{
@@ -330,49 +349,6 @@ public class Hero extends Force{
         }
         return null;
     }
-    public void applySpecialPowerOnHero(String heroName) throws IOException, ParseException {
-        switch (heroName)
-        {
-            case "Afsaneh":
-                Buff buff1=new Buff(1,1,"poisonBuff","negative","onAttack");
-                getHeroByName("Afsaneh").getNegativeBuffs().add(buff1);
-                break;
-            case "Arash":
-                Buff buff2=new Buff(1,1,"poisonBuff","negative","onAttack");
-                getHeroByName("Arash").getNegativeBuffs().add(buff2);
-                break;
-            case "Div Sefid":
-                Buff buff3=new Buff(4,1,"powerAttackBuff","positive","continuously");
-                getHeroByName("Div Sefid").getPositiveBuffs().add(buff3);
-                break;
-            case "Ejdeha Haftsar":
-                Buff buff4=new Buff(1,1,"disarmBuff","negative","onTurn");
-                getHeroByName("Ejdeha Haftsar").getNegativeBuffs().add(buff4);
-                break;
-            case "Esfandiyar":
-                Buff buff=new Buff(1,3,"holyBuff","positive","continiously");
-                getHeroByName("Esfandiyar").getPositiveBuffs().add(buff);
-                break;
-            case "Kaveh":
-                Buff buff5=new Buff(1,1,"holyBuff","positive","onTurn");
-                getHeroByName("Kaveh").getPositiveBuffs().add(buff5);
-                break;
-            case "Rakhsh":
-                Buff buff6=new Buff(1,1,"stunBuff","negative","passive");
-                getHeroByName("Rakhsh").getNegativeBuffs().add(buff6);
-                break;
-            case "Rostam":
-                break;
-            case "Simorgh":
-                Buff buff8=new Buff(1,1,"stunBuff","negative","onTurn");
-                getHeroByName("Simorgh").getNegativeBuffs().add(buff8);
-                break;
-            case "Zahhak":
-                Buff buff9=new Buff(1,1,"poisonBuff","negative","onAttack");
-                getHeroByName("Zahhak").getNegativeBuffs().add(buff9);
-                break;
-        }
-    }
 
     public void addBuffToHero(Buff buff) {
         if (buff.getType().equals("positive"))
@@ -380,6 +356,8 @@ public class Hero extends Force{
         else
             getNegativeBuffs().add(buff);
     }
+
+    public void
 
 }
 
