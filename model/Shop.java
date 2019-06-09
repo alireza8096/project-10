@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Shop {
     private Game game;
 //    public static ArrayList<String> usableItems = new ArrayList<>();
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+//    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public Game getGame() {
         return game;
@@ -17,8 +17,10 @@ public class Shop {
         this.game = game;
     }
     public static int heroSellCost(String cardName)throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES+"JSON-Heroes/"+cardName+".json");
-        return Integer.parseInt(jsonObject.get("price").toString());
+        for (Hero hero:
+             Hero.getHeroes()) {
+
+        }
     }
     public static int itemSellCost(String cardName) throws Exception{
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES+"JSON-Items/"+cardName+".json");

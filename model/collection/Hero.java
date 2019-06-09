@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Hero extends Force{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
-    public static ArrayList<Hero> heroes = new ArrayList<>();
+    private static ArrayList<Hero> heroes = new ArrayList<>();
 //    public static ArrayList<String> heroNames = new ArrayList<>();
     private int coolDown;
 
