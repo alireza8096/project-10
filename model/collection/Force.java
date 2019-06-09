@@ -29,7 +29,7 @@ public class Force extends Card{
     private ArrayList<String> actionTypes = new ArrayList<>();
     private ArrayList<String> locationOfTargets = new ArrayList<>();
 
-    public ArrayList<String> returnArrayList(String toArray){
+    public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
         String[] splitter = toArray.split(",");
         if(!splitter[0].equals("null")) Collections.addAll(returnString,splitter);

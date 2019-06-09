@@ -12,7 +12,8 @@ import java.util.ArrayList;
 public class Spell extends Card {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
-    public static ArrayList<String> spellNames = new ArrayList<>();
+//    public static ArrayList<String> spellNames = new ArrayList<>();
+    private static ArrayList<Spell> spells = new ArrayList<>();
     private String desc;
 
     private String target;
@@ -26,14 +27,34 @@ public class Spell extends Card {
     private String friendOrEnemy;
     private String locationOfTarget;
 
-    public Spell(String name, int price, int mana, String desc){
-        this.setName(name);
-        this.setPrice(price);
-        this.setMana(mana);
-        this.desc = desc;
+
+    public static ArrayList<Spell> getSpells() {
+        return spells;
     }
 
 
+    public ArrayList<Buff> getBuffs() {
+        return buffs;
+    }
+
+    public void setBuffs(ArrayList<Buff> buffs) {
+        this.buffs = buffs;
+    }
+
+    public ArrayList<Buff> getActions() {
+        return actions;
+    }
+
+
+    public Spell(String mana, String id, String cardType, String name, String price, String desc, String target, String numOfTarget, String actionType, String friendOrEnemy, String locationOfTarget) {
+        super(mana, id, cardType, name, price);
+        this.desc = desc;
+        this.target = target;
+        this.numOfTarget = numOfTarget;
+        this.actionType = Force.returnArrayList(actionType);
+        this.friendOrEnemy = friendOrEnemy;
+        this.locationOfTarget = locationOfTarget;
+    }
 
     public String getDesc() {
         return desc;
@@ -44,53 +65,17 @@ public class Spell extends Card {
     }
 
     public static String findSpellNameByID(int id) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Spells");
-        File[] listOfFiles = folder.listFiles();
-        JSONObject jsonObject;
-        String idString;
-        int value;
-        String fileName;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            fileName = listOfFiles[i].getName();
-            jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Spells/" + fileName);
-            idString = jsonObject.get("id").toString();
-            value = Integer.parseInt(idString);
-            if (value == id){
-                return (String) jsonObject.get("name");
+        for (Spell spell: spells) {
+            if(spell.id == id){
+                return spell.name;
             }
         }
         return null;
     }
 
-    public static Card getSpellByName(String spellName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Spells");
-        File[] listOfFiles = folder.listFiles();
-        String fileName;
-        JSONObject jsonObject;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            fileName = listOfFiles[i].getName().split("\\.")[0];
-            if (fileName.equals(spellName)){
-                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-                        + "JSON-Spells/" + fileName + ".json");
-                String name = jsonObject.get("name").toString();
-                String priceString = jsonObject.get("price").toString();
-                int price = Integer.parseInt(priceString);
-                String manaString = jsonObject.get("mana").toString();
-                int mana = Integer.parseInt(manaString);
-                String desc = jsonObject.get("desc").toString();
-
-//                String numOfTargets = jsonObject.get("numOfTargets").toString();
-//                String square = jsonObject.get("Square").toString();
-//                String targetsSpecified = jsonObject.get("targetsSpecified").toString();
-//                String actsOn = jsonObject.get("actsOn").toString();
-//                String forHowManyTurns = jsonObject.get("forHowManyTurns").toString();
-//                String typeOfAction = jsonObject.get("typeOfAction").toString();
-//                String whichBuff = jsonObject.get("whichBuff").toString();
-//                String howMuchChange = jsonObject.get("howMuchChange").toString();
-//                String cellImpact = jsonObject.get("cellImpact").toString();
-//                String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-
-                Spell spell = new Spell(name, price, mana, desc);
+    public static Card getSpellByName(String spellName){
+        for (Spell spell: spells) {
+            if (spell.name.matches(spellName)) {
                 return spell;
             }
         }
@@ -98,9 +83,10 @@ public class Spell extends Card {
     }
 
     public static boolean thisCardIsSpell(String cardName){
-        for (String name : spellNames){
-            if (name.equals(cardName))
+        for (Spell spell:spells) {
+            if(spell.name.matches(cardName)){
                 return true;
+            }
         }
         return false;
     }
@@ -120,13 +106,6 @@ public class Spell extends Card {
         }
     }
 
-    public static ArrayList<String> getSpellNames() {
-        return spellNames;
-    }
-
-    public static void setSpellNames(ArrayList<String> spellNames) {
-        Spell.spellNames = spellNames;
-    }
 
     public void insertSpellInThisCoordination(int x, int y){
 
@@ -352,14 +331,12 @@ public class Spell extends Card {
                     for (Buff buff : buffs) {
                         for (Card card : Game.getInstance().getMap().getEnemyMinions())
                             ((Minion) card).addBuffToMinion(buff);
-                        for (Card card : Game.getInstance().getMap().getEnemyHeroes())
-                            ((Hero) card).addBuffToHero(buff);
+                        Game.getInstance().getMap().getEnemyHero().addBuffToHero(buff);
                     }
                     break;
                 case "addAction":
                     for (Buff actionBuff : actions){
-                        for (Card card : Game.getInstance().getMap().getEnemyHeroes())
-                            ((Hero) card).getBuffActions().add(actionBuff);
+                        Game.getInstance().getMap().getEnemyHero().getBuffActions().add(actionBuff);
                         for (Card card : Game.getInstance().getMap().getEnemyMinions())
                             ((Minion) card).getBuffActions().add(actionBuff);
                     }
@@ -475,16 +452,14 @@ public class Spell extends Card {
                     for (Buff buff : buffs) {
                         for (Card card : Game.getInstance().getMap().getFriendMinions())
                             ((Minion) card).addBuffToMinion(buff);
-                        for (Card card : Game.getInstance().getMap().getFriendHeroes())
-                            ((Hero) card).addBuffToHero(buff);
+                        Game.getInstance().getMap().getFriendHero().getBuffActions().add(buff);
                     }
                     break;
                 case "addAction":
                     for (Buff actionBuff : actions){
                         for (Card card : Game.getInstance().getMap().getFriendMinions())
-                            ((Hero) card).getBuffActions().add(actionBuff);
-                        for (Card card : Game.getInstance().getMap().getFriendHeroes())
                             ((Minion) card).getBuffActions().add(actionBuff);
+                        Game.getInstance().getMap().getFriendHero().getBuffActions().add(actionBuff);
                     }
 
                     break;
@@ -635,17 +610,6 @@ public class Spell extends Card {
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 }
 
 

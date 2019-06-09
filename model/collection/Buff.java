@@ -30,7 +30,24 @@ public class Buff {
             this.type = "positive";
         }
     }
-
+    public static void createBuffsForSpell(Spell spell,String action,String buff,String effectValue,String delay,String last){
+        Buff tempBuff;
+        String[] actions = action.split(",");
+        String[] buffs = buff.split(",");
+        String[] effectValues = effectValue.split(",");
+        String[] delays = delay.split(",");
+        String[] lasts = last.split(",");
+        for(int i=0; i<action.length(); i++){
+            if(actions[i].matches("addAction")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
+                spell.getActions().add(tempBuff);
+            }
+            else if(actions[i].matches("addBuff")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
+                spell.getBuffs().add(tempBuff);
+            }
+        }
+    }
     public static void createBuffs(Force force,String action,String buff,String effectValue,String delay,String last){
         Buff tempBuff;
         String[] actions = action.split(",");
