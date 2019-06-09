@@ -5,7 +5,7 @@
   "mana":"1",
   "price":"8000",
   "name":"Kaveh",
-  "id":"6",
+  "id":"106",
   "coolDown":"3",
   "type": "hero",
   "specialPower" : "apply holy buff on one cell for 3 turns",

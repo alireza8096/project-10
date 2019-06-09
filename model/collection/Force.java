@@ -180,7 +180,7 @@ public class Force extends Card{
             int minionNumber = random.nextInt(Game.getInstance().getMap().getEnemyMinions().size());
             return Game.getInstance().getMap().getEnemyMinions().get(minionNumber);
         }else{//return a hero
-            return Game.getInstance().getMap().getEnemyHeroes().get(0);
+            return Game.getInstance().getMap().getEnemyHero();
         }
     }
 
@@ -191,7 +191,7 @@ public class Force extends Card{
             int minionNumber = random.nextInt(Game.getInstance().getMap().getFriendMinions().size());
             return Game.getInstance().getMap().getFriendMinions().get(minionNumber);
         }else{//return a hero
-            return Game.getInstance().getMap().getFriendHeroes().get(0);
+            return Game.getInstance().getMap().getFriendHero();
         }
     }
 

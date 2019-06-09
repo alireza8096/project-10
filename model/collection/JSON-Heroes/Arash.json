@@ -5,7 +5,7 @@
   "mana":"2",
   "price":"10000",
   "name":"Arash",
-  "id":"7",
+  "id":"107",
   "coolDown":"2",
   "type": "hero",
   "specialPower" : "decrease health point of all minion/heroes on the hero's row 4 points",
