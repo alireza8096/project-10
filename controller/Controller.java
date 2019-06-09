@@ -13,9 +13,9 @@ public class Controller {
         createAllDataFromJSON();
     }
     public static void createAllDataFromJSON() throws Exception{
-        HandleFiles.createStringOfHeroes();
+        HandleFiles.createHeroes();
         HandleFiles.createStringOfItems();
-        HandleFiles.createStringOfMinions();
+        HandleFiles.createMinions();
      //   HandleFiles.createStringOfPlayers();
         HandleFiles.createStringOfSpells();
         HandleFiles.createStringOfUsableItems();

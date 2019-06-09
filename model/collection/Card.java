@@ -269,10 +269,10 @@ public class Card {
         //Todo : implementing
     }
 
-    public static Card getCardByCoordination(int x, int y){
+    public static Card getCardByCoordination(int x, int y) {
         Map map = Game.getInstance().getMap();
-        for (Card card : map.getFriendMinions()){
-            if (card.getX() == x && card.getY() == y){
+        for (Card card : map.getFriendMinions()) {
+            if (card.getX() == x && card.getY() == y) {
                 return card;
             }
         }
@@ -281,15 +281,13 @@ public class Card {
             if (card.getX() == x && card.getY() == y)
                 return card;
 
-        for (Card card : map.getFriendHeroes()){
-            if (card.getX() == x && card.getY() == y){
-                return card;
-            }
+
+        if (map.getFriendHero().getX() == x && map.getFriendHero().getY() == y) {
+            return map.getFriendHero();
         }
 
-        for (Card card : map.getEnemyHeroes())
-            if (card.getX() == x && card.getY() == y)
-                return card;
+        if (map.getEnemyHero().getX() == x && map.getEnemyHero().getY() == y)
+            return map.getEnemyHero();
 
         return null;
     }

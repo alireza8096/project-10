@@ -13,24 +13,27 @@ import java.util.ArrayList;
 public class Minion extends Force {
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
-    public static ArrayList<Minion> minions = new ArrayList<>();
+    private static ArrayList<Minion> minions = new ArrayList<>();
 
-    public static ArrayList<String> minionNames = new ArrayList<>();
+//    public static ArrayList<String> minionNames = new ArrayList<>();
 
     private ArrayList<String> doesNotGetAttackBuffs = new ArrayList<>();
-
-    private String doesNotGetAttack = new String();
+    private String doesNotGetAttack;
     private String activationTime;
     private boolean isHeadOfCombo;
 
-    public Minion(String name, int healthPoint, int attackPower, String attackType,
-                  int attackRange, String activationTime, int mana, int price, String specialPower){
-        super(healthPoint, attackPower, attackType, attackRange, specialPower);
+    public Minion(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String doesNotGetAttack, String activationTime) {
+        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
+        if(!doesNotGetAttack.matches("null")) this.doesNotGetAttack = doesNotGetAttack;
+        if(!activationTime.matches("null")) this.activationTime = activationTime;
+    }
 
-        this.setName(name);
-        this.activationTime = activationTime;
-        this.mana = mana;
-        this.price = price;
+    public static ArrayList<Minion> getMinions() {
+        return minions;
+    }
+
+    public static void setMinions(ArrayList<Minion> minions) {
+        Minion.minions = minions;
     }
 
     public ArrayList<String> getDoesNotGetAttackBuffs() {
@@ -49,13 +52,6 @@ public class Minion extends Force {
         this.doesNotGetAttack = doesNotGetAttack;
     }
 
-    public static ArrayList<String> getMinionNames() {
-        return minionNames;
-    }
-
-    public static void setMinionNames(ArrayList<String> minionNames) {
-        Minion.minionNames = minionNames;
-    }
 
     public String getActivationTime() {
         return activationTime;
@@ -65,65 +61,33 @@ public class Minion extends Force {
         this.activationTime = activationTime;
     }
 
-    public static String findMinionNameByID(int id) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions");
-        File[] listOfFiles = folder.listFiles();
-        JSONObject jsonObject;
-        String idString;
-        int value;
-        String fileName;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            fileName = listOfFiles[i].getName();
-            jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Minions/" + fileName);
-            idString = jsonObject.get("id").toString();
-            value = Integer.parseInt(idString);
-            if (value == id){
-                return (String) jsonObject.get("name");
-            }
-        }
-        return null;
-    }
-
-    public static Card getMinionByName(String minionName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Minions");
-        File[] listOfFiles = folder.listFiles();
-        String fileName;
-        JSONObject jsonObject;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            fileName = listOfFiles[i].getName().split("\\.")[0];
-            if (fileName.equals(minionName)){
-                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Minions/" + fileName + ".json");
-                String name = jsonObject.get("name").toString();
-                String healthPointString = jsonObject.get("healthPoint").toString();
-                int healthPoint = Integer.parseInt(healthPointString);
-                String attackPowerString = jsonObject.get("attackPower").toString();
-                int attackPower = Integer.parseInt(attackPowerString);
-                String attackRangeString = jsonObject.get("attackRange").toString();
-                int attackRange = Integer.parseInt(attackRangeString);
-                String attackType = jsonObject.get("attackType").toString();
-                String activationTime = jsonObject.get("activationTime").toString();
-                String manaString = jsonObject.get("price").toString();
-                int mana = Integer.parseInt(manaString);
-                String priceString = jsonObject.get("price").toString();
-                int price = Integer.parseInt(priceString);
-
-                String specialPower = jsonObject.get("specialPower").toString();
-
-                Minion minion = new Minion(name, healthPoint, attackPower, attackType, attackRange, activationTime, mana, price, specialPower);
+    public static Minion findMinionNameByID(int id){
+        for (Minion minion: minions) {
+            if(minion.id == id){
                 return minion;
             }
         }
         return null;
     }
 
-    public static int getMinionIDByName(String minionName) throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-                + "JSON-Minions/" + minionName + ".json");
-        return Integer.parseInt(jsonObject.get("id").toString())+300;
+    public static Card getMinionByName(String minionName){
+        for (Minion minion: minions) {
+            if(minion.name.matches(minionName))
+                return minion;
+        }
+        return null;
+    }
+
+    public static int getMinionIDByName(String minionName){
+        for (Minion minion: minions) {
+            if(minion.name.matches(minionName))
+                return minion.id;
+        }
+        return 0;
     }
     public static boolean thisCardIsMinion(String cardName){
-        for (String name : minionNames){
-            if (name.equals(cardName)) {
+        for (Minion minion : minions){
+            if (minion.name.equals(cardName)) {
                 return true;
             }
         }

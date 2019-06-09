@@ -9,8 +9,8 @@ public class Map {
 
     private ArrayList<Minion> enemyMinions = new ArrayList<>();
     private ArrayList<Minion> friendMinions = new ArrayList<>();
-    private ArrayList<Hero> enemyHeroes = new ArrayList<>();
-    private ArrayList<Hero> friendHeroes = new ArrayList<>();
+    private Hero enemyHero;
+    private Hero friendHero;
 
     public Map(){
         for (int i = 0; i < 5; i++) {
@@ -51,20 +51,20 @@ public class Map {
         this.friendMinions = friendMinions;
     }
 
-    public ArrayList<Hero> getEnemyHeroes() {
-        return enemyHeroes;
+    public Hero getEnemyHero() {
+        return enemyHero;
     }
 
-    public void setEnemyHeroes(ArrayList<Hero> enemyHeroes) {
-        this.enemyHeroes = enemyHeroes;
+    public void setEnemyHero(Hero enemyHero) {
+        this.enemyHero = enemyHero;
     }
 
-    public ArrayList<Hero> getFriendHeroes() {
-        return friendHeroes;
+    public Hero getFriendHero() {
+        return friendHero;
     }
 
-    public void setFriendHeroes(ArrayList<Hero> friendHeroes) {
-        this.friendHeroes = friendHeroes;
+    public void setFriendHero(Hero friendHero) {
+        this.friendHero = friendHero;
     }
 
     public Cell[][] getCells() {

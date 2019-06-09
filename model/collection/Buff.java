@@ -7,37 +7,74 @@ import java.util.ArrayList;
 
 public class Buff {
     public static final String[] negativeBuffs = {"healthPointWeaknessBuff","disarm","poisonBuff","fireCellImpact","poisonCellImpact","stunBuff","attackPowerWeaknessBuff","antiHolyBuff"};
-    private int forHowManyTurns;
+    private String forHowManyTurns;
     private String name;
     private String type;
     private int delay;
     private int howMuchImpact;
     private boolean isUsed;
     private String activationTime;
-   // private boolean hasAppliedEffect;
 
-    public Buff(Buff anotherBuff){
-        this.name = anotherBuff.name;
-        this.type = anotherBuff.type;
-        this.forHowManyTurns = anotherBuff.forHowManyTurns;
-        this.delay = anotherBuff.delay;
-        this.howMuchImpact = anotherBuff.howMuchImpact;
-        this.isUsed = anotherBuff.isUsed;
-    //    this.hasAppliedEffect = anotherBuff.hasAppliedEffect;
-    }
-
-    public Buff(String forHowManyTurns, String name, String type, String delay, String howMuchImpact,String activationTime) {
-        if (!forHowManyTurns.equals("null"))this.forHowManyTurns = Integer.parseInt(forHowManyTurns);
-        else this.forHowManyTurns = 0;
+    public Buff(String forHowManyTurns, String name, String delay, String howMuchImpact,String activationTime) {
+        this.forHowManyTurns = forHowManyTurns;
         this.name = name;
-        this.type = type;
         if(!delay.equals("null")) this.delay = Integer.parseInt(delay);
         else this.delay = 0;
         if(!howMuchImpact.equals("null")) this.howMuchImpact = Integer.parseInt(howMuchImpact);
         else this.howMuchImpact = 0;
         this.activationTime = activationTime;
+        if(isNegative(name)){
+            this.type = "negative";
+        }
+        else{
+            this.type = "positive";
+        }
+    }
+    public static void createBuffsForSpell(Spell spell,String action,String buff,String effectValue,String delay,String last){
+        Buff tempBuff;
+        String[] actions = action.split(",");
+        String[] buffs = buff.split(",");
+        String[] effectValues = effectValue.split(",");
+        String[] delays = delay.split(",");
+        String[] lasts = last.split(",");
+        for(int i=0; i<action.length(); i++){
+            if(actions[i].matches("addAction")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
+                spell.getActions().add(tempBuff);
+            }
+            else if(actions[i].matches("addBuff")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
+                spell.getBuffs().add(tempBuff);
+            }
+        }
+    }
+    public static void createBuffs(Force force,String action,String buff,String effectValue,String delay,String last){
+        Buff tempBuff;
+        String[] actions = action.split(",");
+        String[] buffs = buff.split(",");
+        String[] effectValues = effectValue.split(",");
+        String[] delays = delay.split(",");
+        String[] lasts = last.split(",");
+        for(int i=0; i<action.length(); i++){
+            if(actions[i].matches("addAction")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
+                force.getBuffActions().add(tempBuff);
+            }
+            else if(actions[i].matches("addBuff")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
+                addBuff(force,tempBuff);
+            }
+        }
     }
 
+    public static void addBuff(Force force,Buff buff){
+        if(isNegative(buff.name)){
+            force.getNegativeBuffs().add(buff);
+        }
+        else{
+            force.getPositiveBuffs().add(buff);
+        }
+    }
     public static boolean isNegative(String name){
         for (String buff: negativeBuffs) {
             if(name.equals(buff)){
@@ -70,11 +107,11 @@ public class Buff {
         isUsed = used;
     }
 
-    public int getForHowManyTurns() {
+    public String getForHowManyTurns() {
         return forHowManyTurns;
     }
 
-    public void setForHowManyTurns(int forHowManyTurns) {
+    public void setForHowManyTurns(String forHowManyTurns) {
         this.forHowManyTurns = forHowManyTurns;
     }
 
@@ -111,33 +148,32 @@ public class Buff {
     }
 
     public static boolean checkIfBuffIsActive(Buff buff){
-        int numberOfTurns = buff.getForHowManyTurns();
-        if (numberOfTurns > 0){
+        String num = buff.getForHowManyTurns();
+        if(!num.matches("null")){
+            if(num.matches("[\\d]+")){
+                if(Integer.parseInt(num) <=0 ){
+                    return false;
+                }
+            }
             return true;
-        }else{
-            return false;
         }
+        return false;
     }
 
     //Todo : in the first of the turn, check if adding mana buff in active or not before invoking this method
     public static void applyAddingManaBuff(Player player, Buff buff){
-        if (checkIfAddingManaBuffIsActiveYet(buff)){
+        if (checkIfBuffIsActive(buff)){
             int numberOfAddingMana = buff.getHowMuchImpact();
             int currentPlayerMana = player.getNumOfMana();
             player.setNumOfMana(currentPlayerMana + numberOfAddingMana);
-            buff.setForHowManyTurns(buff.getForHowManyTurns() - 1);
+            if(buff.forHowManyTurns.matches("[\\d]+")) {
+                int num = Integer.parseInt(buff.forHowManyTurns);
+                buff.setForHowManyTurns(Integer.toString(num-1));
+            }
         }else{
             player.setAddingManaBuffIsActive(false);
         }
 
-    }
-
-    public static boolean checkIfAddingManaBuffIsActiveYet(Buff buff){
-        int howManyTurns = buff.getForHowManyTurns();
-        if (howManyTurns > 0){
-            return true;
-        }
-        return false;
     }
 
     public void applyBuffOnForce(Force force){

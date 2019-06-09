@@ -5,7 +5,7 @@
   "mana":"1",
   "price":"8000",
   "name":"Div Sefid",
-  "id":"1",
+  "id":"101",
   "coolDown":"2",
   "type": "hero",
   "specialPower" : "apply one power buff with the impact of 4 continuously on itself",

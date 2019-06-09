@@ -1,9 +1,6 @@
 package model;
 
-import model.collection.Hero;
-import model.collection.Item;
-import model.collection.Minion;
-import model.collection.Spell;
+import model.collection.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -12,10 +9,37 @@ import java.util.ArrayList;
 public class Deck {
     private Hand hand;
     private String deckName;
-    private String heroInDeckName;
-    private ArrayList<String> cardsInDeckNames = new ArrayList<>();
-    private ArrayList<String> itemsInDeckNames = new ArrayList<>();
+    private Hero heroInDeck;
+//    private String heroInDeckName;
+//    private ArrayList<String> cardsInDeckNames = new ArrayList<>();
+    private ArrayList<Card> cardsInDeck = new ArrayList<>();
+//    private ArrayList<String> itemsInDeckNames = new ArrayList<>();
+    private ArrayList<Item> itemsInDeck = new ArrayList<>();
     private boolean deckIsSelected;
+
+    public Hero getHeroInDeck() {
+        return heroInDeck;
+    }
+
+    public void setHeroInDeck(Hero heroInDeck) {
+        this.heroInDeck = heroInDeck;
+    }
+
+    public ArrayList<Card> getCardsInDeck() {
+        return cardsInDeck;
+    }
+
+    public void setCardsInDeck(ArrayList<Card> cardsInDeck) {
+        this.cardsInDeck = cardsInDeck;
+    }
+
+    public ArrayList<Item> getItemsInDeck() {
+        return itemsInDeck;
+    }
+
+    public void setItemsInDeck(ArrayList<Item> itemsInDeck) {
+        this.itemsInDeck = itemsInDeck;
+    }
 
     public Hand getHand() {
         return hand;
@@ -37,29 +61,6 @@ public class Deck {
         this.deckName = deckName;
     }
 
-    public ArrayList<String> getCardsInDeckNames() {
-        return cardsInDeckNames;
-    }
-
-    public void setCardsInDeckNames(ArrayList<String> cardsInDeckNames) {
-        this.cardsInDeckNames = cardsInDeckNames;
-    }
-
-    public String getHeroInDeckName() {
-        return heroInDeckName;
-    }
-
-    public void setHeroInDeckName(String heroInDeckName) {
-        this.heroInDeckName = heroInDeckName;
-    }
-
-    public ArrayList<String> getItemsInDeckNames() {
-        return itemsInDeckNames;
-    }
-
-    public void setItemsInDeckNames(ArrayList<String> itemsInDeckNames) {
-        this.itemsInDeckNames = itemsInDeckNames;
-    }
 
     public boolean isDeckIsSelected() {
         return deckIsSelected;
@@ -106,7 +107,6 @@ public class Deck {
     }
 
     public static void addCardOrItemToDeck(int ID, String cardType, String deckName) throws IOException, ParseException {
-
         //if all conditions are true for adding a new card to deck
         if (allConditionsOfAddingCardToDeckAreRight(ID, cardType, deckName)) {
             Deck deck = Deck.findDeckByName(deckName);

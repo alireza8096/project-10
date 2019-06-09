@@ -5,7 +5,7 @@
   "mana":"1",
   "price":"8000",
   "name":"Rakhsh",
-  "id":"4",
+  "id":"104",
   "coolDown":"2",
   "type": "hero",
   "specialPower" : "make one of enemy minion/heroes stunned for one turn",

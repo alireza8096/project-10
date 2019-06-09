@@ -24,20 +24,6 @@ public class Hero extends Force{
         Hero.heroes = heroes;
     }
 
-    public Hero(String name, int healthPoint, int attackPower,
-                String attackType, int attackRange, int coolDown, String specialPower, int mana){
-        super(healthPoint, attackPower, attackType, attackRange, specialPower);
-        this.name = name;
-        this.coolDown = coolDown;
-        this.mana = mana;
-        this.setMovable(true);
-        this.setAbleToAttack(true);
-    }
-
-    public static void setHeroes(ArrayList<Hero> heroes) {
-        Hero.heroes = heroes;
-    }
-
     public static ArrayList<Hero> getHeroes() {
         return heroes;
     }
@@ -47,35 +33,6 @@ public class Hero extends Force{
         if(!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
         else this.coolDown =0;
     }
-
-    public static void createBuffsOfHero(String forHowManyTurns,String name,String type,String delay,String howMuchImpact){
-
-    }
-    public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown) {
-        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
-        if(!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
-        else this.coolDown =0;
-    }
-
-    public static void createBuffsOfHero(String forHowManyTurns,String name,String type,String delay,String howMuchImpact){
-
-    }
-    public static int getTurnCounterForPlayer1Hero() {
-        return turnCounterForPlayer1Hero;
-    }
-
-    public static void setTurnCounterForPlayer1Hero(int turnCounterForPlayer1Hero) {
-        Hero.turnCounterForPlayer1Hero = turnCounterForPlayer1Hero;
-    }
-
-    public static int getTurnCounterForPlayer2Hero() {
-        return turnCounterForPlayer2Hero;
-    }
-
-    public static void setTurnCounterForPlayer2Hero(int turnCounterForPlayer2Hero) {
-        Hero.turnCounterForPlayer2Hero = turnCounterForPlayer2Hero;
-    }
-
     public static int getHeroIDByName(String heroName) throws Exception{
         JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
                 + "JSON-Heroes/" + heroName + ".json");
@@ -110,8 +67,8 @@ public class Hero extends Force{
     }
 
     public static boolean thisCardIsHero(String cardName){
-        for (String name : heroNames){
-            if (name.equals(cardName))
+        for(Hero hero : heroes){
+            if(hero.name.matches(cardName))
                 return true;
         }
         return false;
@@ -293,30 +250,19 @@ public class Hero extends Force{
 //    }
 
     public static void insertHeroInMap() throws IOException, ParseException {
-        String heroName = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeckName();
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES  +
-                "JSON-Heroes/" + heroName + ".json");
-        int healthPoint = Integer.parseInt(jsonObject.get("healthPoint").toString());
-        int attackPower = Integer.parseInt(jsonObject.get("attackPower").toString());
-        String attackType = jsonObject.get("attackType").toString();
-        int attackRange = Integer.parseInt(jsonObject.get("attackRange").toString());
-        int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
-        String specialPower = jsonObject.get("specialPower").toString();
-        int mana = Integer.parseInt(jsonObject.get("mana").toString());
-
-        Hero hero = new Hero(heroName, healthPoint, attackPower, attackType, attackRange, coolDown,specialPower, mana);
+        Hero hero = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeck();
         hero.setX(3);
         hero.setY(4);
-        Game.getInstance().getMap().getHeroes().add(hero);
+        Game.getInstance().getMap().setFriendHero(hero);
     }
 
-    public static Hero findHeroInMap(int x, int y){
-        for (Card card : Game.getInstance().getMap().getHeroes()){
-            if (card.getX() == x && card.getY() == y)
-                return (Hero) card;
-        }
-        return null;
-    }
+//    public static Hero findHeroInMap(int x, int y){
+//        for (Card card : Game.getInstance().getMap().getHeroes()){
+//            if (card.getX() == x && card.getY() == y)
+//                return (Hero) card;
+//        }
+//        return null;
+//    }
 
     public static Hero getHeroByCoordination(int x, int y){
         if (Game.getInstance().getHeroOfPlayer1().getX() == x && Game.getInstance().getHeroOfPlayer1().getY() == y){
@@ -343,31 +289,10 @@ public class Hero extends Force{
         }
     }
 
-    public static Hero getHeroByName(String heroName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
-        File[] listOfFiles = folder.listFiles();
-        String fileName;
-        JSONObject jsonObject;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            fileName = listOfFiles[i].getName().split("\\.")[0];
-            if (fileName.equals(heroName)){
-                jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + fileName + ".json");
-                String name = jsonObject.get("name").toString();
-                String healthPointString = jsonObject.get("healthPoint").toString();
-                int healthPoint = Integer.parseInt(healthPointString);
-                String attackPowerString = jsonObject.get("attackPower").toString();
-                int attackPower = Integer.parseInt(attackPowerString);
-                String attackRangeString = jsonObject.get("attackRange").toString();
-                int attackRange = Integer.parseInt(attackRangeString);
-                String attackType = jsonObject.get("attackType").toString();
-                String manaString = jsonObject.get("mana").toString();
-                int mana = Integer.parseInt(manaString);
-                int coolDown = Integer.parseInt(jsonObject.get("coolDown").toString());
-
-                String specialPower = jsonObject.get("specialPower").toString();
-                Hero hero = new Hero(name, healthPoint, attackPower, attackType,
-                        attackRange, coolDown, specialPower,mana);
-                return hero;
+    public static Hero getHeroByName(String heroName){
+        for (Hero check:heroes) {
+            if(check.name.matches(heroName)){
+                return check;
             }
         }
         return null;

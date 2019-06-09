@@ -2,7 +2,7 @@ package model.collection;
 
 import model.Game;
 
-import java.util.*
+import java.util.*;
 
 public class Force extends Card{
 
@@ -31,13 +31,14 @@ public class Force extends Card{
     private boolean hasHolyBuff;
     private String specialPower;
 
-    public ArrayList<String> returnArrayList(String toArray){
+    public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
         String[] splitter = toArray.split(",");
         if(!splitter[0].equals("null")) Collections.addAll(returnString,splitter);
         return returnString;
     }
-    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy,String healthPoint, String attackPower, String attackType, String attackRange, String specialPower,String locationOfTargets) {
+
+    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets) {
         super(mana, id, cardType, name, price);
         this.targets = returnArrayList(targets);
         this.numOfTargets = returnArrayList(numOfTargets);
@@ -47,6 +48,7 @@ public class Force extends Card{
         this.attackType = attackType;
         if(!attackRange.equals("null")) this.attackRange = Integer.parseInt(attackRange);
         else this.attackRange = 0;
+        this.actionTypes = returnArrayList(actionTypes);
         this.specialPower = specialPower;
         this.locationOfTargets = returnArrayList(locationOfTargets);
     }
@@ -228,7 +230,7 @@ public class Force extends Card{
             int minionNumber = random.nextInt(Game.getInstance().getMap().getEnemyMinions().size());
             return Game.getInstance().getMap().getEnemyMinions().get(minionNumber);
         }else{//return a hero
-            return Game.getInstance().getMap().getEnemyHeroes().get(0);
+            return Game.getInstance().getMap().getEnemyHero();
         }
     }
 
@@ -239,7 +241,7 @@ public class Force extends Card{
             int minionNumber = random.nextInt(Game.getInstance().getMap().getFriendMinions().size());
             return Game.getInstance().getMap().getFriendMinions().get(minionNumber);
         }else{//return a hero
-            return Game.getInstance().getMap().getFriendHeroes().get(0);
+            return Game.getInstance().getMap().getFriendHero();
         }
     }
 
