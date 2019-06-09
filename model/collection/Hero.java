@@ -10,19 +10,22 @@ import java.util.ArrayList;
 
 public class Hero extends Force{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+    public static ArrayList<Hero> heroes = new ArrayList<>();
+//    public static ArrayList<String> heroNames = new ArrayList<>();
 
     public static int turnCounterForPlayer1Hero;
     public static int turnCounterForPlayer2Hero;
 
 
     public static ArrayList<String> heroNames = new ArrayList<>();
-    public static ArrayList<Hero> heroes = new ArrayList<>();
-//    public static ArrayList<String> heroNames = new ArrayList<>();
     private int coolDown;
 
+    public static void setHeroes(ArrayList<Hero> heroes) {
+        Hero.heroes = heroes;
+    }
 
     public Hero(String name, int healthPoint, int attackPower,
-                String attackType, int attackRange, int coolDown, String specialPower, int mana) {
+                String attackType, int attackRange, int coolDown, String specialPower, int mana){
         super(healthPoint, attackPower, attackType, attackRange, specialPower);
         this.name = name;
         this.coolDown = coolDown;
@@ -39,6 +42,15 @@ public class Hero extends Force{
         return heroes;
     }
 
+    public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown) {
+        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
+        if(!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
+        else this.coolDown =0;
+    }
+
+    public static void createBuffsOfHero(String forHowManyTurns,String name,String type,String delay,String howMuchImpact){
+
+    }
     public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown) {
         super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
         if(!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
@@ -76,14 +88,6 @@ public class Hero extends Force{
 
     public void setCoolDown(int coolDown) {
         this.coolDown = coolDown;
-    }
-
-    public static ArrayList<String> getHeroNames() {
-        return heroNames;
-    }
-
-    public static void setHeroNames(ArrayList<String> heroNames) {
-        Hero.heroNames = heroNames;
     }
 
     public static String findHeroNameByID(int id) throws IOException, ParseException {

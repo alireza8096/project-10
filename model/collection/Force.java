@@ -6,11 +6,7 @@ import java.util.*
 
 public class Force extends Card{
 
-    private ArrayList<String> targets = new ArrayList<>();
-    private ArrayList<String> numOfTargets = new ArrayList<>();
-    private ArrayList<String> friendOrEnemy = new ArrayList<>();
     //buffs that effect on the force itself
-    private ArrayList<Spell> specialPowerSpells = new ArrayList<>();
     private ArrayList<Buff> positiveBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> negativeBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> actionBuffsOnItself = new ArrayList<>();
@@ -20,6 +16,11 @@ public class Force extends Card{
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
     private ArrayList<Buff> buffActions = new ArrayList<>();
 
+    private ArrayList<String> targets = new ArrayList<>();
+    private ArrayList<String> numOfTargets = new ArrayList<>();
+    private ArrayList<String> friendOrEnemy = new ArrayList<>();
+    private ArrayList<String> locationOfTargets = new ArrayList<>();
+    private ArrayList<String> actionTypes = new ArrayList<>();
     private int healthPoint;
     private int attackPower;
     private String attackType;
@@ -29,8 +30,6 @@ public class Force extends Card{
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
-    private ArrayList<String> actionTypes = new ArrayList<>();
-    private ArrayList<String> locationOfTargets = new ArrayList<>();
 
     public ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
