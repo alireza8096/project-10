@@ -287,9 +287,117 @@ public class Item {
         }
     }
 
-    public void applyItem(){
+    public void applyCollectableItems(){
+        String target = this.target;
+
+        switch (target){
+            case "minion":
+                applyCollectibleItemOnMinion();
+                break;
+            case "minion/hero":
+                break;
+            case "null"://items that adds mana
+                for (Buff buff : this.positiveBuffs){
+                    Game.getInstance().getMap().getFriendHeroes().get(0).getPositiveBuffs().add(buff);
+                }
+                break;
+        }
+    }
+
+    public void applyCollectibleItemOnMinion(){
+        ArrayList<String> actionTypes = this.typeOfActions;
+
+        for (String typeOfAction : actionTypes){
+            switch (typeOfAction){
+                case "addBuff":
+                    for (Buff buff : this.positiveBuffs){
+                        Force.getRandomFriendMinion().getPositiveBuffsOnItself().add(buff);
+                    }
+                    break;
+                case "addAction":
+                    for (Buff buff : this.actionBuffs){
+                        Force.getRandomFriendMinion().getActionBuffsOnItself().add(buff);
+                    }
+                    break;
+            }
+        }
+
 
     }
+
+    public void applyCollectableItemOnMinionOrHero(){
+        String locationOfTarget = this.locationOfTarget;
+
+        switch (locationOfTarget){
+            case "random":
+                applyCollectibleItemOnRandomMinionOrHero();
+                break;
+            case "null":
+                applyCollectibleItemOnMeleeForces();
+                break;
+            case "closest":
+                //Todo : implement "nefrine marg" item
+                break;
+        }
+    }
+
+    public void applyCollectibleItemOnMeleeForces(){
+        for (Buff buff : this.actionBuffs){
+
+            for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+                minion.getActionBuffsOnItself().add(buff);
+            }
+
+            for (Hero hero : Game.getInstance().getMap().getFriendHeroes()){
+                hero.getActionBuffsOnItself().add(buff);
+            }
+
+        }
+    }
+
+    public void applyCollectibleItemOnRandomMinionOrHero(){
+
+        //all numOfTargets are 1
+        boolean forceHasBeenChosenCorrectly = false;
+        Force randomForce = null;
+        while(!forceHasBeenChosenCorrectly){
+            if (this.friendOrEnemy.equals("friend")){
+                randomForce = Force.getRandomFriendForce();
+            }else{
+                randomForce = Force.getRandomForce();
+            }
+
+            String randomForceSpecification = randomForce.getAttackType();
+            String specification = this.specification;
+            switch (specification){
+                case "ranged/hybrid":
+                    if (randomForceSpecification.equals("ranged") || randomForceSpecification.equals("hybrid"))
+                        forceHasBeenChosenCorrectly = true;
+                    break;
+                case "null":
+                    if (randomForceSpecification.equals("null"))
+                        forceHasBeenChosenCorrectly = true;
+                    break;
+            }
+
+        }
+        for (String typeOfAction : this.typeOfActions){
+            switch (typeOfAction){
+                case "addBuff":
+                    for (Buff buff : this.positiveBuffs){
+                        randomForce.getPositiveBuffsOnItself().add(buff);
+                    }
+                    break;
+                case "addAction":
+                    for (Buff buff : this.actionBuffs){
+                        randomForce.getActionBuffsOnItself().add(buff);
+                    }
+                    break;
+            }
+        }
+    }
+
+
 
 }
 

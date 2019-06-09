@@ -12,6 +12,12 @@ public class Hero extends Force{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
     private static ArrayList<Hero> heroes = new ArrayList<>();
 //    public static ArrayList<String> heroNames = new ArrayList<>();
+
+    public static int turnCounterForPlayer1Hero;
+    public static int turnCounterForPlayer2Hero;
+
+
+    public static ArrayList<String> heroNames = new ArrayList<>();
     private int coolDown;
 
     public static void setHeroes(ArrayList<Hero> heroes) {
@@ -23,7 +29,7 @@ public class Hero extends Force{
     }
 
     public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown) {
-        super(mana,id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
+        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
         if(!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
         else this.coolDown =0;
     }
@@ -291,5 +297,15 @@ public class Hero extends Force{
         }
         return null;
     }
+
+    public void addBuffToHero(Buff buff) {
+        if (buff.getType().equals("positive"))
+            getPositiveBuffs().add(buff);
+        else
+            getNegativeBuffs().add(buff);
+    }
+
+    public void
+
 }
 

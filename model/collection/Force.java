@@ -6,28 +6,30 @@ import java.util.*;
 
 public class Force extends Card{
 
-    private ArrayList<String> targets = new ArrayList<>();
-    private ArrayList<String> numOfTargets = new ArrayList<>();
-    private ArrayList<String> friendOrEnemy = new ArrayList<>();
     //buffs that effect on the force itself
     private ArrayList<Buff> positiveBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> negativeBuffsOnItself = new ArrayList<>();
     private ArrayList<Buff> actionBuffsOnItself = new ArrayList<>();
+
     //all buffs that force has in its special power
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
     private ArrayList<Buff> buffActions = new ArrayList<>();
 
+    private ArrayList<String> targets = new ArrayList<>();
+    private ArrayList<String> numOfTargets = new ArrayList<>();
+    private ArrayList<String> friendOrEnemy = new ArrayList<>();
+    private ArrayList<String> locationOfTargets = new ArrayList<>();
+    private ArrayList<String> actionTypes = new ArrayList<>();
     private int healthPoint;
     private int attackPower;
     private String attackType;
     private int attackRange;
-    private boolean canAttackOrMove;
+    private boolean canAttack;
+    private boolean canMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
-    private ArrayList<String> actionTypes = new ArrayList<>();
-    private ArrayList<String> locationOfTargets = new ArrayList<>();
 
     public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
@@ -51,6 +53,38 @@ public class Force extends Card{
         this.locationOfTargets = returnArrayList(locationOfTargets);
     }
 
+    public ArrayList<String> getTargets() {
+        return targets;
+    }
+
+    public void setTargets(ArrayList<String> targets) {
+        this.targets = targets;
+    }
+
+    public ArrayList<String> getNumOfTargets() {
+        return numOfTargets;
+    }
+
+    public void setNumOfTargets(ArrayList<String> numOfTargets) {
+        this.numOfTargets = numOfTargets;
+    }
+
+    public ArrayList<String> getFriendOrEnemy() {
+        return friendOrEnemy;
+    }
+
+    public void setFriendOrEnemy(ArrayList<String> friendOrEnemy) {
+        this.friendOrEnemy = friendOrEnemy;
+    }
+
+    public ArrayList<String> getLocationOfTargets() {
+        return locationOfTargets;
+    }
+
+    public void setLocationOfTargets(ArrayList<String> locationOfTargets) {
+        this.locationOfTargets = locationOfTargets;
+    }
+
     public ArrayList<String> getActionTypes() {
         return actionTypes;
     }
@@ -58,8 +92,6 @@ public class Force extends Card{
     public void setActionTypes(ArrayList<String> actionTypes) {
         this.actionTypes = actionTypes;
     }
-
-
 
     public ArrayList<Buff> getPositiveBuffsOnItself() {
         return positiveBuffsOnItself;
@@ -141,12 +173,20 @@ public class Force extends Card{
         this.attackRange = attackRange;
     }
 
-    public boolean isCanAttackOrMove() {
-        return canAttackOrMove;
+    public boolean isCanAttack() {
+        return canAttack;
     }
 
-    public void setCanAttackOrMove(boolean canAttackOrMove) {
-        this.canAttackOrMove = canAttackOrMove;
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
+    }
+
+    public boolean isCanMove() {
+        return canMove;
+    }
+
+    public void setCanMove(boolean canMove) {
+        this.canMove = canMove;
     }
 
     public boolean isCanCounterAttack() {
@@ -173,7 +213,17 @@ public class Force extends Card{
         this.specialPower = specialPower;
     }
 
-    public Force getRandomEnemyForce(){
+    public static Force getRandomForce(){
+        Random random = new Random();
+        int randomNumber = random.nextInt(2);
+        if (randomNumber == 0){
+            return getRandomEnemyForce();
+        }else{
+            return getRandomFriendForce();
+        }
+    }
+
+    public static Force getRandomEnemyForce(){
         Random random = new Random();
         int minionOrHero = random.nextInt(2);
         if (minionOrHero == 0){//return a minion
@@ -184,7 +234,7 @@ public class Force extends Card{
         }
     }
 
-    public Force getRandomFriendForce(){
+    public static Force getRandomFriendForce(){
         Random random = new Random();
         int minionOrHero = random.nextInt(2);
         if (minionOrHero == 0){//return a minion
@@ -207,14 +257,29 @@ public class Force extends Card{
         return Game.getInstance().getMap().getEnemyMinions().get(minionIndex);
     }
 
-    public void dispelPositiveActions(){
+    public void dispelPositiveActions() {
         ArrayList<Buff> actionBuffsCopy = actionBuffsOnItself;
 
-        for (Buff buff : actionBuffsCopy){
-            if (buff.getType().equals("positive")){
+        for (Buff buff : actionBuffsCopy) {
+            if (buff.getType().equals("positive")) {
                 actionBuffsOnItself.remove(buff);
             }
         }
     }
+
+    public void applyAllBuffsOnForce(){
+        for (Buff buff : this.positiveBuffsOnItself){
+            buff.applyBuffOnForce(this);
+        }
+
+        for (Buff buff : this.negativeBuffsOnItself){
+            buff.applyBuffOnForce(this);
+        }
+
+        for (Buff buff : this.actionBuffsOnItself){
+            buff.applyBuffOnForce(this);
+        }
+    }
+
 }
 
