@@ -271,7 +271,7 @@ public class Minion extends Force {
     }
 
     public void applyStunBuff(Buff buff) {
-        this.setCanAttackOrMove(false);
+  //      this.setCanAttackOrMove(false);
     }
 
     public void applyPoisonBuff(Buff buff) {
@@ -302,7 +302,7 @@ public class Minion extends Force {
 
     public void removeDisarmBuff(Buff buff)
     {
-        this.setCanAttackOrMove(true);
+   //     this.setCanAttackOrMove(true);
     }
 
     public void removeStunBuff(Buff buff)
@@ -315,24 +315,24 @@ public class Minion extends Force {
         setHasHolyBuff(false);
     }
 
-    public void applyCellImpact(Minion minion, Map map)
-    {
-        int x=minion.getX();
-        int y=minion.getY();
-        switch (((map.getCells())[x][y]).getCellImpactType())
-        {
-            case fire:
-                this.setHealthPoint(this.getHealthPoint()-2);
-                break;
-            case holy:
-                this.setHasHolyBuff(true);
-                break;
-            case poison:
-                Buff buff = new Buff(1,3,"poisonBuff","negative");
-                this.getPositiveBuffs().add(buff);
-                break;
-        }
-    }
+//    public void applyCellImpact(Minion minion, Map map)
+//    {
+//        int x=minion.getX();
+//        int y=minion.getY();
+//        switch (((map.getCells())[x][y]).getCellImpactType())
+//        {
+//            case fire:
+//                this.setHealthPoint(this.getHealthPoint()-2);
+//                break;
+//            case holy:
+//                this.setHasHolyBuff(true);
+//                break;
+//            case poison:
+//                Buff buff = new Buff(1,3,"poisonBuff","negative");
+//                this.getPositiveBuffs().add(buff);
+//                break;
+//        }
+//    }
 
     public static Minion getMinionInThisCoordination(int x, int y){
         Map map = Game.getInstance().getMap();

@@ -17,7 +17,7 @@ public class Controller {
         HandleFiles.createStringOfItems();
         HandleFiles.createMinions();
      //   HandleFiles.createStringOfPlayers();
-        HandleFiles.createStringOfSpells();
+//        HandleFiles.createStringOfSpells();
         HandleFiles.createStringOfUsableItems();
     }
     public static void createAllMenus(){
@@ -57,26 +57,26 @@ public class Controller {
     }
     public static void handleCommands(Scanner scanner) throws Exception{
         switch (LinkedListMenus.whichMenuNow().getMenuName()) {
-            case "Account":
-                System.out.println("account");
-                MenusCommandController.accountController(scanner);
-                break;
-            case "Leaderboard":
-                System.out.println("leaderboard");
-                MenusCommandController.leaderboardController(scanner);
-                break;
-            case "Command Line":
-                System.out.println("command line");
-                MenusCommandController.commandLineController(scanner);
-                break;
-            case "Collection":
-                System.out.println("collection");
-                MenusCommandController.collectionController(scanner);
-                break;
-            case "Shop":
-                System.out.println("shop");
-                MenusCommandController.shopController(scanner);
-                break;
+//            case "Account":
+//                System.out.println("account");
+//                MenusCommandController.accountController(scanner);
+//                break;
+//            case "Leaderboard":
+//                System.out.println("leaderboard");
+//                MenusCommandController.leaderboardController(scanner);
+//                break;
+//            case "Command Line":
+//                System.out.println("command line");
+//                MenusCommandController.commandLineController(scanner);
+//                break;
+//            case "Collection":
+//                System.out.println("collection");
+//                MenusCommandController.collectionController(scanner);
+//                break;
+//            case "Shop":
+//                System.out.println("shop");
+//                MenusCommandController.shopController(scanner);
+//                break;
             case "Battle":
                 System.out.println("battle");
 //                if (!Game.getInstance().)

@@ -143,7 +143,7 @@ public class Deck {
                     deck.removeItemFromDeck(cardName);
                     break;
                 case "hero":
-                    deck.setHeroInDeckName(null);
+                    deck.setHberoInDeckName(null);
                     break;
                 default:
                     deck.removeCardFromDeck(cardName);

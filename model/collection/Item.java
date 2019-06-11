@@ -135,33 +135,6 @@ public class Item {
         return null;
     }
 
-    public static void applyItem(String itemName) throws IOException, ParseException {
-        //      String itemType = getItemTypeByName(itemName);
-
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items" + itemName + ".json");
-        String typeOfAction = jsonObject.get("typeOfAction").toString();
-
-        switch (typeOfAction){
-            case "addMana":
-                applyAddingManaByItem(jsonObject);
-                break;
-            case "addBuff":
-                //   applyAddingBuffbyItem();
-                break;
-        }
-
-
-    }
-
-    public static void applyAddingManaByItem(JSONObject jsonObject){
-        int howManyMana = Integer.parseInt(jsonObject.get("howManyMana").toString());
-        int howManyTurns = Integer.parseInt(jsonObject.get("howManyTurns").toString());
-
-        Buff buff = new Buff("addingManaBuff", howManyMana, howManyTurns);
-        Buff.applyAddingManaBuff(Game.getInstance().getPlayer1(), buff);
-
-    }
-
 //    public static Item returnFlagByRandomCoordination(){
 //        int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
 //        int y = Cell.returnRandomNumberForCoordinationInThisRange(0, 9);
@@ -297,9 +270,8 @@ public class Item {
             case "minion/hero":
                 break;
             case "null"://items that adds mana
-                for (Buff buff : this.positiveBuffs){
-                    Game.getInstance().getMap().getFriendHeroes().get(0).getPositiveBuffs().add(buff);
-                }
+                for (Buff buff : this.positiveBuffs)
+                    Game.getInstance().getMap().getFriendHero().getPositiveBuffs().add(buff);
                 break;
         }
     }
@@ -348,9 +320,8 @@ public class Item {
                 minion.getActionBuffsOnItself().add(buff);
             }
 
-            for (Hero hero : Game.getInstance().getMap().getFriendHeroes()){
-                hero.getActionBuffsOnItself().add(buff);
-            }
+            Game.getInstance().getMap().getFriendHero().getActionBuffsOnItself().add(buff);
+
 
         }
     }
@@ -397,6 +368,26 @@ public class Item {
         }
     }
 
+    public void applyUsableItems(){
+        String target = this.target;
+
+        switch (target){
+            case "itself"://it is just for "ghosle tameed"
+
+                break;
+            case "minion/hero":
+
+                break;
+            case "hero":
+                break;
+            case "target":
+                break;
+        }
+    }
+
+    public void applyUsableItemOnMinionOrHero(){
+
+    }
 
 
 }
