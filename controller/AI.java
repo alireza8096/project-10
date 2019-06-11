@@ -66,7 +66,7 @@ public class AI {
             int idToAttack = (int) Math.random()%500;
             if(Shop.checkValidId(idToAttack)) {
                 String[] parts = {"attack",Integer.toString(idToAttack)};
-                BattleController.attack(parts,cardName);
+//                BattleController.attack(parts,cardName);
             }
         }
         for (Card card:
@@ -75,7 +75,7 @@ public class AI {
                 int idToAttack = (int) Math.random()%500;
                 if(Shop.checkValidId(idToAttack)) {
                     String[] parts = {"attack",Integer.toString(idToAttack)};
-                    BattleController.attack(parts,cardName);
+//                    BattleController.attack(parts,cardName);
                 }
             }
         }

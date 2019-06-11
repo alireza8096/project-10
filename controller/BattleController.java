@@ -499,7 +499,7 @@ public class BattleController {
     public static void insertCardInFieldCommand(String[] commands) throws IOException, ParseException {
         if (commands[0].equals("insert")){
             String cardName = commands[1];
-            Card card = Card.getCardByName(cardName);
+            Card card = Card.findCardByName(cardName);
             int x = Integer.parseInt(commands[3].substring(1, commands[3].indexOf(',')));
             int y = Integer.parseInt(commands[3].substring(commands[3].indexOf(',') + 1));
             insertCard(card, x, y);

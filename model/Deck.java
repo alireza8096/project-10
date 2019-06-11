@@ -38,13 +38,6 @@ public class Deck {
         return deckIsSelected;
     }
 
-    public Hero getHeroInDeck() {
-        return heroInDeck;
-    }
-
-    public Hero getHeroInDeck() {
-        return heroInDeck;
-    }
 
     public Hand getHand() {
         return hand;
@@ -66,6 +59,9 @@ public class Deck {
         this.deckName = deckName;
     }
 
+    public Hero getHeroInDeck() {
+        return heroInDeck;
+    }
 
     public void setDeckIsSelected(boolean deckIsSelected) {
         this.deckIsSelected = deckIsSelected;

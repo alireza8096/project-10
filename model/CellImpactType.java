@@ -29,13 +29,13 @@ public enum CellImpactType {
 
     }
 
-    public static void applyPoisonImpactOnCard(Card card, Buff buff){
-        if (card.getCardType().equals("minion")){
-//            ((Minion) card).getMinionNegativeBuffs().add(buff);
-        }else if (card.getCardType().equals("hero")){
-            ((Hero) card).getNegativeBuffs().add(buff);
-        }
-    }
+//    public static void applyPoisonImpactOnCard(Card card, Buff buff){
+//        if (card.getCardType().equals("minion")){
+////            ((Minion) card).getMinionNegativeBuffs().add(buff);
+//        }else if (card.getCardType().equals("hero")){
+//            ((Hero) card).getNegativeBuffs().add(buff);
+//        }
+//    }
 //    public static void applyFireImpactOnCard(Card card, Buff buff){
 //        if (card.getCardType().equals("minion")){
 //            int currentHP = ((Minion) card).getHealthPoint();
