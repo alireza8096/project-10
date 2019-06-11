@@ -21,7 +21,7 @@ public class Buff {
         this.name = name;
         if(!delay.equals("null")) this.delay = Integer.parseInt(delay);
         else this.delay = 0;
-        if(!howMuchImpact.equals("null")) this.howMuchImpact = Integer.parseInt(howMuchImpact);
+        if(!howMuchImpact.equals("null") && !howMuchImpact.equals("numOfAttacksBefore")) this.howMuchImpact = Integer.parseInt(howMuchImpact);
         else this.howMuchImpact = 0;
         this.activationTime = activationTime;
         if(isNegative(name)){
@@ -38,7 +38,7 @@ public class Buff {
         String[] effectValues = effectValue.split(",");
         String[] delays = delay.split(",");
         String[] lasts = last.split(",");
-        for(int i=0; i<action.length(); i++){
+        for(int i=0; i<actions.length; i++){
             if(actions[i].matches("addAction")){
                 tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
                 spell.getActions().add(tempBuff);
@@ -49,14 +49,32 @@ public class Buff {
             }
         }
     }
-    public static void createBuffs(Force force,String action,String buff,String effectValue,String delay,String last){
+    public static void createBuffsForMinion(Force force,String action,String buff,String effectValue,String delay,String last,String activationTime){
         Buff tempBuff;
         String[] actions = action.split(",");
         String[] buffs = buff.split(",");
         String[] effectValues = effectValue.split(",");
         String[] delays = delay.split(",");
         String[] lasts = last.split(",");
-        for(int i=0; i<action.length(); i++){
+        for(int i=0; i<actions.length; i++){
+            if(actions[i].matches("addAction")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],activationTime);
+                force.getBuffActions().add(tempBuff);
+            }
+            else if(actions[i].matches("addBuff")){
+                tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],activationTime);
+                addBuff(force,tempBuff);
+            }
+        }
+    }
+    public static void createBuffsForHero(Force force,String action,String buff,String effectValue,String delay,String last){
+        Buff tempBuff;
+        String[] actions = action.split(",");
+        String[] buffs = buff.split(",");
+        String[] effectValues = effectValue.split(",");
+        String[] delays = delay.split(",");
+        String[] lasts = last.split(",");
+        for(int i=0; i<actions.length; i++){
             if(actions[i].matches("addAction")){
                 tempBuff = new Buff(lasts[i],buffs[i],delays[i],effectValues[i],"null");
                 force.getBuffActions().add(tempBuff);

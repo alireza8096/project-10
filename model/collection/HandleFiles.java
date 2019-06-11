@@ -23,7 +23,8 @@ public class HandleFiles {
     private static final String ADDRESS_HERO = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Spells";
-//    public static void createStringOfPlayers() {
+
+    //    public static void createStringOfPlayers() {
 //        File folder = new File("/Users/hamilamailee/Documents/Duelyst Project/model/players/");
 //        File[] listOfFiles = folder.listFiles();
 //        for (int i = 0; i < listOfFiles.length; i++) {
@@ -33,91 +34,98 @@ public class HandleFiles {
     public static void createSpells() throws IOException, ParseException {
         File folder = new File(ADDRESS_SPELL);
         File[] listOfFiles = folder.listFiles();
-        for(int i=0; i<listOfFiles.length; i++){
-            JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(listOfFiles[i].getName());
-            String mana = jsonObject.get("mana").toString();
-            String price = jsonObject.get("price").toString();
-            String name = jsonObject.get("name").toString();
-            String id = jsonObject.get("id").toString();
-            String desc = jsonObject.get("desc").toString();
-            String target = jsonObject.get("target").toString();
-            String numOfTarget = jsonObject.get("numOfTarget").toString();
-            String action = jsonObject.get("action").toString();
-            String buffs = jsonObject.get("buffs").toString();
-            String effectValue = jsonObject.get("effectValue").toString();
-            String delay = jsonObject.get("delay").toString();
-            String last = jsonObject.get("last").toString();
-            String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
-            String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-            Spell spell = new Spell(mana,id,"spell",name,price,desc,target,numOfTarget,action,friendOrEnemy,locationOfTarget);
-            Buff.createBuffsForSpell(spell,action,buffs,effectValue,delay,last);
-            Spell.getSpells().add(spell);
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_SPELL + "/" + listOfFiles[i].getName());
+                String mana = jsonObject.get("mana").toString();
+                String price = jsonObject.get("price").toString();
+                String name = jsonObject.get("name").toString();
+                String id = jsonObject.get("id").toString();
+                String desc = jsonObject.get("desc").toString();
+                String target = jsonObject.get("target").toString();
+                String numOfTarget = jsonObject.get("numOfTarget").toString();
+                String action = jsonObject.get("action").toString();
+                String buffs = jsonObject.get("buffs").toString();
+                String effectValue = jsonObject.get("effectValue").toString();
+                String delay = jsonObject.get("delay").toString();
+                String last = jsonObject.get("last").toString();
+                String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
+                String locationOfTarget = jsonObject.get("locationOfTarget").toString();
+                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget);
+                Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
+                Spell.getSpells().add(spell);
+            }
         }
     }
+
     public static void createMinions() throws IOException, ParseException {
         File folder = new File(ADDRESS_MINION);
         File[] listOfFiles = folder.listFiles();
-        for(int i=0; i<listOfFiles.length; i++){
-            JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(listOfFiles[i].getName());
-            String healthPoint = jsonObject.get("healthPoint").toString();
-            String attackRange = jsonObject.get("attackRange").toString();
-            String attackPower = jsonObject.get("attackPower").toString();
-            String mana = jsonObject.get("mana").toString();
-            String attackType = jsonObject.get("attackType").toString();
-            String price = jsonObject.get("price").toString();
-            String name = jsonObject.get("name").toString();
-            String id = jsonObject.get("id").toString();
-            String activationTime = jsonObject.get("activationTime").toString();
-            String specialPower = jsonObject.get("specialPower").toString();
-            String target = jsonObject.get("target").toString();
-            String numOfTarget = jsonObject.get("numOfTarget").toString();
-            String action = jsonObject.get("action").toString();
-            String buffs = jsonObject.get("buffs").toString();
-            String effectValue = jsonObject.get("effectValue").toString();
-            String delay = jsonObject.get("delay").toString();
-            String last = jsonObject.get("last").toString();
-            String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
-            String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-            String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
-            Minion minion = new Minion(mana,id,"minion",name,price,target,numOfTarget,friendOrEnemy,healthPoint,attackPower,attackType
-            ,attackRange,specialPower,action,locationOfTarget,doesNotGetAttack,activationTime);
-            Buff.createBuffs(minion,action,buffs,effectValue,delay,last);
-            Minion.getMinions().add(minion);
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_MINION + "/" + listOfFiles[i].getName());
+                String healthPoint = jsonObject.get("healthPoint").toString();
+                String attackRange = jsonObject.get("attackRange").toString();
+                String attackPower = jsonObject.get("attackPower").toString();
+                String mana = jsonObject.get("mana").toString();
+                String attackType = jsonObject.get("attackType").toString();
+                String price = jsonObject.get("price").toString();
+                String name = jsonObject.get("name").toString();
+                String id = jsonObject.get("id").toString();
+                String activationTime = jsonObject.get("activationTime").toString();
+                String specialPower = jsonObject.get("specialPower").toString();
+                String target = jsonObject.get("target").toString();
+                String numOfTarget = jsonObject.get("numOfTarget").toString();
+                String action = jsonObject.get("action").toString();
+                String buffs = jsonObject.get("buffs").toString();
+                String effectValue = jsonObject.get("effectValue").toString();
+                String delay = jsonObject.get("delay").toString();
+                String last = jsonObject.get("last").toString();
+                String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
+                String locationOfTarget = jsonObject.get("locationOfTarget").toString();
+                String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
+                Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
+                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime);
+                Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
+                Minion.getMinions().add(minion);
+            }
         }
     }
 
     public static void createHeroes() throws IOException, ParseException {
         File folder = new File(ADDRESS_HERO);
         File[] listOfFiles = folder.listFiles();
-        for(int i=0; i<listOfFiles.length; i++){
-            JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(listOfFiles[i].getName());
-            String healthPoint = jsonObject.get("healthPoint").toString();
-            String attackRange = jsonObject.get("attackRange").toString();
-            String attackPower = jsonObject.get("attackPower").toString();
-            String attackType = jsonObject.get("attackType").toString();
-            String mana = jsonObject.get("mana").toString();
-            String price = jsonObject.get("price").toString();
-            String name = jsonObject.get("name").toString();
-            String id = jsonObject.get("id").toString();
-            String coolDown = jsonObject.get("coolDown").toString();
-            String specialPower = jsonObject.get("specialPower").toString();
-            String target = jsonObject.get("target").toString();
-            String numOfTarget = jsonObject.get("numOfTarget").toString();
-            String action = jsonObject.get("action").toString();
-            String buffs = jsonObject.get("buffs").toString();
-            String effectValue = jsonObject.get("effectValue").toString();
-            String delay = jsonObject.get("delay").toString();
-            String last = jsonObject.get("last").toString();
-            String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
-            String locationOfTarget = jsonObject.get("healthPoint").toString();
-            Hero hero = new Hero(mana,id,"hero",name,price,target,numOfTarget,friendOrEnemy,healthPoint,attackPower,attackType,attackRange,
-                    specialPower,action,locationOfTarget,coolDown);
-            Buff.createBuffs(hero,action,buffs,effectValue,delay,last);
-            Hero.getHeroes().add(hero);
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_HERO + "/" + listOfFiles[i].getName());
+                String healthPoint = jsonObject.get("healthPoint").toString();
+                String attackRange = jsonObject.get("attackRange").toString();
+                String attackPower = jsonObject.get("attackPower").toString();
+                String attackType = jsonObject.get("attackType").toString();
+                String mana = jsonObject.get("mana").toString();
+                String price = jsonObject.get("price").toString();
+                String name = jsonObject.get("name").toString();
+                String id = jsonObject.get("id").toString();
+                String coolDown = jsonObject.get("coolDown").toString();
+                String specialPower = jsonObject.get("specialPower").toString();
+                String target = jsonObject.get("target").toString();
+                String numOfTarget = jsonObject.get("numOfTarget").toString();
+                String action = jsonObject.get("action").toString();
+                String buffs = jsonObject.get("buffs").toString();
+                String effectValue = jsonObject.get("effectValue").toString();
+                String delay = jsonObject.get("delay").toString();
+                String last = jsonObject.get("last").toString();
+                String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
+                String locationOfTarget = jsonObject.get("healthPoint").toString();
+                Hero hero = new Hero(mana, id, "hero", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType, attackRange,
+                        specialPower, action, locationOfTarget, coolDown);
+                Buff.createBuffsForHero(hero, action, buffs, effectValue, delay, last);
+                Hero.getHeroes().add(hero);
+            }
         }
     }
 
-//    public static void createStringOfItems() {
+    //    public static void createStringOfItems() {
 //        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
 //        File[] listOfFiles = folder.listFiles();
 //        for (int i = 0; i < listOfFiles.length; i++) {

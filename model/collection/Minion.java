@@ -21,6 +21,8 @@ public class Minion extends Force {
     private String doesNotGetAttack;
     private String activationTime;
     private boolean isHeadOfCombo;
+    private int numOfAttacksBefore;
+
 
     public Minion(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String doesNotGetAttack, String activationTime) {
         super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
