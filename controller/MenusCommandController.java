@@ -128,12 +128,6 @@ public class MenusCommandController {
             BattleView.showCardInfo(commandsSplitted);
             BattleController.selectCardById(commandsSplitted, scanner);
             BattleView.showHand(commandsSplitted);
-            BattleController.insertCardInFieldCommand(commandsSplitted);
-            BattleController.startGameCommand(commandsSplitted);
-            BattleController.endTurnCommand(commandsSplitted);
-            BattleController.enterGraveyard(commandsSplitted);
-
-
             if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
                 AllDatas.battle.setNowInThisMenu(false);
                 AllDatas.commandLine.setNowInThisMenu(true);

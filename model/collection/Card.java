@@ -25,10 +25,6 @@ public class Card {
     protected int y;
     protected boolean inGame;
 
-    public Card(){
-
-    }
-
     public Card(String mana, String id, String cardType, String name,String price) {
         if (mana.equals("null")) this.mana = 0;
         else this.mana = Integer.parseInt(mana);
@@ -323,10 +319,5 @@ public class Card {
         }
         return false;
     }
-
-    public static Card returnCardByIDFromMap(int id){
-        return new Card();
-    }
-
 
 }

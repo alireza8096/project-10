@@ -269,18 +269,15 @@ public class Force extends Card{
 
     public void applyAllBuffsOnForce(){
         for (Buff buff : this.positiveBuffsOnItself){
-            if (!buff.isUsed())
-                buff.applyBuffOnForce(this);
+            buff.applyBuffOnForce(this);
         }
 
         for (Buff buff : this.negativeBuffsOnItself){
-            if (!buff.isUsed())
-                buff.applyBuffOnForce(this);
+            buff.applyBuffOnForce(this);
         }
 
         for (Buff buff : this.actionBuffsOnItself){
-            if (!buff.isUsed())
-                buff.applyBuffOnForce(this);
+            buff.applyBuffOnForce(this);
         }
     }
 
