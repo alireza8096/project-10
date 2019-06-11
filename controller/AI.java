@@ -3,9 +3,7 @@ package controller;
 import controller.BattleController;
 import controller.CollectionController;
 import model.*;
-import model.collection.Card;
-import model.collection.Hero;
-import model.collection.Item;
+import model.collection.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
@@ -21,23 +19,23 @@ public class AI {
     public static void createDeckOfAI(Player player) throws Exception {
         Deck deck = new Deck("player2");
         int heroId =(int) Math.random()%10;
-        deck.setHeroInDeckName(Hero.findHeroNameByID(heroId));
+        deck.setHeroInDeck(Hero.findHeroByID(heroId));
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
         int[] idsOfSpells = new int[5];
         setRandomIdsItems(idsOfItems);
         setRandomIdsSpells(idsOfSpells);
         setRandomIdsMinions(idsOfMinions);
-        Game.getInstance().setHeroOfPlayer2(Hero.getHeroByName(BattleController.returnNameById(heroId)));
+        Game.getInstance().setHeroOfPlayer2(Hero.findHeroByName(BattleController.returnNameById(heroId)));
         Deck deckOfAI = new Deck("AIDeck");
         for (int i = 0; i < idsOfItems.length; i++) {
-            deckOfAI.getItemsInDeckNames().add(BattleController.returnNameById(idsOfItems[i]));
+            deckOfAI.getItemsInDeck().add(Item.findItemByID(idsOfItems[i]));
         }
         for (int i = 0; i < idsOfSpells.length; i++) {
-            deckOfAI.getCardsInDeckNames().add(BattleController.returnNameById(idsOfSpells[i]));
+            deckOfAI.getCardsInDeck().add(Spell.findSpellByID(idsOfSpells[i]));
         }
         for (int i = 0; i < idsOfMinions.length; i++) {
-            deckOfAI.getCardsInDeckNames().add(BattleController.returnNameById(idsOfMinions[i]));
+            deckOfAI.getCardsInDeck().add(Minion.findMinionByID(idsOfMinions[i]));
         }
         player.setMainDeck(deckOfAI);
     }

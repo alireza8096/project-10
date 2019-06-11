@@ -24,8 +24,10 @@ public class Item {
     private String locationOfTarget;
     private String specification;
     private String user;
+    private String desc;
 
-    public static ArrayList<String> itemNames = new ArrayList<>();
+    private static ArrayList<Item> items = new ArrayList<>();
+    //    public static ArrayList<String> itemNames = new ArrayList<>();
     private int id;
     private String name;
     private String itemType;
@@ -33,13 +35,30 @@ public class Item {
     private int x;
     private int y;
 
-    public Item(){ }
+    public Item() {
+    }
 
-    public Item(String name, String itemType, int x, int y){
+    public Item(String name, String itemType, int x, int y) {
         this.name = name;
         this.itemType = itemType;
         this.x = x;
         this.y = y;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public static ArrayList<Item> getItems() {
+        return items;
+    }
+
+    public static void setItems(ArrayList<Item> items) {
+        Item.items = items;
     }
 
     public int getX() {
@@ -90,76 +109,50 @@ public class Item {
         this.price = price;
     }
 
-    public static String findItemNameByID(int id) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
-        File[] listOfFiles = folder.listFiles();
-        JSONObject jsonObject;
-        String idString;
-        int value;
-        String fileName;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            fileName = listOfFiles[i].getName();
-            jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items/" + fileName);
-            idString = jsonObject.get("id").toString();
-            value = Integer.parseInt(idString);
-            if (value == id){
-                return (String) jsonObject.get("name");
+    public static Item findItemByID(int id) throws IOException, ParseException {
+        for (Item item : items) {
+            if (item.id == id) {
+                return item;
             }
         }
         return null;
     }
 
-    public static int getItemIDByName(String itemName) throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items/" + itemName+".json");
-        return Integer.parseInt(jsonObject.get("id").toString())+200;
+    public static int getItemIDByName(String itemName) {
+        for (Item item :
+                items) {
+            if (item.name.matches(itemName)) {
+                return item.id;
+            }
+        }
+        return 0;
     }
-    public static boolean thisCardIsItem(String cardName){
-        for (String name : itemNames){
-            if (name.equals(cardName))
+
+    public static boolean thisCardIsItem(String cardName) {
+        for (Item item : items) {
+            if (item.name.matches(cardName)) {
                 return true;
+            }
         }
         return false;
     }
 
-    public static String getItemTypeByName(String itemName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
-        File[] listOfFiles = folder.listFiles();
-        String fileName;
-        for (int i = 0; i < listOfFiles[i].length(); i++) {
-            fileName = listOfFiles[i].getName().split("\\.")[0];
-            if (fileName.equals(itemName)){
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(fileName);
-                return jsonObject.get("itemType").toString();
+    public static Item findItemByName(String cardName){
+        for (Item item : items) {
+            if(item.name.matches(cardName)){
+                return item;
             }
         }
         return null;
     }
-
-    public static void applyItem(String itemName) throws IOException, ParseException {
-        //      String itemType = getItemTypeByName(itemName);
-
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items" + itemName + ".json");
-        String typeOfAction = jsonObject.get("typeOfAction").toString();
-
-        switch (typeOfAction){
-            case "addMana":
-                applyAddingManaByItem(jsonObject);
-                break;
-            case "addBuff":
-                //   applyAddingBuffbyItem();
-                break;
+    public static String getItemTypeByName(String itemName) {
+        for (Item item :
+                items) {
+            if (item.name.matches(itemName)) {
+                return item.itemType;
+            }
         }
-
-
-    }
-
-    public static void applyAddingManaByItem(JSONObject jsonObject){
-        int howManyMana = Integer.parseInt(jsonObject.get("howManyMana").toString());
-        int howManyTurns = Integer.parseInt(jsonObject.get("howManyTurns").toString());
-
-        Buff buff = new Buff("addingManaBuff", howManyMana, howManyTurns);
-        Buff.applyAddingManaBuff(Game.getInstance().getPlayer1(), buff);
-
+        return "";
     }
 
 //    public static Item returnFlagByRandomCoordination(){
@@ -170,49 +163,49 @@ public class Item {
 //        return flag;
 //    }
 
-    public void applyItem(int x, int y){
+    public void applyItem(int x, int y) {
         if (checkIfTargetHasBeenChosenCorrectly(x, y)) {
             if (user.equals("null")) {
                 applyItemDirectly(x, y);//when item doesn't have a user
             } else {
                 applyItemLikeSpell(x, y);//when item has a user
             }
-        }else{
+        } else {
             GameView.printInvalidCommandWhithThisContent("Invalid Target");
         }
     }
 
-    public void applyItemLikeSpell(int x, int y){
+    public void applyItemLikeSpell(int x, int y) {
         String user = this.user;
-        if (user.equals("hero")){
+        if (user.equals("hero")) {
 
-        }else{
+        } else {
             String userNumber = user.substring(user.indexOf('(') + 1, user.length() - 1);
             String userType = user.substring(0, user.indexOf('('));
 
         }
     }
 
-    public void applyItemDirectly(int x, int y){
+    public void applyItemDirectly(int x, int y) {
         Force force = (Force) Card.getCardByCoordination(x, y);
-        for (Buff buff : this.positiveBuffs){
+        for (Buff buff : this.positiveBuffs) {
             force.getPositiveBuffs().add(buff);
         }
 
-        for (Buff buff : this.negativeBuffs){
+        for (Buff buff : this.negativeBuffs) {
             force.getNegativeBuffs().add(buff);
         }
 
-        for (Buff buff : this.actionBuffs){
+        for (Buff buff : this.actionBuffs) {
             force.getBuffActions().add(buff);
         }
 
     }
 
-    public boolean checkIfTargetHasBeenChosenCorrectly(int x, int y){
+    public boolean checkIfTargetHasBeenChosenCorrectly(int x, int y) {
         CellType cellType = Game.getInstance().getMap().getCells()[x - 1][y - 1].getCellType();
 
-        switch (cellType){
+        switch (cellType) {
             case selfHero:
                 return checkIfTargetCanBeSelfHero();
             case selfMinion:
@@ -227,95 +220,95 @@ public class Item {
         return false;
     }
 
-    public boolean checkIfTargetCanBeSelfHero(){
+    public boolean checkIfTargetCanBeSelfHero() {
         String numOfTargets = this.numOfTarget;
         String friendOrEnemy = this.friendOrEnemy;
         String target = this.target;
 
-        if (numOfTargets.equals("null")){
+        if (numOfTargets.equals("null")) {
             return false;
-        }else{
-            if (friendOrEnemy.equals("enemy") || (!target.equals("hero") && !target.equals("minion/hero"))){
+        } else {
+            if (friendOrEnemy.equals("enemy") || (!target.equals("hero") && !target.equals("minion/hero"))) {
                 return false;
-            }else
+            } else
                 return true;
         }
     }
 
-    public boolean checkIfTargetCanBeSelfMinion(){
+    public boolean checkIfTargetCanBeSelfMinion() {
         String numOfTargets = this.numOfTarget;
         String friendOrEnemy = this.friendOrEnemy;
         String target = this.target;
 
-        if (numOfTargets.equals("null")){
+        if (numOfTargets.equals("null")) {
             return false;
-        }else{
-            if (friendOrEnemy.equals("enemy") || (!target.equals("minion") && !target.equals("minion/hero"))){
+        } else {
+            if (friendOrEnemy.equals("enemy") || (!target.equals("minion") && !target.equals("minion/hero"))) {
                 return false;
-            }else
+            } else
                 return true;
         }
     }
 
-    public boolean checkIfTargetCanEnemyMinion(){
+    public boolean checkIfTargetCanEnemyMinion() {
         String numOfTargets = this.numOfTarget;
         String friendOrEnemy = this.friendOrEnemy;
         String target = this.target;
 
-        if (numOfTargets.equals("null")){
+        if (numOfTargets.equals("null")) {
             return false;
-        }else{
-            if (friendOrEnemy.equals("friend") || (!target.equals("minion") && !target.equals("minion/hero"))){
+        } else {
+            if (friendOrEnemy.equals("friend") || (!target.equals("minion") && !target.equals("minion/hero"))) {
                 return false;
-            }else
+            } else
                 return true;
         }
     }
 
-    public boolean checkIfTargetCanBeEnemyHero(){
+    public boolean checkIfTargetCanBeEnemyHero() {
         String numOfTargets = this.numOfTarget;
         String friendOrEnemy = this.friendOrEnemy;
         String target = this.target;
 
-        if (numOfTargets.equals("null")){
+        if (numOfTargets.equals("null")) {
             return false;
-        }else{
-            if (friendOrEnemy.equals("friend") || (!target.equals("hero") && !target.equals("minion/hero"))){
+        } else {
+            if (friendOrEnemy.equals("friend") || (!target.equals("hero") && !target.equals("minion/hero"))) {
                 return false;
-            }else
+            } else
                 return true;
         }
     }
 
-    public void applyCollectableItems(){
+    public void applyCollectableItems() {
         String target = this.target;
 
-        switch (target){
+        switch (target) {
             case "minion":
                 applyCollectibleItemOnMinion();
                 break;
             case "minion/hero":
                 break;
             case "null"://items that adds mana
-                for (Buff buff : this.positiveBuffs){
-                    Game.getInstance().getMap().getFriendHeroes().get(0).getPositiveBuffs().add(buff);
+                for (Buff buff : this.positiveBuffs) {
+                    Game.getInstance().getMap().getFriendHero().getPositiveBuffs().add(buff);
                 }
                 break;
         }
     }
 
-    public void applyCollectibleItemOnMinion(){
+    public void applyCollectibleItemOnMinion() {
         ArrayList<String> actionTypes = this.typeOfActions;
 
-        for (String typeOfAction : actionTypes){
-            switch (typeOfAction){
+        for (String typeOfAction : actionTypes) {
+            switch (typeOfAction) {
                 case "addBuff":
-                    for (Buff buff : this.positiveBuffs){
+                    for (Buff buff : this.positiveBuffs) {
                         Force.getRandomFriendMinion().getPositiveBuffsOnItself().add(buff);
                     }
                     break;
                 case "addAction":
-                    for (Buff buff : this.actionBuffs){
+                    for (Buff buff : this.actionBuffs) {
                         Force.getRandomFriendMinion().getActionBuffsOnItself().add(buff);
                     }
                     break;
@@ -325,10 +318,10 @@ public class Item {
 
     }
 
-    public void applyCollectableItemOnMinionOrHero(){
+    public void applyCollectableItemOnMinionOrHero() {
         String locationOfTarget = this.locationOfTarget;
 
-        switch (locationOfTarget){
+        switch (locationOfTarget) {
             case "random":
                 applyCollectibleItemOnRandomMinionOrHero();
                 break;
@@ -341,35 +334,33 @@ public class Item {
         }
     }
 
-    public void applyCollectibleItemOnMeleeForces(){
-        for (Buff buff : this.actionBuffs){
+    public void applyCollectibleItemOnMeleeForces() {
+        for (Buff buff : this.actionBuffs) {
 
-            for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+            for (Minion minion : Game.getInstance().getMap().getFriendMinions()) {
                 minion.getActionBuffsOnItself().add(buff);
             }
 
-            for (Hero hero : Game.getInstance().getMap().getFriendHeroes()){
-                hero.getActionBuffsOnItself().add(buff);
-            }
 
+            Game.getInstance().getMap().getFriendHero().getActionBuffsOnItself().add(buff);
         }
     }
 
-    public void applyCollectibleItemOnRandomMinionOrHero(){
+    public void applyCollectibleItemOnRandomMinionOrHero() {
 
         //all numOfTargets are 1
         boolean forceHasBeenChosenCorrectly = false;
         Force randomForce = null;
-        while(!forceHasBeenChosenCorrectly){
-            if (this.friendOrEnemy.equals("friend")){
+        while (!forceHasBeenChosenCorrectly) {
+            if (this.friendOrEnemy.equals("friend")) {
                 randomForce = Force.getRandomFriendForce();
-            }else{
+            } else {
                 randomForce = Force.getRandomForce();
             }
 
             String randomForceSpecification = randomForce.getAttackType();
             String specification = this.specification;
-            switch (specification){
+            switch (specification) {
                 case "ranged/hybrid":
                     if (randomForceSpecification.equals("ranged") || randomForceSpecification.equals("hybrid"))
                         forceHasBeenChosenCorrectly = true;
@@ -381,22 +372,21 @@ public class Item {
             }
 
         }
-        for (String typeOfAction : this.typeOfActions){
-            switch (typeOfAction){
+        for (String typeOfAction : this.typeOfActions) {
+            switch (typeOfAction) {
                 case "addBuff":
-                    for (Buff buff : this.positiveBuffs){
+                    for (Buff buff : this.positiveBuffs) {
                         randomForce.getPositiveBuffsOnItself().add(buff);
                     }
                     break;
                 case "addAction":
-                    for (Buff buff : this.actionBuffs){
+                    for (Buff buff : this.actionBuffs) {
                         randomForce.getActionBuffsOnItself().add(buff);
                     }
                     break;
             }
         }
     }
-
 
 
 }

@@ -1,9 +1,6 @@
 package model;
 
-import model.collection.Hero;
-import model.collection.Item;
-import model.collection.Minion;
-import model.collection.Spell;
+import model.collection.*;
 
 import java.util.ArrayList;
 import java.lang.String;
@@ -19,9 +16,9 @@ public class Player {
     private int numOfMana;
     private int numOfWins;
     private boolean addingManaBuffIsActive;//Todo maybe have problems when applying several buffs
-    private ArrayList<String> cardsInCollectionNames = new ArrayList<>();
-    private ArrayList<String> itemsInCollectionNames = new ArrayList<>();
-    private ArrayList<String> heroesInCollectionName = new ArrayList<>();
+    private ArrayList<Card> cardsInCollection = new ArrayList<>();
+    private ArrayList<Item> itemsInCollection = new ArrayList<>();
+    private ArrayList<Hero> heroesInCollection = new ArrayList<>();
     private int numberOfTurnsThatPlayerHasFlag;
 
     public int getNumberOfTurnsThatPlayerHasFlag() {
@@ -41,20 +38,28 @@ public class Player {
         this.setPassword(password);
     }
 
-    public ArrayList<String> getCardsInCollectionNames() {
-        return cardsInCollectionNames;
+    public ArrayList<Card> getCardsInCollection() {
+        return cardsInCollection;
     }
 
-    public void setCardsInCollectionNames(ArrayList<String> cardsInCollectionNames) {
-        this.cardsInCollectionNames = cardsInCollectionNames;
+    public void setCardsInCollection(ArrayList<Card> cardsInCollection) {
+        this.cardsInCollection = cardsInCollection;
     }
 
-    public ArrayList<String> getItemsInCollectionNames() {
-        return itemsInCollectionNames;
+    public ArrayList<Item> getItemsInCollection() {
+        return itemsInCollection;
     }
 
-    public void setItemsInCollectionNames(ArrayList<String> itemsInCollectionNames) {
-        this.itemsInCollectionNames = itemsInCollectionNames;
+    public void setItemsInCollection(ArrayList<Item> itemsInCollection) {
+        this.itemsInCollection = itemsInCollection;
+    }
+
+    public ArrayList<Hero> getHeroesInCollection() {
+        return heroesInCollection;
+    }
+
+    public void setHeroesInCollection(ArrayList<Hero> heroesInCollection) {
+        this.heroesInCollection = heroesInCollection;
     }
 
     public boolean isAddingManaBuffIsActive() {
@@ -97,9 +102,6 @@ public class Player {
         Player.players = players;
     }
 
-    public ArrayList<String> getHeroesInCollectionName() {
-        return heroesInCollectionName;
-    }
 
     public int getDaric() {
         return daric;
@@ -170,24 +172,24 @@ public class Player {
     public boolean thisCardOrItemIsAvailableInCollection(String name){
         if(Minion.thisCardIsMinion(name) || Spell.thisCardIsSpell(name) ||
         Hero.thisCardIsHero(name) || Item.thisCardIsItem(name)) {
-            for (String cardName : this.getCardsInCollectionNames()) {
-                if (cardName.equals(name))
+            for (Card card : this.getCardsInCollection()) {
+                if (card.getName().equals(name))
                     return true;
             }
 
-            for (String itemName : this.getItemsInCollectionNames()) {
-                if (itemName.equals(name))
+            for (Item itemName : this.getItemsInCollection()) {
+                if (itemName.getName().equals(name))
                     return true;
             }
 
-            for (String heroName : this.getHeroesInCollectionName()) {
-                if (heroName.equals(name))
+            for (Hero heroName : this.getHeroesInCollection()) {
+                if (heroName.getName().equals(name))
                     return true;
             }
             System.out.println("Card is not available in collection");
             return false;
         }
-        System.out.println("This name is not valid for crad");
+        System.out.println("This name is not valid for card");
         return false;
     }
 

@@ -117,38 +117,37 @@ public class HandleFiles {
         }
     }
 
-
-    public static void createStringOfItems() {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
-        File[] listOfFiles = folder.listFiles();
-        for (int i = 0; i < listOfFiles.length; i++) {
-            String fileName = listOfFiles[i].getName().split("\\.")[0];
-            Item.itemNames.add(fileName);
-        }
-    }
-    public static void createStringOfUsableItems() throws Exception{
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
-        File[] listOfFiles = folder.listFiles();
-        for(int i=0; i<listOfFiles.length; i++){
-            JSONObject item = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items/"+listOfFiles[i].getName());
-            if(item.get("itemType").toString().matches("usable")){
-                String itemName = listOfFiles[i].getName().split("\\.")[0];
-                Shop.usableItems.add(itemName);
-            }
-        }
-    }
+//    public static void createStringOfItems() {
+//        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
+//        File[] listOfFiles = folder.listFiles();
+//        for (int i = 0; i < listOfFiles.length; i++) {
+//            String fileName = listOfFiles[i].getName().split("\\.")[0];
+//            Item.itemNames.add(fileName);
+//        }
+//    }
+//    public static void createStringOfUsableItems() throws Exception{
+//        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
+//        File[] listOfFiles = folder.listFiles();
+//        for(int i=0; i<listOfFiles.length; i++){
+//            JSONObject item = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Items/"+listOfFiles[i].getName());
+//            if(item.get("itemType").toString().matches("usable")){
+//                String itemName = listOfFiles[i].getName().split("\\.")[0];
+//                Shop.usableItems.add(itemName);
+//            }
+//        }
+//    }
     public static Object readJsonFiles(String fileName) throws IOException, ParseException {
         FileReader fileReader = new FileReader(fileName);
         JSONParser jsonParser = new JSONParser();
         return jsonParser.parse(fileReader);
     }
 
-    public static JSONObject returnJsonObjectByItsAddress(String fileName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
-        File[] listOfFiles = folder.listFiles();
-        for (int i = 0; i < listOfFiles[i].length(); i++) {
-            return (JSONObject) readJsonFiles(fileName);
-        }
-        return null;
-    }
+//    public static JSONObject returnJsonObjectByItsAddress(String fileName) throws IOException, ParseException {
+//        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
+//        File[] listOfFiles = folder.listFiles();
+//        for (int i = 0; i < listOfFiles[i].length(); i++) {
+//            return (JSONObject) readJsonFiles(fileName);
+//        }
+//        return null;
+//    }
 }

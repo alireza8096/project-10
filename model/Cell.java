@@ -1,5 +1,7 @@
 package model;
 
+import model.collection.Buff;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,6 +9,8 @@ public class Cell {
     private int coordinateX;
     private int coordinateY;
     private CellType cellType;
+    private ArrayList<Buff> actionBuffs = new ArrayList<>();
+    private ArrayList<Buff> buffs = new ArrayList<>();
     private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
     private CellItemType cellItemType;
 

@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import view.GameView;
 
+import javax.swing.text.DefaultEditorKit;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,26 +25,26 @@ public class CollectionController {
         return cardName + commands[commands.length - 1];
     }
 
-    public static void show(String[] commands) throws Exception {
+    public static void show(String[] commands) {
         if (commands.length == 1 && commands[0].compareToIgnoreCase("show") == 0) {
             Player player = Game.getInstance().getPlayer1();
-            int num = player.getItemsInCollectionNames().size() + player.getCardsInCollectionNames().size() + player.getHeroesInCollectionName().size();
+            int num = player.getItemsInCollection().size() + player.getCardsInCollection().size() + player.getHeroesInCollection().size();
             if (num == 0) {
                 System.out.println("No card or item is available in collection");
             } else {
                 System.out.println("Heroes :");
-                for (int i = 1; i <= player.getHeroesInCollectionName().size(); i++) {
-                    System.out.println(i + " : " + GameView.showHero(player.getHeroesInCollectionName().get(i - 1)));
+                for (int i = 1; i <= player.getHeroesInCollection().size(); i++) {
+                    System.out.println(i + " : " + GameView.showHero(player.getHeroesInCollection().get(i - 1)));
                 }
                 System.out.println("Items :");
-                for (int i = 1; i <= player.getItemsInCollectionNames().size(); i++) {
-                    System.out.println(i + " : " + GameView.showItem(player.getItemsInCollectionNames().get(i - 1)));
+                for (int i = 1; i <= player.getItemsInCollection().size(); i++) {
+                    System.out.println(i + " : " + GameView.showItem(player.getItemsInCollection().get(i - 1)));
                 }
                 int counter = 1;
                 System.out.println("Cards :");
-                for (int i = 1; i <= player.getCardsInCollectionNames().size(); i++) {
-                    if (GameView.showCard(player.getCardsInCollectionNames().get(i - 1)) != null) {
-                        System.out.println(counter + " : " + GameView.showCard(player.getCardsInCollectionNames().get(i - 1)));
+                for (int i = 1; i <= player.getCardsInCollection().size(); i++) {
+                    if (GameView.showCard(player.getCardsInCollection().get(i - 1)) != null) {
+                        System.out.println(counter + " : " + GameView.showCard(player.getCardsInCollection().get(i - 1)));
                         counter++;
                     }
                 }
@@ -90,40 +91,7 @@ public class CollectionController {
     public static void addToDeck(String[] commands, String command) throws Exception {
         if (command.contains("add") && command.contains("to deck") && command.length() >= 5) {
             AllDatas.hasEnteredCollection = true;
-            int id = Integer.parseInt(commands[1])%100;
-            int type = Integer.parseInt(commands[1])/100;
-            String deckName = "";
-            d:
-            for (int i = 0; i < commands.length; i++) {
-                if (commands[i].equals("deck")) {
-                    deckName = createName(commands,i+1);
-                    break d;
-                }
-            }
-            switch (type) {
-                case 1:
-                    Deck.addCardOrItemToDeck(id, "hero", deckName);
-                    break;
-                case 2:
-                    Deck.addCardOrItemToDeck(id, "item", deckName);
-                    break;
-                case 3:
-                    Deck.addCardOrItemToDeck(id, "minion", deckName);
-                    break;
-                case 4:
-                    Deck.addCardOrItemToDeck(id, "spell", deckName);
-                    break;
-                default:
-                    System.out.println("Type is not valid");
-                    break;
-            }
-        }
-    }
-
-    public static void remove(String[] commands, String command) throws Exception {
-        if (command.contains("remove") && command.contains("from deck") && command.length() >= 5) {
-            int id = Integer.parseInt(commands[1])%100;
-            int type = Integer.parseInt(commands[1])/100;
+            int id = Integer.parseInt(commands[1]);
             String deckName = "";
             d:
             for (int i = 0; i < commands.length; i++) {
@@ -132,22 +100,22 @@ public class CollectionController {
                     break d;
                 }
             }
-            switch (type) {
-                case 1:
-                    Deck.removeCardOrItemFromDeck(id, "hero", deckName);
-                    break;
-                case 2:
-                    Deck.removeCardOrItemFromDeck(id, "item", deckName);
-                    break;
-                case 3:
-                    Deck.removeCardOrItemFromDeck(id, "minion", deckName);
-                    break;
-                case 4:
-                    Deck.removeCardOrItemFromDeck(id, "spell", deckName);
-                    break;
-                default:
-                    System.out.println("Type is not valid");
+            Deck.addCardOrItemToDeck(id,deckName);
+        }
+    }
+
+    public static void remove(String[] commands, String command) throws Exception {
+        if (command.contains("remove") && command.contains("from deck") && command.length() >= 5) {
+            int id = Integer.parseInt(commands[1]);
+            String deckName = "";
+            d:
+            for (int i = 0; i < commands.length; i++) {
+                if (commands[i].equals("deck")) {
+                    deckName = createName(commands, i + 1);
+                    break d;
+                }
             }
+            Deck.removeCardOrItemFromDeck(id,deckName);
             AllDatas.hasEnteredCollection = true;
         }
     }
@@ -169,7 +137,7 @@ public class CollectionController {
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
             Deck.selectDeck(deckName);
-            Hero hero =(Hero) Hero.getCardByName(Deck.findDeckByName(deckName).getHeroInDeckName());
+            Hero hero = (Hero) Hero.findCardByName(Deck.findDeckByName(deckName).getHeroInDeck().getName());
             Game.getInstance().setHeroOfPlayer1(hero);
             AllDatas.hasEnteredCollection = true;
         }

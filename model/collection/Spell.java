@@ -64,16 +64,16 @@ public class Spell extends Card {
         this.desc = desc;
     }
 
-    public static String findSpellNameByID(int id) throws IOException, ParseException {
+    public static Spell findSpellByID(int id){
         for (Spell spell: spells) {
             if(spell.id == id){
-                return spell.name;
+                return spell;
             }
         }
         return null;
     }
 
-    public static Card getSpellByName(String spellName){
+    public static Spell findSpellByName(String spellName){
         for (Spell spell: spells) {
             if (spell.name.matches(spellName)) {
                 return spell;
@@ -550,7 +550,7 @@ public class Spell extends Card {
     public void applySpellOn2x2SquareOnMap(int x, int y){
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
-                Game.getInstance().getMap().getCells()[i][j].setCellImpactType(CellImpactType.fire);
+//                Game.getInstance().getMap().getCells()[i][j].setCellImpactType(CellImpactType.fire);
             }
         }
 
@@ -588,7 +588,7 @@ public class Spell extends Card {
     public void applySpellOn3x3SquareOnMap(int x, int y, Buff buff){
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
-                Game.getInstance().getMap().getCells()[i][j].setCellImpactType(CellImpactType.poison);
+//                Game.getInstance().getMap().getCells()[i][j].setCellImpactType(CellImpactType.poison);
             }
         }
 

@@ -15,156 +15,104 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class GameView {
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
-    public static String searchTypeAndShow(String name) throws Exception{
+    public static String searchTypeAndShow(String name){
         String returnString = "";
         if(Minion.thisCardIsMinion(name))
-            returnString = showMinion(name);
+            returnString = showMinion(Minion.findMinionByName(name));
         else if(Spell.thisCardIsSpell(name))
-            returnString = showSpell(name);
+            returnString = showSpell(Spell.findSpellByName(name));
         else if(Item.thisCardIsItem(name))
-            returnString = showItem(name);
+            returnString = showItem(Item.findItemByName(name));
         else if(Hero.thisCardIsHero(name))
-            returnString = showHero(name);
+            returnString = showHero(Hero.findHeroByName(name));
         return returnString;
     }
-    public static String showCard(String cardName) throws IOException, ParseException {
-        if(Minion.thisCardIsMinion(cardName)){
-           return showMinion(cardName);
+    public static String showCard(Card card) {
+        if(Minion.thisCardIsMinion(card.getName())){
+           return showMinion((Minion)card);
         }
-        else if(Spell.thisCardIsSpell(cardName)){
-            return showSpell(cardName);
+        else if(Spell.thisCardIsSpell(card.getName())){
+            return showSpell((Spell)card);
         }
         return null;
     }
-    public static String showItem(String itemName) throws IOException, ParseException {
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                (ADDRESS_OF_JSON_FILES + "JSON-Items/" +itemName+".json");
-        String name=jsonObject.get("name").toString();
-        String desc=jsonObject.get("desc").toString();
+    public static String showItem(Item item){
         String sellCost;
-        if(jsonObject.get("itemType").toString().matches("usable")) {
-            sellCost = jsonObject.get("price").toString();
+        if(item.getItemType().matches("usable")){
+            sellCost = Integer.toString(item.getPrice());
         }
         else{
             sellCost = "collectible";
         }
-        return ("Name : "+name + " - Desc : " + desc + " - Sell Cost : " + sellCost);
+        return ("Name : "+item.getName() + " - Desc : " + item.getDesc() + " - Sell Cost : " + sellCost);
     }
-    public static String showMinion(String minionName) throws IOException, ParseException {
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                (ADDRESS_OF_JSON_FILES + "JSON-Minions/" + minionName+".json");
-        String name = jsonObject.get("name").toString();
-        String MP = jsonObject.get("mana").toString();
-        String price = jsonObject.get("price").toString();
-        String attackType = jsonObject.get("attackType").toString();
-        String AP = jsonObject.get("attackPower").toString();
-        String HP = jsonObject.get("healthPoint").toString();
-        String speacialPower = jsonObject.get("specialPower").toString();
+    public static String showMinion(Minion minion){
         return ("Type : Minion - Name : " +
-                name + " – Class: " + attackType + " - AP : " + AP + " - HP : "
-                + HP + " – MP : " + MP + " - Special Power : " +speacialPower +" – Sell Cost : " + price);
+                minion.getName() + " – Class: " + minion.getAttackType() + " - AP : " + minion.getAttackPower() + " - HP : "
+                + minion.getHealthPoint() + " – MP : " + minion.getMana() + " - Special Power : " +minion.getSpecialPower() +" – Sell Cost : " + minion.getPrice());
     }
-    public static String showSpell(String spellName) throws IOException, ParseException {
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                (ADDRESS_OF_JSON_FILES + "JSON-Spells/" + spellName+".json");
-        String name = jsonObject.get("name").toString();
-        String desc = jsonObject.get("desc").toString();
-        String MP = jsonObject.get("mana").toString();
-        String price = jsonObject.get("price").toString();
+    public static String showSpell(Spell spell){
         return ("Type : Spell - Name : " +
-                name + " – MP : " + MP + "Desc : " + desc + " – Sell Cost : " + price);
+                spell.getName() + " – MP : " + spell.getMana() + "Desc : " + spell.getDesc() + " – Sell Cost : " + spell.getPrice());
     }
 
-    public static String showHero(String heroName) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes" );
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles
-                (ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + heroName+".json");
-        String name = jsonObject.get("name").toString();
-        String AP = jsonObject.get("attackPower").toString();
-        String HP = jsonObject.get("healthPoint").toString();
-        String attackType = jsonObject.get("attackType").toString();
-        String specialPower = jsonObject.get("specialPower").toString();
-        String sellPrice = jsonObject.get("price").toString();
-        return ("Name : " + name + " - AP : " + AP +
-                " – HP : " + HP + " – Class : " + attackType +" - Special power : " + specialPower
-         +". - Sell Cost : " + sellPrice);
+    public static String showHero(Hero hero){
+        return ("Name : " + hero.getName() + " - AP : " + hero.getAttackPower() +
+                " – HP : " + hero.getHealthPoint() + " – Class : " + hero.getAttackType() +" - Special power : " + hero.getSpecialPower()
+         +". - Sell Cost : " + hero.getPrice());
     }
     public static void showDeck(String deckName) throws IOException, ParseException {
         Deck deck = Deck.findDeckByName(deckName);
-        ArrayList<String> heroesInDeck = new ArrayList<>();
-        ArrayList<String> itemsInDeck = new ArrayList<>();
-        ArrayList<String> spellsInDeck = new ArrayList<>();
-        ArrayList<String> minionsInDeck = new ArrayList<>();
-        for (String cardName : deck.getCardsInDeckNames()){
-            if (Hero.thisCardIsHero(cardName)){
-                heroesInDeck.add(cardName);
-            }else if (Minion.thisCardIsMinion(cardName)){
-                minionsInDeck.add(cardName);
-            }else if (Spell.thisCardIsSpell(cardName)){
-                spellsInDeck.add(cardName);
-            }
-            else if(Item.thisCardIsItem(cardName)){
-                itemsInDeck.add(cardName);
-            }
-        }
         System.out.println("Heroes :");
-        for(int i=1; i<=heroesInDeck.size(); i++){
-            System.out.println( i + " : " + showHero(heroesInDeck.get(i-1)));
-        }
+            System.out.println("1 : " + showHero(deck.getHeroInDeck()));
         System.out.println("Items :");
-        for (int i = 1; i <= itemsInDeck.size(); i++) {
-            System.out.println(i + " : " + showItem(itemsInDeck.get(i - 1)));
+        for (int i = 1; i <= deck.getItemsInDeck().size(); i++) {
+            System.out.println(i + " : " + showItem(deck.getItemsInDeck().get(i - 1)));
         }
         System.out.println("Cards :");
-        for (int i = 1; i <=spellsInDeck.size(); i++) {
-            System.out.println(i + " : " + showSpell(spellsInDeck.get(i - 1)));
-        }
-        for(int i=1; i<=minionsInDeck.size(); i++){
-            System.out.println(i + " : " + showMinion(minionsInDeck.get(i-1)));
+        for (int i = 1; i <=deck.getCardsInDeck().size(); i++) {
+            System.out.println(i + " : " + showCard(deck.getCardsInDeck().get(i - 1)));
         }
     }
 
-    public static void showCardsInGraveYard(GraveYard graveYard) throws IOException, ParseException {
-        int counter=0;
-        System.out.println("Heros :");
-        for(String name: graveYard.getCardsDeletedFromHandName())
-        {
-            System.out.print(counter+" ");
-            showMinion(name);
+//    public static void showCardsInGraveYard(GraveYard graveYard) throws IOException, ParseException {
+//        int counter=0;
+//        System.out.println("Heros :");
+//        for(String name: graveYard.getCardsDeletedFromHandName())
+//        {
+//            System.out.print(counter+" ");
+//            showMinion(Minion.findMinionByName(name));
+//        }
+//    }
+
+    public static void showNextCard(){
+        Card nextCard = Game.getInstance().getPlayer1().getMainDeck().getHand().getNextCard();
+        if (Minion.thisCardIsMinion(nextCard.getName())){
+            showMinion((Minion)nextCard);
+        }else if (Spell.thisCardIsSpell(nextCard.getName())){
+            showSpell((Spell)nextCard);
         }
     }
 
-    public static void showNextCard() throws IOException, ParseException {
-        String nextCardName = Game.getInstance().getPlayer1().getMainDeck().getHand().getNextCardName();
-        if (Minion.thisCardIsMinion(nextCardName)){
-            showMinion(nextCardName);
-        }else if (Spell.thisCardIsSpell(nextCardName)){
-            showSpell(nextCardName);
-        }else if (Item.thisCardIsItem(nextCardName)){
-            showItem(nextCardName);
-        }
-    }
+//    public static void showCardInfoInGraveYard(int cardID) throws Exception {
+//        String cardName = BattleController.returnNameById(cardID);
+//
+//        if (GraveYard.thisCardIsInGraveYard(cardName)){
+//            for (String name : Game.getInstance().getGraveYard().getCardsDeletedFromHandName()){
+//                if (name.equals(cardName))
+//                    GameView.showCard(cardName);
+//            }
+//        }else{
+//            System.out.println("Card is not in Grave yard!");
+//        }
+//    }
 
-    public static void showCardInfoInGraveYard(int cardID) throws Exception {
-        String cardName = BattleController.returnNameById(cardID);
-
-        if (GraveYard.thisCardIsInGraveYard(cardName)){
-            for (String name : Game.getInstance().getGraveYard().getCardsDeletedFromHandName()){
-                if (name.equals(cardName))
-                    GameView.showCard(cardName);
-            }
-        }else{
-            System.out.println("Card is not in Grave yard!");
-        }
-    }
-
-    public static void showCardsInGraveYard() throws IOException, ParseException {
-        for (String cardName : Game.getInstance().getGraveYard().getCardsDeletedFromHandName()){
-            GameView.showCard(cardName);
-        }
-    }
+//    public static void showCardsInGraveYard(){
+//        for (String cardName : Game.getInstance().getGraveYard().getCardsDeletedFromHandName()){
+//            GameView.showCard(cardName);
+//        }
+//    }
 
     public static void printInvalidCommandWhithThisContent(String content){
         System.out.println(content);

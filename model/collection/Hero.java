@@ -9,15 +9,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Hero extends Force{
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
     private static ArrayList<Hero> heroes = new ArrayList<>();
-//    public static ArrayList<String> heroNames = new ArrayList<>();
-
     public static int turnCounterForPlayer1Hero;
     public static int turnCounterForPlayer2Hero;
-
-
-    public static ArrayList<String> heroNames = new ArrayList<>();
     private int coolDown;
 
     public static void setHeroes(ArrayList<Hero> heroes) {
@@ -33,10 +27,14 @@ public class Hero extends Force{
         if(!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
         else this.coolDown =0;
     }
-    public static int getHeroIDByName(String heroName) throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES
-                + "JSON-Heroes/" + heroName + ".json");
-        return Integer.parseInt(jsonObject.get("id").toString()) + 100;
+    public static int getHeroIDByName(String heroName){
+        for (Hero hero:
+             heroes) {
+            if (hero.name.matches(heroName)) {
+                return hero.id;
+            }
+        }
+        return 0;
     }
 
     public int getCoolDown() {
@@ -47,23 +45,13 @@ public class Hero extends Force{
         this.coolDown = coolDown;
     }
 
-    public static String findHeroNameByID(int id) throws IOException, ParseException {
-        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Heroes");
-        File[] listOfFiles = folder.listFiles();
-        JSONObject jsonObject;
-        String idString;
-        int value;
-        String fileName;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            fileName = listOfFiles[i].getName();
-            jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES + "JSON-Heroes/" + fileName);
-            idString = jsonObject.get("id").toString();
-            value = Integer.parseInt(idString);
-            if (value == id){
-                return (String) jsonObject.get("name");
+    public static Hero findHeroByID(int id){
+        for (Hero hero: heroes) {
+            if(hero.id == id){
+                return hero;
             }
         }
-        return null;
+        return  null;
     }
 
     public static boolean thisCardIsHero(String cardName){
@@ -74,55 +62,55 @@ public class Hero extends Force{
         return false;
     }
 
-    public void applyBuffsOnHero(){
-        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
-        for (Buff buff : positiveBuffsCopy){
-            if (Buff.checkIfBuffIsActive(buff))
-                this.applyBuffOnHeroForOneTurn(buff);
-            else
-                this.removeBuffFromHero(buff);
-        }
+//    public void applyBuffsOnHero(){
+//        ArrayList<Buff> positiveBuffsCopy = new ArrayList<>(this.getPositiveBuffs());
+//        for (Buff buff : positiveBuffsCopy){
+//            if (Buff.checkIfBuffIsActive(buff))
+//                this.applyBuffOnHeroForOneTurn(buff);
+//            else
+//                this.removeBuffFromHero(buff);
+//        }
+//
+//        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
+//        for (Buff buff : negativeBuffsCopy){
+//            if (Buff.checkIfBuffIsActive(buff))
+//                this.applyBuffOnHeroForOneTurn(buff);
+//            else
+//                this.removeBuffFromHero(buff);
+//        }
+//    }
 
-        ArrayList<Buff> negativeBuffsCopy = new ArrayList<>(this.getNegativeBuffs());
-        for (Buff buff : negativeBuffsCopy){
-            if (Buff.checkIfBuffIsActive(buff))
-                this.applyBuffOnHeroForOneTurn(buff);
-            else
-                this.removeBuffFromHero(buff);
-        }
-    }
-
-    public void applyBuffOnHeroForOneTurn(Buff buff){
-        int currentNumberOfTurns = buff.getForHowManyTurns();
-        buff.setForHowManyTurns(currentNumberOfTurns - 1);
-        String buffName = buff.getName();
-        switch (buffName) {
-            case "holyBuff":
-                this.setHasHolyBuff(true);
-                break;
-            case "attackPowerBuff":
-                this.applyAttackPowerBuff(buff);
-                break;
-            case "healthPowerBuff":
-                this.applyHealthPowerBuff(buff);
-                break;
-            case "poisonBuff":
-                this.applyPoisonBuff(buff);
-                break;
-            case "healthPointWeaknessBuff":
-                this.applyHealthPointWeaknessBuff(buff);
-                break;
-            case "attackPowerWeaknessBuff":
-                this.applyAttackPowerWeaknessBuff(buff);
-                break;
-            case "stunBuff":
-                this.applyStunBuff();
-                break;
-            case "disarmBuff":
-                this.applyDisarmBuff();
-                break;
-        }
-    }
+//    public void applyBuffOnHeroForOneTurn(Buff buff){
+//        int currentNumberOfTurns = buff.getForHowManyTurns();
+//        buff.setForHowManyTurns(currentNumberOfTurns - 1);
+//        String buffName = buff.getName();
+//        switch (buffName) {
+//            case "holyBuff":
+//                this.setHasHolyBuff(true);
+//                break;
+//            case "attackPowerBuff":
+//                this.applyAttackPowerBuff(buff);
+//                break;
+//            case "healthPowerBuff":
+//                this.applyHealthPowerBuff(buff);
+//                break;
+//            case "poisonBuff":
+//                this.applyPoisonBuff(buff);
+//                break;
+//            case "healthPointWeaknessBuff":
+//                this.applyHealthPointWeaknessBuff(buff);
+//                break;
+//            case "attackPowerWeaknessBuff":
+//                this.applyAttackPowerWeaknessBuff(buff);
+//                break;
+//            case "stunBuff":
+//                this.applyStunBuff();
+//                break;
+//            case "disarmBuff":
+//                this.applyDisarmBuff();
+//                break;
+//        }
+//    }
 
     public void removeBuffFromHero(Buff buff){
         String buffName = buff.getName();
@@ -249,7 +237,7 @@ public class Hero extends Force{
 //        }
 //    }
 
-    public static void insertHeroInMap() throws IOException, ParseException {
+    public static void insertHeroInMap(){
         Hero hero = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeck();
         hero.setX(3);
         hero.setY(4);
@@ -289,7 +277,7 @@ public class Hero extends Force{
         }
     }
 
-    public static Hero getHeroByName(String heroName){
+    public static Hero findHeroByName(String heroName){
         for (Hero check:heroes) {
             if(check.name.matches(heroName)){
                 return check;
@@ -304,8 +292,6 @@ public class Hero extends Force{
         else
             getNegativeBuffs().add(buff);
     }
-
-    public void
 
 }
 

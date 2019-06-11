@@ -1,6 +1,7 @@
 package model.collection;
 
 import controller.AI;
+import javafx.scene.layout.CornerRadii;
 import model.AllDatas;
 import model.Deck;
 import model.Game;
@@ -19,7 +20,7 @@ import java.nio.file.Paths;
 import java.util.*;
 //testing
 public class Account {
-    public static final String PLAYERS_FOLDER = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
+    public static final String PLAYERS_FOLDER = "/Users/hamilamailee/Documents/project-10/model/collection/players/";
     private static ArrayList<String> players = new ArrayList<>();
     public static ArrayList<String> getPlayers() {
         return players;
@@ -101,13 +102,13 @@ public class Account {
         String list = "";
         if(deck!=null) {
             list = deck.getDeckName();
-            list = "," + deck.getHeroInDeckName();
-            for (String item :
-                    deck.getItemsInDeckNames()) {
-                list = "," + item;
+            list = "," + deck.getHeroInDeck().name;
+            for (Item item :
+                    deck.getItemsInDeck()) {
+                list = "," + item.getName();
             }
-            for (String card : deck.getCardsInDeckNames()) {
-                list = "," + card;
+            for (Card card : deck.getCardsInDeck()) {
+                list = "," + card.name;
             }
         }
         return list;
@@ -116,12 +117,12 @@ public class Account {
         if(!deckString.matches("")) {
             String[] parts = deckString.split(",");
             Deck deck = new Deck(parts[0]);
-            deck.setHeroInDeckName(parts[1]);
+            deck.setHeroInDeck(Hero.findHeroByName(parts[1]));
             for (int i = 2; i < parts.length; i++) {
                 if (Item.thisCardIsItem(parts[i])) {
-                    deck.getItemsInDeckNames().add(parts[i]);
+                    deck.getItemsInDeck().add(Item.findItemByName(parts[i]));
                 } else {
-                    deck.getCardsInDeckNames().add(parts[i]);
+                    deck.getCardsInDeck().add(Card.findCardByName(parts[i]));
                 }
             }
             return deck;
@@ -132,32 +133,32 @@ public class Account {
         String[] parts = collection.split(",");
         for(int i=0; i<parts.length; i++){
             if(Hero.thisCardIsHero(parts[i])){
-                player.getHeroesInCollectionName().add(parts[i]);
+                player.getHeroesInCollection().add(Hero.findHeroByName(parts[i]));
             }
             else if(Item.thisCardIsItem(parts[i])){
-                player.getItemsInCollectionNames().add(parts[i]);
+                player.getItemsInCollection().add(Item.findItemByName(parts[i]));
             }
             else{
-                player.getCardsInCollectionNames().add(parts[i]);
+                player.getCardsInCollection().add(Card.findCardByName(parts[i]));
             }
         }
     }
 
     public static String returnStringOfCollection(Player player){
         String list = "";
-        if(player.getHeroesInCollectionName().size()!=0) {
-            list = player.getHeroesInCollectionName().get(0);
-            for (int i = 1; i < player.getHeroesInCollectionName().size(); i++) {
-                list = list + "," + player.getHeroesInCollectionName().get(i);
+        if(player.getHeroesInCollection().size()!=0) {
+            list = player.getHeroesInCollection().get(0).name;
+            for (int i = 1; i < player.getHeroesInCollection().size(); i++) {
+                list = list + "," + player.getHeroesInCollection().get(i).name;
             }
         }
-        for (String item:
-                player.getItemsInCollectionNames()) {
-            list = list + "," + item;
+        for (Item item:
+                player.getItemsInCollection()) {
+            list = list + "," + item.getName();
         }
-        for (String card:
-                player.getCardsInCollectionNames()) {
-            list = list + "," + card;
+        for (Card card:
+                player.getCardsInCollection()) {
+            list = list + "," + card.name;
         }
         return list;
     }

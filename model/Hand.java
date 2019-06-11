@@ -11,14 +11,14 @@ import java.util.Collections;
 
 public class Hand {
     private ArrayList<Card> cardsInHand = new ArrayList<>();
-    private String nextCardName;
+    private Card nextCard;
 
-    public String getNextCardName() {
-        return nextCardName;
+    public Card getNextCard() {
+        return nextCard;
     }
 
-    public void setNextCardName(String nextCardName) {
-        this.nextCardName = nextCardName;
+    public void setNextCard(Card nextCard) {
+        this.nextCard = nextCard;
     }
 
     public ArrayList<Card> getCardsInHand() {
@@ -29,14 +29,14 @@ public class Hand {
         this.cardsInHand = cardsInHand;
     }
 
-    public void setHand() throws IOException, ParseException {
+    public void setHand(){
         Hand hand = new Hand();
-        ArrayList<String> cardNamesInDeck = Game.getInstance().getPlayer1().getMainDeck().getCardsInDeckNames();
-        Collections.shuffle(cardNamesInDeck);
+        ArrayList<Card> cardsInDeck = Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck();
+        Collections.shuffle(cardsInDeck);
         for (int i = 0; i < 5; i++) {
-            String cardName = cardNamesInDeck.get(i);
-            this.getCardsInHand().add(Card.getCardByName(cardName));
-            Game.getInstance().getPlayer1().getMainDeck().getCardsInDeckNames().remove(cardName);
+            Card card = cardsInDeck.get(i);
+            this.getCardsInHand().add(card);
+            Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck().remove(card);
         }
         Game.getInstance().getPlayer1().getMainDeck().setHand(hand);
     }
@@ -53,16 +53,10 @@ public class Hand {
     public void addCardToHandFromDeck() throws IOException, ParseException {
         if (this.checkIfNumberOfCardsInHandIsValid()) {
             Deck mainDeck = Game.getInstance().getPlayer1().getMainDeck();
-            Collections.shuffle(mainDeck.getCardsInDeckNames());
-            nextCardName = mainDeck.getCardsInDeckNames().get(0);
-            mainDeck.getCardsInDeckNames().remove(nextCardName);
-            if (Minion.thisCardIsMinion(nextCardName)){
-                Minion minion = (Minion) Minion.getMinionByName(nextCardName);
-                this.getCardsInHand().add(minion);
-            }else if (Spell.thisCardIsSpell(nextCardName)){
-                Spell spell = (Spell) Spell.getSpellByName(nextCardName);
-                this.getCardsInHand().add(spell);
-            }
+            Collections.shuffle(mainDeck.getCardsInDeck());
+            nextCard = mainDeck.getCardsInDeck().get(0);
+            mainDeck.getCardsInDeck().remove(nextCard);
+            this.getCardsInHand().add(nextCard);
         }
     }
 
