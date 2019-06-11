@@ -275,6 +275,9 @@ public class Minion extends Force {
 //    public void applyStunBuff(Buff buff) {
 //        this.setCanAttackOrMove(false);
 //    }
+    public void applyStunBuff(Buff buff) {
+  //      this.setCanAttackOrMove(false);
+    }
 
     public void applyPoisonBuff(Buff buff) {
         setHealthPoint(this.getHealthPoint() - buff.getHowMuchImpact());
@@ -306,6 +309,10 @@ public class Minion extends Force {
 //    {
 //        this.setCanAttackOrMove(true);
 //    }
+    public void removeDisarmBuff(Buff buff)
+    {
+   //     this.setCanAttackOrMove(true);
+    }
 
     public void removeStunBuff(Buff buff)
     {

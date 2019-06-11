@@ -135,8 +135,8 @@ public class Deck {
                 case 2:
                     Shop.removeProcess(deck.itemsInDeck,Item.findItemByID(ID));
                     break;
-                case 1:
-                    deck.setHeroInDeck(null);
+                case "hero":
+                    deck.setHberoInDeckName(null);
                     break;
                 default:
                     Shop.removeProcess(deck.cardsInDeck,Card.findCardById(ID));
