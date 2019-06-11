@@ -39,6 +39,36 @@ public class Card {
         else this.price = 0;
     }
 
+    public static Card findCardById(int id){
+        switch (id/100){
+            case 1:
+                return Hero.findHeroByID(id);
+            case 3:
+                return Minion.findMinionByID(id);
+            case 4:
+                return Spell.findSpellByID(id);
+        }
+        return null;
+    }
+    public static Card findCardByName(String cardName){
+        for (Hero hero: Hero.getHeroes()) {
+            if(hero.getName().matches(cardName)){
+                return hero;
+            }
+        }
+        for(Minion minion : Minion.getMinions()){
+            if(minion.getName().matches(cardName)){
+                return minion;
+            }
+        }
+        for(Spell spell : Spell.getSpells()){
+            if(spell.getName().matches(cardName)){
+                return spell;
+            }
+        }
+        return null;
+    }
+
     public boolean isMovable() {
         return movable;
     }
@@ -184,19 +214,9 @@ public class Card {
             return 400+id;
         }
     }
-    public static Card getCardByName(String cardName) throws IOException, ParseException {
-        if (Minion.thisCardIsMinion(cardName)){
-            return Minion.getMinionByName(cardName);
-        }else if(Spell.thisCardIsSpell(cardName)){
-            return Spell.getSpellByName(cardName);
-        }else if (Hero.thisCardIsHero(cardName)){
-            return Hero.getHeroByName(cardName);
-        }
-        return null;
-    }
 
     public static boolean thisCardIsMelee(String cardName) throws IOException, ParseException {
-        Card card = getCardByName(cardName);
+        Card card = findCardByName(cardName);
         if (card.getCardType().equals("minion")){
             if (((Minion)card).getAttackType().equals("melee"))
                 return true;
@@ -209,7 +229,7 @@ public class Card {
     }
 
     public static boolean thisCardIsRanged(String cardName) throws IOException, ParseException {
-        Card card = getCardByName(cardName);
+        Card card = findCardByName(cardName);
         if (card.getCardType().equals("minion")){
             if (((Minion)card).getAttackType().equals("ranged"))
                 return true;
@@ -221,7 +241,7 @@ public class Card {
     }
 
     public static boolean thisCardIsHybrid(String cardName) throws IOException, ParseException {
-        Card card = getCardByName(cardName);
+        Card card = findCardByName(cardName);
         if (card.getCardType().equals("minion")){
             if (((Minion)card).getAttackType().equals("hybrid"))
                 return true;

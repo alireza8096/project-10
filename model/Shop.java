@@ -5,221 +5,214 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 
-public class Shop {
+public class Shop<T> {
     private Game game;
-//    public static ArrayList<String> usableItems = new ArrayList<>();
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     public Game getGame() {
         return game;
     }
+
     public void setGame(Game game) {
         this.game = game;
     }
-    public static int heroSellCost(String cardName)throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES+"JSON-Heroes/"+cardName+".json");
-        return Integer.parseInt(jsonObject.get("price").toString());
-    }
-    public static int itemSellCost(String cardName) throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES+"JSON-Items/"+cardName+".json");
-        if(jsonObject.get("itemType").toString().matches("usable")) {
-            return Integer.parseInt(jsonObject.get("price").toString());
-        }
-        else {
-            System.out.println("Item is not usable");
-            return 0;
-        }
-    }
-    public static int minionSellCost(String cardName) throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES+"JSON-Minions/"+cardName+".json");
-        return Integer.parseInt(jsonObject.get("price").toString());
-    }
-    public static int spellSellCost(String cardName) throws Exception{
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_OF_JSON_FILES+"JSON-Spells/"+cardName+".json");
-        return Integer.parseInt(jsonObject.get("price").toString());
-    }
-    public static boolean checkIfMoneyIsEnough(String cardName) throws Exception {
+
+    public static boolean checkIfMoneyIsEnough(String cardName) {
         int playersDaric = Game.getInstance().getPlayer1().getDaric();
-        int price=0;
-        switch (returnCardType(cardName)){
-            case "hero" :
-                price+=heroSellCost(cardName);
+        int price = 0;
+        switch (returnCardTypeByName(cardName)) {
+            case "hero":
+                price += Hero.findHeroByName(cardName).getPrice();
                 break;
-            case "item" :
-                price+=itemSellCost(cardName);
+            case "item":
+                price += Item.findItemByName(cardName).getPrice();
                 break;
-            case "minion" :
-                price+=minionSellCost(cardName);
+            case "minion":
+                price += Minion.findMinionByName(cardName).getPrice();
                 break;
-            case "spell" :
-                price+=spellSellCost(cardName);
+            case "spell":
+                price += Spell.findCardByName(cardName).getPrice();
                 break;
         }
         return playersDaric >= price;
     }
-    public static boolean checkItemBuyingConditions(String cardName){
-        return Game.getInstance().getPlayer1().getItemsInCollectionNames().size() != 3;
+
+    public static boolean checkItemBuyingConditions() {
+        return Game.getInstance().getPlayer1().getItemsInCollection().size() != 3;
     }
-    public static void buyCardAndAddToCollection(String cardName)throws Exception{
+
+    public static void buyCardAndAddToCollection(String cardName) throws Exception {
         int daric = Game.getInstance().getPlayer1().getDaric();
-        switch (returnCardType(cardName)){
-            case "hero" :
-                daric-=heroSellCost(cardName);
-                Game.getInstance().getPlayer1().getHeroesInCollectionName().add(cardName);
+        switch (returnCardTypeByName(cardName)) {
+            case "hero":
+                daric -= Hero.findHeroByName(cardName).getPrice();
+                Game.getInstance().getPlayer1().getHeroesInCollection().add(Hero.findHeroByName(cardName));
                 break;
-            case "item" :
-                daric-=itemSellCost(cardName);
-                Game.getInstance().getPlayer1().getItemsInCollectionNames().add(cardName);
+            case "item":
+                daric -= Item.findItemByName(cardName).getPrice();
+                Game.getInstance().getPlayer1().getItemsInCollection().add(Item.findItemByName(cardName));
                 break;
-            case "minion" :
-                daric-=minionSellCost(cardName);
-                Game.getInstance().getPlayer1().getCardsInCollectionNames().add(cardName);
+            case "minion":
+                daric -= Minion.findMinionByName(cardName).getPrice();
+                Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
-            case "spell" :
-                daric-=spellSellCost(cardName);
-                Game.getInstance().getPlayer1().getCardsInCollectionNames().add(cardName);
+            case "spell":
+                daric -= Spell.findCardByName(cardName).getPrice();
+                Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
         System.out.println(cardName + " was added to your collection successfully");
-        System.out.println("Remained daric : " +Game.getInstance().getPlayer1().getDaric());
+        System.out.println("Remained daric : " + Game.getInstance().getPlayer1().getDaric());
     }
-    public static boolean checkIfCardWithThisNameIsValid(String cardName){
-        if(Minion.thisCardIsMinion(cardName))
+
+    public static boolean checkIfCardWithThisNameIsValid(String cardName) {
+        if (Minion.thisCardIsMinion(cardName))
             return true;
-        else if(Hero.thisCardIsHero(cardName))
+        else if (Hero.thisCardIsHero(cardName))
             return true;
-        else if(Spell.thisCardIsSpell(cardName))
+        else if (Spell.thisCardIsSpell(cardName))
             return true;
         else return Item.thisCardIsItem(cardName);
     }
-    public static boolean itemAndUsable(String cardName){
-        for (String name:
-             usableItems) {
-            if(name.matches(cardName))
-                return true;
+
+    public static boolean itemAndUsable(String cardName) {
+        for (Item item :
+                Item.getItems()) {
+            if (item.getName().matches(cardName)) {
+                if (item.getItemType().matches("usable")) {
+                    return true;
+                }
+            }
         }
         return false;
     }
-    public static String returnCardType(String cardName){
-        String type="";
-        if(Minion.thisCardIsMinion(cardName))
-            type =  "minion";
-        else if(Spell.thisCardIsSpell(cardName))
-            type = "spell";
-        else if(Hero.thisCardIsHero(cardName))
-            type = "hero";
-        else if(Item.thisCardIsItem(cardName))
-            type = "item";
-        return type;
+
+    public static String returnCardTypeByName(String cardName) {
+        if (Hero.thisCardIsHero(cardName))
+            return "hero";
+        else if (Item.thisCardIsItem(cardName))
+            return "item";
+        else if (Minion.thisCardIsMinion(cardName))
+            return "minion";
+        else if (Spell.thisCardIsSpell(cardName))
+            return "spell";
+        return "";
     }
-    public static void buy(String cardName) throws Exception{
-        if(checkIfCardWithThisNameIsValid(cardName)){
-            if(Item.thisCardIsItem(cardName) && !itemAndUsable(cardName)){
+    public static String returnCardTypeById(int id){
+        switch (id/100){
+            case 1:
+                return "hero";
+            case 2:
+                return "item";
+            case 3:
+                return "minion";
+            case 4:
+                return "spell";
+        }
+        return "";
+    }
+
+    public static void buy(String cardName) throws Exception {
+        if (checkIfCardWithThisNameIsValid(cardName)) {
+            if (Item.thisCardIsItem(cardName) && !itemAndUsable(cardName)) {
                 System.out.println("This item is not usable");
-            }
-            else{
-                if(checkIfMoneyIsEnough(cardName)){
-                    if(Item.thisCardIsItem(cardName)){
-                        if(checkItemBuyingConditions(cardName)){
+            } else {
+                if (checkIfMoneyIsEnough(cardName)) {
+                    if (Item.thisCardIsItem(cardName)) {
+                        if (checkItemBuyingConditions()) {
                             buyCardAndAddToCollection(cardName);
-                        }
-                        else{
+                        } else {
                             System.out.println("You have reached the limit of items in collection");
                         }
-                    }
-                    else{
+                    } else {
                         buyCardAndAddToCollection(cardName);
                     }
-                }
-                else{
+                } else {
                     System.out.println("Your money is not enough");
                 }
             }
-        }
-        else
+        } else
             System.out.println("This card is not available in shop");
     }
-    public static void removeProcess(ArrayList<String> names,String cardName){
-        ArrayList<String> copyOfName = new ArrayList<>(names);
-        for (String nameToFind:
-             copyOfName) {
-            if(nameToFind.matches(cardName)){
-                names.remove(cardName);
+
+    public static <T> void removeProcess(ArrayList<T> cards, T card) {
+        ArrayList<T> copyOfCards = new ArrayList<>(cards);
+        for (T cardToFind : copyOfCards) {
+            if (cardToFind.equals(card)) {
+                cards.remove(card);
             }
         }
     }
-    public static void sellCardAndRemoveFromCollection(int cardID,String cardType) throws Exception{
+
+    public static void sellCardAndRemoveFromCollection(int cardID) throws Exception {
         int daric = Game.getInstance().getPlayer1().getDaric();
-        String name = "";
-        switch (cardType){
-            case "hero" :
-                name = Hero.findHeroNameByID(cardID);
-                removeProcess(Game.getInstance().getPlayer1().getHeroesInCollectionName(),name);
-                daric += heroSellCost(name);
+        switch (cardID / 100) {
+            case 1:
+                Hero hero = Hero.findHeroByID(cardID);
+                removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
+                daric += hero.getPrice();
+                System.out.println(hero.getName() + " was sold successfully");
                 break;
-            case "item" :
-                name = Item.findItemNameByID(cardID);
-                if(itemAndUsable(name)) {
-                    removeProcess(Game.getInstance().getPlayer1().getItemsInCollectionNames(), name);
-                    daric += itemSellCost(name);
-                }
-                else
+            case 2:
+                Item item = Item.findItemByID(cardID);
+                if (item.getItemType().matches("usable")) {
+                    removeProcess(Game.getInstance().getPlayer1().getItemsInCollection(), item);
+                    daric += item.getPrice();
+                    System.out.println(item.getName() + " was sold successfully");
+                } else
                     System.out.println("This item can not be sold");
                 break;
-            case "minion" :
-                name = Minion.findMinionNameByID(cardID);
-                removeProcess(Game.getInstance().getPlayer1().getCardsInCollectionNames(),name);
-                daric +=minionSellCost(name);
+            case 3:
+                Minion minion = Minion.findMinionByID(cardID);
+                removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), minion);
+                daric += minion.getPrice();
+                System.out.println(minion.getName() + " was sold successfully");
                 break;
-            case "spell" :
-                name = Spell.findSpellNameByID(cardID);
-                removeProcess(Game.getInstance().getPlayer1().getCardsInCollectionNames(),name);
-                daric+=spellSellCost(name);
+            case 4:
+                Spell spell = Spell.findSpellByID(cardID);
+                removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), spell);
+                daric += spell.getPrice();
+                System.out.println(spell.getName() + " was sold successfully");
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
-        System.out.println(name +" was sold successfully");
         System.out.println("Your daric now : " + daric);
     }
-    public static boolean checkValidId(int id){
+
+    public static boolean checkValidId(int id) {
         return (id >= 101 && id <= 110)
                 || (id >= 201 && id <= 220)
                 || (id >= 301 && id <= 340)
                 || (id >= 401 && id <= 420);
     }
-    public static void sell(int cardType,int cardId) throws Exception{
-        if(!checkValidId(cardType*100+cardId)){
+
+    public static void sell(int cardId) throws Exception {
+        if (!checkValidId(cardId)) {
             System.out.println("This ID is not valid");
-        }
-        else {
-            switch (cardType) {
+        } else {
+            switch (cardId/100) {
                 case 1:
-                    if (Deck.checkIfThisCardOrItemIsInCollection(cardId, "hero")) {
-                        sellCardAndRemoveFromCollection(cardId,"hero");
-                    }
-                    else
+                    if (Deck.checkIfThisCardOrItemIsInCollection(cardId)) {
+                        sellCardAndRemoveFromCollection(cardId);
+                    } else
                         System.out.println("This hero is not in collection");
                     break;
-                case 2 :
-                    if(Deck.checkIfThisCardOrItemIsInCollection(cardId,"item")){
-                        sellCardAndRemoveFromCollection(cardId,"item");
-                    }
-                    else
+                case 2:
+                    if (Deck.checkIfThisCardOrItemIsInCollection(cardId)) {
+                        sellCardAndRemoveFromCollection(cardId);
+                    } else
                         System.out.println("This item is not in collection");
                     break;
-                case 3 :
-                    if(Deck.checkIfThisCardOrItemIsInCollection(cardId,"minion")){
-                        sellCardAndRemoveFromCollection(cardId,"minion");
-                    }
-                    else
+                case 3:
+                    if (Deck.checkIfThisCardOrItemIsInCollection(cardId)) {
+                        sellCardAndRemoveFromCollection(cardId);
+                    } else
                         System.out.println("This minion is not in collection");
                     break;
-                case 4 :
-                    if (Deck.checkIfThisCardOrItemIsInCollection(cardId,"spell")){
-                        sellCardAndRemoveFromCollection(cardId,"spell");
-                    }
-                    else
+                case 4:
+                    if (Deck.checkIfThisCardOrItemIsInCollection(cardId)) {
+                        sellCardAndRemoveFromCollection(cardId);
+                    } else
                         System.out.println("This spell is not in collection");
                     break;
             }

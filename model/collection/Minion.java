@@ -61,7 +61,7 @@ public class Minion extends Force {
         this.activationTime = activationTime;
     }
 
-    public static Minion findMinionNameByID(int id){
+    public static Minion findMinionByID(int id){
         for (Minion minion: minions) {
             if(minion.id == id){
                 return minion;
@@ -70,7 +70,7 @@ public class Minion extends Force {
         return null;
     }
 
-    public static Card getMinionByName(String minionName){
+    public static Minion findMinionByName(String minionName){
         for (Minion minion: minions) {
             if(minion.name.matches(minionName))
                 return minion;
@@ -131,10 +131,10 @@ public class Minion extends Force {
         {
             this.applyPoisonBuff(buff);
         }
-        else if(buffName.equals("stunBuff"))
-        {
-            this.applyStunBuff(buff);
-        }
+//        else if(buffName.equals("stunBuff"))
+//        {
+//            this.applyStunBuff(buff);
+//        }
         else if(buffName.equals("disarmBuff"))
         {
             this.applyDisarmBuff(buff);
@@ -241,10 +241,10 @@ public class Minion extends Force {
         {
             this.removeAttackPowerWeaknessBuff(buff);
         }
-        else if(buffName.equals("disarmBuff"))
-        {
-            this.removeDisarmBuff(buff);
-        }
+//        else if(buffName.equals("disarmBuff"))
+//        {
+//            this.removeDisarmBuff(buff);
+//        }
         else if(buffName.equals("stunBuff"))
         {
             this.removeStunBuff(buff);
@@ -270,6 +270,9 @@ public class Minion extends Force {
         this.setCanCounterAttack(false);
     }
 
+//    public void applyStunBuff(Buff buff) {
+//        this.setCanAttackOrMove(false);
+//    }
     public void applyStunBuff(Buff buff) {
   //      this.setCanAttackOrMove(false);
     }
@@ -300,6 +303,10 @@ public class Minion extends Force {
         setAttackPower(this.getAttackPower() + buff.getHowMuchImpact());
     }
 
+//    public void removeDisarmBuff(Buff buff)
+//    {
+//        this.setCanAttackOrMove(true);
+//    }
     public void removeDisarmBuff(Buff buff)
     {
    //     this.setCanAttackOrMove(true);
@@ -607,7 +614,7 @@ public class Minion extends Force {
 
     public void applyMinionSpecialPowerOnHeroOnDeath(){
         for (Buff buff : this.getNegativeBuffs())
-            Game.getInstance().getMap().getEnemyHeroes().get(0).getNegativeBuffsOnItself().add(buff);
+            Game.getInstance().getMap().getEnemyHero().getNegativeBuffsOnItself().add(buff);
     }
 
     public void applyMinionSpecialPowerOnDefend(){

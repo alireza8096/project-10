@@ -114,16 +114,16 @@ public class BattleController {
         String name = "";
         switch (idType){
             case 1:
-                name = Hero.findHeroNameByID(id);
+                name = Hero.findHeroByID(id).getName();
                 break;
             case 2:
-                name = Item.findItemNameByID(id);
+                name = Item.findItemByID(id).getName();
                 break;
             case 3:
-                name = Minion.findMinionNameByID(id);
+                name = Minion.findMinionByID(id).getName();
                 break;
             case 4:
-                name = Spell.findSpellNameByID(id);
+                name = Spell.findSpellByID(id).getName();
                 break;
         }
         return name;
@@ -240,8 +240,8 @@ public class BattleController {
 
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y){
         applyCellTypeOnCard(card, x, y);
-        applyCellImpactTypeOnCard(card, x, y);
-        applyCellItemTypeOnCard(card, x, y);
+//        applyCellImpactTypeOnCard(card, x, y);
+//        applyCellItemTypeOnCard(card, x, y);
     }
 
     public static void applyCellTypeOnCard(Card card, int x, int y){
@@ -252,36 +252,36 @@ public class BattleController {
         }
     }
 
-    public static void applyCellImpactTypeOnCard(Card card, int x, int y){
-        CellImpactType cellImpactType = Game.getInstance().getMap().getCells()[x][y].getCellImpactType();
-        Buff buff;
-        switch (cellImpactType){
-            case fire:
-                buff = new Buff("fireBuff", 2, 1);
-                CellImpactType.applyFireImpactOnCard(card, buff);
-                break;
-            case poison:
-                buff = new Buff("poisonBuff", 1, 1);
-                CellImpactType.applyPoisonImpactOnCard(card, buff);
-                break;
-            case holy:
-                CellImpactType.applyHolyImpactOnCard(card);
-                break;
-        }
-    }
+//    public static void applyCellImpactTypeOnCard(Card card, int x, int y){
+////        CellImpactType cellImpactType = Game.getInstance().getMap().getCells()[x][y].getCellImpactType();
+//        Buff buff;
+//        switch (cellImpactType){
+//            case fire:
+//                buff = new Buff("fireBuff", 2, 1);
+//                CellImpactType.applyFireImpactOnCard(card, buff);
+//                break;
+//            case poison:
+//                buff = new Buff("poisonBuff", 1, 1);
+//                CellImpactType.applyPoisonImpactOnCard(card, buff);
+//                break;
+//            case holy:
+//                CellImpactType.applyHolyImpactOnCard(card);
+//                break;
+//        }
+//    }
 
-    public static void applyCellItemTypeOnCard(Card card, int x, int y){
-        CellItemType cellItemType = Game.getInstance().getMap().getCells()[x][y].getCellItemType();
-        switch (cellItemType){
-            case flag:
-                Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer1NumberOfFlags() + 1);
-                Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
-                break;
-            case collectibleItem:
-
-                break;
-        }
-    }
+//    public static void applyCellItemTypeOnCard(Card card, int x, int y){
+//        CellItemType cellItemType = Game.getInstance().getMap().getCells()[x][y].getCellItemType();
+//        switch (cellItemType){
+//            case flag:
+//                Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer1NumberOfFlags() + 1);
+//                Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
+//                break;
+//            case collectibleItem:
+//
+//                break;
+//        }
+//    }
 
 
 
@@ -369,7 +369,7 @@ public class BattleController {
                 }
 
             } else if (Spell.thisCardIsSpell(cardName)) {
-                Spell.insertSpellInThisCoordination(cardName, coordinateX, coordinateY);
+//                Spell.insertSpellInThisCoordination(cardName, coordinateX, coordinateY);
             }
         }
     }
@@ -396,9 +396,9 @@ public class BattleController {
         return false;
     }
 
-    public static boolean playerHasEnoughManaToInsertMinion(String minionName) throws IOException, ParseException {
+    public static boolean playerHasEnoughManaToInsertMinion(String minionName){
         int playerMana = Game.getInstance().getPlayer1().getNumOfMana();
-        int minionMana = Minion.getMinionByName(minionName).getMana();
+        int minionMana = Minion.findMinionByName(minionName).getMana();
         if (playerMana >= minionMana){
             return true;
         }else{
@@ -421,7 +421,7 @@ public class BattleController {
 
     public static void handleManaOfPlayerAfterInsertingCardInMap(String cardName) throws IOException, ParseException {
         int currentPlayerMana = Game.getInstance().getPlayer1().getNumOfMana();
-        int cardMana = Card.getCardByName(cardName).getMana();
+        int cardMana = Card.findCardByName(cardName).getMana();
         Game.getInstance().getPlayer1().setNumOfMana(currentPlayerMana - cardMana);
     }
 
@@ -486,9 +486,9 @@ public class BattleController {
         //Todo : change hand of the game
 
 
-        int tempNumberOfFlags = Game.getInstance().getPlayer1NumberOfFlags();
-        Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer2NumberOfFlags());
-        Game.getInstance().setPlayer2NumberOfFlags(tempNumberOfFlags);
+//        int tempNumberOfFlags = Game.getInstance().getPlayer1NumberOfFlags();
+//        Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer2NumberOfFlags());
+//        Game.getInstance().setPlayer2NumberOfFlags(tempNumberOfFlags);
 
         Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
 

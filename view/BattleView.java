@@ -145,7 +145,7 @@ public class BattleView {
         if(commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0
         && commands[1].compareToIgnoreCase("hand") == 0){
             Hand hand = Game.getInstance().getPlayer1().getMainDeck().getHand();
-            Card nextCard = Card.getCardByName(hand.getNextCardName());
+            Card nextCard = hand.getNextCard();
             System.out.println("Next card information : ");
             GameView.searchTypeAndShow(nextCard.getName());
             System.out.println("Cards in hand : ");

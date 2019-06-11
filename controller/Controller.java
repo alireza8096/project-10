@@ -14,11 +14,11 @@ public class Controller {
     }
     public static void createAllDataFromJSON() throws Exception{
         HandleFiles.createHeroes();
-        HandleFiles.createStringOfItems();
+//        HandleFiles.createStringOfItems();
         HandleFiles.createMinions();
      //   HandleFiles.createStringOfPlayers();
-//        HandleFiles.createStringOfSpells();
-        HandleFiles.createStringOfUsableItems();
+        HandleFiles.createSpells();
+//        HandleFiles.createStringOfUsableItems();
     }
     public static void createAllMenus(){
         AllDatas.account= new LinkedListMenus("Account",true);

@@ -10,16 +10,9 @@ public class Deck {
     private Hand hand;
     private String deckName;
     private Hero heroInDeck;
-//    private String heroInDeckName;
-//    private ArrayList<String> cardsInDeckNames = new ArrayList<>();
     private ArrayList<Card> cardsInDeck = new ArrayList<>();
-//    private ArrayList<String> itemsInDeckNames = new ArrayList<>();
     private ArrayList<Item> itemsInDeck = new ArrayList<>();
     private boolean deckIsSelected;
-
-    public Hero getHeroInDeck() {
-        return heroInDeck;
-    }
 
     public void setHeroInDeck(Hero heroInDeck) {
         this.heroInDeck = heroInDeck;
@@ -39,6 +32,14 @@ public class Deck {
 
     public void setItemsInDeck(ArrayList<Item> itemsInDeck) {
         this.itemsInDeck = itemsInDeck;
+    }
+
+    public boolean isDeckIsSelected() {
+        return deckIsSelected;
+    }
+
+    public Hero getHeroInDeck() {
+        return heroInDeck;
     }
 
     public Hand getHand() {
@@ -61,10 +62,6 @@ public class Deck {
         this.deckName = deckName;
     }
 
-
-    public boolean isDeckIsSelected() {
-        return deckIsSelected;
-    }
 
     public void setDeckIsSelected(boolean deckIsSelected) {
         this.deckIsSelected = deckIsSelected;
@@ -106,90 +103,67 @@ public class Deck {
         return null;
     }
 
-    public static void addCardOrItemToDeck(int ID, String cardType, String deckName) throws IOException, ParseException {
+    public static void addCardOrItemToDeck(int ID, String deckName) throws IOException, ParseException {
         //if all conditions are true for adding a new card to deck
-        if (allConditionsOfAddingCardToDeckAreRight(ID, cardType, deckName)) {
+        if (allConditionsOfAddingCardToDeckAreRight(ID, deckName)) {
             Deck deck = Deck.findDeckByName(deckName);
-            String cardName;
-            switch (cardType) {
-                case "item":
-                    cardName = Item.findItemNameByID(ID);
-                    deck.getItemsInDeckNames().add(cardName);
+            switch (ID/100) {
+                case 2:
+                    deck.itemsInDeck.add(Item.findItemByID(ID));
                     break;
-                case "minion":
-                    cardName = Minion.findMinionNameByID(ID);
-                    deck.getCardsInDeckNames().add(cardName);
+                case 3:
+                    deck.cardsInDeck.add(Minion.findMinionByID(ID));
                     break;
-                case "spell":
-                    cardName = Spell.findSpellNameByID(ID);
-                    deck.getCardsInDeckNames().add(cardName);
+                case 4:
+                    deck.cardsInDeck.add(Spell.findSpellByID(ID));
                     break;
-                case "hero":
-                    cardName = Hero.findHeroNameByID(ID);
-                    deck.setHeroInDeckName(cardName);
+                case 1:
+                    deck.setHeroInDeck(Hero.findHeroByID(ID));
                     break;
             }
         }
     }
 
-    public static void removeCardOrItemFromDeck(int ID, String cardType, String deckName) throws IOException, ParseException {
-        if (!checkIfThisCardIsInThisDeck(deckName, ID, cardType)){
-            System.out.println("This " + cardType + " doesn't exist in deck!");
+
+    public static void removeCardOrItemFromDeck(int ID, String deckName) throws IOException, ParseException {
+        if (!checkIfThisCardIsInThisDeck(deckName, ID)){
+            System.out.println("This " + Shop.returnCardTypeById(ID) + " doesn't exist in deck!");
         }else{
-            String cardName = findNameOfCardByID(ID, cardType);
+            String cardName = findNameOfCardByID(ID);
             Deck deck = findDeckByName(deckName);
-            switch (cardType){
-                case "item":
-                    deck.removeItemFromDeck(cardName);
+            switch (ID/100){
+                case 2:
+                    Shop.removeProcess(deck.itemsInDeck,Item.findItemByID(ID));
                     break;
                 case "hero":
                     deck.setHberoInDeckName(null);
                     break;
                 default:
-                    deck.removeCardFromDeck(cardName);
+                    Shop.removeProcess(deck.cardsInDeck,Card.findCardById(ID));
                     break;
             }
         }
     }
 
-    public void removeItemFromDeck(String itemName){
-        for (String name : this.getItemsInDeckNames()){
-            if (name.equals(itemName)) {
-                this.getItemsInDeckNames().remove(name);
-                break;
-            }
-        }
-    }
-
-    public void removeCardFromDeck(String cardName){
-        for (String name : this.getCardsInDeckNames()){
-            if (name.equals(cardName)){
-                this.getCardsInDeckNames().remove(name);
-                break;
-            }
-        }
-    }
 
     public boolean checkIfNumberOfCardsInDeckIsValid(){
-        return this.getCardsInDeckNames().size() < 20;
+        return this.getCardsInDeck().size() < 20;
     }
 
     public boolean checkIfDeckHasHero(){
-        for (String heroName : Hero.heroNames){
-            if (this.getHeroInDeckName().equals(heroName))
-                return true;
-        }
+        if(this.getHeroInDeck()!=null)
+            return true;
         return false;
     }
 
-    public static boolean allConditionsOfAddingCardToDeckAreRight(int ID, String cardType, String deckName) throws IOException, ParseException {
+    public static boolean allConditionsOfAddingCardToDeckAreRight(int ID, String deckName) throws IOException, ParseException {
         Deck deck = findDeckByName(deckName);
 
-        if (!checkIfThisCardOrItemIsInCollection(ID, cardType)){
+        if (!checkIfThisCardOrItemIsInCollection(ID)){
             System.out.println("This card isn't available in collection!");
             return false;
         }else{
-            if (checkIfThisCardIsInThisDeck(deckName, ID, cardType)){
+            if (checkIfThisCardIsInThisDeck(deckName, ID)){
                 System.out.println("This card is already available in deck!");
                 return false;
             }else{
@@ -197,7 +171,7 @@ public class Deck {
                     System.out.println("Number of cards can't be more than 20!");
                     return false;
                 }else{
-                    if (deck.checkIfDeckHasHero() && cardType.equals("hero")){
+                    if (deck.checkIfDeckHasHero() && ID/100 == 1){
                         System.out.println("A hero already exists in deck!");
                         return false;
                     }
@@ -207,54 +181,54 @@ public class Deck {
         return true;
     }
 
-    public static boolean checkIfThisCardIsInThisDeck(String deckName, int cardID, String cardType) throws IOException, ParseException {
-        String cardName = findNameOfCardByID(cardID, cardType);
+    public static boolean checkIfThisCardIsInThisDeck(String deckName, int cardID) throws IOException, ParseException {
+        String cardName = findNameOfCardByID(cardID);
         Deck deck = Deck.findDeckByName(deckName);
 
 
 
         if (deck.checkIfDeckHasHero()) {
-            if (deck.getHeroInDeckName().equals(cardName))
+            if (deck.getHeroInDeck().getName().equals(cardName))
                 return true;
         }
 
-        for (String name : deck.getCardsInDeckNames()){
-            if (name.equals(cardName))
+        for (Card card : deck.getCardsInDeck()){
+            if (card.getName().equals(cardName))
                 return true;
         }
-        for (String name : deck.getItemsInDeckNames()){
-            if (name.equals(cardName))
+        for (Item item : deck.getItemsInDeck()){
+            if (item.getName().equals(cardName))
                 return true;
         }
         return false;
     }
 
-    public static boolean checkIfThisCardOrItemIsInCollection(int cardID, String cardType) throws IOException, ParseException {
-        String name = findNameOfCardByID(cardID, cardType);
-
+    public static boolean checkIfThisCardOrItemIsInCollection(int cardID) throws IOException, ParseException {
+        String name = findNameOfCardByID(cardID);
         Player currentPlayer = Game.getInstance().getPlayer1();
-        for (String cardName : currentPlayer.getCardsInCollectionNames()){
-            if (cardName.equals(name))
+        for (Card card : currentPlayer.getCardsInCollection()){
+            if (card.getName().equals(name))
                 return true;
         }
-        for (String itemName : currentPlayer.getItemsInCollectionNames()){
-            if (itemName.equals(name))
+        for (Item item : currentPlayer.getItemsInCollection()){
+            if (item.getName().equals(name))
                 return true;
         }
         return false;
     }
 
-    public static String findNameOfCardByID(int id, String cardType) throws IOException, ParseException {
-        if (cardType.equals("minion")){
-            return Minion.findMinionNameByID(id);
-        }else if (cardType.equals("spell"))
-            return Spell.findSpellNameByID(id);
-        else if (cardType.equals("hero")){
-            return Hero.findHeroNameByID(id);
-        }else if (cardType.equals("item")){
-            return Item.findItemNameByID(id);
+    public static String findNameOfCardByID(int id) throws IOException, ParseException {
+        switch (id/100){
+            case 1:
+                return Hero.findHeroByID(id).getName();
+            case 2:
+                return Item.findItemByID(id).getName();
+            case 3:
+                return Minion.findMinionByID(id).getName();
+            case 4:
+                return Spell.findSpellByID(id).getName();
         }
-        return null;
+        return "";
     }
 
     public static boolean validateDeck(String deckName){
@@ -262,7 +236,7 @@ public class Deck {
         if (!deck.checkIfDeckHasHero()){
             return false;
         }else{
-            return deck.getCardsInDeckNames().size() == 20;
+            return deck.getCardsInDeck().size() == 20;
         }
     }
 
@@ -274,15 +248,5 @@ public class Deck {
             Game.getInstance().getPlayer1().setMainDeck(deck);
             deck.setDeckIsSelected(true);
         }
-    }
-    public void deleteCardFromDeck(String cardName){
-        this.getCardsInDeckNames().remove(cardName);
-    }
-    public boolean deckIsEmpty(){
-        int deckSize = this.getCardsInDeckNames().size();
-        return deckSize <= 0;
-    }
-    public static void showAllDecks(){
-        //GameView.showDeck();
     }
 }
