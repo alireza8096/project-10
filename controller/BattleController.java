@@ -234,7 +234,7 @@ public class BattleController {
         }
     }
 
-    public void attack(Card attackerCard, Card opponentCard){
+    public static void attack(Card attackerCard, Card opponentCard){
 
     }
 

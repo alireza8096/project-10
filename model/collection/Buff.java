@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 import java.util.PriorityQueue;
 
-public class Buff implements Comparable<Buff>{
+public class Buff {
     public static final String[] negativeBuffs = {"healthPointWeaknessBuff","disarm","poisonBuff","fireCellImpact","poisonCellImpact","stunBuff","attackPowerWeaknessBuff","antiHolyBuff"};
     private String forHowManyTurns;
     private String name;
@@ -254,8 +254,6 @@ public class Buff implements Comparable<Buff>{
     public void applyStunBuff(Force force){
         force.setCanAttack(false);
         force.setCanMove(false);
-        PriorityQueue priorityQueue = new PriorityQueue();
-//        priorityQueue.
     }
 
 }
