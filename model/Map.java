@@ -13,27 +13,28 @@ public class Map {
     private Hero friendHero;
 
 
-    public static void show(){
-        for(int i=0; i<5; i++){
-            for(int j=0; j<9; j++){
+    public static void show() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 9; j++) {
                 System.out.print(Game.getInstance().getMap().cells[i][j].getCellType() + " ");
             }
             System.out.println();
         }
         Hero hero1 = Game.getInstance().getMap().friendHero;
         Hero hero2 = Game.getInstance().getMap().enemyHero;
-        System.out.println(hero1.getName() + " "+hero1.getX() + " " + hero1.getY());
+        System.out.println(hero1.getName() + " " + hero1.getX() + " " + hero1.getY());
         System.out.println(hero2.getName() + " " + hero2.getX() + " " + hero2.getY());
 
-        for (Force force : Game.getInstance().getMap().getFriendMinions()){
+        for (Force force : Game.getInstance().getMap().getFriendMinions()) {
             System.out.println(force.getName() + " " + force.getX() + " " + force.getY());
         }
 
-        for (Force force : Game.getInstance().getMap().getEnemyMinions()){
+        for (Force force : Game.getInstance().getMap().getEnemyMinions()) {
             System.out.println(force.getName() + " " + force.getX() + " " + force.getY());
         }
     }
-    public Map(){
+
+    public Map() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 cells[i][j] = new Cell();
@@ -43,16 +44,17 @@ public class Map {
     }
 
 
-    public static void setFlagForGame(){
-        int x = (int)Math.random()%5;
-        int y = (int)Math.random()%9;
-        Cell.getCellByCoordination(x,y).setCellItemType(CellItemType.flag);
+    public static void setFlagForGame() {
+        int x = (int) Math.random() % 5;
+        int y = (int) Math.random() % 9;
+        Cell.getCellByCoordination(x, y).setCellItemType(CellItemType.flag);
     }
-    public static void setMultiFlag(){
-        for(int i=0; i<5; i++){
-            int x = (int)Math.random()%5;
-            int y = (int)Math.random()%9;
-            Cell.getCellByCoordination(x,y).setCellItemType(CellItemType.collectibleItem);
+
+    public static void setMultiFlag() {
+        for (int i = 0; i < 5; i++) {
+            int x = (int) Math.random() % 5;
+            int y = (int) Math.random() % 9;
+            Cell.getCellByCoordination(x, y).setCellItemType(CellItemType.collectibleItem);
         }
     }
 
@@ -96,64 +98,84 @@ public class Map {
         this.cells = cells;
     }
 
-    public static boolean checkIfMinionCardCanBeInsertedInThisCoordination(int x, int y){
-        if (thisCellIsEmpty(x, y)){
-            if ((x - 1) >= 0 && !thisCellIsEmpty(x - 1, y))
-                return true;
-            else if ((x + 1) <= 4 && !thisCellIsEmpty(x + 1, y))
-                return true;
-            else if ((y - 1) >= 0 && !thisCellIsEmpty(x, y - 1))
-                return true;
-            else return (y + 1) <= 8 && !thisCellIsEmpty(x, y + 1);
-        }else
-            return false;
+    public static boolean cellIsEnemy(int x, int y) {
+        if (Game.getInstance().getMap().getCells()[x][y].getCellType() == CellType.enemyHero) {
+            return true;
+        } else if (Game.getInstance().getMap().getCells()[x][y].getCellType() == CellType.enemyMinion) {
+            return true;
+        }
+        return false;
     }
 
-    public static boolean cardCanBeMovedToThisCell(Card card,int x,int y){
-        if(distance(card.getX(),card.getY(),x,y)>2) {
+    public static boolean cellIsFriend(int x, int y) {
+        if (Game.getInstance().getMap().getCells()[x][y].getCellType() == CellType.selfHero) {
+            return true;
+        } else if (Game.getInstance().getMap().getCells()[x][y].getCellType() == CellType.selfMinion) {
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean checkIfMinionCardCanBeInsertedInThisCoordination(int x, int y) {
+        if (thisCellIsEmpty(x, y)) {
+            if ((x - 1) >= 0 && cellIsFriend(x - 1, y))
+                return true;
+            else if ((x + 1) <= 4 && cellIsFriend(x + 1, y))
+                return true;
+            else if ((y - 1) >= 0 && cellIsFriend(x, y - 1))
+                return true;
+            else return (y + 1) <= 8 && cellIsFriend(x, y + 1);
+        }
+        return false;
+    }
+
+    public static boolean cardCanBeMovedToThisCell(Card card, int x, int y) {
+        if (distance(card.getX(), card.getY(), x, y) > 2) {
             System.out.println("1");
             return false;
         }
-        if(!thisCellIsEmpty(x,y)) {
+        if (!thisCellIsEmpty(x, y)) {
             System.out.println("2");
             return false;
         }
-        if(enemyInWay(card.getX(),card.getY(),x,y)){
+        if (enemyInWay(card.getX(), card.getY(), x, y)) {
             System.out.println("3");
             return false;
         }
         System.out.println("4");
         return true;
     }
-    public static int distance(int x1,int y1,int x2,int y2){
-        return Math.abs(x1-x2)+Math.abs(y1-y2);
+
+    public static int distance(int x1, int y1, int x2, int y2) {
+        return Math.abs(x1 - x2) + Math.abs(y1 - y2);
     }
-    public static boolean thisCellIsEmpty(int x, int y){
+
+    public static boolean thisCellIsEmpty(int x, int y) {
         Cell cell = Cell.getCellByCoordination(x, y);
-        if(cell.getCellType() == CellType.empty)
+        if (cell.getCellType() == CellType.empty)
             return true;
         return false;
     }
-    public static boolean thisCellIsEnemy(int x,int y) {
+
+    public static boolean thisCellIsEnemy(int x, int y) {
         Cell cell = Cell.getCellByCoordination(x, y);
         if (cell.getCellType() == CellType.enemyMinion || cell.getCellType() == CellType.enemyHero)
             return true;
         return false;
     }
 
-    public static boolean enemyInWay(int x1,int y1,int x2,int y2){
-        if(distance(x1,y1,x2,y2) == 1)
+    public static boolean enemyInWay(int x1, int y1, int x2, int y2) {
+        if (distance(x1, y1, x2, y2) == 1)
             return false;
-        else{
-            if(x1 == x2 || y1==y2){
-                if(enemyIsAvailableBetweenThis2Cells(x1, y1, x2, y2)){
+        else {
+            if (x1 == x2 || y1 == y2) {
+                if (enemyIsAvailableBetweenThis2Cells(x1, y1, x2, y2)) {
                     return false;
                 }
                 return true;
-            }
-            else{
+            } else {
 
-                if(checkAllWaysToReach(x1,y1,x2,y2)){
+                if (checkAllWaysToReach(x1, y1, x2, y2)) {
                     return true;
                 }
                 return false;
@@ -161,16 +183,16 @@ public class Map {
         }
     }
 
-    public static boolean enemyIsAvailableBetweenThis2Cells(int x1, int y1, int x2, int y2){
-        if (x1 == x2){
+    public static boolean enemyIsAvailableBetweenThis2Cells(int x1, int y1, int x2, int y2) {
+        if (x1 == x2) {
             int maxY = Math.max(y1, y2);
             int minY = Math.min(y1, y2);
             for (int i = minY; i <= maxY; i++) {
-                if (thisCellIsEnemy(x1, i)){
+                if (thisCellIsEnemy(x1, i)) {
                     return true;
                 }
             }
-        }else if (y1 == y2){
+        } else if (y1 == y2) {
             int maxX = Math.max(x1, x2);
             int minX = Math.max(x2, x2);
             for (int i = minX; i <= maxX; i++) {
@@ -181,53 +203,50 @@ public class Map {
         return false;
     }
 
-    public static boolean checkAllWaysToReach(int x1,int y1,int x2,int y2){
-        if(x1 > x2 && y1 > y2){
-            if(!thisCellIsEnemy(x1-1,y1) || !thisCellIsEnemy(x1,y1-1))
+    public static boolean checkAllWaysToReach(int x1, int y1, int x2, int y2) {
+        if (x1 > x2 && y1 > y2) {
+            if (!thisCellIsEnemy(x1 - 1, y1) || !thisCellIsEnemy(x1, y1 - 1))
                 return true;
             return false;
-        }
-        else if(x1 < x2 && y1>y2){
-            if(!thisCellIsEnemy(x1,y1-1) || !thisCellIsEnemy(x1+1,y1))
+        } else if (x1 < x2 && y1 > y2) {
+            if (!thisCellIsEnemy(x1, y1 - 1) || !thisCellIsEnemy(x1 + 1, y1))
                 return true;
             return false;
-        }
-        else if(x1 > x2 && y1 < y2){
-            if(!thisCellIsEnemy(x1-1,y1) || !thisCellIsEnemy(x1,y1+1))
+        } else if (x1 > x2 && y1 < y2) {
+            if (!thisCellIsEnemy(x1 - 1, y1) || !thisCellIsEnemy(x1, y1 + 1))
                 return true;
             return false;
-        }
-        else{
-            if(!thisCellIsEnemy(x1,y1+1) || !thisCellIsEnemy(x1+1,y1))
+        } else {
+            if (!thisCellIsEnemy(x1, y1 + 1) || !thisCellIsEnemy(x1 + 1, y1))
                 return true;
             return false;
         }
     }
 
-    public static boolean thisCellsAreAdjusting(int x1, int y1, int x2, int y2){
-        if ( ((x1 == x2 - 1) && (y1 == y2 - 1)) ||
+    public static boolean thisCellsAreAdjusting(int x1, int y1, int x2, int y2) {
+        if (((x1 == x2 - 1) && (y1 == y2 - 1)) ||
                 ((x1 == x2) && (y1 == y2 - 1)) ||
                 ((x1 == x2 + 1) && (y1 == y2 - 1)) ||
                 ((x1 == x2 - 1) && (y1 == y2)) ||
                 ((x1 == x2 + 1) && (y1 == y2)) ||
                 ((x1 == x2 - 1) && (y1 == y2 + 1)) ||
                 ((x1 == x2) && (y1 == y2 + 1)) ||
-                ((x1 == x2 + 1) && (y1 == y2 + 1))){
+                ((x1 == x2 + 1) && (y1 == y2 + 1))) {
             return true;
         }
         return false;
     }
 
-    public void changeCellTypesWhenTurnChanges(){
+    public void changeCellTypesWhenTurnChanges() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
-                if (this.getCells()[i][j].getCellType().equals(CellType.selfHero)){
+                if (this.getCells()[i][j].getCellType().equals(CellType.selfHero)) {
                     this.getCells()[i][j].setCellType(CellType.enemyHero);
-                }else if (this.getCells()[i][j].getCellType().equals(CellType.selfMinion)){
+                } else if (this.getCells()[i][j].getCellType().equals(CellType.selfMinion)) {
                     this.getCells()[i][j].setCellType(CellType.enemyMinion);
-                }else if (this.getCells()[i][j].getCellType().equals(CellType.enemyHero)){
+                } else if (this.getCells()[i][j].getCellType().equals(CellType.enemyHero)) {
                     this.getCells()[i][j].setCellType(CellType.selfHero);
-                }else if (this.getCells()[i][j].getCellType().equals(CellType.enemyMinion)){
+                } else if (this.getCells()[i][j].getCellType().equals(CellType.enemyMinion)) {
                     this.getCells()[i][j].setCellType(CellType.selfMinion);
                 }
             }

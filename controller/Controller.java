@@ -81,6 +81,7 @@ public class Controller {
             case "Battle":
                 System.out.println("battle");
                 MenusCommandController.battleController(scanner);
+                System.out.println(Game.getInstance().getPlayer1().getNumOfMana());
                 Map.show();
                 Hand.showHand();
 

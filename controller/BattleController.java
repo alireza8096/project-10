@@ -12,9 +12,6 @@ import java.util.Scanner;
 public class BattleController {
 
     public static void selectCardById(String[] commands, Scanner scanner) throws Exception {
-        if (commands.length == 2 && commands[0].compareToIgnoreCase("select") == 0
-                && commands[1].matches("[\\d]+")) {
-
             if (Game.getInstance().isPlayer1Turn()) {
                 int id = Integer.parseInt(commands[1]);
                 System.out.println("id : " + id);
@@ -33,7 +30,6 @@ public class BattleController {
                 System.out.println("Invalid card id");
             }
             AllDatas.hasEnteredBattle = true;
-        }
     }
 
 
@@ -399,28 +395,28 @@ public class BattleController {
             return true;
     }
 
-    public static boolean checkConditionsForInsertingMinionInMap(String minionName, int x, int y) throws IOException, ParseException {
-        if (!Map.checkIfMinionCardCanBeInsertedInThisCoordination(x, y)){
-            System.out.println("Invalid target");
-        }else{
-            if (!playerHasEnoughManaToInsertMinion(minionName)){
-                System.out.println("You don′t have enough mana");
-            }else {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean playerHasEnoughManaToInsertMinion(String minionName){
-        int playerMana = Game.getInstance().getPlayer1().getNumOfMana();
-        int minionMana = Minion.findMinionByName(minionName).getMana();
-        if (playerMana >= minionMana){
-            return true;
-        }else{
-            return false;
-        }
-    }
+//    public static boolean checkConditionsForInsertingMinionInMap(String minionName, int x, int y) throws IOException, ParseException {
+//        if (!Map.checkIfMinionCardCanBeInsertedInThisCoordination(x, y)){
+//            System.out.println("Invalid target");
+//        }else{
+//            if (!playerHasEnoughManaToInsertMinion(minionName)){
+//                System.out.println("You don′t have enough mana");
+//            }else {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+//
+//    public static boolean playerHasEnoughManaToInsertMinion(String minionName){
+//        int playerMana = Game.getInstance().getPlayer1().getNumOfMana();
+//        int minionMana = Minion.findMinionByName(minionName).getMana();
+//        if (playerMana >= minionMana){
+//            return true;
+//        }else{
+//            return false;
+//        }
+//    }
 
 //    public static void insertMinionInThisCoordination(String minionName, int x, int y) throws IOException, ParseException {
 //
@@ -435,11 +431,11 @@ public class BattleController {
 //        Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(minionName);
 //    }
 
-    public static void handleManaOfPlayerAfterInsertingCardInMap(String cardName) throws IOException, ParseException {
-        int currentPlayerMana = Game.getInstance().getPlayer1().getNumOfMana();
-        int cardMana = Card.findCardByName(cardName).getMana();
-        Game.getInstance().getPlayer1().setNumOfMana(currentPlayerMana - cardMana);
-    }
+//    public static void handleManaOfPlayerAfterInsertingCardInMap(String cardName) throws IOException, ParseException {
+//        int currentPlayerMana = Game.getInstance().getPlayer1().getNumOfMana();
+//        int cardMana = Card.findCardByName(cardName).getMana();
+//        Game.getInstance().getPlayer1().setNumOfMana(currentPlayerMana - cardMana);
+//    }
 
     public static void selectGameMode(String gameType){
         switch (gameType){
@@ -512,27 +508,15 @@ public class BattleController {
 //
 //    }
 
-    public static void insertCardInFieldCommand(String[] commands) {
+    public static void insertCardInFieldCommand(String command) {
+        String[] commands = command.split(" ");
         if (commands[0].equals("insert")){
-            String cardName = commands[1];
-            Card card = Card.findCardByName(cardName);
-            int x = Integer.parseInt(commands[3].substring(1, commands[3].indexOf(',')))-1;
-            int y = Integer.parseInt(commands[3].substring(commands[3].indexOf(',') + 1))-1;
-            insertCard(card, x, y);
+            String cardName = command.substring(command.indexOf(" ")+1,command.indexOf(" in"));
+            String coordination = command.substring(command.indexOf("("));
+            int x= Character.getNumericValue(coordination.charAt(1))-1;
+            int y = Character.getNumericValue(coordination.charAt(3))-1;
+            Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(cardName,x,y);
+            AllDatas.hasEnteredBattle = true;
         }
     }
-
-    public static void insertCard(Card card, int x, int y){
-        switch (card.getId()/100){
-            case 3:
-
-                break;
-            case 4:
-                break;
-        }
-    }
-
-
-
-
 }

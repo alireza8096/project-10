@@ -206,6 +206,7 @@ public class Account {
             if(jsonObject.get("mainDeck")!=null) {
                 player.setMainDeck(createDeckFromString((String) jsonObject.get("mainDeck")));
             }
+            player.setNumOfMana(2);
             createCollectionFromString(player,(String)jsonObject.get("collection"));
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
