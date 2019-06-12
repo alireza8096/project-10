@@ -109,7 +109,7 @@ public class Item {
         this.price = price;
     }
 
-    public static Item findItemByID(int id) throws IOException, ParseException {
+    public static Item findItemByID(int id){
         for (Item item : items) {
             if (item.id == id) {
                 return item;

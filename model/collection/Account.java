@@ -181,10 +181,10 @@ public class Account {
             writePlayerThatHasPlayedBefore(player);
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
-            model.Map map = new Map();
-            Game.getInstance().setMap(map);
+//            model.Map map = new Map();
+//            Game.getInstance().setMap(map);
             Game.getInstance().setPlayer1(player);
-            AI.createAIPlayer();
+            Game.getInstance().setPlayer1Turn(true);
         }
     }
     public static void setPlayerThatHasPlayedBefore(String name) throws Exception {
@@ -212,7 +212,7 @@ public class Account {
             model.Map map = new Map();
             Game.getInstance().setMap(map);
             Game.getInstance().setPlayer1(player);
-            AI.createAIPlayer();
+            Game.getInstance().setPlayer1Turn(true);
         }
     }
 }

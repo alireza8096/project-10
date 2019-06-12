@@ -318,9 +318,16 @@ public class Card {
         return false;
     }
 
-    public static Card returnCardByIDFromMap(int id){
-        return new Card();
+    public static Force returnCardByIDFromMap(int id){
+        for (Minion minion:
+             Game.getInstance().getMap().getFriendMinions()) {
+            if(minion.id == id){
+                return minion;
+            }
+        }
+        if(Game.getInstance().getMap().getFriendHero().id == id){
+            return Game.getInstance().getMap().getFriendHero();
+        }
+        return null;
     }
-
-
 }

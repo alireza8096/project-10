@@ -133,7 +133,7 @@ public class CollectionController {
         }
     }
 
-    public static void selectDeck(String[] commands) throws IOException, ParseException {
+    public static void selectDeck(String[] commands) throws Exception {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);

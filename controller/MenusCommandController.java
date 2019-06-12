@@ -120,6 +120,7 @@ public class MenusCommandController {
 
     public static void battleController(Scanner scanner) throws Exception{
         String command = scanner.nextLine();
+        System.out.println("isPlayer1Turn : " + Game.getInstance().isPlayer1Turn());
         String[] commandsSplitted = command.split(" ");
         if(Game.getInstance().isPlayer1Turn()) {
             BattleView.showGameInfo(commandsSplitted);
@@ -146,8 +147,8 @@ public class MenusCommandController {
 
         }
         else{
-            AI.moveTillPossible();
-            AI.attckTillPossible();
+//            AI.moveTillPossible();
+//            AI.attckTillPossible();
 //            BattleController.changeTurn();
         }
         

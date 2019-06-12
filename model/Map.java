@@ -111,14 +111,18 @@ public class Map {
 
     public static boolean cardCanBeMovedToThisCell(Card card,int x,int y){
         if(distance(card.getX(),card.getY(),x,y)>2) {
+            System.out.println("1");
             return false;
         }
         if(!thisCellIsEmpty(x,y)) {
+            System.out.println("2");
             return false;
         }
         if(enemyInWay(card.getX(),card.getY(),x,y)){
+            System.out.println("3");
             return false;
         }
+        System.out.println("4");
         return true;
     }
     public static int distance(int x1,int y1,int x2,int y2){
@@ -136,17 +140,19 @@ public class Map {
             return true;
         return false;
     }
+
     public static boolean enemyInWay(int x1,int y1,int x2,int y2){
         if(distance(x1,y1,x2,y2) == 1)
-            return true;
+            return false;
         else{
             if(x1 == x2 || y1==y2){
-                if(thisCellIsEnemy((x1+x2)/2,(y1+y2)/2)){
+                if(enemyIsAvailableBetweenThis2Cells(x1, y1, x2, y2)){
                     return false;
                 }
                 return true;
             }
             else{
+
                 if(checkAllWaysToReach(x1,y1,x2,y2)){
                     return true;
                 }
@@ -154,6 +160,27 @@ public class Map {
             }
         }
     }
+
+    public static boolean enemyIsAvailableBetweenThis2Cells(int x1, int y1, int x2, int y2){
+        if (x1 == x2){
+            int maxY = Math.max(y1, y2);
+            int minY = Math.min(y1, y2);
+            for (int i = minY; i <= maxY; i++) {
+                if (thisCellIsEnemy(x1, i)){
+                    return true;
+                }
+            }
+        }else if (y1 == y2){
+            int maxX = Math.max(x1, x2);
+            int minX = Math.max(x2, x2);
+            for (int i = minX; i <= maxX; i++) {
+                if (thisCellIsEnemy(i, y1))
+                    return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean checkAllWaysToReach(int x1,int y1,int x2,int y2){
         if(x1 > x2 && y1 > y2){
             if(!thisCellIsEnemy(x1-1,y1) || !thisCellIsEnemy(x1,y1-1))

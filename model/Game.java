@@ -10,7 +10,7 @@ public class Game {
     private static Game currentGame;
     private static ArrayList<Game> games = new ArrayList<>();
     private boolean isPlayer1Turn;
-    private boolean isSet = false;
+    private static boolean isSet = false;
     private String winnerName;
     private Player player1;
     private Player player2;
@@ -26,11 +26,11 @@ public class Game {
     public Game(){
 
     }
-
-    public Game(GameMode gameMode){
-        this.setGameMode(gameMode);
-        this.setPlayer1Turn(true);
-    }
+//
+//    public Game(GameMode gameMode){
+//        this.setGameMode(gameMode);
+//        this.setPlayer1Turn(true);
+//    }
 
 //    public ArrayList<Item> getPlayer1Flags() {
 //        return player1Flags;
@@ -172,15 +172,21 @@ public class Game {
         this.gameType = gameType;
     }
 
-    public static void createNewGame(){
-        Game game = new Game();
-
-        Map map = new Map();
-        game.setMap(map);
-        game.setPlayer1Turn(true);
-        game.setNumOfRound(1);
-
-        Game.setCurrentGame(game);
-
+    public static boolean isIsSet() {
+        return isSet;
     }
+
+    public static void setIsSet(boolean isSet) {
+        Game.isSet = isSet;
+    }
+
+//    public static void createNewGame(){
+//        Game game = new Game();
+//        Map map = new Map();
+//        game.setMap(map);
+//        game.setPlayer1Turn(true);
+//        game.setNumOfRound(1);
+//        Game.setCurrentGame(game);
+//        isSet = true;
+//    }
 }

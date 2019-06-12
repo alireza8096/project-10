@@ -1,5 +1,6 @@
 package model;
 
+import controller.AI;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
 
@@ -239,14 +240,27 @@ public class Deck {
         }
     }
 
-    public static void selectDeck(String deckName) {
+    public static void setAllCardsMovable(Deck deck){
+        deck.getHeroInDeck().setCanMove(true);
+        for (Card card : deck.getCardsInDeck()){
+            if(card.getId()/100 == 3) {
+                ((Force) card).setCanMove(true);
+            }
+        }
+    }
+    public static void selectDeck(String deckName){
         if (!validateDeck(deckName)) {
             System.out.println("Selected deck in not valid!");
         } else {
             Deck deck = findDeckByName(deckName);
+            setAllCardsMovable(deck);
             Game.getInstance().getPlayer1().setMainDeck(deck);
+            Map map = new Map();
+            Game.getInstance().setMap(map);
+            AI.createAIPlayer();
             Hero.insertHeroInMap();
             deck.setDeckIsSelected(true);
+            Hand.setHand();
         }
     }
 }

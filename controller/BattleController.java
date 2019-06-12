@@ -14,13 +14,17 @@ public class BattleController {
     public static void selectCardById(String[] commands, Scanner scanner) throws Exception {
         if (commands.length == 2 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].matches("[\\d]+")) {
+
             if (Game.getInstance().isPlayer1Turn()) {
                 int id = Integer.parseInt(commands[1]);
+                System.out.println("id : " + id);
                 if (Shop.checkValidId(id)) {
                     String cardName = returnNameById(id);
+                    System.out.println("cardName : " + cardName);
                     if (cardIsInGame(cardName)) {
-                        Card card = Card.returnCardByIDFromMap(id);
-                        doActionOnCard(card, scanner);
+                        Force force = Card.returnCardByIDFromMap(id);
+                        System.out.println("selected");
+                        doActionOnCard(force, scanner);
                     } else {
                         System.out.println("This card does not belong to you");
                     }
@@ -34,8 +38,7 @@ public class BattleController {
 
 
     public static boolean cardIsInGame(String cardName){
-        for (Card card:
-             Game.getInstance().getMap().getFriendMinions()) {
+        for (Card card: Game.getInstance().getMap().getFriendMinions()) {
             if(card.getName().matches(cardName))
                 return true;
         }
@@ -43,14 +46,14 @@ public class BattleController {
             return true;
         return false;
     }
-    public static void doActionOnCard(Card card,Scanner scanner) throws Exception {
+    public static void doActionOnCard(Force force,Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commands = command.split(" ");
-        moveToXY(commands,card);
-        attackCommand(commands,card);
-        attackCombo(commands,card);
-        useHeroSpecialPowerXY(commands,card);
-        comboAttackCommand(commands, card);
+        moveToXY(commands,force);
+        attackCommand(commands,force);
+        attackCombo(commands,force);
+        useHeroSpecialPowerXY(commands,force);
+        comboAttackCommand(commands, force);
         if(!AllDatas.didAction){
             System.out.println("Command was not supported");
         }
@@ -74,13 +77,13 @@ public class BattleController {
 
     }
 
-    public static void moveToXY(String[] commands, Card card){
+    public static void moveToXY(String[] commands, Force force){
         if(commands.length == 3 && commands[0].compareToIgnoreCase("move") == 0
                 && commands[1].compareToIgnoreCase("to") == 0
                 && commands[2].matches("\\([\\d]+,[\\d]+\\)")) {
-            int x = Integer.parseInt(commands[2].substring(commands[2].indexOf('('), commands[2].indexOf(",")));
-            int y = Integer.parseInt(commands[2].substring(commands[2].indexOf(','), commands[2].indexOf(")")));
-            checkAllConditionsToMoveCard(card, x, y);
+            int x = Integer.parseInt(commands[2].substring(commands[2].indexOf('(') + 1, commands[2].indexOf(",")))-1;
+            int y = Integer.parseInt(commands[2].substring(commands[2].indexOf(',') + 1, commands[2].indexOf(")")))-1;
+            checkAllConditionsToMoveCard(force, x, y);
             AllDatas.didAction = true;
         }
     }
@@ -201,8 +204,9 @@ public class BattleController {
 //        }
     }
 
-    public static void checkAllConditionsToMoveCard(Card card, int x, int y){
-        move((Force)card, x, y);
+    public static void checkAllConditionsToMoveCard(Force force, int x, int y){
+        System.out.println("HERE");
+        move(force, x, y);
 //        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)){
 //            move(Game.getInstance().getHeroOfPlayer1(), x, y);
 //        }
@@ -228,6 +232,8 @@ public class BattleController {
 
     public static void move(Force force, int x, int y){
         if(force.isCanMove() && !force.isHasMovedInThisTurn()) {
+            System.out.println("x : " + x + " , y : " + y);
+            System.out.println("forceX : " + force.getX() + " , forceY : " + force.getY());
             if (!Map.cardCanBeMovedToThisCell(force,x,y)) {
                 System.out.println("Invalid target");
             } else {
@@ -506,18 +512,24 @@ public class BattleController {
 //
 //    }
 
-    public static void insertCardInFieldCommand(String[] commands) throws IOException, ParseException {
+    public static void insertCardInFieldCommand(String[] commands) {
         if (commands[0].equals("insert")){
             String cardName = commands[1];
             Card card = Card.findCardByName(cardName);
-            int x = Integer.parseInt(commands[3].substring(1, commands[3].indexOf(',')));
-            int y = Integer.parseInt(commands[3].substring(commands[3].indexOf(',') + 1));
+            int x = Integer.parseInt(commands[3].substring(1, commands[3].indexOf(',')))-1;
+            int y = Integer.parseInt(commands[3].substring(commands[3].indexOf(',') + 1))-1;
             insertCard(card, x, y);
         }
     }
 
     public static void insertCard(Card card, int x, int y){
+        switch (card.getId()/100){
+            case 3:
 
+                break;
+            case 4:
+                break;
+        }
     }
 
 

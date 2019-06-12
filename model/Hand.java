@@ -29,13 +29,19 @@ public class Hand {
         this.cardsInHand = cardsInHand;
     }
 
-    public void setHand(){
+    public static void showHand(){
+        for (Card card:
+             Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()) {
+            System.out.println(card.getName() + " : " + card.getCardType());
+        }
+    }
+    public static void setHand(){
         Hand hand = new Hand();
         ArrayList<Card> cardsInDeck = Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck();
         Collections.shuffle(cardsInDeck);
         for (int i = 0; i < 5; i++) {
             Card card = cardsInDeck.get(i);
-            this.getCardsInHand().add(card);
+            hand.getCardsInHand().add(card);
             Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck().remove(card);
         }
         Game.getInstance().getPlayer1().getMainDeck().setHand(hand);
@@ -46,9 +52,9 @@ public class Hand {
         return numberOfCardsInHand <= 5;
     }
 
-    public void deleteCardFromHand(Card card){
-        this.getCardsInHand().remove(card);
-    }
+//    public void deleteCardFromHand(Card card){
+//        this.getCardsInHand().remove(card);
+//    }
 
     public void addCardToHandFromDeck() throws IOException, ParseException {
         if (this.checkIfNumberOfCardsInHandIsValid()) {

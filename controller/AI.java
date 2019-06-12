@@ -10,23 +10,24 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.regex.Matcher;
 
 public class AI {
     private static boolean canAttack = true;
 
-    public static void createDeckOfAI(Player player) throws Exception {
-        Deck deck = new Deck("player2");
-        int heroId =(int) Math.random()%10 + 1;
-        deck.setHeroInDeck(Hero.findHeroByID(heroId));
+    public static void createDeckOfAI(Player player) {
+        Random random = new Random();
+        int heroId =random.nextInt(10) + 1;
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
         int[] idsOfSpells = new int[5];
         setRandomIdsItems(idsOfItems);
         setRandomIdsSpells(idsOfSpells);
         setRandomIdsMinions(idsOfMinions);
-        Game.getInstance().getMap().setEnemyHero(Hero.findHeroByName(BattleController.returnNameById(heroId+100)));
+//        Game.getInstance().getMap().setEnemyHero(Hero.findHeroByName(BattleController.returnNameById(heroId+100)));
         Deck deckOfAI = new Deck("AIDeck");
+        deckOfAI.setHeroInDeck(Hero.findHeroByID(heroId + 100));
         for (int i = 0; i < idsOfItems.length; i++) {
             deckOfAI.getItemsInDeck().add(Item.findItemByID(idsOfItems[i]));
         }
@@ -36,13 +37,18 @@ public class AI {
         for (int i = 0; i < idsOfMinions.length; i++) {
             deckOfAI.getCardsInDeck().add(Minion.findMinionByID(idsOfMinions[i]));
         }
+        System.out.println("hero : " + deckOfAI.getHeroInDeck().getName());
         player.setMainDeck(deckOfAI);
     }
-    public static void createAIPlayer() throws Exception {
+    public static void createAIPlayer(){
         Player AIPlayer = new Player("AI", "AI");
         createDeckOfAI(AIPlayer);
         AIPlayer.setNumOfMana(2);
         Game.getInstance().setPlayer2(AIPlayer);
+        AIPlayer.getMainDeck().getHeroInDeck().setX(2);
+        AIPlayer.getMainDeck().getHeroInDeck().setY(8);
+        Game.getInstance().getMap().getCells()[2][8].setCellType(CellType.enemyHero);
+        Game.getInstance().getMap().setEnemyHero(AIPlayer.getMainDeck().getHeroInDeck());
     }
     public static void moveTillPossible() {
         while (!Game.getInstance().getMap().getFriendHero().isHasMovedInThisTurn()) {

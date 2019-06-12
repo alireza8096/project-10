@@ -241,9 +241,9 @@ public class Hero extends Force {
 
     public static void insertHeroInMap() {
         Hero hero = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeck();
-        hero.setX(3);
-        hero.setY(4);
-        Game.getInstance().getMap().getCells()[3][4].setCellType(CellType.selfHero);
+        hero.setX(2);
+        hero.setY(0);
+        Game.getInstance().getMap().getCells()[2][0].setCellType(CellType.selfHero);
         Game.getInstance().getMap().setFriendHero(hero);
     }
 
