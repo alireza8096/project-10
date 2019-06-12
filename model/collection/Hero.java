@@ -182,7 +182,7 @@ public class Hero extends Force{
 
     public void applyStunBuff(){
         this.setAbleToAttack(false);
-        this.setMovable(false);
+        this.setCanMove(false);
     }
 
     public void applyDisarmBuff(){
@@ -202,7 +202,7 @@ public class Hero extends Force{
     }
 
     public void deactivateStunBuff(){
-        this.setMovable(true);
+        this.setCanMove(true);
         this.setAbleToAttack(true);
     }
 
@@ -253,10 +253,10 @@ public class Hero extends Force{
 //    }
 
     public static Hero getHeroByCoordination(int x, int y){
-        if (Game.getInstance().getHeroOfPlayer1().getX() == x && Game.getInstance().getHeroOfPlayer1().getY() == y){
-            return Game.getInstance().getHeroOfPlayer1();
-        }else if (Game.getInstance().getHeroOfPlayer2().getX() == x && Game.getInstance().getHeroOfPlayer2().getY() == y){
-            return Game.getInstance().getHeroOfPlayer2();
+        if (Game.getInstance().getMap().getFriendHero().getX() == x && Game.getInstance().getMap().getFriendHero().getY() == y){
+            return Game.getInstance().getMap().getFriendHero();
+        }else if (Game.getInstance().getMap().getEnemyHero().getX() == x && Game.getInstance().getMap().getEnemyHero().getY() == y){
+            return Game.getInstance().getMap().getEnemyHero();
         }
         return null;
     }

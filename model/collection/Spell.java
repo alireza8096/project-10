@@ -234,8 +234,8 @@ public class Spell extends Card {
     }
 
     public boolean checkIfThisCoordinationIsAroundSelfMinion(int x, int y){
-        int selfHeroX = Game.getInstance().getHeroOfPlayer1().getX();
-        int selfHeroY = Game.getInstance().getHeroOfPlayer1().getY();
+        int selfHeroX = Game.getInstance().getMap().getFriendHero().getX();
+        int selfHeroY = Game.getInstance().getMap().getFriendHero().getY();
 
         if (Map.thisCellsAreAdjusting(x, y, selfHeroX, selfHeroY)){
             return true;
@@ -304,6 +304,16 @@ public class Spell extends Card {
 
 
     }
+    public static ArrayList<Card> friendCardsInMap(){
+        ArrayList<Card> cards = new ArrayList<>(Game.getInstance().getMap().getFriendMinions());
+        cards.add(Game.getInstance().getMap().getFriendHero());
+        return cards;
+    }
+    public static ArrayList<Card> enemyCardsInMap(){
+        ArrayList<Card> cards = new ArrayList<>(Game.getInstance().getMap().getEnemyMinions());
+        cards.add(Game.getInstance().getMap().getEnemyHero());
+        return cards;
+    }
 
     public void applySpellOnAllEnemyForces(int x, int y){
 //        String[] buffNames = jsonObject.get("whichBuff").toString().split(",");
@@ -320,11 +330,11 @@ public class Spell extends Card {
         for (int i = 0; i < typeOfActions.size(); i++) {
             switch (typeOfActions.get(i)){
                 case "dispel":
-                    for (Card card : Game.getInstance().getPlayer2CardsInField())
+                    for (Card card : friendCardsInMap())
                         card.dispelThisForce("enemy");
                     break;
                 case "kill":
-                    for (Card card : Game.getInstance().getPlayer2CardsInField())
+                    for (Card card : enemyCardsInMap())
                         card.killCard();
                     break;
                 case "addBuff":
@@ -441,11 +451,11 @@ public class Spell extends Card {
         for (int i = 0; i < typeOfActions.size(); i++) {
             switch (typeOfActions.get(i)){
                 case "dispel":
-                    for (Card card : Game.getInstance().getPlayer1CardsInField())
+                    for (Card card : friendCardsInMap())
                         card.dispelThisForce("friend");
                     break;
                 case "kill":
-                    for (Card card : Game.getInstance().getPlayer1CardsInField())
+                    for (Card card : friendCardsInMap())
                         card.killCard();
                     break;
                 case "addBuff":
@@ -564,9 +574,9 @@ public class Spell extends Card {
             for (int i = x; i < x + 2; i++) {
                 for (int j = y; j < y + 2; j++) {
                     if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero) {
-                        CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
+                        CellImpactType.applyFireImpactOnCard(Game.getInstance().getMap().getFriendHero(), buff);
                     } else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero) {
-                        CellImpactType.applyFireImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
+                        CellImpactType.applyFireImpactOnCard(Game.getInstance().getMap().getEnemyHero(), buff);
                     } else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion ||
                             Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion) {
                         CellImpactType.applyFireImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);
@@ -600,9 +610,9 @@ public class Spell extends Card {
         for (int i = x; i < x + 2; i++) {
             for (int j = y; j < y + 2; j++) {
                 if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfHero){
-                    CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getHeroOfPlayer1(), buff);
+                    CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getMap().getFriendHero(), buff);
                 }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyHero){
-                    CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getHeroOfPlayer2(), buff);
+                    CellImpactType.applyPoisonImpactOnCard(Game.getInstance().getMap().getEnemyHero(), buff);
                 }else if (Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.enemyMinion ||
                         Game.getInstance().getMap().getCells()[i][j].getCellType() == CellType.selfMinion){
                     CellImpactType.applyPoisonImpactOnCard(Minion.getMinionInThisCoordination(x, y), buff);

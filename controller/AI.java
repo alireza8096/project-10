@@ -13,7 +13,6 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class AI {
-    private static boolean canMove = true;
     private static boolean canAttack = true;
 
     public static void createDeckOfAI(Player player) throws Exception {
@@ -51,14 +50,13 @@ public class AI {
             int y = (int) Math.random() % 9;
             BattleController.move(Game.getInstance().getHeroOfPlayer1(), x, y);
         }
-        for (Card card : Game.getInstance().getPlayer1CardsInField()) {
+        for (Card card : Game.getInstance().getMap().getFriendMinions()) {
             while (!card.isHasMovedInThisTurn()) {
                 int x = (int) Math.random() % 5;
                 int y = (int) Math.random() % 9;
-                BattleController.move(card, x, y);
+                BattleController.move((Force)card, x, y);
             }
         }
-        canMove = false;
     }
     public static void attckTillPossible() throws Exception {
         String cardName = Game.getInstance().getHeroOfPlayer1().getName();
@@ -70,7 +68,7 @@ public class AI {
             }
         }
         for (Card card:
-             Game.getInstance().getPlayer1CardsInField()) {
+             Game.getInstance().getMap().getFriendMinions()) {
             while(!card.isHasAttackedInThisTurn()){
                 int idToAttack = (int) Math.random()%500;
                 if(Shop.checkValidId(idToAttack)) {

@@ -17,7 +17,6 @@ public class Card {
     protected boolean isActive;
     protected boolean hasAttackedInThisTurn;
     protected boolean hasMovedInThisTurn;
-    protected boolean movable;
     protected boolean ableToAttack;
     protected int price;
     protected int counterOfCard;
@@ -67,14 +66,6 @@ public class Card {
             }
         }
         return null;
-    }
-
-    public boolean isMovable() {
-        return movable;
-    }
-
-    public void setMovable(boolean movable) {
-        this.movable = movable;
     }
 
     public boolean isAbleToAttack() {
@@ -317,10 +308,12 @@ public class Card {
     }
 
     public boolean thisCardIsFriend(){
-        for (Card card : Game.getInstance().getPlayer1CardsInField()){
+        for (Card card : Game.getInstance().getMap().getFriendMinions()){
             if (card.getName().equals(this.name))
                 return true;
         }
+        if(this.name.equals(Game.getInstance().getMap().getFriendHero().name))
+            return true;
         return false;
     }
 

@@ -11,15 +11,15 @@ import java.util.Scanner;
 
 public class BattleController {
 
-    public static void selectCardById(String[] commands, Scanner scanner) throws Exception{
-        if(commands.length == 2 && commands[0].compareToIgnoreCase("select") == 0
+    public static void selectCardById(String[] commands, Scanner scanner) throws Exception {
+        if (commands.length == 2 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].matches("[\\d]+")) {
-            int id = Integer.parseInt(commands[1]);
-            if (Shop.checkValidId(id)) {
-                String cardName = returnNameById(id);
-                Card card = Card.returnCardByIDFromMap(id);
-                if (cardIsInGame(cardName)) {
-                    if (thisCardIsYours(cardName)) {
+            if (Game.getInstance().isPlayer1Turn()) {
+                int id = Integer.parseInt(commands[1]);
+                if (Shop.checkValidId(id)) {
+                    String cardName = returnNameById(id);
+                    if (cardIsInGame(cardName)) {
+                        Card card = Card.returnCardByIDFromMap(id);
                         doActionOnCard(card, scanner);
                     } else {
                         System.out.println("This card does not belong to you");
@@ -32,6 +32,17 @@ public class BattleController {
         }
     }
 
+
+    public static boolean cardIsInGame(String cardName){
+        for (Card card:
+             Game.getInstance().getMap().getFriendMinions()) {
+            if(card.getName().matches(cardName))
+                return true;
+        }
+        if(Game.getInstance().getMap().getFriendHero().getName().matches(cardName))
+            return true;
+        return false;
+    }
     public static void doActionOnCard(Card card,Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commands = command.split(" ");
@@ -128,38 +139,38 @@ public class BattleController {
         }
         return name;
     }
-    public static boolean thisCardIsYours(String cardName){
-        for (Card card:
-                Game.getInstance().getPlayer1CardsInField()) {
-            if(card.getName().equals(cardName))
-                return true;
-        }
-        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)) return true;
-        return false;
-    }
-    public static boolean thisCardIsEnemy(String cardName){
-        for (Card card:
-                Game.getInstance().getPlayer2CardsInField()) {
-            if(card.getName().equals(cardName))
-                return true;
-        }
-        if(Game.getInstance().getHeroOfPlayer2().getName().equals(cardName)) return true;
-        return false;
-    }
-    public static boolean cardIsInGame(String checkCard){
-        for (Card card:
-                Game.getInstance().getPlayer1CardsInField()) {
-            if(card.getName().equals(checkCard))
-                return true;
-        }
-        for(Card card : Game.getInstance().getPlayer2CardsInField()){
-            if(card.getName().equals(checkCard))
-                return true;
-        }
-        if(Game.getInstance().getHeroOfPlayer1().getName().equals(checkCard)) return true;
-        if(Game.getInstance().getHeroOfPlayer2().getName().equals(checkCard)) return true;
-        return false;
-    }
+//    public static boolean thisCardIsYours(String cardName){
+//        for (Card card:
+//                Game.getInstance().getMap().getFriendMinions()) {
+//            if(card.getName().equals(cardName))
+//                return true;
+//        }
+//        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)) return true;
+//        return false;
+//    }
+//    public static boolean thisCardIsEnemy(String cardName){
+//        for (Card card:
+//                Game.getInstance().getPlayer2CardsInField()) {
+//            if(card.getName().equals(cardName))
+//                return true;
+//        }
+//        if(Game.getInstance().getHeroOfPlayer2().getName().equals(cardName)) return true;
+//        return false;
+//    }
+//    public static boolean cardIsInGame(String checkCard){
+//        for (Card card:
+//                Game.getInstance().getPlayer1CardsInField()) {
+//            if(card.getName().equals(checkCard))
+//                return true;
+//        }
+//        for(Card card : Game.getInstance().getPlayer2CardsInField()){
+//            if(card.getName().equals(checkCard))
+//                return true;
+//        }
+//        if(Game.getInstance().getHeroOfPlayer1().getName().equals(checkCard)) return true;
+//        if(Game.getInstance().getHeroOfPlayer2().getName().equals(checkCard)) return true;
+//        return false;
+//    }
 
     public static void checkConditionsToApplyHeroSpecialPower(Card heroCard, int x, int y) throws IOException, ParseException {
  //       if(Hero.thisCardIsHero(cardName)){
@@ -192,7 +203,7 @@ public class BattleController {
     }
 
     public static void checkAllConditionsToMoveCard(Card card, int x, int y){
-        move(card, x, y);
+        move((Force)card, x, y);
 //        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)){
 //            move(Game.getInstance().getHeroOfPlayer1(), x, y);
 //        }
@@ -216,17 +227,17 @@ public class BattleController {
         }
     }
 
-    public static void move(Card card, int x, int y){
-        if(card.isMovable() && !card.isHasMovedInThisTurn()) {
-            if (!Map.cardCanBeMovedToThisCell(card,x,y)) {
+    public static void move(Force force, int x, int y){
+        if(force.isCanMove() && !force.isHasMovedInThisTurn()) {
+            if (!Map.cardCanBeMovedToThisCell(force,x,y)) {
                 System.out.println("Invalid target");
             } else {
-                Cell.getCellByCoordination(card.getX(),card.getY()).setCellType(CellType.empty);
-                card.setX(x);
-                card.setY(y);
-                card.setHasMovedInThisTurn(true);
-                System.out.println(card.returnCompleteId(card.getName(),card.getId()) + " moved to (" +x + "," + y + ")");
-                applyEffectsOfTargetCellOnCard(card, x, y);
+                Cell.getCellByCoordination(force.getX(),force.getY()).setCellType(CellType.empty);
+                force.setX(x);
+                force.setY(y);
+                force.setHasMovedInThisTurn(true);
+                System.out.println(force.returnCompleteId(force.getName(),force.getId()) + " moved to (" +x + "," + y + ")");
+                applyEffectsOfTargetCellOnCard(force, x, y);
             }
         }
         else {
@@ -316,38 +327,38 @@ public class BattleController {
 
 
 
-    public static boolean thisIdIsAvailableForOpponent(int id) throws Exception {
-        if(Shop.checkValidId(id)){
-            String cardName = returnNameById(id);
-            if(cardIsInGame(cardName)){
-                if(thisCardIsEnemy(cardName)){
-                    return true;
-                }
-                else System.out.println("This card is not enemy");
-            }
-            else System.out.println("This card is not in game");
-        }
-        else {
-            System.out.println("This id is not valid");
-        }
-        return false;
-    }
-    //    public static Card returnCardInGameByName(String cardName){
-    //        for (Card card:
-    //                Game.getInstance().getPlayer1CardsInField()) {
-    //            if(card.getName().equals(cardName))
-    //                return card;
-    //        }
-    //        for(Card card : Game.getInstance().getPlayer2CardsInField()){
-    //            if(card.getName().equals(cardName))
-    //                return card;
-    //        }
-    //        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)) return Game.getInstance().getHeroOfPlayer1();
-    ////        if(Game.getInstance().getHeroOfPlayer2().getName().equals(checkCard)) return true;
-    ////        return false;
-    //        return null;
-
-    //    }
+//    public static boolean thisIdIsAvailableForOpponent(int id) throws Exception {
+//        if(Shop.checkValidId(id)){
+//            String cardName = returnNameById(id);
+//            if(cardIsInGame(cardName)){
+//                if(thisCardIsEnemy(cardName)){
+//                    return true;
+//                }
+//                else System.out.println("This card is not enemy");
+//            }
+//            else System.out.println("This card is not in game");
+//        }
+//        else {
+//            System.out.println("This id is not valid");
+//        }
+//        return false;
+//    }
+//    //    public static Card returnCardInGameByName(String cardName){
+//    //        for (Card card:
+//    //                Game.getInstance().getPlayer1CardsInField()) {
+//    //            if(card.getName().equals(cardName))
+//    //                return card;
+//    //        }
+//    //        for(Card card : Game.getInstance().getPlayer2CardsInField()){
+//    //            if(card.getName().equals(cardName))
+//    //                return card;
+//    //        }
+//    //        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)) return Game.getInstance().getHeroOfPlayer1();
+//    ////        if(Game.getInstance().getHeroOfPlayer2().getName().equals(checkCard)) return true;
+//    ////        return false;
+//    //        return null;
+//
+//    //    }
 
     public static boolean checkAttackConditionsForMinion(Minion minion, int opponentCardID){
         int attackRange = minion.getAttackRange();
@@ -355,24 +366,24 @@ public class BattleController {
 
     }
 
-    public static void insertThisCardinThisCoordination(String cardName, int x, int y) throws Exception {
-        int coordinateX = x - 1;
-        int coordinateY = y - 1;
-
-        if(checkIfCardIsInHandForInsertingCardsInMap(cardName, coordinateX, coordinateY)) {
-
-            if (Minion.thisCardIsMinion(cardName)) {
-                if (checkConditionsForInsertingMinionInMap(cardName, coordinateX, coordinateY)) {
-                    insertMinionInThisCoordination(cardName, coordinateX, coordinateY);
-                    int cardID = Minion.getMinionIDByName(cardName);
-                    System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
-                }
-
-            } else if (Spell.thisCardIsSpell(cardName)) {
-//                Spell.insertSpellInThisCoordination(cardName, coordinateX, coordinateY);
-            }
-        }
-    }
+//    public static void insertThisCardinThisCoordination(String cardName, int x, int y) throws Exception {
+//        int coordinateX = x - 1;
+//        int coordinateY = y - 1;
+//
+//        if(checkIfCardIsInHandForInsertingCardsInMap(cardName, coordinateX, coordinateY)) {
+//
+//            if (Minion.thisCardIsMinion(cardName)) {
+//                if (checkConditionsForInsertingMinionInMap(cardName, coordinateX, coordinateY)) {
+//                    insertMinionInThisCoordination(cardName, coordinateX, coordinateY);
+//                    int cardID = Minion.getMinionIDByName(cardName);
+//                    System.out.println(cardName + " with "+ cardID + "inserted to (" + x + "," + y + ")");
+//                }
+//
+//            } else if (Spell.thisCardIsSpell(cardName)) {
+////                Spell.insertSpellInThisCoordination(cardName, coordinateX, coordinateY);
+//            }
+//        }
+//    }
 
     public static boolean checkIfCardIsInHandForInsertingCardsInMap(String cardName, int x, int y){
         Hand hand = Game.getInstance().getPlayer1().getMainDeck().getHand();
@@ -406,18 +417,18 @@ public class BattleController {
         }
     }
 
-    public static void insertMinionInThisCoordination(String minionName, int x, int y) throws IOException, ParseException {
-
-        Card card = Game.getInstance().getPlayer1().getMainDeck().getHand().returnCardInHand(minionName);
-        card.setX(x);
-        card.setY(y);
-        Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
-        handleManaOfPlayerAfterInsertingCardInMap(minionName);
-
-        Game.getInstance().getPlayer1CardsInField().add(card);
-
-        Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(minionName);
-    }
+//    public static void insertMinionInThisCoordination(String minionName, int x, int y) throws IOException, ParseException {
+//
+//        Card card = Game.getInstance().getPlayer1().getMainDeck().getHand().returnCardInHand(minionName);
+//        card.setX(x);
+//        card.setY(y);
+//        Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
+//        handleManaOfPlayerAfterInsertingCardInMap(minionName);
+//
+//        Game.getInstance().getPlayer1CardsInField().add(card);
+//
+//        Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(minionName);
+//    }
 
     public static void handleManaOfPlayerAfterInsertingCardInMap(String cardName) throws IOException, ParseException {
         int currentPlayerMana = Game.getInstance().getPlayer1().getNumOfMana();
@@ -465,36 +476,36 @@ public class BattleController {
         Game.getInstance().getMap().getCells()[0][0].setCellItemType(CellItemType.flag);
     }
 
-    public static void changeTurn(){
-        Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
-        Game.getInstance().setPlayer1Turn(false);
-        Game.getInstance().getMap().changeCellTypesWhenTurnChanges();
-
-        //change all fields of player1 and player2
-        Player tempPlayer = Game.getInstance().getPlayer1();
-        Game.getInstance().setPlayer1(Game.getInstance().getPlayer2());
-        Game.getInstance().setPlayer2(tempPlayer);
-
-        ArrayList<Card> tempCards = new ArrayList<>(Game.getInstance().getPlayer1CardsInField());
-        Game.getInstance().setPlayer1CardsInField(Game.getInstance().getPlayer2CardsInField());
-        Game.getInstance().setPlayer2CardsInField(tempCards);
-
-        Hero tempHero = Game.getInstance().getHeroOfPlayer1();
-        Game.getInstance().setHeroOfPlayer1(Game.getInstance().getHeroOfPlayer2());
-        Game.getInstance().setHeroOfPlayer2(tempHero);
-
-        //Todo : change hand of the game
-
-
-//        int tempNumberOfFlags = Game.getInstance().getPlayer1NumberOfFlags();
-//        Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer2NumberOfFlags());
-//        Game.getInstance().setPlayer2NumberOfFlags(tempNumberOfFlags);
-
-        Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
-
-        Game.getInstance().getPlayer1().handleManaAtTheFirstOfTurn();
-
-    }
+//    public static void changeTurn(){
+//        Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
+//        Game.getInstance().setPlayer1Turn(false);
+//        Game.getInstance().getMap().changeCellTypesWhenTurnChanges();
+//
+//        //change all fields of player1 and player2
+//        Player tempPlayer = Game.getInstance().getPlayer1();
+//        Game.getInstance().setPlayer1(Game.getInstance().getPlayer2());
+//        Game.getInstance().setPlayer2(tempPlayer);
+//
+//        ArrayList<Card> tempCards = new ArrayList<>(Game.getInstance().getPlayer1CardsInField());
+//        Game.getInstance().setPlayer1CardsInField(Game.getInstance().getPlayer2CardsInField());
+//        Game.getInstance().setPlayer2CardsInField(tempCards);
+//
+//        Hero tempHero = Game.getInstance().getHeroOfPlayer1();
+//        Game.getInstance().setHeroOfPlayer1(Game.getInstance().getHeroOfPlayer2());
+//        Game.getInstance().setHeroOfPlayer2(tempHero);
+//
+//        //Todo : change hand of the game
+//
+//
+////        int tempNumberOfFlags = Game.getInstance().getPlayer1NumberOfFlags();
+////        Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer2NumberOfFlags());
+////        Game.getInstance().setPlayer2NumberOfFlags(tempNumberOfFlags);
+//
+//        Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
+//
+//        Game.getInstance().getPlayer1().handleManaAtTheFirstOfTurn();
+//
+//    }
 
     public static void insertCardInFieldCommand(String[] commands) throws IOException, ParseException {
         if (commands[0].equals("insert")){
