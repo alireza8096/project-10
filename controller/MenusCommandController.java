@@ -148,7 +148,7 @@ public class MenusCommandController {
         else{
             AI.moveTillPossible();
             AI.attckTillPossible();
-            BattleController.changeTurn();
+//            BattleController.changeTurn();
         }
         
     }

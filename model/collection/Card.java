@@ -65,6 +65,7 @@ public class Card {
                 return spell;
             }
         }
+        System.out.println(cardName + " : null");
         return null;
     }
 

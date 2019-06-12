@@ -17,7 +17,7 @@ public class AI {
 
     public static void createDeckOfAI(Player player) throws Exception {
         Deck deck = new Deck("player2");
-        int heroId =(int) Math.random()%10;
+        int heroId =(int) Math.random()%10 + 1;
         deck.setHeroInDeck(Hero.findHeroByID(heroId));
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
@@ -25,7 +25,7 @@ public class AI {
         setRandomIdsItems(idsOfItems);
         setRandomIdsSpells(idsOfSpells);
         setRandomIdsMinions(idsOfMinions);
-        Game.getInstance().setHeroOfPlayer2(Hero.findHeroByName(BattleController.returnNameById(heroId)));
+        Game.getInstance().getMap().setEnemyHero(Hero.findHeroByName(BattleController.returnNameById(heroId+100)));
         Deck deckOfAI = new Deck("AIDeck");
         for (int i = 0; i < idsOfItems.length; i++) {
             deckOfAI.getItemsInDeck().add(Item.findItemByID(idsOfItems[i]));
@@ -45,10 +45,10 @@ public class AI {
         Game.getInstance().setPlayer2(AIPlayer);
     }
     public static void moveTillPossible() {
-        while (!Game.getInstance().getHeroOfPlayer1().isHasMovedInThisTurn()) {
+        while (!Game.getInstance().getMap().getFriendHero().isHasMovedInThisTurn()) {
             int x = (int) Math.random() % 5;
             int y = (int) Math.random() % 9;
-            BattleController.move(Game.getInstance().getHeroOfPlayer1(), x, y);
+            BattleController.move(Game.getInstance().getMap().getFriendHero(), x, y);
         }
         for (Card card : Game.getInstance().getMap().getFriendMinions()) {
             while (!card.isHasMovedInThisTurn()) {
@@ -59,8 +59,8 @@ public class AI {
         }
     }
     public static void attckTillPossible() throws Exception {
-        String cardName = Game.getInstance().getHeroOfPlayer1().getName();
-        while(!Game.getInstance().getHeroOfPlayer1().isHasAttackedInThisTurn()){
+        String cardName = Game.getInstance().getMap().getFriendHero().getName();
+        while(!Game.getInstance().getMap().getFriendHero().isHasAttackedInThisTurn()){
             int idToAttack = (int) Math.random()%500;
             if(Shop.checkValidId(idToAttack)) {
                 String[] parts = {"attack",Integer.toString(idToAttack)};

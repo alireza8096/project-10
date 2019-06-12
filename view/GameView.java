@@ -62,18 +62,23 @@ public class GameView {
                 " – HP : " + hero.getHealthPoint() + " – Class : " + hero.getAttackType() +" - Special power : " + hero.getSpecialPower()
          +". - Sell Cost : " + hero.getPrice());
     }
-    public static void showDeck(String deckName) throws IOException, ParseException {
-        Deck deck = Deck.findDeckByName(deckName);
-        System.out.println("Heroes :");
-            System.out.println("1 : " + showHero(deck.getHeroInDeck()));
-        System.out.println("Items :");
-        for (int i = 1; i <= deck.getItemsInDeck().size(); i++) {
-            System.out.println(i + " : " + showItem(deck.getItemsInDeck().get(i - 1)));
-        }
-        System.out.println("Cards :");
-        for (int i = 1; i <=deck.getCardsInDeck().size(); i++) {
-            System.out.println(i + " : " + showCard(deck.getCardsInDeck().get(i - 1)));
-        }
+    public static void showDeck(String deckName) {
+            Deck deck = Deck.findDeckByName(deckName);
+            System.out.println("Heroes :");
+            try{
+                System.out.println("1 : " + showHero(deck.getHeroInDeck()));
+            }
+            catch (NullPointerException e){
+                System.out.println();
+            }
+            System.out.println("Items :");
+            for (int i = 1; i <= deck.getItemsInDeck().size(); i++) {
+                System.out.println(i + " : " + showItem(deck.getItemsInDeck().get(i - 1)));
+            }
+            System.out.println("Cards :");
+            for (int i = 1; i <= deck.getCardsInDeck().size(); i++) {
+                System.out.println(i + " : " + showCard(deck.getCardsInDeck().get(i - 1)));
+            }
     }
 
 //    public static void showCardsInGraveYard(GraveYard graveYard) throws IOException, ParseException {

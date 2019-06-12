@@ -40,7 +40,7 @@ public class Shop<T> {
         return Game.getInstance().getPlayer1().getItemsInCollection().size() != 3;
     }
 
-    public static void buyCardAndAddToCollection(String cardName){
+    public static void buyCardAndAddToCollection(String cardName) {
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (returnCardTypeByName(cardName)) {
             case "hero":
@@ -98,8 +98,9 @@ public class Shop<T> {
             return "spell";
         return "";
     }
-    public static String returnCardTypeById(int id){
-        switch (id/100){
+
+    public static String returnCardTypeById(int id) {
+        switch (id / 100) {
             case 1:
                 return "hero";
             case 2:
@@ -190,7 +191,7 @@ public class Shop<T> {
         if (!checkValidId(cardId)) {
             System.out.println("This ID is not valid");
         } else {
-            switch (cardId/100) {
+            switch (cardId / 100) {
                 case 1:
                     if (Deck.checkIfThisCardOrItemIsInCollection(cardId)) {
                         sellCardAndRemoveFromCollection(cardId);

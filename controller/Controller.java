@@ -3,7 +3,9 @@ package controller;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
+import model.Map;
 import model.collection.HandleFiles;
+import model.collection.Hero;
 
 import java.util.Scanner;
 
@@ -80,6 +82,7 @@ public class Controller {
                 MenusCommandController.shopController(scanner);
                 break;
             case "Battle":
+                Map.show();
                 System.out.println("battle");
 //                if (!Game.getInstance().)
                     Game.createNewGame();

@@ -64,7 +64,7 @@ public class Account {
         JSONObject tempPlayer = new JSONObject();
         tempPlayer.put("username",name);
         tempPlayer.put("password",password);
-        tempPlayer.put("daric",15000);
+        tempPlayer.put("daric",150000000);
         tempPlayer.put("numOfWins",0);
         tempPlayer.put("justCreated",justCreated);
         Files.write(Paths.get(PLAYERS_FOLDER+name+".json"),tempPlayer.toJSONString().getBytes());
@@ -130,16 +130,17 @@ public class Account {
         return null;
     }
     public static void createCollectionFromString(Player player,String collection){
-        String[] parts = collection.split(",");
-        for(int i=0; i<parts.length; i++){
-            if(Hero.thisCardIsHero(parts[i])){
-                player.getHeroesInCollection().add(Hero.findHeroByName(parts[i]));
-            }
-            else if(Item.thisCardIsItem(parts[i])){
-                player.getItemsInCollection().add(Item.findItemByName(parts[i]));
-            }
-            else{
-                player.getCardsInCollection().add(Card.findCardByName(parts[i]));
+        System.out.println(collection);
+        if(!collection.matches("")) {
+            String[] parts = collection.split(",");
+            for (int i = 0; i < parts.length; i++) {
+                if (Hero.thisCardIsHero(parts[i])) {
+                    player.getHeroesInCollection().add(Hero.findHeroByName(parts[i]));
+                } else if (Item.thisCardIsItem(parts[i])) {
+                    player.getItemsInCollection().add(Item.findItemByName(parts[i]));
+                } else {
+                    player.getCardsInCollection().add(Card.findCardByName(parts[i]));
+                }
             }
         }
     }
@@ -198,12 +199,18 @@ public class Account {
             int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());
             for(int i=0; i<numOfDecks; i++){
                 Deck addDeck = createDeckFromString(jsonObject.get("deck").toString()+i);
-                player.getDecksOfPlayer().add(addDeck);
+                if(addDeck != null) {
+                    player.getDecksOfPlayer().add(addDeck);
+                }
             }
-            player.setMainDeck(createDeckFromString((String)jsonObject.get("mainDeck")));
+            if(jsonObject.get("mainDeck")!=null) {
+                player.setMainDeck(createDeckFromString((String) jsonObject.get("mainDeck")));
+            }
             createCollectionFromString(player,(String)jsonObject.get("collection"));
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
+            model.Map map = new Map();
+            Game.getInstance().setMap(map);
             Game.getInstance().setPlayer1(player);
             AI.createAIPlayer();
         }

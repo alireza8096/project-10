@@ -12,6 +12,27 @@ public class Map {
     private Hero enemyHero;
     private Hero friendHero;
 
+
+    public static void show(){
+        for(int i=0; i<5; i++){
+            for(int j=0; j<9; j++){
+                System.out.print(Game.getInstance().getMap().cells[i][j].getCellType() + " ");
+            }
+            System.out.println();
+        }
+        Hero hero1 = Game.getInstance().getMap().friendHero;
+        Hero hero2 = Game.getInstance().getMap().enemyHero;
+        System.out.println(hero1.getName() + " "+hero1.getX() + " " + hero1.getY());
+        System.out.println(hero2.getName() + " " + hero2.getX() + " " + hero2.getY());
+
+        for (Force force : Game.getInstance().getMap().getFriendMinions()){
+            System.out.println(force.getName() + " " + force.getX() + " " + force.getY());
+        }
+
+        for (Force force : Game.getInstance().getMap().getEnemyMinions()){
+            System.out.println(force.getName() + " " + force.getX() + " " + force.getY());
+        }
+    }
     public Map(){
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {

@@ -1,5 +1,6 @@
 package model.collection;
 
+import model.CellType;
 import model.Game;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -8,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Hero extends Force{
+public class Hero extends Force {
     private static ArrayList<Hero> heroes = new ArrayList<>();
     public static int turnCounterForPlayer1Hero;
     public static int turnCounterForPlayer2Hero;
@@ -24,12 +25,13 @@ public class Hero extends Force{
 
     public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown) {
         super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
-        if(!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
-        else this.coolDown =0;
+        if (!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
+        else this.coolDown = 0;
     }
-    public static int getHeroIDByName(String heroName){
-        for (Hero hero:
-             heroes) {
+
+    public static int getHeroIDByName(String heroName) {
+        for (Hero hero :
+                heroes) {
             if (hero.name.matches(heroName)) {
                 return hero.id;
             }
@@ -45,18 +47,18 @@ public class Hero extends Force{
         this.coolDown = coolDown;
     }
 
-    public static Hero findHeroByID(int id){
-        for (Hero hero: heroes) {
-            if(hero.id == id){
+    public static Hero findHeroByID(int id) {
+        for (Hero hero : heroes) {
+            if (hero.id == id) {
                 return hero;
             }
         }
-        return  null;
+        return null;
     }
 
-    public static boolean thisCardIsHero(String cardName){
-        for(Hero hero : heroes){
-            if(hero.name.matches(cardName))
+    public static boolean thisCardIsHero(String cardName) {
+        for (Hero hero : heroes) {
+            if (hero.name.matches(cardName))
                 return true;
         }
         return false;
@@ -112,9 +114,9 @@ public class Hero extends Force{
 //        }
 //    }
 
-    public void removeBuffFromHero(Buff buff){
+    public void removeBuffFromHero(Buff buff) {
         String buffName = buff.getName();
-        switch (buffName){
+        switch (buffName) {
             case "holyBuff":
                 this.setHasHolyBuff(false);
                 break;
@@ -138,7 +140,7 @@ public class Hero extends Force{
             this.getPositiveBuffs().remove(buff);
     }
 
-    public void applyAttackPowerBuff(Buff buff){
+    public void applyAttackPowerBuff(Buff buff) {
         if (!buff.isUsed()) {
             int howMuchImpact = buff.getHowMuchImpact();
             int currentAttackPower = this.getAttackPower();
@@ -147,25 +149,25 @@ public class Hero extends Force{
         }
     }
 
-    public void applyHealthPowerBuff(Buff buff){
+    public void applyHealthPowerBuff(Buff buff) {
         int howMuchImpact = buff.getHowMuchImpact();
         int currentHealthPoint = this.getHealthPoint();
         setHealthPoint(currentHealthPoint + howMuchImpact);
     }
 
-    public void applyPoisonBuff(Buff buff){
+    public void applyPoisonBuff(Buff buff) {
         int howMuchImpact = buff.getHowMuchImpact();
         int currentHealthPoint = this.getHealthPoint();
         setHealthPoint(currentHealthPoint - howMuchImpact);
     }
 
-    public void applyHealthPointWeaknessBuff(Buff buff){
+    public void applyHealthPointWeaknessBuff(Buff buff) {
         int howMuchImpact = buff.getHowMuchImpact();
         int currentHealthPoint = this.getHealthPoint();
         setHealthPoint(currentHealthPoint - howMuchImpact);
     }
 
-    public void applyAttackPowerWeaknessBuff(Buff buff){
+    public void applyAttackPowerWeaknessBuff(Buff buff) {
         if (!buff.isUsed()) {
             int howMuchImpact = buff.getHowMuchImpact();
             int currentAttackPower = this.getAttackPower();
@@ -180,33 +182,33 @@ public class Hero extends Force{
 //        this.setHealthPoint(currentHP - 2);
 //    }
 
-    public void applyStunBuff(){
+    public void applyStunBuff() {
         this.setAbleToAttack(false);
         this.setCanMove(false);
     }
 
-    public void applyDisarmBuff(){
+    public void applyDisarmBuff() {
         this.setCanCounterAttack(false);
     }
 
-    public void deactivateAttackPowerBuff(Buff buff){
+    public void deactivateAttackPowerBuff(Buff buff) {
         int howMuchImpact = buff.getHowMuchImpact();
         int currentAttackPower = this.getAttackPower();
         setAttackPower(currentAttackPower - howMuchImpact);
     }
 
-    public void deactivateAttackPowerWeaknessBuff(Buff buff){
+    public void deactivateAttackPowerWeaknessBuff(Buff buff) {
         int howMuchImpact = buff.getHowMuchImpact();
         int currentAttackPower = this.getAttackPower();
         setAttackPower(currentAttackPower + howMuchImpact);
     }
 
-    public void deactivateStunBuff(){
+    public void deactivateStunBuff() {
         this.setCanMove(true);
         this.setAbleToAttack(true);
     }
 
-    public void deactivateDisarmBuff(){
+    public void deactivateDisarmBuff() {
         this.setCanCounterAttack(true);
     }
 
@@ -237,10 +239,11 @@ public class Hero extends Force{
 //        }
 //    }
 
-    public static void insertHeroInMap(){
+    public static void insertHeroInMap() {
         Hero hero = Game.getInstance().getPlayer1().getMainDeck().getHeroInDeck();
         hero.setX(3);
         hero.setY(4);
+        Game.getInstance().getMap().getCells()[3][4].setCellType(CellType.selfHero);
         Game.getInstance().getMap().setFriendHero(hero);
     }
 
@@ -252,34 +255,34 @@ public class Hero extends Force{
 //        return null;
 //    }
 
-    public static Hero getHeroByCoordination(int x, int y){
-        if (Game.getInstance().getMap().getFriendHero().getX() == x && Game.getInstance().getMap().getFriendHero().getY() == y){
+    public static Hero getHeroByCoordination(int x, int y) {
+        if (Game.getInstance().getMap().getFriendHero().getX() == x && Game.getInstance().getMap().getFriendHero().getY() == y) {
             return Game.getInstance().getMap().getFriendHero();
-        }else if (Game.getInstance().getMap().getEnemyHero().getX() == x && Game.getInstance().getMap().getEnemyHero().getY() == y){
+        } else if (Game.getInstance().getMap().getEnemyHero().getX() == x && Game.getInstance().getMap().getEnemyHero().getY() == y) {
             return Game.getInstance().getMap().getEnemyHero();
         }
         return null;
     }
 
-    public void removeBuffFromBuffArrayListOfHero(String buffName){
-        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")){
+    public void removeBuffFromBuffArrayListOfHero(String buffName) {
+        if (Buff.getTypeOfBuffByItsName(buffName).equals("positive")) {
             for (Buff buff : this.getPositiveBuffs())
-                if (buff.getName().equals(buffName)){
+                if (buff.getName().equals(buffName)) {
                     this.getPositiveBuffs().remove(buff);
-                    return ;
+                    return;
                 }
-        }else{
+        } else {
             for (Buff buff : this.getNegativeBuffs())
-                if (buff.getName().equals(buffName)){
+                if (buff.getName().equals(buffName)) {
                     this.getNegativeBuffs().remove(buff);
                     return;
                 }
         }
     }
 
-    public static Hero findHeroByName(String heroName){
-        for (Hero check:heroes) {
-            if(check.name.matches(heroName)){
+    public static Hero findHeroByName(String heroName) {
+        for (Hero check : heroes) {
+            if (check.name.matches(heroName)) {
                 return check;
             }
         }

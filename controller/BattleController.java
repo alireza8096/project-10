@@ -120,21 +120,20 @@ public class BattleController {
 
 
     public static String returnNameById(int cardId)throws Exception{
-        int idType = cardId/100;
-        int id = cardId%100;
         String name = "";
-        switch (idType){
+        System.out.println(cardId);
+        switch (cardId/100){
             case 1:
-                name = Hero.findHeroByID(id).getName();
+                name = Hero.findHeroByID(cardId).getName();
                 break;
             case 2:
-                name = Item.findItemByID(id).getName();
+                name = Item.findItemByID(cardId).getName();
                 break;
             case 3:
-                name = Minion.findMinionByID(id).getName();
+                name = Minion.findMinionByID(cardId).getName();
                 break;
             case 4:
-                name = Spell.findSpellByID(id).getName();
+                name = Spell.findSpellByID(cardId).getName();
                 break;
         }
         return name;
