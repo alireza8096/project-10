@@ -5,19 +5,22 @@ import model.collection.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BattleController {
+
     public static void selectCardById(String[] commands, Scanner scanner) throws Exception{
         if(commands.length == 2 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].matches("[\\d]+")) {
             int id = Integer.parseInt(commands[1]);
             if (Shop.checkValidId(id)) {
                 String cardName = returnNameById(id);
+                Card card = Card.returnCardByIDFromMap(id);
                 if (cardIsInGame(cardName)) {
                     if (thisCardIsYours(cardName)) {
-                        doActionOnCard(cardName, scanner);
+                        doActionOnCard(card, scanner);
                     } else {
                         System.out.println("This card does not belong to you");
                     }
@@ -28,22 +31,58 @@ public class BattleController {
             AllDatas.hasEnteredBattle = true;
         }
     }
-    public static void moveToXY(String[] commands,String cardName){
+
+    public static void doActionOnCard(Card card,Scanner scanner) throws Exception {
+        String command = scanner.nextLine();
+        String[] commands = command.split(" ");
+        moveToXY(commands,card);
+        attackCommand(commands,card);
+        attackCombo(commands,card);
+        useHeroSpecialPowerXY(commands,card);
+        comboAttackCommand(commands, card);
+        if(!AllDatas.didAction){
+            System.out.println("Command was not supported");
+        }
+    }
+
+    public static void comboAttackCommand(String[] commands, Card card){
+        ArrayList<Card> comboCards = new ArrayList<>();
+        if (commands[0].equals("attack") && commands[1].equals("combo")){
+            int opponentID = Integer.parseInt(commands[2]);
+            Card opponentCard = Card.returnCardByIDFromMap(opponentID);
+            for (int i = 3; i < commands.length; i++) {
+                int cardID = Integer.parseInt(commands[i]);
+                comboCards.add(Card.returnCardByIDFromMap(cardID));
+            }
+            comboAttack(card, comboCards, opponentCard);
+        }
+
+    }
+
+    public static void comboAttack(Card mainMinion, ArrayList<Card> comboCards, Card opponentCard){
+
+    }
+
+    public static void moveToXY(String[] commands, Card card){
         if(commands.length == 3 && commands[0].compareToIgnoreCase("move") == 0
                 && commands[1].compareToIgnoreCase("to") == 0
                 && commands[2].matches("\\([\\d]+,[\\d]+\\)")) {
-            checkAllConditionsToMoveCard(commands[2], cardName);
+            int x = Integer.parseInt(commands[2].substring(commands[2].indexOf('('), commands[2].indexOf(",")));
+            int y = Integer.parseInt(commands[2].substring(commands[2].indexOf(','), commands[2].indexOf(")")));
+            checkAllConditionsToMoveCard(card, x, y);
             AllDatas.didAction = true;
         }
     }
-    public static void attack(String[] commands,String cardName) throws Exception {
+    public static void attackCommand(String[] commands, Card card) throws Exception {
         if(commands.length == 2 && commands[0].compareToIgnoreCase("attack") == 0
                 && commands[1].matches("[\\d]+")) {
-            checkAllConditionsToAttack(commands[1], cardName);
+            int id = Integer.parseInt(commands[1]);
+            Card opponentIDCard = Card.returnCardByIDFromMap(id);
+            checkAllConditionsToAttack(card, opponentIDCard);
             AllDatas.didAction = true;
         }
     }
-    public static void attackCombo(String[] commands,String cardName){
+    public static void attackCombo(String[] commands, Card card){
         if(commands.length>=4 && commands[0].compareToIgnoreCase("attack") == 0
                 && commands[1].compareToIgnoreCase("combo") == 0){
             boolean commandIsCorrect = true;
@@ -57,11 +96,13 @@ public class BattleController {
             AllDatas.didAction = true;
         }
     }
-    public static void useSpecialPowerXY(String[] commands,String cardName) throws IOException, ParseException {
+    public static void useHeroSpecialPowerXY(String[] commands, Card card) throws IOException, ParseException {
         if (commands.length == 4 && commands[0].compareToIgnoreCase("use") == 0 &&
                 commands[1].compareToIgnoreCase("special") == 0 && commands[2].compareToIgnoreCase("power") == 0 &&
                 commands[3].matches("\\([\\d]+,[\\d]+\\)")) {
-            checkConditionsToApplySpecialPower(commands[3], cardName);
+            int x = Integer.parseInt(commands[3].substring(commands[3].indexOf('('), commands[3].indexOf(",")));
+            int y = Integer.parseInt(commands[3].substring(commands[3].indexOf(','), commands[3].indexOf(")")));
+            checkConditionsToApplyHeroSpecialPower(card, x, y);
             AllDatas.didAction = true;
         }
     }
@@ -119,25 +160,11 @@ public class BattleController {
         if(Game.getInstance().getHeroOfPlayer2().getName().equals(checkCard)) return true;
         return false;
     }
-    public static void doActionOnCard(String cardName,Scanner scanner) throws Exception {
-        String command = scanner.nextLine();
-        String[] commands = command.split(" ");
-        moveToXY(commands,cardName);
-        attack(commands,cardName);
-        attackCombo(commands,cardName);
-        useSpecialPowerXY(commands,cardName);
-        if(!AllDatas.didAction){
-            System.out.println("Command was not supported");
-        }
-    }
-    public static void checkConditionsToApplySpecialPower(String command,String cardName) throws IOException, ParseException {
-        int i = command.indexOf(",");
-        int x = Integer.parseInt(command.substring(1,i)) - 1;
-        int y = Integer.parseInt(command.substring(i+1,command.length()-1))-1;
-        if(Hero.thisCardIsHero(cardName)){
-            Hero hero = Hero.findHeroByName(cardName);
-            if(!hero.getSpecialPower().matches("Does not have special power")){
-                if(Game.getInstance().getPlayer1().getNumOfMana() >= hero.getMana()){
+
+    public static void checkConditionsToApplyHeroSpecialPower(Card heroCard, int x, int y) throws IOException, ParseException {
+ //       if(Hero.thisCardIsHero(cardName)){
+            if(!((Hero)heroCard).getSpecialPower().matches("Does not have special power")){
+                if(Game.getInstance().getPlayer1().getNumOfMana() >= heroCard.getMana()){
                     //apply special power
                 }
                 else{
@@ -147,37 +174,49 @@ public class BattleController {
             else{
                 System.out.println("This hero does not have special power");
             }
-        }
-        else{
-            Minion minion = Minion.findMinionByName(cardName);
-            if(!minion.getSpecialPower().matches("Does not have special power")){
-                if(Game.getInstance().getPlayer1().getNumOfMana() >= minion.getMana()) {
-                    //apply special power
-                }
-                else {
-                    System.out.println("Your mana is not enough to use minion's special power");
-                }
-            }
-            else{
-                System.out.println("This minion does not have special power");
-            }
-        }
+//        }
+//        else{
+//            Minion minion = (Minion) Minion.getMinionByName(cardName);
+//            if(!minion.getSpecialPower().matches("Does not have special power")){
+//                if(Game.getInstance().getPlayer1().getNumOfMana() >= minion.getMana()) {
+//                    //apply special power
+//                }
+//                else {
+//                    System.out.println("Your mana is not enough to use minion's special power");
+//                }
+//            }
+//            else{
+//                System.out.println("This minion does not have special power");
+//            }
+//        }
     }
-    public static void checkAllConditionsToMoveCard(String command, String cardName){
-        int i = command.indexOf(",");
-        int x = Integer.parseInt(command.substring(1,i)) - 1;
-        int y = Integer.parseInt(command.substring(i+1,command.length()-1))-1;
 
-        for (Card check : Game.getInstance().getPlayer1CardsInField()) {
-            if(check.getName().equals(cardName)) {
-                move(check, x, y);
+    public static void checkAllConditionsToMoveCard(Card card, int x, int y){
+        move(card, x, y);
+//        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)){
+//            move(Game.getInstance().getHeroOfPlayer1(), x, y);
+//        }
+    }
+
+    public static void startGameCommand(String[] commands){
+        if (commands[0].equals("start") && commands[1].equals("game")){
+            String deckName = commands[2];
+            String mode = commands[3];
+            switch (mode){
+                case "1":
+                    Game.getInstance().setGameMode(GameMode.killingHeroOfEnemy);
+                    break;
+                case "2":
+                    Game.getInstance().setGameMode(GameMode.collectingAndKeepingFlags);
+                    break;
+                case "3":
+                    Game.getInstance().setGameMode(GameMode.collectingHalfOfTheFlags);
+                    break;
             }
         }
-        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)){
-            move(Game.getInstance().getHeroOfPlayer1(), x, y);
-        }
     }
-    public static void move(Card card,int x,int y){
+
+    public static void move(Card card, int x, int y){
         if(card.isMovable() && !card.isHasMovedInThisTurn()) {
             if (!Map.cardCanBeMovedToThisCell(card,x,y)) {
                 System.out.println("Invalid target");
@@ -193,6 +232,10 @@ public class BattleController {
         else {
             System.out.println("This card is not movable");
         }
+    }
+
+    public static void attack(Card attackerCard, Card opponentCard){
+
     }
 
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y){
@@ -244,29 +287,28 @@ public class BattleController {
 
 
 
-    public static void checkAllConditionsToAttack(String command,String cardName) throws Exception {
-        int opponentId = Integer.parseInt(command);
-        Card card = Card.findCardByName(cardName);
-        if (thisIdIsAvailableForOpponent(opponentId)) {
-            if (Hero.thisCardIsHero(cardName)) {
-                if(!card.isHasAttackedInThisTurn()) {
-//                attack();
+    public static void checkAllConditionsToAttack(Card attackerCard, Card opponentCard) throws Exception {
+//        if (thisIdIsAvailableForOpponent(opponentId)) {
+//            if (Hero.thisCardIsHero(cardName)) {
+                if(!attackerCard.isHasAttackedInThisTurn()) {
+                   attack(attackerCard, opponentCard);
                 }
                 else {
                     System.out.println("Hero has attacked in this turn");
+//                }
+//            } else {
+//                if(!card.isHasAttackedInThisTurn()) {
+////                checkAttackConditionsForMinion();
+//                    //then attack
+//                }
+//                else {
+//                    System.out.println("The minion has attacked in this turn");
+//                }
+//            }
+//        }else{
+//            System.out.println("opponent minion is unavailable for attack");
+//        }
                 }
-            } else {
-                if(!card.isHasAttackedInThisTurn()) {
-//                checkAttackConditionsForMinion();
-                    //then attack
-                }
-                else {
-                    System.out.println("The minion has attacked in this turn");
-                }
-            }
-        }else{
-            System.out.println("opponent minion is unavailable for attack");
-        }
     }
 
 
@@ -453,5 +495,22 @@ public class BattleController {
         Game.getInstance().getPlayer1().handleManaAtTheFirstOfTurn();
 
     }
+
+    public static void insertCardInFieldCommand(String[] commands) throws IOException, ParseException {
+        if (commands[0].equals("insert")){
+            String cardName = commands[1];
+            Card card = Card.findCardByName(cardName);
+            int x = Integer.parseInt(commands[3].substring(1, commands[3].indexOf(',')));
+            int y = Integer.parseInt(commands[3].substring(commands[3].indexOf(',') + 1));
+            insertCard(card, x, y);
+        }
+    }
+
+    public static void insertCard(Card card, int x, int y){
+
+    }
+
+
+
 
 }

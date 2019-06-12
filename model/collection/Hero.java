@@ -293,5 +293,6 @@ public class Hero extends Force{
             getNegativeBuffs().add(buff);
     }
 
+
 }
 

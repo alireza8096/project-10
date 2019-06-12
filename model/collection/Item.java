@@ -155,6 +155,7 @@ public class Item {
         return "";
     }
 
+
 //    public static Item returnFlagByRandomCoordination(){
 //        int x = Cell.returnRandomNumberForCoordinationInThisRange(0, 4);
 //        int y = Cell.returnRandomNumberForCoordinationInThisRange(0, 9);
@@ -341,6 +342,8 @@ public class Item {
                 minion.getActionBuffsOnItself().add(buff);
             }
 
+            Game.getInstance().getMap().getFriendHero().getActionBuffsOnItself().add(buff);
+
 
             Game.getInstance().getMap().getFriendHero().getActionBuffsOnItself().add(buff);
         }
@@ -388,6 +391,26 @@ public class Item {
         }
     }
 
+    public void applyUsableItems(){
+        String target = this.target;
+
+        switch (target){
+            case "itself"://it is just for "ghosle tameed"
+
+                break;
+            case "minion/hero":
+
+                break;
+            case "hero":
+                break;
+            case "target":
+                break;
+        }
+    }
+
+    public void applyUsableItemOnMinionOrHero(){
+
+    }
 
 }
 

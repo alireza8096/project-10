@@ -40,7 +40,7 @@ public class Shop<T> {
         return Game.getInstance().getPlayer1().getItemsInCollection().size() != 3;
     }
 
-    public static void buyCardAndAddToCollection(String cardName) throws Exception {
+    public static void buyCardAndAddToCollection(String cardName){
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (returnCardTypeByName(cardName)) {
             case "hero":

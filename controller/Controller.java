@@ -16,7 +16,9 @@ public class Controller {
         HandleFiles.createHeroes();
 //        HandleFiles.createStringOfItems();
         HandleFiles.createMinions();
-     //   HandleFiles.createStringOfPlayers();
+        HandleFiles.createStringOfPlayers();
+//        HandleFiles.createStringOfSpells();
+//        HandleFiles.createStringOfUsableItems();
         HandleFiles.createSpells();
 //        HandleFiles.createStringOfUsableItems();
     }
