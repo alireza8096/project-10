@@ -1,6 +1,13 @@
 package model;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+
 public class AllDatas {
+
+    public static Scene currentScene;
+    public static Pane currentRoot;
+
     public static boolean gameBoolean = true;
     public static LinkedListMenus account;
     public static LinkedListMenus leaderboard;
