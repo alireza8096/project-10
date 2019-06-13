@@ -23,6 +23,7 @@ public class HandleFiles {
     private static final String ADDRESS_HERO = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Spells";
+    private static final String ADDRESS_ITEM = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Items";
 
         public static void createStringOfPlayers() {
         File folder = new File("/Users/hamilamailee/Documents/project-10/model/collection/players");
@@ -58,6 +59,37 @@ public class HandleFiles {
         }
     }
 
+    public static void createItems() throws IOException, ParseException {
+        File folder = new File(ADDRESS_ITEM);
+        File[] listOfFiles = folder.listFiles();
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_ITEM+"/"+listOfFiles[i].getName());
+                String itemType = jsonObject.get("itemType").toString();
+                String price = jsonObject.get("price").toString();
+                String name = jsonObject.get("name").toString();
+                String id = jsonObject.get("id").toString();
+                String type = jsonObject.get("type").toString();
+                String desc = jsonObject.get("desc").toString();
+                String target = jsonObject.get("target").toString();
+                String numOfTarget = jsonObject.get("numOfTarget").toString();
+                String action = jsonObject.get("action").toString();
+                String buffs = jsonObject.get("buffs").toString();
+                String effectValue = jsonObject.get("effectValue").toString();
+                String delay = jsonObject.get("delay").toString();
+                String last = jsonObject.get("last").toString();
+                String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
+                String locationOfTarget = jsonObject.get("locationOfTarget").toString();
+                String specification = jsonObject.get("specification").toString();
+                String user = jsonObject.get("user").toString();
+                String activationTime = jsonObject.get("activationTime").toString();
+                Spell spell = new Spell(target, numOfTarget, action, friendOrEnemy, locationOfTarget);
+                Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
+                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime);
+                Item.getItems().add(item);
+            }
+        }
+    }
     public static void createMinions() throws IOException, ParseException {
         File folder = new File(ADDRESS_MINION);
         File[] listOfFiles = folder.listFiles();

@@ -15,15 +15,11 @@ public class Spell extends Card implements Cloneable{
 //    public static ArrayList<String> spellNames = new ArrayList<>();
     private static ArrayList<Spell> spells = new ArrayList<>();
     private String desc;
-
     private String target;
     private String numOfTarget;
     private ArrayList<String> actionType;
     private ArrayList<Buff> buffs = new ArrayList<>();
     private ArrayList<Buff> actions = new ArrayList<>();
-    private String effectValue;
-    private String delay;
-    private String lastDuration;
     private String friendOrEnemy;
     private String locationOfTarget;
 
@@ -49,6 +45,13 @@ public class Spell extends Card implements Cloneable{
     public Spell(String mana, String id, String cardType, String name, String price, String desc, String target, String numOfTarget, String actionType, String friendOrEnemy, String locationOfTarget) {
         super(mana, id, cardType, name, price);
         this.desc = desc;
+        this.target = target;
+        this.numOfTarget = numOfTarget;
+        this.actionType = Force.returnArrayList(actionType);
+        this.friendOrEnemy = friendOrEnemy;
+        this.locationOfTarget = locationOfTarget;
+    }
+    public Spell(String target,String numOfTarget,String actionType,String friendOrEnemy,String locationOfTarget){
         this.target = target;
         this.numOfTarget = numOfTarget;
         this.actionType = Force.returnArrayList(actionType);

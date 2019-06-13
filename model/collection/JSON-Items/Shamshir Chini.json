@@ -1,7 +1,7 @@
 {"itemType":"collectible",
   "price":"null",
   "name":"Shamshir Chini",
-  "id":20,
+  "id":"220",
   "type": "item",
   "desc": "adds 5 point to attack power of melee minion/heroes",
   "target" : "minion/hero",

@@ -18,10 +18,10 @@ public class Controller {
     }
     public static void createAllDataFromJSON() throws Exception{
         HandleFiles.createHeroes();
-//        HandleFiles.createStringOfItems();
+        HandleFiles.createItems();
         HandleFiles.createMinions();
-        HandleFiles.createStringOfPlayers();
         HandleFiles.createSpells();
+        HandleFiles.createStringOfPlayers();
     }
 
 
@@ -63,7 +63,7 @@ public class Controller {
         LinkedListMenus.allMenus.add(AllDatas.help);
 
     }
-    public static void handleCommands(Stage primaryStage, Scanner scanner) throws Exception{
+    public static void handleCommands(Scanner scanner) throws Exception{
         switch (LinkedListMenus.whichMenuNow().getMenuName()) {
             case "Account":
                 System.out.println("account");

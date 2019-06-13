@@ -38,14 +38,6 @@ public class MenuView {
         foregroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
         AllDatas.currentRoot.getChildren().addAll(backgroundImageView, midgroundImageView, foregroundImageView);
-
-//        Rectangle rectangle = new Rectangle(100, 100);
-//
-//        TextField email = new TextField();
-
-
-
-
     }
 
     public static void showShop(){
