@@ -80,10 +80,19 @@ public class Controller {
                 break;
             case "Battle":
                 System.out.println("battle");
-                MenusCommandController.battleController(scanner);
-                System.out.println(Game.getInstance().getPlayer1().getNumOfMana());
+                if (Game.getInstance().isPlayer1Turn()) {
+                    MenusCommandController.battleController(scanner);
+                    System.out.println(Game.getInstance().getPlayer1().getNumOfMana());
+                }else{
+//                    System.out.println("AIAIAIAIAAI");
+                    System.out.println(Game.getInstance().getPlayer2().getNumOfMana());
+                    AI.insertCardTillPossible();
+                    AI.moveTillPossible();
+                    System.out.println(Game.getInstance().getPlayer2().getNumOfMana());
+                }
                 Map.show();
                 Hand.showHand();
+
 
                 break;
             case "Help":

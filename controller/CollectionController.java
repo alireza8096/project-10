@@ -121,7 +121,7 @@ public class CollectionController {
         }
     }
 
-    public static void validateDeck(String[] commands) {
+    public static void validateDeck(String[] commands) throws CloneNotSupportedException {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("validate") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
@@ -138,7 +138,7 @@ public class CollectionController {
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
             Deck.selectDeck(deckName);
-            Hero hero = (Hero) Hero.findCardByName(Deck.findDeckByName(deckName).getHeroInDeck().getName());
+            Hero hero = Deck.findDeckByName(deckName).getHeroInDeck();
             Game.getInstance().getMap().setFriendHero(hero);
             AllDatas.hasEnteredCollection = true;
         }

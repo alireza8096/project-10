@@ -116,6 +116,20 @@ public class Map {
         return false;
     }
 
+
+    public static boolean checkIfMinionCardCanBeInsertedInThisCoordinationAI(int x, int y) {
+        if (thisCellIsEmpty(x, y)) {
+            if ((x - 1) >= 0 && cellIsEnemy(x - 1, y))
+                return true;
+            else if ((x + 1) <= 4 && cellIsEnemy(x + 1, y))
+                return true;
+            else if ((y - 1) >= 0 && cellIsEnemy(x, y - 1))
+                return true;
+            else return (y + 1) <= 8 && cellIsEnemy(x, y + 1);
+        }
+        return false;
+    }
+
     public static boolean checkIfMinionCardCanBeInsertedInThisCoordination(int x, int y) {
         if (thisCellIsEmpty(x, y)) {
             if ((x - 1) >= 0 && cellIsFriend(x - 1, y))
@@ -157,28 +171,20 @@ public class Map {
         return false;
     }
 
-    public static boolean thisCellIsEnemy(int x, int y) {
-        Cell cell = Cell.getCellByCoordination(x, y);
-        if (cell.getCellType() == CellType.enemyMinion || cell.getCellType() == CellType.enemyHero)
-            return true;
-        return false;
-    }
-
     public static boolean enemyInWay(int x1, int y1, int x2, int y2) {
         if (distance(x1, y1, x2, y2) == 1)
             return false;
         else {
             if (x1 == x2 || y1 == y2) {
                 if (enemyIsAvailableBetweenThis2Cells(x1, y1, x2, y2)) {
-                    return false;
-                }
-                return true;
-            } else {
-
-                if (checkAllWaysToReach(x1, y1, x2, y2)) {
                     return true;
                 }
                 return false;
+            } else {
+                if (checkAllWaysToReach(x1, y1, x2, y2)) {
+                    return false;
+                }
+                return true;
             }
         }
     }
@@ -188,7 +194,7 @@ public class Map {
             int maxY = Math.max(y1, y2);
             int minY = Math.min(y1, y2);
             for (int i = minY; i <= maxY; i++) {
-                if (thisCellIsEnemy(x1, i)) {
+                if (cellIsEnemy(x1, i)) {
                     return true;
                 }
             }
@@ -196,7 +202,7 @@ public class Map {
             int maxX = Math.max(x1, x2);
             int minX = Math.max(x2, x2);
             for (int i = minX; i <= maxX; i++) {
-                if (thisCellIsEnemy(i, y1))
+                if (cellIsEnemy(i, y1))
                     return true;
             }
         }
@@ -205,19 +211,19 @@ public class Map {
 
     public static boolean checkAllWaysToReach(int x1, int y1, int x2, int y2) {
         if (x1 > x2 && y1 > y2) {
-            if (!thisCellIsEnemy(x1 - 1, y1) || !thisCellIsEnemy(x1, y1 - 1))
+            if (!cellIsEnemy(x1 - 1, y1) || !cellIsEnemy(x1, y1 - 1))
                 return true;
             return false;
         } else if (x1 < x2 && y1 > y2) {
-            if (!thisCellIsEnemy(x1, y1 - 1) || !thisCellIsEnemy(x1 + 1, y1))
+            if (!cellIsEnemy(x1, y1 - 1) || !cellIsEnemy(x1 + 1, y1))
                 return true;
             return false;
         } else if (x1 > x2 && y1 < y2) {
-            if (!thisCellIsEnemy(x1 - 1, y1) || !thisCellIsEnemy(x1, y1 + 1))
+            if (!cellIsEnemy(x1 - 1, y1) || !cellIsEnemy(x1, y1 + 1))
                 return true;
             return false;
         } else {
-            if (!thisCellIsEnemy(x1, y1 + 1) || !thisCellIsEnemy(x1 + 1, y1))
+            if (!cellIsEnemy(x1, y1 + 1) || !cellIsEnemy(x1 + 1, y1))
                 return true;
             return false;
         }

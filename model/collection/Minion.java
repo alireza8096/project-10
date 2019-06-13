@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Minion extends Force {
+public class Minion extends Force implements Cloneable{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     private static ArrayList<Minion> minions = new ArrayList<>();
@@ -63,19 +63,19 @@ public class Minion extends Force {
         this.activationTime = activationTime;
     }
 
-    public static Minion findMinionByID(int id){
+    public static Minion findMinionByID(int id) throws CloneNotSupportedException {
         for (Minion minion: minions) {
             if(minion.id == id){
-                return minion;
+                return (Minion)minion.clone();
             }
         }
         return null;
     }
 
-    public static Minion findMinionByName(String minionName){
+    public static Minion findMinionByName(String minionName) throws CloneNotSupportedException {
         for (Minion minion: minions) {
             if(minion.name.matches(minionName))
-                return minion;
+                return (Minion)minion.clone();
         }
         return null;
     }

@@ -2,6 +2,7 @@ package model.collection;
 
 import model.CellType;
 import model.Game;
+import model.Shop;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
@@ -9,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Hero extends Force {
+public class Hero extends Force implements Cloneable{
     private static ArrayList<Hero> heroes = new ArrayList<>();
     public static int turnCounterForPlayer1Hero;
     public static int turnCounterForPlayer2Hero;
@@ -47,10 +48,10 @@ public class Hero extends Force {
         this.coolDown = coolDown;
     }
 
-    public static Hero findHeroByID(int id) {
+    public static Hero findHeroByID(int id) throws CloneNotSupportedException {
         for (Hero hero : heroes) {
             if (hero.id == id) {
-                return hero;
+                return (Hero)hero.clone();
             }
         }
         return null;
@@ -245,6 +246,9 @@ public class Hero extends Force {
         hero.setY(0);
         Game.getInstance().getMap().getCells()[2][0].setCellType(CellType.selfHero);
         Game.getInstance().getMap().setFriendHero(hero);
+        System.out.println("****"+ Game.getInstance().getMap().getEnemyHero().getX() + " " + Game.getInstance().getMap().getEnemyHero().getY());
+
+
     }
 
 //    public static Hero findHeroInMap(int x, int y){

@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class GameView {
 
-    public static String searchTypeAndShow(String name){
+    public static String searchTypeAndShow(String name) throws CloneNotSupportedException {
         String returnString = "";
         if(Minion.thisCardIsMinion(name))
             returnString = showMinion(Minion.findMinionByName(name));
@@ -62,7 +62,7 @@ public class GameView {
                 " – HP : " + hero.getHealthPoint() + " – Class : " + hero.getAttackType() +" - Special power : " + hero.getSpecialPower()
          +". - Sell Cost : " + hero.getPrice());
     }
-    public static void showDeck(String deckName) {
+    public static void showDeck(String deckName) throws CloneNotSupportedException {
             Deck deck = Deck.findDeckByName(deckName);
             System.out.println("Heroes :");
             try{

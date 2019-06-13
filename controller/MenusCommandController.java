@@ -129,7 +129,7 @@ public class MenusCommandController {
             BattleView.showHand(commandsSplitted);
             BattleController.insertCardInFieldCommand(command);
             BattleController.startGameCommand(commandsSplitted);
-//            BattleController.endTurnCommand(commandsSplitted);
+            BattleController.endTurnCommand(commandsSplitted);
 //            BattleController.enterGraveyard(commandsSplitted);
 
             if (commandsSplitted.length == 2 && commandsSplitted[0].compareToIgnoreCase("select") == 0
@@ -147,11 +147,12 @@ public class MenusCommandController {
             AllDatas.hasEnteredBattle= false;
 
         }
-        else{
-//            AI.moveTillPossible();
-//            AI.attckTillPossible();
-//            BattleController.changeTurn();
-        }
+//        else{
+//            System.out.println("AIAIAIAIAIAIAIAIAIAI");
+////            AI.moveTillPossible();
+////            AI.attckTillPossible();
+////            BattleController.changeTurn();
+//        }
         
     }
 }

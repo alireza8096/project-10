@@ -56,7 +56,7 @@ public class Hand {
 //        this.getCardsInHand().remove(card);
 //    }
 
-    public void addCardToHandFromDeck() throws IOException, ParseException {
+    public void addCardToHandFromDeck(){
         if (this.checkIfNumberOfCardsInHandIsValid()) {
             Deck mainDeck = Game.getInstance().getPlayer1().getMainDeck();
             Collections.shuffle(mainDeck.getCardsInDeck());
@@ -73,8 +73,7 @@ public class Hand {
         }
         return false;
     }
-
-    public void insertCardFromHandInMap(String cardName, int x, int y) {
+    public void insertCardFromHandInMap(String cardName, int x, int y) throws CloneNotSupportedException {
         if (!checkIfCardIsInHand(cardName)){
             System.out.println("Invalid card name!");
         }else{
@@ -83,7 +82,7 @@ public class Hand {
                 System.out.println("You don't have enough mana!");
             }else{
                 if (Minion.thisCardIsMinion(cardName)){
-                    Minion minion = Minion.findMinionByName(cardName);
+                    Minion minion = (Minion)returnCardInHand(cardName);
                     if (!Map.checkIfMinionCardCanBeInsertedInThisCoordination(x, y)){
                         System.out.println("Invalid target!");
                     }else {
@@ -91,15 +90,15 @@ public class Hand {
                         Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
                         minion.setX(x);
                         minion.setY(y);
-//                        minion.setInGame(true);
                         minion.setCanMove(false);
                         minion.setCanAttack(false);
-                        Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().remove(minion);
+                        Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(cardName);
                         Game.getInstance().getMap().getFriendMinions().add(minion);
                     }
                 }else if (Spell.thisCardIsSpell(cardName)){
-                    Spell spell = Spell.findSpellByName(cardName);
+                    Spell spell = (Spell)returnCardInHand(cardName);
                     spell.insertSpellInThisCoordination(x, y);
+                    Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(cardName);
                 }
             }
         }
@@ -115,7 +114,8 @@ public class Hand {
     }
 
     public void removeCardFromHand(String cardName){
-        for (Card card : this.getCardsInHand()){
+        ArrayList<Card> copy = new ArrayList<>(getCardsInHand());
+        for (Card card : copy){
             if (card.getName().equals(cardName)){
                 this.getCardsInHand().remove(card);
             }

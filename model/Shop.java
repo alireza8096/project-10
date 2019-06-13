@@ -4,8 +4,11 @@ import model.collection.*;
 import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 
-public class Shop<T> {
+public class Shop{
     private Game game;
 
     public Game getGame() {
@@ -16,7 +19,7 @@ public class Shop<T> {
         this.game = game;
     }
 
-    public static boolean checkIfMoneyIsEnough(String cardName) {
+    public static boolean checkIfMoneyIsEnough(String cardName) throws CloneNotSupportedException {
         int playersDaric = Game.getInstance().getPlayer1().getDaric();
         int price = 0;
         switch (returnCardTypeByName(cardName)) {
@@ -40,7 +43,7 @@ public class Shop<T> {
         return Game.getInstance().getPlayer1().getItemsInCollection().size() != 3;
     }
 
-    public static void buyCardAndAddToCollection(String cardName) {
+    public static void buyCardAndAddToCollection(String cardName) throws CloneNotSupportedException {
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (returnCardTypeByName(cardName)) {
             case "hero":
@@ -137,12 +140,7 @@ public class Shop<T> {
     }
 
     public static <T> void removeProcess(ArrayList<T> cards, T card) {
-        ArrayList<T> copyOfCards = new ArrayList<>(cards);
-        for (T cardToFind : copyOfCards) {
-            if (cardToFind.equals(card)) {
-                cards.remove(card);
-            }
-        }
+        cards.removeIf(iteratorCard -> iteratorCard.equals(card));
     }
 
     public static void sellCardAndRemoveFromCollection(int cardID) throws Exception {

@@ -113,7 +113,7 @@ public class Account {
         }
         return list;
     }
-    public static Deck createDeckFromString(String deckString){
+    public static Deck createDeckFromString(String deckString) throws CloneNotSupportedException {
         if(!deckString.matches("")) {
             String[] parts = deckString.split(",");
             Deck deck = new Deck(parts[0]);
@@ -129,7 +129,7 @@ public class Account {
         }
         return null;
     }
-    public static void createCollectionFromString(Player player,String collection){
+    public static void createCollectionFromString(Player player,String collection) throws CloneNotSupportedException {
         System.out.println(collection);
         if(!collection.matches("")) {
             String[] parts = collection.split(",");

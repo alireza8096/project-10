@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Spell extends Card {
+public class Spell extends Card implements Cloneable{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
 //    public static ArrayList<String> spellNames = new ArrayList<>();
@@ -64,19 +64,19 @@ public class Spell extends Card {
         this.desc = desc;
     }
 
-    public static Spell findSpellByID(int id){
+    public static Spell findSpellByID(int id) throws CloneNotSupportedException {
         for (Spell spell: spells) {
             if(spell.id == id){
-                return spell;
+                return (Spell)spell.clone();
             }
         }
         return null;
     }
 
-    public static Spell findSpellByName(String spellName){
+    public static Spell findSpellByName(String spellName) throws CloneNotSupportedException {
         for (Spell spell: spells) {
             if (spell.name.matches(spellName)) {
-                return spell;
+                return (Spell)spell.clone();
             }
         }
         return null;
