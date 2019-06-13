@@ -1,5 +1,12 @@
 package model;
 
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import view.MenuView;
+
 import java.util.ArrayList;
 
 public class LinkedListMenus {
@@ -9,6 +16,8 @@ public class LinkedListMenus {
     private ArrayList<String> commandsForHelp = new ArrayList<>();
     private String menuName;
     private boolean nowInThisMenu;
+    private Scene scene;
+    private Pane root;
 
     public String getMenuName() {
         return menuName;
@@ -25,6 +34,8 @@ public class LinkedListMenus {
     public LinkedListMenus(String name, boolean bool) {
         this.menuName = name;
         this.nowInThisMenu = bool;
+        this.root = new Pane();
+        this.scene = new Scene(root, MenuView.WINDOW_WIDTH, MenuView.WINDOW_HEIGHT);
     }
 
     public LinkedListMenus getParent() {
@@ -43,6 +54,22 @@ public class LinkedListMenus {
         for (int i = 1; i <= helpCommands.length; i++) {
             commandsForHelp.add(i + "." + helpCommands[i - 1]);
         }
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
+
+    public void setRoot(Pane root) {
+        this.root = root;
     }
 
     public static LinkedListMenus whichMenuNow() {

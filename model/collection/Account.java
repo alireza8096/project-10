@@ -48,6 +48,8 @@ public class Account {
                 setPlayer(name);
                 AllDatas.account.setNowInThisMenu(false);
                 AllDatas.commandLine.setNowInThisMenu(true);
+                AllDatas.currentScene = AllDatas.commandLine.getScene();
+                AllDatas.currentRoot = AllDatas.commandLine.getRoot();
             }
             else
                 System.out.println("Password is not correct");

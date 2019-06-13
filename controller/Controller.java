@@ -1,10 +1,15 @@
 package controller;
 
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 
 import java.util.Scanner;
+import java.util.concurrent.Callable;
+
+import static javafx.application.Application.launch;
 
 public class Controller {
     public static void createAll() throws Exception{
@@ -16,11 +21,11 @@ public class Controller {
 //        HandleFiles.createStringOfItems();
         HandleFiles.createMinions();
         HandleFiles.createStringOfPlayers();
-//        HandleFiles.createStringOfSpells();
-//        HandleFiles.createStringOfUsableItems();
         HandleFiles.createSpells();
-//        HandleFiles.createStringOfUsableItems();
     }
+
+
+
     public static void createAllMenus(){
         AllDatas.account= new LinkedListMenus("Account",true);
         AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
@@ -38,15 +43,17 @@ public class Controller {
         AllDatas.collection.setParent(AllDatas.commandLine);
         AllDatas.shop.setParent(AllDatas.commandLine);
         AllDatas.battle.setParent(AllDatas.commandLine);
-        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
-        AllDatas.leaderboard.setCommandsForHelp("exit");
-        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help","logout");
-        AllDatas.collection.setCommandsForHelp("exit","show","search [card name | item name]","save","create deck[deck name]"
-        ,"delete deck [deck name]","add [card id | card id | hero id] to deck [deck name]",
-                "remove [card id | card id| hero id] from deck [deck name]","validate deck [deck name]","select deck [deck name]"
-        ,"show all decks","show deck [deck name]","Help");
-        AllDatas.shop.setCommandsForHelp("exit","show collection","search [item name | card name]","search collection [item name | card name]",
-                "buy [card name | item name]","sell [card id | card id]","show","Help");
+
+        Controller.enterLoginMenu();
+//        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
+//        AllDatas.leaderboard.setCommandsForHelp("exit");
+//        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help","logout");
+//        AllDatas.collection.setCommandsForHelp("exit","show","search [card name | item name]","save","create deck[deck name]"
+//        ,"delete deck [deck name]","add [card id | card id | hero id] to deck [deck name]",
+//                "remove [card id | card id| hero id] from deck [deck name]","validate deck [deck name]","select deck [deck name]"
+//        ,"show all decks","show deck [deck name]","Help");
+//        AllDatas.shop.setCommandsForHelp("exit","show collection","search [item name | card name]","search collection [item name | card name]",
+//                "buy [card name | item name]","sell [card id | card id]","show","Help");
         LinkedListMenus.allMenus.add(AllDatas.account);
         LinkedListMenus.allMenus.add(AllDatas.leaderboard);
         LinkedListMenus.allMenus.add(AllDatas.commandLine);
@@ -56,7 +63,7 @@ public class Controller {
         LinkedListMenus.allMenus.add(AllDatas.help);
 
     }
-    public static void handleCommands(Scanner scanner) throws Exception{
+    public static void handleCommands(Stage primaryStage, Scanner scanner) throws Exception{
         switch (LinkedListMenus.whichMenuNow().getMenuName()) {
             case "Account":
                 System.out.println("account");
@@ -101,4 +108,37 @@ public class Controller {
                 break;
         }
     }
+
+    public static void enterLoginMenu(){
+        AllDatas.currentRoot = AllDatas.account.getRoot();
+        AllDatas.currentScene = AllDatas.account.getScene();
+    }
+
+    public static void enterMainMenu(){
+        AllDatas.currentRoot = AllDatas.commandLine.getRoot();
+        AllDatas.currentScene = AllDatas.commandLine.getScene();
+    }
+
+    public static void enterShop(){
+        AllDatas.currentRoot = AllDatas.shop.getRoot();
+        AllDatas.currentScene = AllDatas.shop.getScene();
+    }
+
+    public static void enterColllection(){
+        AllDatas.currentRoot = AllDatas.collection.getRoot();
+        AllDatas.currentScene = AllDatas.collection.getScene();
+    }
+
+    public static void enterBattle(){
+        AllDatas.currentRoot = AllDatas.battle.getRoot();
+        AllDatas.currentScene = AllDatas.battle.getScene();
+    }
+
+    public static void enterLeaderBoard(){
+        AllDatas.currentRoot = AllDatas.leaderboard.getRoot();
+        AllDatas.currentScene = AllDatas.leaderboard.getScene();
+    }
+
+
+
 }
