@@ -10,7 +10,7 @@ public class Game {
     private static Game currentGame;
     private static ArrayList<Game> games = new ArrayList<>();
     private boolean isPlayer1Turn;
-    private boolean isSet = false;
+    private static boolean isSet = false;
     private String winnerName;
     private Player player1;
     private Player player2;
@@ -21,21 +21,16 @@ public class Game {
     private Map map;
     private boolean isBeingPlayed;
     private GameType gameType;
-    private ArrayList<Card> player1CardsInField = new ArrayList<>();
-    private ArrayList<Card> player2CardsInField = new ArrayList<>();
-    private Hero heroOfPlayer1;
-    private Hero heroOfPlayer2;
-    private Hand hand;
     private GraveYard graveYard = new GraveYard();
 
     public Game(){
 
     }
-
-    public Game(GameMode gameMode){
-        this.setGameMode(gameMode);
-        this.setPlayer1Turn(true);
-    }
+//
+//    public Game(GameMode gameMode){
+//        this.setGameMode(gameMode);
+//        this.setPlayer1Turn(true);
+//    }
 
 //    public ArrayList<Item> getPlayer1Flags() {
 //        return player1Flags;
@@ -68,42 +63,9 @@ public class Game {
         this.graveYard = graveYard;
     }
 
-
-
-    public Hero getHeroOfPlayer1() {
-        return heroOfPlayer1;
-    }
-
-    public Hero getHeroOfPlayer2() {
-        return heroOfPlayer2;
-    }
-
-    public void setHeroOfPlayer1(Hero heroOfPlayer1) {
-        this.heroOfPlayer1 = heroOfPlayer1;
-    }
-
-    public void setHeroOfPlayer2(Hero heroOfPlayer2) {
-        this.heroOfPlayer2 = heroOfPlayer2;
-    }
-
     public Game(Player player1, Player player2){
         this.setPlayer1(player1);
         this.setPlayer2(player2);
-    }
-    public ArrayList<Card> getPlayer1CardsInField() {
-        return player1CardsInField;
-    }
-
-    public void setPlayer1CardsInField(ArrayList<Card> player1CardsInField) {
-        this.player1CardsInField = player1CardsInField;
-    }
-
-    public ArrayList<Card> getPlayer2CardsInField() {
-        return player2CardsInField;
-    }
-
-    public void setPlayer2CardsInField(ArrayList<Card> player2CardsInField) {
-        this.player2CardsInField = player2CardsInField;
     }
 
     public static Game getInstance(){
@@ -210,23 +172,21 @@ public class Game {
         this.gameType = gameType;
     }
 
-    public static void createNewGame(){
-        Game game = new Game();
-
-        Map map = new Map();
-        game.setMap(map);
-        game.setPlayer1Turn(true);
-        game.setNumOfRound(1);
-
-        Game.setCurrentGame(game);
-
+    public static boolean isIsSet() {
+        return isSet;
     }
 
-    public Hand getHand() {
-        return hand;
+    public static void setIsSet(boolean isSet) {
+        Game.isSet = isSet;
     }
 
-    public void setHand(Hand hand) {
-        this.hand = hand;
-    }
+//    public static void createNewGame(){
+//        Game game = new Game();
+//        Map map = new Map();
+//        game.setMap(map);
+//        game.setPlayer1Turn(true);
+//        game.setNumOfRound(1);
+//        Game.setCurrentGame(game);
+//        isSet = true;
+//    }
 }

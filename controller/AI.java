@@ -10,24 +10,25 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.regex.Matcher;
 
-public class AI {
-    private static boolean canMove = true;
-    private static boolean canAttack = true;
+import static model.Map.*;
 
-    public static void createDeckOfAI(Player player) throws Exception {
-        Deck deck = new Deck("player2");
-        int heroId =(int) Math.random()%10;
-        deck.setHeroInDeck(Hero.findHeroByID(heroId));
+public class AI {
+
+    public static void createDeckOfAI(Player player) throws CloneNotSupportedException {
+        Random random = new Random();
+        int heroId = 7;//random.nextInt(10) + 1;
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
         int[] idsOfSpells = new int[5];
         setRandomIdsItems(idsOfItems);
         setRandomIdsSpells(idsOfSpells);
         setRandomIdsMinions(idsOfMinions);
-        Game.getInstance().setHeroOfPlayer2(Hero.findHeroByName(BattleController.returnNameById(heroId)));
+//        Game.getInstance().getMap().setEnemyHero(Hero.findHeroByName(BattleController.returnNameById(heroId+100)));
         Deck deckOfAI = new Deck("AIDeck");
+        deckOfAI.setHeroInDeck(Hero.findHeroByID(heroId + 100));
         for (int i = 0; i < idsOfItems.length; i++) {
             deckOfAI.getItemsInDeck().add(Item.findItemByID(idsOfItems[i]));
         }
@@ -37,86 +38,219 @@ public class AI {
         for (int i = 0; i < idsOfMinions.length; i++) {
             deckOfAI.getCardsInDeck().add(Minion.findMinionByID(idsOfMinions[i]));
         }
+//        System.out.println("********hero : " + deckOfAI.getHeroInDeck().getName());
         player.setMainDeck(deckOfAI);
+
+//        for (Card card : Game.getInstance().getPlayer2().getMainDeck().getCardsInDeck()) {
+//            System.out.println("* " + card.getName());
+//        }
+
+//        for (Item item : Game.getInstance().getPlayer2().getMainDeck().getItemsInDeck())
+//            System.out.println(":-* " + item.getName());
     }
-    public static void createAIPlayer() throws Exception {
+
+    public static void createAIPlayer() throws CloneNotSupportedException {
+        System.out.println("createAI player!!!!!!");
         Player AIPlayer = new Player("AI", "AI");
-        createDeckOfAI(AIPlayer);
         AIPlayer.setNumOfMana(2);
         Game.getInstance().setPlayer2(AIPlayer);
+        createDeckOfAI(AIPlayer);
+        AIPlayer.getMainDeck().getHeroInDeck().setX(2);
+        AIPlayer.getMainDeck().getHeroInDeck().setY(8);
+        Game.getInstance().getMap().getCells()[2][8].setCellType(CellType.enemyHero);
+        Game.getInstance().getMap().setEnemyHero(AIPlayer.getMainDeck().getHeroInDeck());
     }
-    public static void moveTillPossible() {
-        while (!Game.getInstance().getHeroOfPlayer1().isHasMovedInThisTurn()) {
-            int x = (int) Math.random() % 5;
-            int y = (int) Math.random() % 9;
-            BattleController.move(Game.getInstance().getHeroOfPlayer1(), x, y);
+
+    public static boolean cardCanBeMovedToThisCellAI(Card card, int x, int y) {
+        if (distance(card.getX(), card.getY(), x, y) > 2) {
+            System.out.println("1");
+            return false;
         }
-        for (Card card : Game.getInstance().getPlayer1CardsInField()) {
-            while (!card.isHasMovedInThisTurn()) {
-                int x = (int) Math.random() % 5;
-                int y = (int) Math.random() % 9;
-                BattleController.move(card, x, y);
+        if (!thisCellIsEmpty(x, y)) {
+            System.out.println("2");
+            return false;
+        }
+        if (friendInWay(card.getX(), card.getY(), x, y)) {
+            System.out.println("3");
+            return false;
+        }
+        System.out.println("4");
+        return true;
+    }
+
+    public static boolean friendIsAvailableBetweenThis2Cells(int x1, int y1, int x2, int y2) {
+        if (x1 == x2) {
+            int maxY = Math.max(y1, y2);
+            int minY = Math.min(y1, y2);
+            for (int i = minY; i <= maxY; i++) {
+                if (cellIsFriend(x1, i)) {
+                    return true;
+                }
+            }
+        } else if (y1 == y2) {
+            int maxX = Math.max(x1, x2);
+            int minX = Math.max(x2, x2);
+            for (int i = minX; i <= maxX; i++) {
+                if (cellIsFriend(i, y1))
+                    return true;
             }
         }
-        canMove = false;
+        return false;
     }
+    public static boolean checkAllWaysToReachAI(int x1, int y1, int x2, int y2) {
+        if (x1 > x2 && y1 > y2) {
+            if (!cellIsFriend(x1 - 1, y1) || !cellIsFriend(x1, y1 - 1))
+                return true;
+            return false;
+        } else if (x1 < x2 && y1 > y2) {
+            if (!cellIsFriend(x1, y1 - 1) || !cellIsFriend(x1 + 1, y1))
+                return true;
+            return false;
+        } else if (x1 > x2 && y1 < y2) {
+            if (!cellIsFriend(x1 - 1, y1) || !cellIsFriend(x1, y1 + 1))
+                return true;
+            return false;
+        } else {
+            if (!cellIsFriend(x1, y1 + 1) || !cellIsFriend(x1 + 1, y1))
+                return true;
+            return false;
+        }
+    }
+    public static boolean friendInWay(int x1, int y1, int x2, int y2) {
+        if (distance(x1, y1, x2, y2) == 1)
+            return false;
+        else {
+            if (x1 == x2 || y1 == y2) {
+                if (friendIsAvailableBetweenThis2Cells(x1, y1, x2, y2)) {
+                    return true;
+                }
+                return false;
+            } else {
+                if (checkAllWaysToReachAI(x1, y1, x2, y2)) {
+                    return false;
+                }
+                return true;
+            }
+        }
+    }
+    public static void applyCellTypeAI(Force force,int x,int y){
+        if(force.getCardType().matches("hero")){
+            Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.enemyHero);
+        }
+        else
+            Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.enemyMinion);
+    }
+    public static void moveAI(Force force, int x, int y) {
+        if (force.isCanMove() && !force.isHasMovedInThisTurn()) {
+            if (cardCanBeMovedToThisCellAI(force, x, y)) {
+                Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
+                force.setX(x);
+                force.setY(y);
+                force.setHasMovedInThisTurn(true);
+                applyCellTypeAI(force, x, y);
+                System.out.println("moooooooveeeeeee");
+                Map.show();
+            }
+        }
+    }
+    public static void moveTillPossible() {
+        Random random = new Random();
+        int x;
+        int y;
+        while(!Game.getInstance().getMap().getEnemyHero().isHasMovedInThisTurn()){
+            x = random.nextInt(5);
+            y = random.nextInt(9);
+            moveAI(Game.getInstance().getMap().getEnemyHero(),x,y);
+        }
+        int minionX;
+        int minionY;
+        for (Minion minion: Game.getInstance().getMap().getEnemyMinions()) {
+            while (!minion.isHasMovedInThisTurn()){
+                minionX = random.nextInt(5);
+                minionY = random.nextInt(9);
+                moveAI(minion,minionX,minionY);
+            }
+        }
+    }
+
     public static void attckTillPossible() throws Exception {
-        String cardName = Game.getInstance().getHeroOfPlayer1().getName();
-        while(!Game.getInstance().getHeroOfPlayer1().isHasAttackedInThisTurn()){
-            int idToAttack = (int) Math.random()%500;
-            if(Shop.checkValidId(idToAttack)) {
-                String[] parts = {"attack",Integer.toString(idToAttack)};
+        String cardName = Game.getInstance().getMap().getFriendHero().getName();
+        while (!Game.getInstance().getMap().getFriendHero().isHasAttackedInThisTurn()) {
+            int idToAttack = (int) Math.random() % 500;
+            if (Shop.checkValidId(idToAttack)) {
+                String[] parts = {"attack", Integer.toString(idToAttack)};
 //                BattleController.attack(parts,cardName);
             }
         }
-        for (Card card:
-             Game.getInstance().getPlayer1CardsInField()) {
-            while(!card.isHasAttackedInThisTurn()){
-                int idToAttack = (int) Math.random()%500;
-                if(Shop.checkValidId(idToAttack)) {
-                    String[] parts = {"attack",Integer.toString(idToAttack)};
+        for (Card card :
+                Game.getInstance().getMap().getFriendMinions()) {
+            while (!card.isHasAttackedInThisTurn()) {
+                int idToAttack = (int) Math.random() % 500;
+                if (Shop.checkValidId(idToAttack)) {
+                    String[] parts = {"attack", Integer.toString(idToAttack)};
 //                    BattleController.attack(parts,cardName);
                 }
             }
         }
-        canAttack = false;
-    }
-    public static void setRandomIdsItems(int[] array){
-        int i=0;
-        while(i<3){
-            int random = (int) Math.random()%20 + 1;
-            if(!idAlreadyExists(random,array)){
-                array[i] = 200 + random;
-                i++;
-            }
-        }
-    }
-    public static void setRandomIdsMinions(int[] array){
-        int i=0;
-        while(i<12){
-            int random = (int) Math.random()%40 + 1;
-            if(!idAlreadyExists(random,array)){
-                array[i] = 300 + random;
-                i++;
-            }
-        }
-    }
-    public static void setRandomIdsSpells(int[] array){
-        int i=0;
-        while(i<5){
-            int random = (int) Math.random()%20 + 1;
-            if(!idAlreadyExists(random,array)){
-                array[i] = 400 + random;
-                i++;
-            }
-        }
-    }
-    public static boolean idAlreadyExists(int id,int[] array){
-        for (int i=0; i<array.length; i++){
-            if(id == array[i])
-                return true;
-        }
-        return false;
     }
 
+    public static void setRandomIdsItems(int[] array) {
+        Random random = new Random();
+        for (int i = 0; i < 3; i++) {
+            int randomNumber = random.nextInt(20) + 1;
+            array[i] = 200 + randomNumber;
+            i++;
+        }
+    }
+
+    public static void setRandomIdsMinions(int[] array) {
+        Random random = new Random();
+        for (int i = 0; i < 12; i++) {
+            int randomNumber = random.nextInt(40) + 1;
+            array[i] = 300 + randomNumber;
+        }
+    }
+
+    public static void setRandomIdsSpells(int[] array) {
+        Random random = new Random();
+        for (int i = 0; i < 5; i++) {
+            int randomNumber = random.nextInt(20) + 1;
+            array[i] = 400 + randomNumber;
+        }
+    }
+
+    public static void insertCardTillPossible() throws CloneNotSupportedException {
+        System.out.println(Game.getInstance().getPlayer2().getMainDeck().getCardsInDeck().size());
+        ArrayList<Card> copyCards = new ArrayList<>(Game.getInstance().getPlayer2().getMainDeck().getCardsInDeck());
+        for (Card card : copyCards) {
+            if (card.getMana() <= Game.getInstance().getPlayer2().getNumOfMana()) {
+                if (card.getCardType().matches("minion")) {
+                    insertAIMinionInMap(card.getName());
+                    System.out.println(card.getName() + " ENTERDDDDDDDDD");
+                    Map.show();
+                }
+            }
+        }
+        BattleController.endTurn();
+    }
+
+    public static void insertAIMinionInMap(String cardName) throws CloneNotSupportedException {
+        Minion minion = Minion.findMinionByName(cardName);
+        Random random = new Random();
+        int x = random.nextInt(5);
+        int y = random.nextInt(9);
+        while (!Map.checkIfMinionCardCanBeInsertedInThisCoordinationAI(x, y)) {
+            x = random.nextInt(5);
+            y = random.nextInt(9);
+        }
+        Game.getInstance().getPlayer2().setNumOfMana(Game.getInstance().getPlayer2().getNumOfMana() - minion.getMana());
+        Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.enemyMinion);
+        minion.setX(x);
+        minion.setY(y);
+        minion.setCanMove(false);
+        minion.setCanAttack(false);
+        Shop.removeProcess(Game.getInstance().getPlayer2().getMainDeck().getCardsInDeck(),minion);
+        Game.getInstance().getMap().getEnemyMinions().add(minion);
+    }
 }
+

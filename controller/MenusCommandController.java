@@ -126,14 +126,16 @@ public class MenusCommandController {
             BattleView.showMyMinions(commandsSplitted);
             BattleView.showOpponentMinions(commandsSplitted);
             BattleView.showCardInfo(commandsSplitted);
-            BattleController.selectCardById(commandsSplitted, scanner);
             BattleView.showHand(commandsSplitted);
-            BattleController.insertCardInFieldCommand(commandsSplitted);
+            BattleController.insertCardInFieldCommand(command);
             BattleController.startGameCommand(commandsSplitted);
-//            BattleController.endTurnCommand(commandsSplitted);
+            BattleController.endTurnCommand(commandsSplitted);
 //            BattleController.enterGraveyard(commandsSplitted);
 
-
+            if (commandsSplitted.length == 2 && commandsSplitted[0].compareToIgnoreCase("select") == 0
+                    && commandsSplitted[1].matches("[\\d]+")) {
+                BattleController.selectCardById(commandsSplitted, scanner);
+            }
             if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
                 AllDatas.battle.setNowInThisMenu(false);
                 AllDatas.commandLine.setNowInThisMenu(true);
@@ -145,11 +147,12 @@ public class MenusCommandController {
             AllDatas.hasEnteredBattle= false;
 
         }
-        else{
-            AI.moveTillPossible();
-            AI.attckTillPossible();
-            BattleController.changeTurn();
-        }
+//        else{
+//            System.out.println("AIAIAIAIAIAIAIAIAIAI");
+////            AI.moveTillPossible();
+////            AI.attckTillPossible();
+////            BattleController.changeTurn();
+//        }
         
     }
 }

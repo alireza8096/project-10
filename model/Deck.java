@@ -1,12 +1,13 @@
 package model;
 
+import controller.AI;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Deck {
+public class Deck implements Cloneable {
     private Hand hand;
     private String deckName;
     private Hero heroInDeck;
@@ -47,7 +48,7 @@ public class Deck {
         this.hand = hand;
     }
 
-    public Deck(String deckName){
+    public Deck(String deckName) {
         this.setDeckName(deckName);
     }
 
@@ -67,47 +68,60 @@ public class Deck {
         this.deckIsSelected = deckIsSelected;
     }
 
-    public static void createDeck(String deckName){
+    public static void createDeck(String deckName) {
         boolean thisNameExists = Deck.checkIfDeckWithThisNameExists(Game.getInstance().getPlayer1(), deckName);
-        if (thisNameExists){
+        if (thisNameExists) {
             System.out.println("A deck with this name already exists!");
-        }else{
+        } else {
             Deck.createNewDeck(deckName);
         }
     }
-    public static boolean checkIfDeckWithThisNameExists(Player player, String deckName){
-        for (Deck deck : player.getDecksOfPlayer()){
+
+    public static boolean checkIfDeckWithThisNameExists(Player player, String deckName) {
+        for (Deck deck : player.getDecksOfPlayer()) {
             if (deck.getDeckName().equals(deckName))
                 return true;
         }
         return false;
     }
-    public static void createNewDeck(String deckName){
+
+    public static void createNewDeck(String deckName) {
         Deck deck = new Deck(deckName);
         Game.getInstance().getPlayer1().getDecksOfPlayer().add(deck);
     }
-    public static void deleteDeck(String deckName){
-        if(checkIfDeckWithThisNameExists(Game.getInstance().getPlayer1(),deckName)) {
-            Deck deck = Deck.findDeckByName(deckName);
-            Game.getInstance().getPlayer1().getDecksOfPlayer().remove(deck);
-        }
-        else
+
+    public static void deleteDeck(String deckName) {
+        if (checkIfDeckWithThisNameExists(Game.getInstance().getPlayer1(), deckName)) {
+            for (Deck deck : Game.getInstance().getPlayer1().getDecksOfPlayer()) {
+                if (deck.deckName.matches(deckName))
+                    Shop.removeProcess(Game.getInstance().getPlayer1().getDecksOfPlayer(), deck);
+            }
+        } else
             System.out.println("Deck with this name does not exist");
     }
 
-    public static Deck findDeckByName(String deckName){
-        for (Deck deck : Game.getInstance().getPlayer1().getDecksOfPlayer()){
+    public static Deck findDeckByName(String deckName) throws CloneNotSupportedException {
+        for (Deck deck : Game.getInstance().getPlayer1().getDecksOfPlayer()) {
             if (deck.getDeckName().equals(deckName))
+                return (Deck) deck.clone();
+        }
+        return null;
+    }
+    public static Deck exactDeck(String deckName){
+        for (Deck deck:
+             Game.getInstance().getPlayer1().getDecksOfPlayer()) {
+            if(deck.deckName.matches(deckName)){
                 return deck;
+            }
         }
         return null;
     }
 
-    public static void addCardOrItemToDeck(int ID, String deckName) throws IOException, ParseException {
+    public static void addCardOrItemToDeck(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
         //if all conditions are true for adding a new card to deck
         if (allConditionsOfAddingCardToDeckAreRight(ID, deckName)) {
-            Deck deck = Deck.findDeckByName(deckName);
-            switch (ID/100) {
+            Deck deck = Deck.exactDeck(deckName);
+            switch (ID / 100) {
                 case 2:
                     deck.itemsInDeck.add(Item.findItemByID(ID));
                     break;
@@ -125,100 +139,97 @@ public class Deck {
     }
 
 
-    public static void removeCardOrItemFromDeck(int ID, String deckName) throws IOException, ParseException {
-        if (!checkIfThisCardIsInThisDeck(deckName, ID)){
+    public static void removeCardOrItemFromDeck(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
+        if (!checkIfThisCardIsInThisDeck(deckName, ID)) {
             System.out.println("This " + Shop.returnCardTypeById(ID) + " doesn't exist in deck!");
-        }else{
+        } else {
             String cardName = findNameOfCardByID(ID);
             Deck deck = findDeckByName(deckName);
-            switch (ID/100){
+            switch (ID / 100) {
                 case 2:
-                    Shop.removeProcess(deck.itemsInDeck,Item.findItemByID(ID));
+                    Shop.removeProcess(deck.itemsInDeck, Item.findItemByID(ID));
                     break;
                 case 1:
                     deck.setHeroInDeck(null);
                     break;
                 default:
-                    Shop.removeProcess(deck.cardsInDeck,Card.findCardById(ID));
+                    Shop.removeProcess(deck.cardsInDeck, Card.findCardById(ID));
                     break;
             }
         }
     }
 
 
-    public boolean checkIfNumberOfCardsInDeckIsValid(){
+    public boolean checkIfNumberOfCardsInDeckIsValid() {
         return this.getCardsInDeck().size() < 20;
     }
 
-    public boolean checkIfDeckHasHero(){
-        if(this.getHeroInDeck()!=null)
+    public boolean checkIfDeckHasHero() {
+        if (this.getHeroInDeck() != null)
             return true;
         return false;
     }
 
-    public static boolean allConditionsOfAddingCardToDeckAreRight(int ID, String deckName) throws IOException, ParseException {
+    public static boolean allConditionsOfAddingCardToDeckAreRight(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
         Deck deck = findDeckByName(deckName);
-
-        if (!checkIfThisCardOrItemIsInCollection(ID)){
+        if (!checkIfThisCardOrItemIsInCollection(ID)) {
             System.out.println("This card isn't available in collection!");
             return false;
-        }else{
-            if (checkIfThisCardIsInThisDeck(deckName, ID)){
-                System.out.println("This card is already available in deck!");
-                return false;
-            }else{
-                if (!deck.checkIfNumberOfCardsInDeckIsValid()){
+        } else {
+            if (ID / 100 != 1) {
+                if (!deck.checkIfNumberOfCardsInDeckIsValid()) {
                     System.out.println("Number of cards can't be more than 20!");
                     return false;
-                }else{
-                    if (deck.checkIfDeckHasHero() && ID/100 == 1){
-                        System.out.println("A hero already exists in deck!");
-                        return false;
-                    }
+                }
+            } else {
+                if (deck.checkIfDeckHasHero()) {
+                    System.out.println("A hero already exists in deck!");
+                    return false;
                 }
             }
         }
         return true;
     }
 
-    public static boolean checkIfThisCardIsInThisDeck(String deckName, int cardID) throws IOException, ParseException {
+    public static boolean checkIfThisCardIsInThisDeck(String deckName, int cardID) throws IOException, ParseException, CloneNotSupportedException {
         String cardName = findNameOfCardByID(cardID);
         Deck deck = Deck.findDeckByName(deckName);
-
-
-
         if (deck.checkIfDeckHasHero()) {
             if (deck.getHeroInDeck().getName().equals(cardName))
                 return true;
         }
 
-        for (Card card : deck.getCardsInDeck()){
+        for (Card card : deck.getCardsInDeck()) {
             if (card.getName().equals(cardName))
                 return true;
         }
-        for (Item item : deck.getItemsInDeck()){
+        for (Item item : deck.getItemsInDeck()) {
             if (item.getName().equals(cardName))
                 return true;
         }
         return false;
     }
 
-    public static boolean checkIfThisCardOrItemIsInCollection(int cardID) throws IOException, ParseException {
+    public static boolean checkIfThisCardOrItemIsInCollection(int cardID) throws IOException, ParseException, CloneNotSupportedException {
         String name = findNameOfCardByID(cardID);
         Player currentPlayer = Game.getInstance().getPlayer1();
-        for (Card card : currentPlayer.getCardsInCollection()){
+        for (Card card : currentPlayer.getCardsInCollection()) {
             if (card.getName().equals(name))
                 return true;
         }
-        for (Item item : currentPlayer.getItemsInCollection()){
+        for (Item item : currentPlayer.getItemsInCollection()) {
             if (item.getName().equals(name))
+                return true;
+        }
+        for (Card card : currentPlayer.getHeroesInCollection()) {
+            if (card.getName().equals(name))
                 return true;
         }
         return false;
     }
 
-    public static String findNameOfCardByID(int id) throws IOException, ParseException {
-        switch (id/100){
+    public static String findNameOfCardByID(int id) throws CloneNotSupportedException {
+        switch (id / 100) {
             case 1:
                 return Hero.findHeroByID(id).getName();
             case 2:
@@ -231,22 +242,37 @@ public class Deck {
         return "";
     }
 
-    public static boolean validateDeck(String deckName){
+    public static boolean validateDeck(String deckName) throws CloneNotSupportedException {
         Deck deck = Deck.findDeckByName(deckName);
-        if (!deck.checkIfDeckHasHero()){
+        if (!deck.checkIfDeckHasHero()) {
             return false;
-        }else{
+        } else {
             return deck.getCardsInDeck().size() == 20;
         }
     }
 
-    public static void selectDeck(String deckName){
-        if (!validateDeck(deckName)){
+    public static void setAllCardsMovable(Deck deck) {
+        deck.getHeroInDeck().setCanMove(true);
+        for (Card card : deck.getCardsInDeck()) {
+            if (card.getId() / 100 == 3) {
+                ((Force) card).setCanMove(true);
+            }
+        }
+    }
+
+    public static void selectDeck(String deckName) throws CloneNotSupportedException {
+        if (!validateDeck(deckName)) {
             System.out.println("Selected deck in not valid!");
-        }else {
+        } else {
             Deck deck = findDeckByName(deckName);
+            setAllCardsMovable(deck);
             Game.getInstance().getPlayer1().setMainDeck(deck);
+            Map map = new Map();
+            Game.getInstance().setMap(map);
+            AI.createAIPlayer();
+            Hero.insertHeroInMap();
             deck.setDeckIsSelected(true);
+            Hand.setHand();
         }
     }
 }

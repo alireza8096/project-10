@@ -117,8 +117,18 @@ public class ShopController {
             System.out.println(i + " : " + GameView.showItem(itemsInCollection.get(i-1)));
         }
     }
+ //TODO : omit omitNull :(
+    public static<T> void omitNull(ArrayList<T> array){
+        ArrayList<T> copy = new ArrayList<>(array);
+        for (T object: copy) {
+            if(object == null){
+                array.remove(object);
+            }
+        }
+    }
     public static void showCardsInCollection(){
         ArrayList<Card> cardsInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getCardsInCollection());
+        omitNull(cardsInCollection);
         System.out.println("Cards :");
         for(int i=1; i<=cardsInCollection.size(); i++){
             if (cardsInCollection.get(i - 1) != null)

@@ -1,9 +1,8 @@
 package controller;
 
-import model.AllDatas;
-import model.Game;
-import model.LinkedListMenus;
+import model.*;
 import model.collection.HandleFiles;
+import model.collection.Hero;
 
 import java.util.Scanner;
 
@@ -16,7 +15,7 @@ public class Controller {
         HandleFiles.createHeroes();
 //        HandleFiles.createStringOfItems();
         HandleFiles.createMinions();
-     //   HandleFiles.createStringOfPlayers();
+        HandleFiles.createStringOfPlayers();
 //        HandleFiles.createStringOfSpells();
 //        HandleFiles.createStringOfUsableItems();
         HandleFiles.createSpells();
@@ -81,9 +80,20 @@ public class Controller {
                 break;
             case "Battle":
                 System.out.println("battle");
-//                if (!Game.getInstance().)
-                    Game.createNewGame();
-                MenusCommandController.battleController(scanner);
+                if (Game.getInstance().isPlayer1Turn()) {
+                    MenusCommandController.battleController(scanner);
+                    System.out.println(Game.getInstance().getPlayer1().getNumOfMana());
+                }else{
+//                    System.out.println("AIAIAIAIAAI");
+                    System.out.println(Game.getInstance().getPlayer2().getNumOfMana());
+                    AI.insertCardTillPossible();
+                    AI.moveTillPossible();
+                    System.out.println(Game.getInstance().getPlayer2().getNumOfMana());
+                }
+                Map.show();
+                Hand.showHand();
+
+
                 break;
             case "Help":
                 System.out.println("help");

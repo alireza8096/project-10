@@ -7,7 +7,7 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Card {
+public class Card implements Cloneable{
 //    private static ArrayList<String> cardNames = new ArrayList<>();
     protected int mana;
     protected int id;
@@ -17,7 +17,6 @@ public class Card {
     protected boolean isActive;
     protected boolean hasAttackedInThisTurn;
     protected boolean hasMovedInThisTurn;
-    protected boolean movable;
     protected boolean ableToAttack;
     protected int price;
     protected int counterOfCard;
@@ -39,42 +38,35 @@ public class Card {
         else this.price = 0;
     }
 
-    public static Card findCardById(int id){
+    public static Card findCardById(int id) throws CloneNotSupportedException {
         switch (id/100){
             case 1:
-                return Hero.findHeroByID(id);
+                return (Hero)Hero.findHeroByID(id).clone();
             case 3:
-                return Minion.findMinionByID(id);
+                return (Minion)Minion.findMinionByID(id).clone();
             case 4:
-                return Spell.findSpellByID(id);
+                return (Spell)Spell.findSpellByID(id).clone();
         }
         return null;
     }
-    public static Card findCardByName(String cardName){
+    public static Card findCardByName(String cardName) throws CloneNotSupportedException {
         for (Hero hero: Hero.getHeroes()) {
             if(hero.getName().matches(cardName)){
-                return hero;
+                return (Hero)hero.clone();
             }
         }
         for(Minion minion : Minion.getMinions()){
             if(minion.getName().matches(cardName)){
-                return minion;
+                return (Minion)minion.clone();
             }
         }
         for(Spell spell : Spell.getSpells()){
             if(spell.getName().matches(cardName)){
-                return spell;
+                return (Spell)spell.clone();
             }
         }
+        System.out.println(cardName + " : null");
         return null;
-    }
-
-    public boolean isMovable() {
-        return movable;
-    }
-
-    public void setMovable(boolean movable) {
-        this.movable = movable;
     }
 
     public boolean isAbleToAttack() {
@@ -215,7 +207,7 @@ public class Card {
         }
     }
 
-    public static boolean thisCardIsMelee(String cardName) throws IOException, ParseException {
+    public static boolean thisCardIsMelee(String cardName) throws CloneNotSupportedException {
         Card card = findCardByName(cardName);
         if (card.getCardType().equals("minion")){
             if (((Minion)card).getAttackType().equals("melee"))
@@ -228,7 +220,7 @@ public class Card {
         return false;
     }
 
-    public static boolean thisCardIsRanged(String cardName) throws IOException, ParseException {
+    public static boolean thisCardIsRanged(String cardName) throws CloneNotSupportedException {
         Card card = findCardByName(cardName);
         if (card.getCardType().equals("minion")){
             if (((Minion)card).getAttackType().equals("ranged"))
@@ -240,7 +232,7 @@ public class Card {
         return false;
     }
 
-    public static boolean thisCardIsHybrid(String cardName) throws IOException, ParseException {
+    public static boolean thisCardIsHybrid(String cardName) throws CloneNotSupportedException {
         Card card = findCardByName(cardName);
         if (card.getCardType().equals("minion")){
             if (((Minion)card).getAttackType().equals("hybrid"))
@@ -317,16 +309,25 @@ public class Card {
     }
 
     public boolean thisCardIsFriend(){
-        for (Card card : Game.getInstance().getPlayer1CardsInField()){
+        for (Card card : Game.getInstance().getMap().getFriendMinions()){
             if (card.getName().equals(this.name))
                 return true;
         }
+        if(this.name.equals(Game.getInstance().getMap().getFriendHero().name))
+            return true;
         return false;
     }
 
-    public static Card returnCardByIDFromMap(int id){
-        return new Card();
+    public static Force returnCardByIDFromMap(int id){
+        for (Minion minion:
+             Game.getInstance().getMap().getFriendMinions()) {
+            if(minion.id == id){
+                return minion;
+            }
+        }
+        if(Game.getInstance().getMap().getFriendHero().id == id){
+            return Game.getInstance().getMap().getFriendHero();
+        }
+        return null;
     }
-
-
 }

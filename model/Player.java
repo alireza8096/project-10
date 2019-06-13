@@ -4,7 +4,7 @@ import model.collection.*;
 
 import java.util.ArrayList;
 import java.lang.String;
-public class Player {
+public class Player implements Cloneable{
     private static ArrayList<Player> players = new ArrayList<>();
 
     private ArrayList<Deck> decksOfPlayer = new ArrayList<>();
@@ -159,11 +159,10 @@ public class Player {
 //        this.coordinateY = coordinateY;
 //    }
 
-    public Player findPlayerByName(String playerName)
-    {
+    public Player findPlayerByName(String playerName) throws CloneNotSupportedException {
         for (Player player : players) {
             if (player.getUserName().equals(playerName)) {
-                return player;
+                return (Player)player.clone();
             }
         }
         return null;

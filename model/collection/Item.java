@@ -10,7 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Item {
+public class Item implements Cloneable{
     private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     private ArrayList<Buff> positiveBuffs = new ArrayList<>();
@@ -109,10 +109,10 @@ public class Item {
         this.price = price;
     }
 
-    public static Item findItemByID(int id) throws IOException, ParseException {
+    public static Item findItemByID(int id) throws CloneNotSupportedException {
         for (Item item : items) {
             if (item.id == id) {
-                return item;
+                return (Item)item.clone();
             }
         }
         return null;
@@ -137,10 +137,10 @@ public class Item {
         return false;
     }
 
-    public static Item findItemByName(String cardName){
+    public static Item findItemByName(String cardName) throws CloneNotSupportedException {
         for (Item item : items) {
             if(item.name.matches(cardName)){
-                return item;
+                return (Item)item.clone();
             }
         }
         return null;

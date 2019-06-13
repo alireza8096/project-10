@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import model.Game;
+import model.collection.Card;
 import model.collection.Hero;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -89,7 +90,7 @@ public class CollectionController {
     }
 
     public static void addToDeck(String[] commands, String command) throws Exception {
-        if (command.contains("add") && command.contains("to deck") && command.length() >= 5) {
+        if (commands[0].compareToIgnoreCase("add") == 0 && command.contains("to deck") && command.length() >= 5) {
             AllDatas.hasEnteredCollection = true;
             int id = Integer.parseInt(commands[1]);
             String deckName = "";
@@ -120,7 +121,7 @@ public class CollectionController {
         }
     }
 
-    public static void validateDeck(String[] commands) {
+    public static void validateDeck(String[] commands) throws CloneNotSupportedException {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("validate") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
@@ -132,13 +133,13 @@ public class CollectionController {
         }
     }
 
-    public static void selectDeck(String[] commands) throws IOException, ParseException {
+    public static void selectDeck(String[] commands) throws Exception {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
             Deck.selectDeck(deckName);
-            Hero hero = (Hero) Hero.findCardByName(Deck.findDeckByName(deckName).getHeroInDeck().getName());
-            Game.getInstance().setHeroOfPlayer1(hero);
+            Hero hero = Deck.findDeckByName(deckName).getHeroInDeck();
+            Game.getInstance().getMap().setFriendHero(hero);
             AllDatas.hasEnteredCollection = true;
         }
     }
