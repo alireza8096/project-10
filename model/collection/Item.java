@@ -399,9 +399,11 @@ public class Item {
 
                 break;
             case "minion/hero":
-
+                applyUsableItemOnMinionOrHero();
                 break;
             case "hero":
+                applyUsableItemOnHero();
+
                 break;
             case "target":
                 break;
@@ -409,6 +411,50 @@ public class Item {
     }
 
     public void applyUsableItemOnMinionOrHero(){
+        String user = this.user;
+        String userNumber = user.substring(user.indexOf('('), user.indexOf(')') - 1);
+        switch (userNumber){
+            case "random":
+                addItemBuffsToRandomForce();
+                break;
+            case "all":
+                addItemBuffsToAllForces();
+                break;
+        }
+    }
+
+    public void addItemBuffsToAllForces(){
+        for (Buff buff : this.positiveBuffs) {
+            addItemBuffToAllFriendForces(buff);
+        }
+
+        for (Buff buff : this.negativeBuffs){
+            addItemBuffToAllFriendForces(buff);
+        }
+
+        for (Buff buff : this.actionBuffs){
+            addItemBuffToAllFriendForces(buff);
+        }
+    }
+
+    public void addItemBuffsToRandomForce(){
+        Force force = Force.getRandomFriendForce();
+
+        for (Buff buff : this.positiveBuffs)
+            force.getPowersGivenToForce().add(buff);
+
+        for (Buff buff : this.negativeBuffs)
+            force.getPowersGivenToForce().add(buff);
+
+        for (Buff buff : this.actionBuffs)
+            force.getPowersGivenToForce().add(buff);
+    }
+
+    public void addItemBuffToAllFriendForces(Buff buff){
+        for (Minion minion : Game.getInstance().getMap().getFriendMinions())
+            minion.getPowersGivenToForce().add(buff);
+
+        Game.getInstance().getMap().getFriendHero().getPowersGivenToForce().add(buff);
 
     }
 
