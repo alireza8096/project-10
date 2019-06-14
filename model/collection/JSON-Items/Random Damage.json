@@ -1,7 +1,7 @@
 {"itemType":"collectible",
   "price":"null",
   "name":"Random Damage",
-  "id":11,
+  "id":"211",
   "type": "item",
   "desc": "increases 2 points of attack power of a random card in the game",
   "target" : "minion/hero",
