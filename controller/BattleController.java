@@ -405,23 +405,25 @@ public class BattleController {
         } else {
             opponent.setHealthPoint(opponent.getHealthPoint() - attacker.getAttackPower());
         }
-        if (attacker.getHealthPoint() <= opponent.getAttackPower()) {
-            attacker.setHealthPoint(0);
-        } else {
-            attacker.setHealthPoint(attacker.getHealthPoint() - opponent.getAttackPower());
+        if(checkRangeForAttack(opponent,attacker)) {
+            if (attacker.getHealthPoint() <= opponent.getAttackPower()) {
+                attacker.setHealthPoint(0);
+            } else {
+                attacker.setHealthPoint(attacker.getHealthPoint() - opponent.getAttackPower());
+            }
         }
         attacker.setHasAttackedInThisTurn(true);
         checkKill(attacker);
         checkKill(opponent);
     }
 
-    public static void checkAllConditionsToAttack(Card attackerCard, Card opponentCard) throws Exception {
+    public static void checkAllConditionsToAttack(Card attackerCard, Card opponentCard) {
         if (!attackerCard.isHasAttackedInThisTurn()) {
             if (checkRangeForAttack((Force) attackerCard, (Force) opponentCard)) {
                 attackAndCounterAttack((Force) attackerCard, (Force) opponentCard);
                 System.out.println("attacked");
             } else {
-                System.out.println("has attackes in this turn");
+                System.out.println("has attacked in this turn");
             }
 //        if (thisIdIsAvailableForOpponent(opponentId)) {
 //            if (Hero.thisCardIsHero(cardName)) {
