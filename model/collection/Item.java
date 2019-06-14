@@ -2,12 +2,8 @@ package model.collection;
 
 import model.CellType;
 import model.Game;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 import view.GameView;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Item implements Cloneable{
@@ -172,7 +168,7 @@ public class Item implements Cloneable{
                 applyItemLikeSpell(x, y);//when item has a user
             }
         } else {
-            GameView.printInvalidCommandWhithThisContent("Invalid Target");
+            GameView.printInvalidCommandWithThisContent("Invalid Target");
         }
     }
 
@@ -402,7 +398,7 @@ public class Item implements Cloneable{
                 applyUsableItemOnMinionOrHero();
                 break;
             case "hero":
-                applyUsableItemOnHero();
+           //     applyUsableItemOnHero();
 
                 break;
             case "target":

@@ -1,6 +1,7 @@
 package model.collection;
 
 import controller.AI;
+import controller.Controller;
 import javafx.scene.layout.CornerRadii;
 import model.AllDatas;
 import model.Deck;
@@ -9,6 +10,7 @@ import model.Map;
 import model.Player;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import view.GameView;
 
 import javax.print.DocFlavor;
 import java.io.FileReader;
@@ -20,39 +22,39 @@ import java.nio.file.Paths;
 import java.util.*;
 //testing
 public class Account {
-    public static final String PLAYERS_FOLDER = "/Users/hamilamailee/Documents/project-10/model/collection/players/";
+    public static final String PLAYERS_FOLDER = "/Users/bahar/Desktop/DUELYST/model/collection/players";
     private static ArrayList<String> players = new ArrayList<>();
     public static ArrayList<String> getPlayers() {
         return players;
     }
 
-    public static void createAccount(String name, Scanner scanner) throws Exception{
+    public static void createAccount(String name, String password) throws Exception{
         if(usernameAlreadyExists(name)){
-            System.out.println("Username already exists");
+            GameView.printInvalidCommandWithThisContent("Invalid Username!");
         }
         else {
-            System.out.println("Please enter password :");
-            String password = scanner.nextLine();
+//            System.out.println("Please enter password :");
+//            String password = scanner.nextLine();
             writeJustCreatedPlayerToFile(name,password,"true");
+            Controller.enterMainMenu();
             players.add(name);
         }
     }
-    public static void login(String name,Scanner scanner) throws Exception{
+    public static void login(String name, String password) throws Exception{
         if(!usernameAlreadyExists(name)){
-            System.out.println("Invalid username");
+            GameView.printInvalidCommandWithThisContent("Invalid username");
         }
         else{
-            System.out.println("Please enter password :");
-            String password = scanner.nextLine();
+//            System.out.println("Please enter password :");
+//            String password = scanner.nextLine();
             if(checkCorrectPassword(name,password)){
                 setPlayer(name);
-                AllDatas.account.setNowInThisMenu(false);
-                AllDatas.commandLine.setNowInThisMenu(true);
-                AllDatas.currentScene = AllDatas.commandLine.getScene();
-                AllDatas.currentRoot = AllDatas.commandLine.getRoot();
+//                AllDatas.account.setNowInThisMenu(false);
+//                AllDatas.commandLine.setNowInThisMenu(true);
+                Controller.enterMainMenu();
             }
             else
-                System.out.println("Password is not correct");
+                GameView.printInvalidCommandWithThisContent("Password is not correct!");
         }
     }
     public static Object readPlayerFromFile(String filename) throws Exception{

@@ -19,7 +19,6 @@ public class MainView extends Application {
         primaryStage = stage;
 
         Controller.enterLoginMenu();
-        MenuView.showLoginMenu();
 
 
         stage.show();
