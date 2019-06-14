@@ -5,7 +5,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import view.GameView;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -143,7 +142,7 @@ public class Spell extends Card implements Cloneable{
         switch (numOfTargets){
             case "1":
             case "all":
-                GameView.printInvalidCommandWhithThisContent("Invalid Target!");
+                GameView.printInvalidCommandWithThisContent("Invalid Target!");
                 break;
             case "square2":
                 applySpellOn2x2Square(x, y);
@@ -167,7 +166,7 @@ public class Spell extends Card implements Cloneable{
         switch (numOfTargets){
             case "1":
                 if (actsOn.equals("cell") || actsOn.equals("friend")){
-                    GameView.printInvalidCommandWhithThisContent("Invalid Target!");
+                    GameView.printInvalidCommandWithThisContent("Invalid Target!");
                 }else{
                     if (locationOfTarget.equals("random8")){
                         applySpellOnRandomMinionIn8Round(x, y);
@@ -230,7 +229,7 @@ public class Spell extends Card implements Cloneable{
     public void applySpellOnRandomMinionIn8Round(int x, int y){
 
         if (!checkIfThisCoordinationIsAroundSelfMinion(x, y)){
-            GameView.printInvalidCommandWhithThisContent("Invalid Target!");
+            GameView.printInvalidCommandWithThisContent("Invalid Target!");
         }else{
             applySpellOnMinion(x, y);
         }
@@ -258,7 +257,7 @@ public class Spell extends Card implements Cloneable{
         switch (numOfTargets){
             case "1":
                 if (actsOn.equals("cell") || actsOn.equals("friend")){
-                    GameView.printInvalidCommandWhithThisContent("Invalid Target!");
+                    GameView.printInvalidCommandWithThisContent("Invalid Target!");
                 }else{
                     applySpellOnEnemyHero(x, y);
                 }
@@ -369,14 +368,14 @@ public class Spell extends Card implements Cloneable{
         switch (numOfTargets){
             case "1":
                 if (actsOn.equals("map")){
-                    GameView.printInvalidCommandWhithThisContent("Invalid Target!");
+                    GameView.printInvalidCommandWithThisContent("Invalid Target!");
                 }else{
                     applySpellOnMinion(x, y);
                 }
                 break;
             case "all":
                 if (!actsOn.equals("owner")){
-                    GameView.printInvalidCommandWhithThisContent("Invalid Target!");
+                    GameView.printInvalidCommandWithThisContent("Invalid Target!");
                 }else{
                     applySpellOnAllSelfForces(x, y);
                 }
@@ -400,7 +399,7 @@ public class Spell extends Card implements Cloneable{
         switch (numOfTargets){
             case "1":
                 if (actsOn.equals("cell") || actsOn.equals("enemy")){
-                    GameView.printInvalidCommandWhithThisContent("Invalid Target!");
+                    GameView.printInvalidCommandWithThisContent("Invalid Target!");
                 }else{
                     applySpellOnSelfHero(x, y);
                 }
