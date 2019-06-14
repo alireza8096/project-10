@@ -17,9 +17,15 @@ import static model.Map.*;
 
 public class AI {
 
+    public static void setAllAICardsMovable(){
+        for (Force force : Game.getInstance().getMap().getEnemyMinions()){
+            force.setCanMove(true);
+        }
+        Game.getInstance().getMap().getEnemyHero().setCanMove(true);
+    }
     public static void createDeckOfAI(Player player) throws CloneNotSupportedException {
         Random random = new Random();
-        int heroId = 7;//random.nextInt(10) + 1;
+        int heroId = random.nextInt(10) + 1;
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
         int[] idsOfSpells = new int[5];
@@ -40,7 +46,6 @@ public class AI {
         }
 //        System.out.println("********hero : " + deckOfAI.getHeroInDeck().getName());
         player.setMainDeck(deckOfAI);
-
 //        for (Card card : Game.getInstance().getPlayer2().getMainDeck().getCardsInDeck()) {
 //            System.out.println("* " + card.getName());
 //        }
@@ -59,6 +64,7 @@ public class AI {
         AIPlayer.getMainDeck().getHeroInDeck().setY(8);
         Game.getInstance().getMap().getCells()[2][8].setCellType(CellType.enemyHero);
         Game.getInstance().getMap().setEnemyHero(AIPlayer.getMainDeck().getHeroInDeck());
+        AI.setAllAICardsMovable();
     }
 
     public static boolean cardCanBeMovedToThisCellAI(Card card, int x, int y) {
@@ -141,6 +147,9 @@ public class AI {
             Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.enemyMinion);
     }
     public static void moveAI(Force force, int x, int y) {
+                System.out.println(force.getName() + "cardcanbemovedtothiscellAI");
+        System.out.println(force.isCanMove());
+        System.out.println(force.isHasMovedInThisTurn());
         if (force.isCanMove() && !force.isHasMovedInThisTurn()) {
             if (cardCanBeMovedToThisCellAI(force, x, y)) {
                 Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
@@ -171,6 +180,7 @@ public class AI {
                 moveAI(minion,minionX,minionY);
             }
         }
+        BattleController.endTurn();
     }
 
     public static void attckTillPossible() throws Exception {
@@ -231,7 +241,6 @@ public class AI {
                 }
             }
         }
-        BattleController.endTurn();
     }
 
     public static void insertAIMinionInMap(String cardName) throws CloneNotSupportedException {
@@ -247,8 +256,10 @@ public class AI {
         Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.enemyMinion);
         minion.setX(x);
         minion.setY(y);
-        minion.setCanMove(false);
-        minion.setCanAttack(false);
+        minion.setHasMovedInThisTurn(true);
+        minion.setHasAttackedInThisTurn(true);
+        minion.setCanMove(true);
+        minion.setCanAttack(true);
         Shop.removeProcess(Game.getInstance().getPlayer2().getMainDeck().getCardsInDeck(),minion);
         Game.getInstance().getMap().getEnemyMinions().add(minion);
     }

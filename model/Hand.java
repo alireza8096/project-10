@@ -49,7 +49,7 @@ public class Hand {
 
     public boolean checkIfNumberOfCardsInHandIsValid(){
         int numberOfCardsInHand = this.getCardsInHand().size();
-        return numberOfCardsInHand <= 5;
+        return numberOfCardsInHand < 5;
     }
 
 //    public void deleteCardFromHand(Card card){

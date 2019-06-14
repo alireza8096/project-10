@@ -22,15 +22,17 @@ public class Map {
         }
         Hero hero1 = Game.getInstance().getMap().friendHero;
         Hero hero2 = Game.getInstance().getMap().enemyHero;
-        System.out.println(hero1.getName() + " " + hero1.getX() + " " + hero1.getY());
-        System.out.println(hero2.getName() + " " + hero2.getX() + " " + hero2.getY());
+        System.out.println("player1 Mana : " + Game.getInstance().getPlayer1().getNumOfMana());
+        System.out.println("player2 Mana : " + Game.getInstance().getPlayer2().getNumOfMana());
+        System.out.println(hero1.getName() + " " + hero1.getX() + " " + hero1.getY() + "/ Hp : " + hero1.getHealthPoint() + " AP : " + hero1.getAttackPower() +" id : " + hero1.getId());
+        System.out.println(hero2.getName() + " " + hero2.getX() + " " + hero2.getY() + "/ Hp : " + hero2.getHealthPoint() + " AP : " + hero2.getAttackPower() + " id : " + hero2.getId());
 
         for (Force force : Game.getInstance().getMap().getFriendMinions()) {
-            System.out.println(force.getName() + " " + force.getX() + " " + force.getY());
+            System.out.println(force.getName() + " " + force.getX() + " " + force.getY() + "/ HP : " + force.getHealthPoint() + " AP : " + force.getAttackPower() + " id  : " + force.getId());
         }
 
         for (Force force : Game.getInstance().getMap().getEnemyMinions()) {
-            System.out.println(force.getName() + " " + force.getX() + " " + force.getY());
+            System.out.println(force.getName() + " " + force.getX() + " " + force.getY() + "/ Hp : " + force.getHealthPoint() + " AP : " + force.getAttackPower() + " id : " + force.getId());
         }
     }
 

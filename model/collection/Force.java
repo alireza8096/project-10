@@ -266,6 +266,40 @@ public class Force extends Card{
             }
         }
     }
+    public static boolean forceIsEnemyAndIsInMap(int id){
+        for(Minion minion : Game.getInstance().getMap().getEnemyMinions()){
+            if(minion.id == id)
+                return true;
+        }
+        if(Game.getInstance().getMap().getEnemyHero().id == id){
+            return true;
+        }
+        return false;
+    }
+    public static Force returnEnemyCardByIDFromMap(int id){
+        for (Minion minion:
+                Game.getInstance().getMap().getEnemyMinions()) {
+            if(minion.id == id){
+                return minion;
+            }
+        }
+        if(Game.getInstance().getMap().getEnemyHero().id == id){
+            return Game.getInstance().getMap().getEnemyHero();
+        }
+        return null;
+    }
+    public static Force returnCardByIDFromMap(int id){
+        for (Minion minion:
+                Game.getInstance().getMap().getFriendMinions()) {
+            if(minion.id == id){
+                return minion;
+            }
+        }
+        if(Game.getInstance().getMap().getFriendHero().id == id){
+            return Game.getInstance().getMap().getFriendHero();
+        }
+        return null;
+    }
 
     public void applyAllBuffsOnForce(){
         for (Buff buff : this.positiveBuffsOnItself){

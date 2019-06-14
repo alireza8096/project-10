@@ -3,6 +3,7 @@ package controller;
 import model.*;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
+import view.MainView;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -21,18 +22,26 @@ public class BattleController {
         for (Minion minion : Game.getInstance().getMap().getFriendMinions()) {
             minion.setCanAttack(true);
             minion.setCanMove(true);
+            minion.setHasMovedInThisTurn(false);
+            minion.setHasAttackedInThisTurn(false);
         }
         Game.getInstance().getMap().getFriendHero().setCanMove(true);
         Game.getInstance().getMap().getFriendHero().setCanAttack(true);
+        Game.getInstance().getMap().getFriendHero().setHasAttackedInThisTurn(false);
+        Game.getInstance().getMap().getFriendHero().setHasMovedInThisTurn(false);
     }
 
     public static void makeAllCardsActiveAI() {
         for (Minion minion : Game.getInstance().getMap().getEnemyMinions()) {
+            minion.setHasAttackedInThisTurn(false);
+            minion.setHasMovedInThisTurn(false);
             minion.setCanAttack(true);
             minion.setCanMove(true);
         }
         Game.getInstance().getMap().getEnemyHero().setCanMove(true);
         Game.getInstance().getMap().getEnemyHero().setCanAttack(true);
+        Game.getInstance().getMap().getEnemyHero().setHasAttackedInThisTurn(false);
+        Game.getInstance().getMap().getEnemyHero().setHasMovedInThisTurn(false);
     }
 
     public static void endTurn() {
@@ -42,14 +51,14 @@ public class BattleController {
             if (Game.getInstance().getNumOfRound() < 14) {
                 Game.getInstance().getPlayer2().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer2().setNumOfMana(9);
-            makeAllCardsActivePlayer();
+            makeAllCardsActiveAI();
         } else {
             Game.getInstance().setPlayer1Turn(true);
             Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
             if (Game.getInstance().getNumOfRound() < 14) {
                 Game.getInstance().getPlayer1().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer1().setNumOfMana(9);
-            makeAllCardsActiveAI();
+            makeAllCardsActivePlayer();
             Game.getInstance().getPlayer1().getMainDeck().getHand().addCardToHandFromDeck();
         }
     }
@@ -62,7 +71,7 @@ public class BattleController {
                 String cardName = returnNameById(id);
                 System.out.println("cardName : " + cardName);
                 if (cardIsInGame(cardName)) {
-                    Force force = Card.returnCardByIDFromMap(id);
+                    Force force = Force.returnCardByIDFromMap(id);
                     System.out.println("selected");
                     doActionOnCard(force, scanner);
                 } else {
@@ -103,10 +112,10 @@ public class BattleController {
         ArrayList<Card> comboCards = new ArrayList<>();
         if (commands[0].equals("attack") && commands[1].equals("combo")) {
             int opponentID = Integer.parseInt(commands[2]);
-            Card opponentCard = Card.returnCardByIDFromMap(opponentID);
+            Force opponentCard = Force.returnCardByIDFromMap(opponentID);
             for (int i = 3; i < commands.length; i++) {
                 int cardID = Integer.parseInt(commands[i]);
-                comboCards.add(Card.returnCardByIDFromMap(cardID));
+                comboCards.add(Force.returnCardByIDFromMap(cardID));
             }
             comboAttack(card, comboCards, opponentCard);
         }
@@ -132,8 +141,10 @@ public class BattleController {
         if (commands.length == 2 && commands[0].compareToIgnoreCase("attack") == 0
                 && commands[1].matches("[\\d]+")) {
             int id = Integer.parseInt(commands[1]);
-            Card opponentIDCard = Card.returnCardByIDFromMap(id);
-            checkAllConditionsToAttack(card, opponentIDCard);
+            if (Force.forceIsEnemyAndIsInMap(id)) {
+                Card opponentIDCard = Force.returnEnemyCardByIDFromMap(id);
+                checkAllConditionsToAttack(card, opponentIDCard);
+            }
             AllDatas.didAction = true;
         }
     }
@@ -282,7 +293,7 @@ public class BattleController {
                 force.setX(x);
                 force.setY(y);
                 force.setHasMovedInThisTurn(true);
-                System.out.println(force.returnCompleteId(force.getName(), force.getId()) + " moved to (" + x + "," + y + ")");
+                System.out.println(force.getId() + " moved to (" + x + "," + y + ")");
                 applyEffectsOfTargetCellOnCard(force, x, y);
             }
         } else {
@@ -339,14 +350,85 @@ public class BattleController {
 //        }
 //    }
 
+    public static boolean checkRangeForAttack(Force attacker, Force opponent) {
+        switch (attacker.getAttackType()) {
+            case "melee":
+                if (Map.distance(attacker.getX(), attacker.getY(), opponent.getX(), opponent.getY()) == 1) {
+                    return true;
+                }
+                return false;
+            case "ranged":
+                if (Map.distance(attacker.getX(), attacker.getY(), opponent.getX(), opponent.getY()) != 1
+                        && Map.distance(attacker.getX(), attacker.getY(), opponent.getX(), opponent.getY()) <= attacker.getAttackRange()) {
+                    return true;
+                }
+                return false;
+            case "hybrid":
+                if (Map.distance(attacker.getX(), attacker.getY(), opponent.getX(), opponent.getY()) <= attacker.getAttackRange())
+                    return true;
+                return false;
+        }
+        return false;
+    }
+
+    public static void checkKill(Force force) {
+        switch (Game.getInstance().getMap().getCells()[force.getX()][force.getY()].getCellType()) {
+            case selfHero:
+                if (force.getHealthPoint() == 0) {
+                    System.out.println("Enemy Won!");
+                    AllDatas.gameBoolean = false;
+                }
+                break;
+            case enemyHero:
+                if (force.getHealthPoint() == 0) {
+                    System.out.println("You Won!");
+                    AllDatas.gameBoolean = false;
+                }
+                break;
+            case selfMinion:
+                if (force.getHealthPoint() == 0) {
+                    Shop.removeProcess(Game.getInstance().getMap().getFriendMinions(), (Minion) force);
+                    Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
+                }
+                break;
+            case enemyMinion:
+                if (force.getHealthPoint() == 0) {
+                    Shop.removeProcess(Game.getInstance().getMap().getEnemyMinions(), (Minion) force);
+                    Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
+                }
+        }
+    }
+
+    public static void attackAndCounterAttack(Force attacker, Force opponent) {
+        if (opponent.getHealthPoint() <= attacker.getAttackPower()) {
+            opponent.setHealthPoint(0);
+        } else {
+            opponent.setHealthPoint(opponent.getHealthPoint() - attacker.getAttackPower());
+        }
+        if (attacker.getHealthPoint() <= opponent.getAttackPower()) {
+            attacker.setHealthPoint(0);
+        } else {
+            attacker.setHealthPoint(attacker.getHealthPoint() - opponent.getAttackPower());
+        }
+        attacker.setHasAttackedInThisTurn(true);
+        checkKill(attacker);
+        checkKill(opponent);
+    }
 
     public static void checkAllConditionsToAttack(Card attackerCard, Card opponentCard) throws Exception {
+        if (!attackerCard.isHasAttackedInThisTurn()) {
+            if (checkRangeForAttack((Force) attackerCard, (Force) opponentCard)) {
+                attackAndCounterAttack((Force) attackerCard, (Force) opponentCard);
+                System.out.println("attacked");
+            } else {
+                System.out.println("has attackes in this turn");
+            }
 //        if (thisIdIsAvailableForOpponent(opponentId)) {
 //            if (Hero.thisCardIsHero(cardName)) {
-        if (!attackerCard.isHasAttackedInThisTurn()) {
-            attack(attackerCard, opponentCard);
-        } else {
-            System.out.println("Hero has attacked in this turn");
+//        if (!attackerCard.isHasAttackedInThisTurn()) {
+//            attack(attackerCard, opponentCard);
+//        } else {
+//            System.out.println("Hero has attacked in this turn");
 //                }
 //            } else {
 //                if(!card.isHasAttackedInThisTurn()) {

@@ -14,7 +14,7 @@ public class Game {
     private String winnerName;
     private Player player1;
     private Player player2;
-    private int numOfRound;
+    private int numOfRound = 1;
     private GameMode gameMode;
     private int finishTime;
     private int numOfPlayers;

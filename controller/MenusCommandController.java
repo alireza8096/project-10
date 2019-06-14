@@ -21,7 +21,7 @@ public class MenusCommandController {
         AccountController.help(commandsSplitted);
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.gameBoolean = false;
-//            AllDatas.hasEnteredAccount = true;
+            AllDatas.hasEnteredAccount = true;
         }
         if (!AllDatas.hasEnteredAccount) {
             System.out.println("Command is not supported in this menu");

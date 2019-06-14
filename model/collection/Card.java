@@ -192,57 +192,42 @@ public class Card implements Cloneable{
 
     }
 
-    public int returnCompleteId(String cardName,int id){
-        if (Hero.thisCardIsHero(cardName)) {
-            return 100+id;
-        }
-        else if(Item.thisCardIsItem(cardName)){
-            return 200+id;
-        }
-        else if(Minion.thisCardIsMinion(cardName)){
-            return 300+id;
-        }
-        else {
-            return 400+id;
-        }
-    }
+//    public static boolean thisCardIsMelee(String cardName) throws CloneNotSupportedException {
+//        Card card = findCardByName(cardName);
+//        if (card.getCardType().equals("minion")){
+//            if (((Minion)card).getAttackType().equals("melee"))
+//                return true;
+//
+//        }else if (card.getCardType().equals("hero")){
+//            if (((Hero)card).getAttackType().equals("melee"))
+//                return true;
+//        }
+//        return false;
+//    }
 
-    public static boolean thisCardIsMelee(String cardName) throws CloneNotSupportedException {
-        Card card = findCardByName(cardName);
-        if (card.getCardType().equals("minion")){
-            if (((Minion)card).getAttackType().equals("melee"))
-                return true;
+//    public static boolean thisCardIsRanged(String cardName) throws CloneNotSupportedException {
+//        Card card = findCardByName(cardName);
+//        if (card.getCardType().equals("minion")){
+//            if (((Minion)card).getAttackType().equals("ranged"))
+//                return true;
+//        }else if (card.getCardType().equals("hero")){
+//            if (((Hero)card).getAttackType().equals("ranged"))
+//                return true;
+//        }
+//        return false;
+//    }
 
-        }else if (card.getCardType().equals("hero")){
-            if (((Hero)card).getAttackType().equals("melee"))
-                return true;
-        }
-        return false;
-    }
-
-    public static boolean thisCardIsRanged(String cardName) throws CloneNotSupportedException {
-        Card card = findCardByName(cardName);
-        if (card.getCardType().equals("minion")){
-            if (((Minion)card).getAttackType().equals("ranged"))
-                return true;
-        }else if (card.getCardType().equals("hero")){
-            if (((Hero)card).getAttackType().equals("ranged"))
-                return true;
-        }
-        return false;
-    }
-
-    public static boolean thisCardIsHybrid(String cardName) throws CloneNotSupportedException {
-        Card card = findCardByName(cardName);
-        if (card.getCardType().equals("minion")){
-            if (((Minion)card).getAttackType().equals("hybrid"))
-                return true;
-        }else if (card.getCardType().equals("hero")){
-            if (((Hero)card).getAttackType().equals("hybrid"))
-                return true;
-        }
-        return false;
-    }
+//    public static boolean thisCardIsHybrid(String cardName) throws CloneNotSupportedException {
+//        Card card = findCardByName(cardName);
+//        if (card.getCardType().equals("minion")){
+//            if (((Minion)card).getAttackType().equals("hybrid"))
+//                return true;
+//        }else if (card.getCardType().equals("hero")){
+//            if (((Hero)card).getAttackType().equals("hybrid"))
+//                return true;
+//        }
+//        return false;
+//    }
 
     public static boolean checkIfCardCanAttack(Card card, int targetX, int targetY){
         int cardX = card.getX();
@@ -318,16 +303,4 @@ public class Card implements Cloneable{
         return false;
     }
 
-    public static Force returnCardByIDFromMap(int id){
-        for (Minion minion:
-             Game.getInstance().getMap().getFriendMinions()) {
-            if(minion.id == id){
-                return minion;
-            }
-        }
-        if(Game.getInstance().getMap().getFriendHero().id == id){
-            return Game.getInstance().getMap().getFriendHero();
-        }
-        return null;
-    }
 }
