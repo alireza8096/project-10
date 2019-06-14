@@ -16,14 +16,11 @@ public class Force extends Card{
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
     private ArrayList<Buff> buffActions = new ArrayList<>();
 
-    private ArrayList<Buff> powersGivenToForce = new ArrayList<>();
-
     private ArrayList<String> targets = new ArrayList<>();
     private ArrayList<String> numOfTargets = new ArrayList<>();
     private ArrayList<String> friendOrEnemy = new ArrayList<>();
     private ArrayList<String> locationOfTargets = new ArrayList<>();
     private ArrayList<String> actionTypes = new ArrayList<>();
-
     private int healthPoint;
     private int attackPower;
     private String attackType;
@@ -33,14 +30,6 @@ public class Force extends Card{
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
-
-    public ArrayList<Buff> getPowersGivenToForce() {
-        return powersGivenToForce;
-    }
-
-    public void setPowersGivenToForce(ArrayList<Buff> powersGivenToForce) {
-        this.powersGivenToForce = powersGivenToForce;
-    }
 
     public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();

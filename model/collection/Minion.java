@@ -1,8 +1,13 @@
 package model.collection;
 
 import model.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import view.GameView;
 
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Minion extends Force implements Cloneable{
@@ -561,7 +566,7 @@ public class Minion extends Force implements Cloneable{
                     Minion.getMinionInThisCoordination(x, y).getNegativeBuffsOnItself().add(buff);
                 }
             }else{
-                GameView.printInvalidCommandWithThisContent("Minion is not combo!");
+                GameView.printInvalidCommandWhithThisContent("Minion is not combo!");
                 return;
             }
         }

@@ -26,7 +26,7 @@ public class HandleFiles {
     private static final String ADDRESS_ITEM = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Items";
 
         public static void createStringOfPlayers() {
-        File folder = new File("/Users/bahar/Desktop/DUELYST/model/collection/players");
+        File folder = new File("/Users/hamilamailee/Documents/project-10/model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);

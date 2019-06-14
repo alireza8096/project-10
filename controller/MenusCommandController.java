@@ -1,16 +1,11 @@
 package controller;
 
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
 import model.Shop;
 import model.collection.Account;
 import view.BattleView;
-import view.GameView;
 
 import java.util.Collection;
 import java.util.Scanner;
@@ -161,29 +156,7 @@ public class MenusCommandController {
         
     }
 
-    public static void loginMenuEventHandler(Button loginButton, Button createAccountButton, TextField username, TextField password){
-        String name = username.getText();
-        String passWord = password.getText();
-        loginButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    Account.login(name, passWord);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    public static void loginMenuEvenetHandler(){
 
-        createAccountButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    Account.createAccount(name, passWord);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 }
