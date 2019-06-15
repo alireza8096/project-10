@@ -2,14 +2,22 @@ package view;
 
 import controller.Controller;
 import controller.MenusCommandController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import model.AllDatas;
 
 import java.awt.*;
@@ -19,8 +27,8 @@ import java.io.FileNotFoundException;
 
 public class MenuView {
 
-    public static final int WINDOW_WIDTH = 800;
-    public static final int WINDOW_HEIGHT = 600;
+    public static final int WINDOW_WIDTH = 1000;
+    public static final int WINDOW_HEIGHT = 800;
 
     public static void showLoginMenu() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
@@ -28,24 +36,36 @@ public class MenuView {
         setBackgroundOfMainMenu();
 
         Rectangle accountRectangle = new Rectangle(400, 300);
-        accountRectangle.setX(200);
-        accountRectangle.setY(200);
+        accountRectangle.setX(300);
+        accountRectangle.setY(300);
         accountRectangle.setFill(Color.rgb(129, 135, 145, 0.5));
         AllDatas.currentRoot.getChildren().add(accountRectangle);
 
         TextField email = new TextField("username");
-        email.relocate(300, 250);
+        email.relocate(420, 350);
+        email.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                email.clear();
+            }
+        });
         TextField password = new TextField("password");
-        password.relocate(300, 300);
+        password.relocate(420, 400);
+        password.addEventFilter(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                password.clear();
+            }
+        });
 
         AllDatas.currentRoot.getChildren().addAll(email, password);
 
         Button loginButton = new Button("login");
         Button createAccountButton = new Button("create account");
-        loginButton.setLayoutX(350);
-        loginButton.setLayoutY(350);
-        createAccountButton.setLayoutX(320);
-        createAccountButton.setLayoutY(400);
+        loginButton.setLayoutX(470);
+        loginButton.setLayoutY(450);
+        createAccountButton.setLayoutX(440);
+        createAccountButton.setLayoutY(500);
 
         AllDatas.currentRoot.getChildren().addAll(loginButton, createAccountButton);
 
@@ -60,24 +80,62 @@ public class MenuView {
 
         VBox vBox = new VBox();
 
-        //collection, shop, battle, help, exit, logout
-        Button shopButton = new Button("Shop");
-        Button collectionButton = new Button("Collection");
-        Button battleButton = new Button("Battle");
-        Button helpButton = new Button("Help");
-        Button exitButton = new Button("Exit");
-        Button logoutButton = new Button("Logout");
+        Hyperlink shopOption = new Hyperlink("Shop");
+        shopOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        shopOption.setTextFill(Color.WHITE);
+        shopOption.setOnAction(event -> Controller.enterShop());
+
+        Image shopIcon = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop@2x.png"));
+        ImageView shopIconImage = new ImageView(shopIcon);
+        shopIconImage.setFitWidth(40);
+        shopIconImage.setFitHeight(40);
+        HBox shopHBox = new HBox(shopIconImage, shopOption);
+
+        Hyperlink collectionOption = new Hyperlink("Collection");
+        collectionOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        collectionOption.setTextFill(Color.WHITE);
+        collectionOption.setOnAction(event -> Controller.enterColllection());
+
+        Hyperlink battleOption = new Hyperlink("Battle");
+        battleOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        battleOption.setTextFill(Color.WHITE);
+        battleOption.setOnAction(event -> Controller.enterBattle());
+
+        Hyperlink exitOption = new Hyperlink("Exit");
+        exitOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        exitOption.setTextFill(Color.WHITE);
+        exitOption.setOnAction(event -> {
+            //Todo : handle exit from main menu
+        });
+
+        Hyperlink logoutOption = new Hyperlink("Logout");
+        logoutOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        logoutOption.setTextFill(Color.WHITE);
+        logoutOption.setOnAction(event -> {
+            //Todo : handle logging out from current account
+        });
+
+        Hyperlink helpOption = new Hyperlink("Help");
+        helpOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        helpOption.setTextFill(Color.WHITE);
+        helpOption.setOnAction(event -> {
+            //Todo : handle help in each menu
+        });
+
+
 
         vBox.setSpacing(15);
-        vBox.setMargin(shopButton, new Insets(10, 10, 10, 300));
-        vBox.setMargin(collectionButton, new Insets(10, 10, 10, 300));
-        vBox.setMargin(battleButton, new Insets(10, 10, 10, 300));
-        vBox.setMargin(helpButton, new Insets(10, 10, 10, 300));
-        vBox.setMargin(exitButton, new Insets(10, 10, 10, 300));
-        vBox.setMargin(logoutButton, new Insets(10, 10, 10, 300));
+        vBox.setMargin(shopHBox, new Insets(40, 10, 10, 100));
+        vBox.setMargin(collectionOption, new Insets(7, 10, 10, 100));
+        vBox.setMargin(battleOption, new Insets(7, 10, 10, 100));
+        vBox.setMargin(helpOption, new Insets(7, 10, 10, 100));
+        vBox.setMargin(exitOption, new Insets(7, 10, 10, 100));
+        vBox.setMargin(logoutOption, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopButton, collectionButton, battleButton, helpButton, exitButton, logoutButton);
+        vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
+
+        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption);
 
     }
 

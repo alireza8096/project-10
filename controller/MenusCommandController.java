@@ -1,7 +1,9 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import model.AllDatas;
@@ -12,6 +14,7 @@ import model.collection.Account;
 import view.BattleView;
 import view.GameView;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Scanner;
 
@@ -162,12 +165,12 @@ public class MenusCommandController {
     }
 
     public static void loginMenuEventHandler(Button loginButton, Button createAccountButton, TextField username, TextField password){
-        String name = username.getText();
-        String passWord = password.getText();
         loginButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 try {
+                    String name = username.getText();
+                    String passWord = password.getText();
                     Account.login(name, passWord);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -179,11 +182,46 @@ public class MenusCommandController {
             @Override
             public void handle(MouseEvent event) {
                 try {
+                    String name = username.getText();
+                    String passWord = password.getText();
                     Account.createAccount(name, passWord);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
+                                              Hyperlink help, Hyperlink exit, Hyperlink logout){
+
+        shop.setOnAction(event -> Controller.enterShop());
+
+        collection.setOnAction(event -> Controller.enterColllection());
+
+        battle.setOnAction(event -> Controller.enterBattle());
+
+        help.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+            }
+        });
+
+        exit.setOnAction(event -> System.exit(0));
+
+        logout.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    LinkedListMenus.whichMenuNow().backFromThisMenu();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+
+
     }
 }

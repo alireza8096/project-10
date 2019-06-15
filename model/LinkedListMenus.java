@@ -1,5 +1,6 @@
 package model;
 
+import controller.Controller;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -7,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import view.MenuView;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class LinkedListMenus {
@@ -18,6 +20,11 @@ public class LinkedListMenus {
     private boolean nowInThisMenu;
     private Scene scene;
     private Pane root;
+//
+//    static {
+//        allMenus.add(AllDatas.commandLine);
+//        allMenus.add()
+//    }
 
     public String getMenuName() {
         return menuName;
@@ -88,5 +95,16 @@ public class LinkedListMenus {
                 return menu;
         }
         return null;
+    }
+
+    public void backFromThisMenu() throws FileNotFoundException {
+        System.out.println(this.menuName);
+        AllDatas.currentRoot = this.parent.root;
+        AllDatas.currentScene = this.parent.scene;
+
+        Controller.enterLoginMenu();
+
+        whichMenuNow().getParent().nowInThisMenu = true;
+        whichMenuNow().nowInThisMenu = false;
     }
 }

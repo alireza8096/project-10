@@ -119,6 +119,8 @@ public class Controller {
     public static void enterMainMenu() throws FileNotFoundException {
         AllDatas.currentRoot = AllDatas.commandLine.getRoot();
         AllDatas.currentScene = AllDatas.commandLine.getScene();
+        AllDatas.commandLine.setNowInThisMenu(true);
+        AllDatas.account.setNowInThisMenu(false);
 
         MenuView.showMainMenu();
     }

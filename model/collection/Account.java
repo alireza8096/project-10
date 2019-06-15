@@ -33,8 +33,6 @@ public class Account {
             GameView.printInvalidCommandWithThisContent("Invalid Username!");
         }
         else {
-//            System.out.println("Please enter password :");
-//            String password = scanner.nextLine();
             writeJustCreatedPlayerToFile(name,password,"true");
             Controller.enterMainMenu();
             players.add(name);
