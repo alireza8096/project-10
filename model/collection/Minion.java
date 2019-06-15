@@ -566,7 +566,7 @@ public class Minion extends Force implements Cloneable{
                     Minion.getMinionInThisCoordination(x, y).getNegativeBuffsOnItself().add(buff);
                 }
             }else{
-                GameView.printInvalidCommandWhithThisContent("Minion is not combo!");
+                GameView.printInvalidCommandWithThisContent("Minion is not combo!");
                 return;
             }
         }

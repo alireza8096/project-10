@@ -9,20 +9,18 @@ import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
-import model.Shop;
 import model.collection.Account;
 import view.BattleView;
 
 import java.io.FileNotFoundException;
-import java.util.Collection;
 import java.util.Scanner;
 
 public class MenusCommandController {
     public static void accountController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
-        AccountController.createAccount(commandsSplitted, scanner);
-        AccountController.login(commandsSplitted, scanner);
+      //  AccountController.createAccountCommand(commandsSplitted, scanner);
+      //  AccountController.login(commandsSplitted, scanner);
         AccountController.showLeaderboard(commandsSplitted);
         AccountController.save(commandsSplitted);
         AccountController.help(commandsSplitted);
@@ -219,8 +217,30 @@ public class MenusCommandController {
                 }
             }
         });
+    }
 
+    public static void enterThisMenu(LinkedListMenus menu) throws FileNotFoundException {
+        String menuName = menu.getMenuName();
 
-
+        switch (menuName){
+            case "Account":
+                Controller.enterLoginMenu();
+                break;
+            case "Leaderboard":
+                //Todo : enter leaderboard menu
+                break;
+            case "Command Line":
+                Controller.enterMainMenu();
+                break;
+            case "Collection":
+                Controller.enterColllection();
+                break;
+            case "Shop":
+                Controller.enterShop();
+                break;
+            case "Battle":
+                Controller.enterBattle();
+                break;
+        }
     }
 }

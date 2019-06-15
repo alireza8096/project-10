@@ -1,6 +1,7 @@
 package model;
 
 import controller.Controller;
+import controller.MenusCommandController;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -102,9 +103,10 @@ public class LinkedListMenus {
         AllDatas.currentRoot = this.parent.root;
         AllDatas.currentScene = this.parent.scene;
 
-        Controller.enterLoginMenu();
+        LinkedListMenus currentMenu = whichMenuNow();
+        currentMenu.nowInThisMenu = false;
+        currentMenu.getParent().nowInThisMenu = true;
 
-        whichMenuNow().getParent().nowInThisMenu = true;
-        whichMenuNow().nowInThisMenu = false;
+        MenusCommandController.enterThisMenu(whichMenuNow());
     }
 }
