@@ -1,6 +1,5 @@
 package model.collection;
 
-import model.Game;
 import model.Player;
 import org.json.simple.JSONObject;
 
@@ -274,5 +273,6 @@ public class Buff {
         force.setCanAttack(false);
         force.setCanMove(false);
     }
+
 }
 

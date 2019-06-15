@@ -19,16 +19,15 @@ public class MainView extends Application {
         primaryStage = stage;
 
         Controller.enterLoginMenu();
-
-
+        MenuView.showLoginMenu();
         stage.show();
     }
     public static void main(String[] args) throws Exception {
         Controller.createAll();
-        launch(args);
-//        Scanner scanner = new Scanner(System.in);
-//        while (AllDatas.gameBoolean){
-//            Controller.handleCommands(scanner);
-//        }
+//        launch(args);
+        Scanner scanner = new Scanner(System.in);
+        while (AllDatas.gameBoolean){
+            Controller.handleCommands(scanner);
+        }
     }
 }

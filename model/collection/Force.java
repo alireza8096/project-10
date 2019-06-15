@@ -16,14 +16,11 @@ public class Force extends Card{
     private ArrayList<Buff> negativeBuffs = new ArrayList<>();
     private ArrayList<Buff> buffActions = new ArrayList<>();
 
-    private ArrayList<Buff> powersGivenToForce = new ArrayList<>();
-
     private ArrayList<String> targets = new ArrayList<>();
     private ArrayList<String> numOfTargets = new ArrayList<>();
     private ArrayList<String> friendOrEnemy = new ArrayList<>();
     private ArrayList<String> locationOfTargets = new ArrayList<>();
     private ArrayList<String> actionTypes = new ArrayList<>();
-
     private int healthPoint;
     private int attackPower;
     private String attackType;
@@ -33,14 +30,6 @@ public class Force extends Card{
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
-
-    public ArrayList<Buff> getPowersGivenToForce() {
-        return powersGivenToForce;
-    }
-
-    public void setPowersGivenToForce(ArrayList<Buff> powersGivenToForce) {
-        this.powersGivenToForce = powersGivenToForce;
-    }
 
     public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
@@ -276,6 +265,40 @@ public class Force extends Card{
                 actionBuffsOnItself.remove(buff);
             }
         }
+    }
+    public static boolean forceIsEnemyAndIsInMap(int id){
+        for(Minion minion : Game.getInstance().getMap().getEnemyMinions()){
+            if(minion.id == id)
+                return true;
+        }
+        if(Game.getInstance().getMap().getEnemyHero().id == id){
+            return true;
+        }
+        return false;
+    }
+    public static Force returnEnemyCardByIDFromMap(int id){
+        for (Minion minion:
+                Game.getInstance().getMap().getEnemyMinions()) {
+            if(minion.id == id){
+                return minion;
+            }
+        }
+        if(Game.getInstance().getMap().getEnemyHero().id == id){
+            return Game.getInstance().getMap().getEnemyHero();
+        }
+        return null;
+    }
+    public static Force returnCardByIDFromMap(int id){
+        for (Minion minion:
+                Game.getInstance().getMap().getFriendMinions()) {
+            if(minion.id == id){
+                return minion;
+            }
+        }
+        if(Game.getInstance().getMap().getFriendHero().id == id){
+            return Game.getInstance().getMap().getFriendHero();
+        }
+        return null;
     }
 
     public void applyAllBuffsOnForce(){

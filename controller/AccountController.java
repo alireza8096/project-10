@@ -16,7 +16,7 @@ public class AccountController{
                 && commands[1].compareToIgnoreCase("account") == 0
                 && commands.length > 2){
             String username=CollectionController.createName(commands,2);
-       //     Account.createAccount(username,scanner);
+            Account.createAccount(username,scanner);
             AllDatas.hasEnteredAccount = true;
         }
     }
@@ -24,7 +24,7 @@ public class AccountController{
      public static void login(String[] commands, Scanner scanner) throws Exception{
         if(commands[0].compareToIgnoreCase("login") == 0 && commands.length>1){
             String username=CollectionController.createName(commands,2);
-         //   Account.login(username,scanner);
+            Account.login(username,scanner);
             AllDatas.hasEnteredAccount = true;
         }
     }

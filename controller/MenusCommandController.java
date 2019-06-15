@@ -12,7 +12,6 @@ import model.LinkedListMenus;
 import model.Shop;
 import model.collection.Account;
 import view.BattleView;
-import view.GameView;
 
 import java.io.FileNotFoundException;
 import java.util.Collection;
@@ -29,7 +28,7 @@ public class MenusCommandController {
         AccountController.help(commandsSplitted);
         if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("exit") == 0) {
             AllDatas.gameBoolean = false;
-//            AllDatas.hasEnteredAccount = true;
+            AllDatas.hasEnteredAccount = true;
         }
         if (!AllDatas.hasEnteredAccount) {
             System.out.println("Command is not supported in this menu");
