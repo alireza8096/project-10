@@ -5,7 +5,9 @@ import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
+import view.MenuView;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 
@@ -26,7 +28,7 @@ public class Controller {
 
 
 
-    public static void createAllMenus(){
+    public static void createAllMenus() throws FileNotFoundException {
         AllDatas.account= new LinkedListMenus("Account",true);
         AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
         AllDatas.commandLine = new LinkedListMenus("Command Line",false);
@@ -44,7 +46,7 @@ public class Controller {
         AllDatas.shop.setParent(AllDatas.commandLine);
         AllDatas.battle.setParent(AllDatas.commandLine);
 
-        Controller.enterLoginMenu();
+//        Controller.enterLoginMenu();
 //        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
 //        AllDatas.leaderboard.setCommandsForHelp("exit");
 //        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help","logout");
@@ -109,14 +111,14 @@ public class Controller {
         }
     }
 
-    public static void enterLoginMenu(){
+    public static void enterLoginMenu() throws FileNotFoundException {
         AllDatas.currentRoot = AllDatas.account.getRoot();
         AllDatas.currentScene = AllDatas.account.getScene();
 
         MenuView.showLoginMenu();
     }
 
-    public static void enterMainMenu(){
+    public static void enterMainMenu() throws FileNotFoundException {
         AllDatas.currentRoot = AllDatas.commandLine.getRoot();
         AllDatas.currentScene = AllDatas.commandLine.getScene();
         AllDatas.commandLine.setNowInThisMenu(true);

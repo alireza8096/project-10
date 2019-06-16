@@ -20,10 +20,10 @@ import java.util.ArrayList;
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
-    private static final String ADDRESS_HERO = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Heroes";
-    private static final String ADDRESS_MINION = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Minions";
-    private static final String ADDRESS_SPELL = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Spells";
-    private static final String ADDRESS_ITEM = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Items";
+    private static final String ADDRESS_HERO = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Heroes";
+    private static final String ADDRESS_MINION = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Minions";
+    private static final String ADDRESS_SPELL = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Spells";
+    private static final String ADDRESS_ITEM = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Items";
 
         public static void createStringOfPlayers() {
         File folder = new File("/Users/hamilamailee/Documents/project-10/model/collection/players");

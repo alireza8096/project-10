@@ -119,7 +119,8 @@ public class GameView {
 //        }
 //    }
 
-    public static void printInvalidCommandWhithThisContent(String content){
+    public static void printInvalidCommandWithThisContent(String content){
         System.out.println(content);
     }
+
 }
