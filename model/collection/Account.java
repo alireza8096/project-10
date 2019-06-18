@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.*;
 //testing
 public class Account {
-    public static final String PLAYERS_FOLDER = "/Users/bahar/Desktop/DUELYST/model/collection/players";
+    public static final String PLAYERS_FOLDER = "/Users/hamilamailee/Documents/project-10/model/collection/players";
     private static ArrayList<String> players = new ArrayList<>();
     public static ArrayList<String> getPlayers() {
         return players;

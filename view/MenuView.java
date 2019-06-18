@@ -85,7 +85,7 @@ public class MenuView {
         shopOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         shopOption.setTextFill(Color.WHITE);
 
-        Image shopIcon = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop@2x.png"));
+        Image shopIcon = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/shop@2x.png"));
         ImageView shopIconImage = new ImageView(shopIcon);
         shopIconImage.setFitWidth(40);
         shopIconImage.setFitHeight(40);
@@ -127,18 +127,18 @@ public class MenuView {
     }
 
     public static void setBackgroundOfMainMenu() throws FileNotFoundException {
-        Image background = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/background@2x.jpg"));
+        Image background = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/background@2x.jpg"));
         ImageView backgroundImageView = new ImageView(background);
         backgroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         backgroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
-        Image midground = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/pillars_near@2x.png"));
+        Image midground = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/pillars_near@2x.png"));
         ImageView midgroundImageView = new ImageView(midground);
         midgroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         midgroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
 
-        Image foreground = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/foreground@2x.png"));
+        Image foreground = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/foreground@2x.png"));
         ImageView foregroundImageView = new ImageView(foreground);
         foregroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         foregroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
@@ -206,6 +206,8 @@ public class MenuView {
     }
 
     public static void showBattle(){
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+        MainView.primaryStage.setMaximized(true);
 
     }
 
