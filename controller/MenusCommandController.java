@@ -11,8 +11,10 @@ import model.Game;
 import model.LinkedListMenus;
 import model.collection.Account;
 import view.BattleView;
+import view.MenuView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MenusCommandController {
@@ -192,34 +194,42 @@ public class MenusCommandController {
     public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
                                               Hyperlink help, Hyperlink exit, Hyperlink logout){
 
-        shop.setOnAction(event -> Controller.enterShop());
+        shop.setOnAction(event -> {
+            try {
+                Controller.enterShop();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
         collection.setOnAction(event -> Controller.enterColllection());
 
-        battle.setOnAction(event -> Controller.enterBattle());
-
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
+        battle.setOnAction(event -> {
+            try {
+                Controller.enterBattle();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        });
+
+        help.setOnAction(event -> {
+            //Todo : handle help in each menu
         });
 
         exit.setOnAction(event -> System.exit(0));
 
-        logout.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    LinkedListMenus.whichMenuNow().backFromThisMenu();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        logout.setOnAction(event -> {
+            try {
+                LinkedListMenus.whichMenuNow().backFromThisMenu();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
 
-    public static void enterThisMenu(LinkedListMenus menu) throws FileNotFoundException {
+    public static void enterThisMenu(LinkedListMenus menu) throws IOException {
         String menuName = menu.getMenuName();
 
         switch (menuName){
@@ -242,5 +252,12 @@ public class MenusCommandController {
                 Controller.enterBattle();
                 break;
         }
+    }
+
+    public static void handleEventsOfShop(Hyperlink minions, Hyperlink spells, Hyperlink items, Hyperlink heroes){
+        minions.setOnAction(event -> MenuView.showMinionsInShop());
+        spells.setOnAction(event -> MenuView.showSpellsInShop());
+        items.setOnAction(event -> MenuView.showItemsInShop());
+        heroes.setOnAction(event -> MenuView.showHeroesInShop());
     }
 }

@@ -19,9 +19,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.stage.Window;
 import model.AllDatas;
 import model.LinkedListMenus;
 
+import javax.swing.event.HyperlinkListener;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,11 +31,12 @@ import java.io.FileNotFoundException;
 
 public class MenuView {
 
-    public static final int WINDOW_WIDTH = 1000;
-    public static final int WINDOW_HEIGHT = 800;
+    public static final int WINDOW_WIDTH = 1024;
+    public static final int WINDOW_HEIGHT = 768;
 
     public static void showLoginMenu() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
+        MainView.primaryStage.setMaximized(true);
 
         setBackgroundOfMainMenu();
 
@@ -77,6 +80,7 @@ public class MenuView {
 
     public static void showMainMenu() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
+        MainView.primaryStage.setMaximized(true);
 
         setBackgroundOfMainMenu();
 
@@ -85,7 +89,6 @@ public class MenuView {
         Hyperlink shopOption = new Hyperlink("Shop");
         shopOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         shopOption.setTextFill(Color.WHITE);
-        shopOption.setOnAction(event -> Controller.enterShop());
 
         Image shopIcon = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop@2x.png"));
         ImageView shopIconImage = new ImageView(shopIcon);
@@ -96,35 +99,22 @@ public class MenuView {
         Hyperlink collectionOption = new Hyperlink("Collection");
         collectionOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         collectionOption.setTextFill(Color.WHITE);
-        collectionOption.setOnAction(event -> Controller.enterColllection());
 
         Hyperlink battleOption = new Hyperlink("Battle");
         battleOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         battleOption.setTextFill(Color.WHITE);
-        battleOption.setOnAction(event -> Controller.enterBattle());
 
-        Hyperlink exitOption = new Hyperlink("Exit");
+        Hyperlink exitOption = new Hyperlink("Exit Game");
         exitOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         exitOption.setTextFill(Color.WHITE);
-        exitOption.setOnAction(event -> {
-            //Todo : handle exit from main menu
-        });
 
         Hyperlink logoutOption = new Hyperlink("Logout");
         logoutOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         logoutOption.setTextFill(Color.WHITE);
-        logoutOption.setOnAction(event -> {
-            //Todo : handle logging out from current account
-        });
 
         Hyperlink helpOption = new Hyperlink("Help");
         helpOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         helpOption.setTextFill(Color.WHITE);
-        helpOption.setOnAction(event -> {
-            //Todo : handle help in each menu
-        });
-
-
 
         vBox.setSpacing(15);
         vBox.setMargin(shopHBox, new Insets(40, 10, 10, 100));
@@ -163,7 +153,58 @@ public class MenuView {
 
     }
 
-    public static void showShop(){
+    //Todo : define a style for text and image
+    public static void showShop() throws FileNotFoundException {
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+        MainView.primaryStage.setMaximized(true);
+
+        ImageView background = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/shopBackground.jpg");
+        background.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
+        background.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
+        AllDatas.currentRoot.getChildren().add(background);
+
+
+        VBox vBox = new VBox();
+
+        HBox minionsHBox = new HBox();
+        ImageView minionIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/minion.png");
+      //  minionIcon.getStyleClass().add("shopOptionsImage");
+        minionIcon.setFitWidth(40);
+        minionIcon.setFitHeight(40);
+        Hyperlink minionText = new Hyperlink("Minions");
+        minionsHBox.getChildren().addAll(minionIcon, minionText);
+
+        HBox heroesHBox = new HBox();
+        ImageView heroIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/Heroes.png");
+        heroIcon.setFitWidth(40);
+        heroIcon.setFitHeight(40);
+        Hyperlink heroText = new Hyperlink("Heroes");
+        heroesHBox.getChildren().addAll(heroIcon, heroText);
+
+        HBox itemHBox = new HBox();
+        ImageView itemIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/Item.png");
+        itemIcon.setFitWidth(50);
+        itemIcon.setFitHeight(50);
+        Hyperlink itemText = new Hyperlink("Items");
+        itemHBox.getChildren().addAll(itemIcon, itemText);
+
+        HBox spellHBox = new HBox();
+        ImageView spellIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/spell.png");
+        spellIcon.setFitWidth(50);
+        spellIcon.setFitHeight(50);
+        Hyperlink spellText = new Hyperlink("Spells");
+        spellHBox.getChildren().addAll(spellIcon, spellText);
+
+        VBox.setMargin(minionsHBox, new Insets(50,100,10,30));
+        VBox.setMargin(spellHBox, new Insets(10,100,10,30));
+        VBox.setMargin(itemHBox, new Insets(10,100,10,30));
+        VBox.setMargin(heroesHBox, new Insets(10,100,10,30));
+
+        vBox.getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
+
+        AllDatas.currentRoot.getChildren().add(vBox);
+
+//        MenusCommandController.
 
     }
 
@@ -197,5 +238,21 @@ public class MenuView {
                 showBattle();
                 break;
         }
+    }
+
+    public static void showMinionsInShop(){
+
+    }
+
+    public static void showSpellsInShop(){
+
+    }
+
+    public static void showItemsInShop(){
+
+    }
+
+    public static void showHeroesInShop(){
+
     }
 }

@@ -1,13 +1,18 @@
 package controller;
 
+import com.sun.tools.javac.Main;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
+import view.MainView;
 import view.MenuView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 
@@ -76,7 +81,6 @@ public class Controller {
                 MenusCommandController.leaderboardController(scanner);
                 break;
             case "Command Line":
-                System.out.println("command line");
                 MenusCommandController.commandLineController(scanner);
                 break;
             case "Collection":
@@ -128,9 +132,13 @@ public class Controller {
         MenuView.showMainMenu();
     }
 
-    public static void enterShop(){
+    public static void enterShop() throws FileNotFoundException {
         AllDatas.currentRoot = AllDatas.shop.getRoot();
         AllDatas.currentScene = AllDatas.shop.getScene();
+        AllDatas.shop.setNowInThisMenu(true);
+        AllDatas.commandLine.setNowInThisMenu(false);
+
+        MenuView.showShop();
     }
 
     public static void enterColllection(){
@@ -138,9 +146,16 @@ public class Controller {
         AllDatas.currentScene = AllDatas.collection.getScene();
     }
 
-    public static void enterBattle(){
-        AllDatas.currentRoot = AllDatas.battle.getRoot();
-        AllDatas.currentScene = AllDatas.battle.getScene();
+    public static void enterBattle() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        String path = "/Users/bahar/Desktop/DUELYST/JavaFx/src/battle.fxml";
+        FileInputStream fxmlStream = new FileInputStream(path);
+        AllDatas.currentRoot = loader.load(fxmlStream);
+        AllDatas.currentScene.setRoot(AllDatas.currentRoot);
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+        MainView.primaryStage.setMaximized(true);
+//        AllDatas.currentRoot = AllDatas.battle.getRoot();
+//        AllDatas.currentScene = AllDatas.battle.getScene();
     }
 
     public static void enterLeaderBoard(){
