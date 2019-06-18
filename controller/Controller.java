@@ -19,7 +19,7 @@ import static javafx.application.Application.launch;
 public class Controller {
     public static void createAll() throws Exception{
         createAllMenus();
-        createAllDataFromJSON();
+//        createAllDataFromJSON();
     }
     public static void createAllDataFromJSON() throws Exception{
         HandleFiles.createHeroes();
@@ -137,6 +137,8 @@ public class Controller {
         AllDatas.shop.setNowInThisMenu(true);
         AllDatas.commandLine.setNowInThisMenu(false);
 
+        //AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
+
         MenuView.showShop();
     }
 
@@ -147,7 +149,7 @@ public class Controller {
 
     public static void enterBattle() throws IOException{
         FXMLLoader loader = new FXMLLoader();
-        String path = "/Users/hamilamailee/Documents/project-10/JavaFx/src/sample.fxml";
+        String path = "/Users/bahar/Desktop/DUELYST/JavaFx/src/sample.fxml";
         FileInputStream fxmlStream = new FileInputStream(path);
         AllDatas.currentRoot = loader.load(fxmlStream);
         AllDatas.currentScene.setRoot(AllDatas.currentRoot);

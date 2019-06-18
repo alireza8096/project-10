@@ -21,10 +21,10 @@ public class MainView extends Application {
     public void start(Stage stage) throws FileNotFoundException {
         Shop.setRightVBox(new VBox());
         Shop.setLeftVBox(new VBox());
-        Shop.getLeftVBox().setLayoutX(300);
+        Shop.getRightVBox().setLayoutX(300);
 
 
-        MenuView.setVBoxForShowingMinionCards();
+     //   MenuView.setVBoxForShowingMinionCards();
         primaryStage = stage;
         primaryStage.setMaximized(true);
 

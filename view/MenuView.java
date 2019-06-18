@@ -1,10 +1,14 @@
 package view;
 
 import controller.MenusCommandController;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -85,7 +89,7 @@ public class MenuView {
         shopOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         shopOption.setTextFill(Color.WHITE);
 
-        Image shopIcon = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/shop@2x.png"));
+        Image shopIcon = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop@2x.png"));
         ImageView shopIconImage = new ImageView(shopIcon);
         shopIconImage.setFitWidth(40);
         shopIconImage.setFitHeight(40);
@@ -127,18 +131,18 @@ public class MenuView {
     }
 
     public static void setBackgroundOfMainMenu() throws FileNotFoundException {
-        Image background = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/background@2x.jpg"));
+        Image background = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/background@2x.jpg"));
         ImageView backgroundImageView = new ImageView(background);
         backgroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         backgroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
-        Image midground = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/pillars_near@2x.png"));
+        Image midground = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/pillars_near@2x.png"));
         ImageView midgroundImageView = new ImageView(midground);
         midgroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         midgroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
 
-        Image foreground = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/foreground@2x.png"));
+        Image foreground = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/foreground@2x.png"));
         ImageView foregroundImageView = new ImageView(foreground);
         foregroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         foregroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
@@ -192,8 +196,23 @@ public class MenuView {
         VBox.setMargin(itemHBox, new Insets(10,100,10,30));
         VBox.setMargin(heroesHBox, new Insets(10,100,10,30));
 
-     //   Shop.setRightVBox(new VBox());
-        Shop.getRightVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
+        ScrollBar scrollBar = new ScrollBar();
+        scrollBar.setLayoutX(AllDatas.currentScene.getWidth()-scrollBar.getWidth());
+        scrollBar.setMin(0);
+        scrollBar.setOrientation(Orientation.VERTICAL);
+        scrollBar.setPrefHeight(AllDatas.currentScene.getHeight());
+        scrollBar.setMax(360);
+
+        AllDatas.currentRoot.getChildren().add(scrollBar);
+
+        scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
+            public void changed(ObservableValue<? extends Number> ov,
+                                Number old_val, Number new_val) {
+                Shop.getRightVBox().setLayoutY(-new_val.doubleValue());
+            }
+        });
+
+        Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
 
         AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
 
@@ -235,10 +254,9 @@ public class MenuView {
         }
     }
 
-    public static void showMinionsInShop(){
+    public static void showMinionsInShop() throws FileNotFoundException {
         System.out.println("minions entered");
-        Shop.setLeftVBox(Shop.getMinionCardsVBox());
-        AllDatas.currentRoot.getChildren().add(Shop.getMinionCardsVBox());
+        setVBoxForShowingMinionCards();
     }
 
     public static void showSpellsInShop(){
@@ -273,16 +291,18 @@ public class MenuView {
         HBox hBox10 = new HBox();
 
         setImagesForMinionCards(hBox1, 1);
-//        setImagesForMinionCards(hBox2, 2);
-//        setImagesForMinionCards(hBox3, 3);
-//        setImagesForMinionCards(hBox4, 4);
-//        setImagesForMinionCards(hBox5, 5);
-//        setImagesForMinionCards(hBox6, 6);
-//        setImagesForMinionCards(hBox7, 7);
-//        setImagesForMinionCards(hBox8, 8);
-//        setImagesForMinionCards(hBox9, 9);
-//        setImagesForMinionCards(hBox10, 10);
-        Shop.getMinionCardsVBox().getChildren().add(hBox1);
+        setImagesForMinionCards(hBox2, 2);
+        setImagesForMinionCards(hBox3, 3);
+        setImagesForMinionCards(hBox4, 4);
+        setImagesForMinionCards(hBox5, 5);
+        setImagesForMinionCards(hBox6, 6);
+        setImagesForMinionCards(hBox7, 7);
+        setImagesForMinionCards(hBox8, 8);
+        setImagesForMinionCards(hBox9, 9);
+        setImagesForMinionCards(hBox10, 10);
+
+
+//        Shop.getMinionCardsVBox().getChildren().add(hBox1);
 
 
     }
@@ -300,8 +320,7 @@ public class MenuView {
     }
 
     public static void setImagesForMinionCards(HBox hBox, int rowNumber) throws FileNotFoundException {
-        System.out.println("HERE");
-     //   for (int i = (rowNumber - 1)*5; i < rowNumber*5 - 1; i++) {
+        for (int i = (rowNumber - 1)*5; i < rowNumber*5 - 1; i++) {
          //   Minion minion = Minion.getMinions().get(i);
            // StackPane cardStack = new StackPane();
 
@@ -310,6 +329,8 @@ public class MenuView {
             minionImage.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
 
             hBox.getChildren().add(minionImage);
-    //    }
+        }
+        hBox.setSpacing(20);
+        Shop.getRightVBox().getChildren().add(hBox);
     }
 }

@@ -255,7 +255,13 @@ public class MenusCommandController {
     }
 
     public static void handleEventsOfShop(Hyperlink minions, Hyperlink spells, Hyperlink items, Hyperlink heroes){
-        minions.setOnAction(event -> MenuView.showMinionsInShop());
+        minions.setOnAction(event -> {
+            try {
+                MenuView.showMinionsInShop();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
         spells.setOnAction(event -> MenuView.showSpellsInShop());
         items.setOnAction(event -> MenuView.showItemsInShop());
         heroes.setOnAction(event -> MenuView.showHeroesInShop());
