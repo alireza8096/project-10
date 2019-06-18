@@ -5,13 +5,11 @@ import javafx.application.Application;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.AllDatas;
+import model.Shop;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -21,6 +19,12 @@ public class MainView extends Application {
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
+        Shop.setRightVBox(new VBox());
+        Shop.setLeftVBox(new VBox());
+        Shop.getLeftVBox().setLayoutX(300);
+
+
+        MenuView.setVBoxForShowingMinionCards();
         primaryStage = stage;
         primaryStage.setMaximized(true);
 

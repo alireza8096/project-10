@@ -1,31 +1,26 @@
 package view;
 
-import controller.Controller;
 import controller.MenusCommandController;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.stage.Window;
 import model.AllDatas;
 import model.LinkedListMenus;
+import model.Shop;
+import model.collection.Minion;
 
-import javax.swing.event.HyperlinkListener;
-import java.awt.*;
-import java.io.File;
+import javax.net.ssl.SNIHostName;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
@@ -163,9 +158,6 @@ public class MenuView {
         background.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
         AllDatas.currentRoot.getChildren().add(background);
 
-
-        VBox vBox = new VBox();
-
         HBox minionsHBox = new HBox();
         ImageView minionIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/minion.png");
       //  minionIcon.getStyleClass().add("shopOptionsImage");
@@ -200,11 +192,12 @@ public class MenuView {
         VBox.setMargin(itemHBox, new Insets(10,100,10,30));
         VBox.setMargin(heroesHBox, new Insets(10,100,10,30));
 
-        vBox.getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
+     //   Shop.setRightVBox(new VBox());
+        Shop.getRightVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
 
-        AllDatas.currentRoot.getChildren().add(vBox);
+        AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
 
-//        MenusCommandController.
+        MenusCommandController.handleEventsOfShop(minionText, spellText, itemText, heroText);
 
     }
 
@@ -241,7 +234,9 @@ public class MenuView {
     }
 
     public static void showMinionsInShop(){
-
+        System.out.println("minions entered");
+        Shop.setLeftVBox(Shop.getMinionCardsVBox());
+        AllDatas.currentRoot.getChildren().add(Shop.getMinionCardsVBox());
     }
 
     public static void showSpellsInShop(){
@@ -254,5 +249,65 @@ public class MenuView {
 
     public static void showHeroesInShop(){
 
+    }
+
+    public static void setCardsOfShop() throws FileNotFoundException {
+        setVBoxForShowingMinionCards();
+//        setRootForShowingSpellCards();
+//        setRootForShowingHeroCards();
+//        setRootForShowingItemCards();
+    }
+
+    public static void setVBoxForShowingMinionCards() throws FileNotFoundException {
+        HBox hBox1 = new HBox();
+        HBox hBox2 = new HBox();
+        HBox hBox3 = new HBox();
+        HBox hBox4 = new HBox();
+        HBox hBox5 = new HBox();
+        HBox hBox6 = new HBox();
+        HBox hBox7 = new HBox();
+        HBox hBox8 = new HBox();
+        HBox hBox9 = new HBox();
+        HBox hBox10 = new HBox();
+
+        setImagesForMinionCards(hBox1, 1);
+//        setImagesForMinionCards(hBox2, 2);
+//        setImagesForMinionCards(hBox3, 3);
+//        setImagesForMinionCards(hBox4, 4);
+//        setImagesForMinionCards(hBox5, 5);
+//        setImagesForMinionCards(hBox6, 6);
+//        setImagesForMinionCards(hBox7, 7);
+//        setImagesForMinionCards(hBox8, 8);
+//        setImagesForMinionCards(hBox9, 9);
+//        setImagesForMinionCards(hBox10, 10);
+        Shop.getMinionCardsVBox().getChildren().add(hBox1);
+
+
+    }
+
+    public static void setRootForShowingSpellCards(){
+
+    }
+
+    public static void setRootForShowingItemCards(){
+
+    }
+
+    public static void setRootForShowingHeroCards(){
+
+    }
+
+    public static void setImagesForMinionCards(HBox hBox, int rowNumber) throws FileNotFoundException {
+        System.out.println("HERE");
+     //   for (int i = (rowNumber - 1)*5; i < rowNumber*5 - 1; i++) {
+         //   Minion minion = Minion.getMinions().get(i);
+           // StackPane cardStack = new StackPane();
+
+            ImageView minionImage = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/minionCardInShop.png")));
+            minionImage.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
+            minionImage.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
+
+            hBox.getChildren().add(minionImage);
+    //    }
     }
 }

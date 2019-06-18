@@ -1,15 +1,73 @@
 package model;
 
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.collection.*;
-import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 
 public class Shop{
+    private static VBox rightVBox;
+    private static VBox leftVBox;
+
+    public static final int CARD_IN_SHOP_WIDTH = 100;
+    public static final int CARD_IN_SHOP_HEIGHT = 200;
+
+    private static VBox minionCardsVBox = new VBox();
+    private static VBox spellCardsVBox = new VBox();
+    private static VBox itemCardsVBox = new VBox();
+    private static VBox heroCardsVBox = new VBox();
+
+
     private Game game;
+
+    public static VBox getRightVBox() {
+        return rightVBox;
+    }
+
+    public static void setRightVBox(VBox rightVBox) {
+        Shop.rightVBox = rightVBox;
+    }
+
+    public static VBox getLeftVBox() {
+        return leftVBox;
+    }
+
+    public static void setLeftVBox(VBox leftVBox) {
+        Shop.leftVBox = leftVBox;
+    }
+
+    public static VBox getMinionCardsVBox() {
+        return minionCardsVBox;
+    }
+
+    public static void setMinionCardsVBox(VBox minionCardsVBox) {
+        Shop.minionCardsVBox = minionCardsVBox;
+    }
+
+    public static VBox getSpellCardsVBox() {
+        return spellCardsVBox;
+    }
+
+    public static void setSpellCardsVBox(VBox spellCardsVBox) {
+        Shop.spellCardsVBox = spellCardsVBox;
+    }
+
+    public static VBox getItemCardsVBox() {
+        return itemCardsVBox;
+    }
+
+    public static void setItemCardsVBox(VBox itemCardsVBox) {
+        Shop.itemCardsVBox = itemCardsVBox;
+    }
+
+    public static VBox getHeroCardsVBox() {
+        return heroCardsVBox;
+    }
+
+    public static void setHeroCardsVBox(VBox heroCardsVBox) {
+        Shop.heroCardsVBox = heroCardsVBox;
+    }
 
     public Game getGame() {
         return game;
@@ -217,5 +275,7 @@ public class Shop{
             }
         }
     }
+
+
 }
 
