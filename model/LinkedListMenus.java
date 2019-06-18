@@ -1,14 +1,17 @@
 package model;
 
 import controller.Controller;
+import controller.MenusCommandController;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import view.MainView;
 import view.MenuView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class LinkedListMenus {
@@ -97,14 +100,15 @@ public class LinkedListMenus {
         return null;
     }
 
-    public void backFromThisMenu() throws FileNotFoundException {
+    public void backFromThisMenu() throws IOException {
         System.out.println(this.menuName);
         AllDatas.currentRoot = this.parent.root;
         AllDatas.currentScene = this.parent.scene;
 
-        Controller.enterLoginMenu();
+        LinkedListMenus currentMenu = whichMenuNow();
+        currentMenu.nowInThisMenu = false;
+        currentMenu.getParent().nowInThisMenu = true;
 
-        whichMenuNow().getParent().nowInThisMenu = true;
-        whichMenuNow().nowInThisMenu = false;
+        MenusCommandController.enterThisMenu(whichMenuNow());
     }
 }

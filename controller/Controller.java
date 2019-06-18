@@ -1,13 +1,18 @@
 package controller;
 
+import com.sun.tools.javac.Main;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
+import view.MainView;
 import view.MenuView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 
@@ -46,7 +51,7 @@ public class Controller {
         AllDatas.shop.setParent(AllDatas.commandLine);
         AllDatas.battle.setParent(AllDatas.commandLine);
 
-//        Controller.enterLoginMenu();
+   //     Controller.enterLoginMenu();
 //        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
 //        AllDatas.leaderboard.setCommandsForHelp("exit");
 //        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help","logout");
@@ -76,7 +81,6 @@ public class Controller {
                 MenusCommandController.leaderboardController(scanner);
                 break;
             case "Command Line":
-                System.out.println("command line");
                 MenusCommandController.commandLineController(scanner);
                 break;
             case "Collection":
@@ -114,6 +118,7 @@ public class Controller {
     public static void enterLoginMenu() throws FileNotFoundException {
         AllDatas.currentRoot = AllDatas.account.getRoot();
         AllDatas.currentScene = AllDatas.account.getScene();
+        AllDatas.account.setNowInThisMenu(true);
 
         MenuView.showLoginMenu();
     }
@@ -127,9 +132,13 @@ public class Controller {
         MenuView.showMainMenu();
     }
 
-    public static void enterShop(){
+    public static void enterShop() throws FileNotFoundException {
         AllDatas.currentRoot = AllDatas.shop.getRoot();
         AllDatas.currentScene = AllDatas.shop.getScene();
+        AllDatas.shop.setNowInThisMenu(true);
+        AllDatas.commandLine.setNowInThisMenu(false);
+
+        MenuView.showShop();
     }
 
     public static void enterColllection(){
@@ -137,9 +146,15 @@ public class Controller {
         AllDatas.currentScene = AllDatas.collection.getScene();
     }
 
-    public static void enterBattle(){
-        AllDatas.currentRoot = AllDatas.battle.getRoot();
-        AllDatas.currentScene = AllDatas.battle.getScene();
+    public static void enterBattle() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        String path = "/Users/hamilamailee/Documents/project-10/JavaFx/src/sample.fxml";
+        FileInputStream fxmlStream = new FileInputStream(path);
+        AllDatas.currentRoot = loader.load(fxmlStream);
+        AllDatas.currentScene.setRoot(AllDatas.currentRoot);
+        AllDatas.commandLine.setNowInThisMenu(true);
+        AllDatas.account.setNowInThisMenu(false);
+        MenuView.showBattle();
     }
 
     public static void enterLeaderBoard(){

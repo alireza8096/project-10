@@ -1,6 +1,7 @@
 package view;
 
 import controller.BattleController;
+import javafx.scene.control.Alert;
 import model.Deck;
 import model.Game;
 import model.collection.*;
@@ -120,7 +121,8 @@ public class GameView {
 //    }
 
     public static void printInvalidCommandWithThisContent(String content){
-        System.out.println(content);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText(content);
+        alert.show();
     }
-
 }

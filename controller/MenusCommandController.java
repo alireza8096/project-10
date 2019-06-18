@@ -9,20 +9,20 @@ import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
-import model.Shop;
 import model.collection.Account;
 import view.BattleView;
+import view.MenuView;
 
 import java.io.FileNotFoundException;
-import java.util.Collection;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MenusCommandController {
     public static void accountController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
-        AccountController.createAccount(commandsSplitted, scanner);
-        AccountController.login(commandsSplitted, scanner);
+      //  AccountController.createAccountCommand(commandsSplitted, scanner);
+      //  AccountController.login(commandsSplitted, scanner);
         AccountController.showLeaderboard(commandsSplitted);
         AccountController.save(commandsSplitted);
         AccountController.help(commandsSplitted);
@@ -194,33 +194,70 @@ public class MenusCommandController {
     public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
                                               Hyperlink help, Hyperlink exit, Hyperlink logout){
 
-        shop.setOnAction(event -> Controller.enterShop());
+        shop.setOnAction(event -> {
+            try {
+                Controller.enterShop();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
         collection.setOnAction(event -> Controller.enterColllection());
 
-        battle.setOnAction(event -> Controller.enterBattle());
-
-        help.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-
+        battle.setOnAction(event -> {
+            try {
+                Controller.enterBattle();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        });
+
+        help.setOnAction(event -> {
+            //Todo : handle help in each menu
         });
 
         exit.setOnAction(event -> System.exit(0));
 
-        logout.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                try {
-                    LinkedListMenus.whichMenuNow().backFromThisMenu();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        logout.setOnAction(event -> {
+            try {
+                LinkedListMenus.whichMenuNow().backFromThisMenu();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
+    }
 
+    public static void enterThisMenu(LinkedListMenus menu) throws IOException {
+        String menuName = menu.getMenuName();
 
+        switch (menuName){
+            case "Account":
+                Controller.enterLoginMenu();
+                break;
+            case "Leaderboard":
+                //Todo : enter leaderboard menu
+                break;
+            case "Command Line":
+                Controller.enterMainMenu();
+                break;
+            case "Collection":
+                Controller.enterColllection();
+                break;
+            case "Shop":
+                Controller.enterShop();
+                break;
+            case "Battle":
+                Controller.enterBattle();
+                break;
+        }
+    }
 
+    public static void handleEventsOfShop(Hyperlink minions, Hyperlink spells, Hyperlink items, Hyperlink heroes){
+        minions.setOnAction(event -> MenuView.showMinionsInShop());
+        spells.setOnAction(event -> MenuView.showSpellsInShop());
+        items.setOnAction(event -> MenuView.showItemsInShop());
+        heroes.setOnAction(event -> MenuView.showHeroesInShop());
     }
 }
