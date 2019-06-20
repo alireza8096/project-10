@@ -1,7 +1,11 @@
 package view;
 
 import controller.BattleController;
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import model.Deck;
 import model.Game;
 import model.collection.*;
@@ -124,5 +128,22 @@ public class GameView {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText(content);
         alert.show();
+    }
+
+    public static void makeImageGlowWhileMouseEnters(ImageView imageView){
+        imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Glow glow = new Glow(0.9);
+                imageView.setEffect(glow);
+            }
+        });
+
+        imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                imageView.setEffect(null);
+            }
+        });
     }
 }

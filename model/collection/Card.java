@@ -1,4 +1,5 @@
 package model.collection;
+import javafx.scene.image.ImageView;
 import model.AttackType;
 import model.Game;
 import model.Map;
@@ -23,6 +24,7 @@ public class Card implements Cloneable{
     protected int x;
     protected int y;
     protected boolean inGame;
+    protected ImageView imageViewOfCard;
 
     public Card(){
 
@@ -173,8 +175,15 @@ public class Card implements Cloneable{
         this.y = y;
     }
 
+    public ImageView getImageViewOfCard() {
+        return imageViewOfCard;
+    }
 
-//    public boolean checkIfCardCanBePlaced(int x, int y){
+    public void setImageViewOfCard(ImageView imageViewOfCard) {
+        this.imageViewOfCard = imageViewOfCard;
+    }
+
+    //    public boolean checkIfCardCanBePlaced(int x, int y){
 //
 //
 //    }

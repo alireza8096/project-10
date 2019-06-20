@@ -5,14 +5,19 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
 import model.collection.Account;
+import model.collection.Card;
 import view.BattleView;
+import view.GameView;
 import view.MenuView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -254,16 +259,4 @@ public class MenusCommandController {
         }
     }
 
-    public static void handleEventsOfShop(Hyperlink minions, Hyperlink spells, Hyperlink items, Hyperlink heroes){
-        minions.setOnAction(event -> {
-            try {
-                MenuView.showMinionsInShop();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-        spells.setOnAction(event -> MenuView.showSpellsInShop());
-        items.setOnAction(event -> MenuView.showItemsInShop());
-        heroes.setOnAction(event -> MenuView.showHeroesInShop());
-    }
 }

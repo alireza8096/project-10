@@ -19,7 +19,7 @@ import static javafx.application.Application.launch;
 public class Controller {
     public static void createAll() throws Exception{
         createAllMenus();
-//        createAllDataFromJSON();
+        createAllDataFromJSON();
     }
     public static void createAllDataFromJSON() throws Exception{
         HandleFiles.createHeroes();

@@ -1,10 +1,17 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import model.*;
 import model.collection.*;
 import model.Game;
 import view.GameView;
+import view.MenuView;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ShopController {
@@ -134,5 +141,35 @@ public class ShopController {
             if (cardsInCollection.get(i - 1) != null)
                 System.out.println(i + " : " + GameView.showCard(cardsInCollection.get(i-1)));
         }
+    }
+
+    public static void handleEventsOfShop(Hyperlink minions, Hyperlink spells, Hyperlink items, Hyperlink heroes){
+        minions.setOnAction(event -> {
+            try {
+                MenuView.showMinionsInShop();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        spells.setOnAction(event -> MenuView.showSpellsInShop());
+        items.setOnAction(event -> MenuView.showItemsInShop());
+        heroes.setOnAction(event -> MenuView.showHeroesInShop());
+    }
+
+    public static void handleEventsOfBuyingCard(Card card, ImageView cardImage, ImageView cancelButton, ImageView buyButton, HBox hBox){
+        cancelButton.setOnMouseClicked(event -> {
+           AllDatas.currentRoot.getChildren().removeAll(cardImage, hBox);
+            MenuView.removeBlurEffectOfWindow();
+        });
+
+        buyButton.setOnMouseClicked(event -> {
+            try {
+                Shop.buyCardAndAddToCollection(card.getName());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        });
+
+
     }
 }
