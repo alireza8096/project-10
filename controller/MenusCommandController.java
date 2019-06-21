@@ -209,6 +209,8 @@ public class MenusCommandController {
                 Controller.enterBattle();
             } catch (IOException e) {
                 e.printStackTrace();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
             }
         });
 
@@ -223,13 +225,13 @@ public class MenusCommandController {
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (IOException | CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public static void enterThisMenu(LinkedListMenus menu) throws IOException {
+    public static void enterThisMenu(LinkedListMenus menu) throws IOException, CloneNotSupportedException {
         String menuName = menu.getMenuName();
 
         switch (menuName){

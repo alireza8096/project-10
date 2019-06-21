@@ -100,7 +100,7 @@ public class LinkedListMenus {
         return null;
     }
 
-    public void backFromThisMenu() throws IOException {
+    public void backFromThisMenu() throws IOException, CloneNotSupportedException {
         System.out.println(this.menuName);
         AllDatas.currentRoot = this.parent.root;
         AllDatas.currentScene = this.parent.scene;

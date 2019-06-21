@@ -3,6 +3,8 @@ package view;
 import controller.Controller;
 import javafx.application.Application;
 
+import javafx.scene.Cursor;
+import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -20,12 +22,14 @@ public class MainView extends Application {
     public static Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws FileNotFoundException {
+    public void start(Stage stage) throws FileNotFoundException, CloneNotSupportedException {
         primaryStage = stage;
         primaryStage.setMaximized(true);
 
-        Controller.enterLoginMenu();
-        MenuView.showLoginMenu();
+//        Controller.enterLoginMenu();
+//        MenuView.showLoginMenu();
+        Controller.enterBattle();
+        MenuView.showBattle();
         stage.show();
     }
     public static void main(String[] args) throws Exception {

@@ -1,9 +1,12 @@
 package controller;
 
+import javafx.scene.image.ImageView;
 import model.*;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
+import view.BattleView;
 import view.MainView;
+import view.MenuView;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -11,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BattleController {
+
 
     public static void endTurnCommand(String[] commands) {
         if (commands[0].matches("end") && commands[1].matches("turn")) {
@@ -56,7 +60,7 @@ public class BattleController {
             Game.getInstance().setPlayer1Turn(true);
             Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
             if (Game.getInstance().getNumOfRound() < 14) {
-                Game.getInstance().getPlayer1().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
+//                Game.getInstance().getPlayer1().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer1().setNumOfMana(9);
             makeAllCardsActivePlayer();
             Game.getInstance().getPlayer1().getMainDeck().getHand().addCardToHandFromDeck();

@@ -1,5 +1,6 @@
 package view;
 
+import controller.BattleController;
 import controller.Controller;
 import controller.MenusCommandController;
 import javafx.event.ActionEvent;
@@ -19,20 +20,22 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Window;
 import model.AllDatas;
+import model.Cell;
+import model.Hand;
 import model.LinkedListMenus;
 
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.*;
 
 public class MenuView {
 
     public static final int WINDOW_WIDTH = 1024;
     public static final int WINDOW_HEIGHT = 768;
+
 
     public static void showLoginMenu() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
@@ -212,11 +215,33 @@ public class MenuView {
 
     }
 
-    public static void showBattle(){
+    public static void showBattle() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
         MainView.primaryStage.setMaximized(true);
 
+        ImageView background = MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/background@2x.jpg");
+        background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
+        background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
+
+        ImageView middleGround = MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/midground@2x.png");
+        middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
+        middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
+
+        AllDatas.currentRoot.getChildren().addAll(background,middleGround);
+        Cell.createCellsAndView();
+        Hand.createHand();
+        BattleView.setEndTurn(MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/button_end_turn_mine@2x.png"));
+        AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
+        BattleView.handleEndTurn();
+        ImageView imageView = MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/f2_altgeneraltier2_breathing.gif");
+        imageView.setX(300);
+        imageView.setY(300);
+        imageView.setScaleX(5);
+        imageView.setScaleY(5);
+        AllDatas.currentRoot.getChildren().add(imageView);
+
     }
+
 
     public static void showThisMenu(LinkedListMenus menu) throws FileNotFoundException {
         String menuName = menu.getMenuName();

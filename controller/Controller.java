@@ -6,6 +6,8 @@ import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
+import view.BattleView;
+import view.MainView;
 import view.MenuView;
 
 import java.io.FileInputStream;
@@ -145,14 +147,16 @@ public class Controller {
         AllDatas.currentScene = AllDatas.collection.getScene();
     }
 
-    public static void enterBattle() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        String path = "/Users/hamilamailee/Documents/project-10/JavaFx/src/sample.fxml";
-        FileInputStream fxmlStream = new FileInputStream(path);
-        AllDatas.currentRoot = loader.load(fxmlStream);
-        AllDatas.currentScene.setRoot(AllDatas.currentRoot);
-        AllDatas.commandLine.setNowInThisMenu(true);
-        AllDatas.account.setNowInThisMenu(false);
+    public static void enterBattle() throws FileNotFoundException, CloneNotSupportedException {
+        Game game = new Game();
+        game.setMap(new Map());
+        game.setPlayer1Turn(true);
+        Game.setCurrentGame(game);
+        AI.createAIPlayer();
+        AllDatas.currentRoot = AllDatas.battle.getRoot();
+        AllDatas.currentScene = AllDatas.battle.getScene();
+        AllDatas.battle.setNowInThisMenu(true);
+        AllDatas.commandLine.setNowInThisMenu(false);
         MenuView.showBattle();
     }
 
