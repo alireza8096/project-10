@@ -144,13 +144,7 @@ public class ShopController {
     }
 
     public static void handleEventsOfShop(Hyperlink minions, Hyperlink spells, Hyperlink items, Hyperlink heroes){
-        minions.setOnAction(event -> {
-            try {
-                MenuView.showMinionsInShop();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
+        minions.setOnAction(event -> MenuView.showMinionsInShop());
         spells.setOnAction(event -> MenuView.showSpellsInShop());
         items.setOnAction(event -> MenuView.showItemsInShop());
         heroes.setOnAction(event -> MenuView.showHeroesInShop());

@@ -52,7 +52,7 @@ public class HandleFiles {
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget);
-                spell.imageViewOfCard = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/button_buy@2x.png")));
+                spell.imageViewOfCard = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/cardSample.jpg")));
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Spell.getSpells().add(spell);
             }
@@ -118,7 +118,7 @@ public class HandleFiles {
                 String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
                         , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime);
-                minion.setImageViewOfCard(new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/minionCardInShop.png"))));
+                minion.setImageViewOfCard(new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/cardSample.jpg"))));
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
                 Minion.getMinions().add(minion);
             }

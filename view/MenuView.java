@@ -23,8 +23,12 @@ import model.LinkedListMenus;
 import model.Shop;
 import model.collection.Card;
 
+import javax.management.ObjectName;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Stack;
+
+import static javafx.scene.paint.Color.rgb;
 
 public class MenuView {
 
@@ -40,7 +44,7 @@ public class MenuView {
         Rectangle accountRectangle = new Rectangle(400, 300);
         accountRectangle.setX(300);
         accountRectangle.setY(300);
-        accountRectangle.setFill(Color.rgb(129, 135, 145, 0.5));
+        accountRectangle.setFill(rgb(129, 135, 145, 0.5));
         AllDatas.currentRoot.getChildren().add(accountRectangle);
 
         TextField email = new TextField("username");
@@ -142,8 +146,11 @@ public class MenuView {
 
     //Todo : define a style for text and image
     public static void showShop() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
         MainView.primaryStage.setMaximized(true);
+
+        setScrollBar();
 
         ImageView background = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/shopBackground.jpg");
         background.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
@@ -184,8 +191,6 @@ public class MenuView {
         VBox.setMargin(itemHBox, new Insets(10,100,10,30));
         VBox.setMargin(heroesHBox, new Insets(10,100,10,30));
 
-        setScrollBar();
-
         Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
 
         AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
@@ -195,14 +200,12 @@ public class MenuView {
     }
 
     public static void setScrollBar(){
-        ScrollBar scrollBar = new ScrollBar();
-        scrollBar.setLayoutX(AllDatas.currentScene.getWidth()-scrollBar.getWidth());
-        scrollBar.setOrientation(Orientation.VERTICAL);
-        scrollBar.setPrefHeight(AllDatas.currentScene.getHeight());
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(AllDatas.currentRoot);
+        AllDatas.currentScene.setRoot(scrollPane);
 
-        AllDatas.currentRoot.getChildren().add(scrollBar);
-
-        scrollBar.valueProperty().addListener((ov, old_val, new_val) -> Shop.getRightVBox().setLayoutY(-new_val.doubleValue()));
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
     public static void showBattle(){
@@ -235,23 +238,23 @@ public class MenuView {
         }
     }
 
-    public static void showMinionsInShop() throws FileNotFoundException {
-        setVBoxForShowingMinionCards();
-    }
+//    public static void showMinionsInShop() {
+//        setVBoxForShowingMinionCards();
+//    }
+//
+//    public static void showSpellsInShop(){
+//        setVBoxForShowingSpellCards();
+//    }
+//
+//    public static void showItemsInShop(){
+//        setVBoxForShowingItemCards();
+//    }
+//
+//    public static void showHeroesInShop(){
+//        setVBoxForShowingHeroCards();
+//    }
 
-    public static void showSpellsInShop(){
-        setVBoxForShowingSpellCards();
-    }
-
-    public static void showItemsInShop(){
-        setVBoxForShowingItemCards();
-    }
-
-    public static void showHeroesInShop(){
-        setVBoxForShowingHeroCards();
-    }
-
-    public static void setVBoxForShowingMinionCards() throws FileNotFoundException {
+    public static void showMinionsInShop(){
 
         VBox minionVBox = new VBox();
 
@@ -266,16 +269,16 @@ public class MenuView {
         HBox hBox9 = new HBox();
         HBox hBox10 = new HBox();
 
-        setImagesForCardsInShop(hBox1, 1, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox2, 2, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox3, 3, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox4, 4, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox5, 5, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox6, 6, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox7, 7, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox8, 8, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox9, 9, minionVBox, "minion", 4);
-        setImagesForCardsInShop(hBox10, 10, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox1, 1, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox2, 2, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox3, 3, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox4, 4, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox5, 5, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox6, 6, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox7, 7, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox8, 8, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox9, 9, minionVBox, "minion", 4);
+        setAppearanceOfCardsInShop(hBox10, 10, minionVBox, "minion", 4);
 
         AllDatas.currentRoot.getChildren().remove(Shop.getRightVBox());
         Shop.setRightVBox(minionVBox);
@@ -284,7 +287,7 @@ public class MenuView {
 
     }
 
-    public static void setVBoxForShowingSpellCards(){
+    public static void showSpellsInShop(){
         VBox spellVBox = new VBox();
 
         HBox hBox1 = new HBox();
@@ -293,11 +296,11 @@ public class MenuView {
         HBox hBox4 = new HBox();
         HBox hBox5 = new HBox();
 
-        setImagesForCardsInShop(hBox1, 1, spellVBox, "spell", 4);
-        setImagesForCardsInShop(hBox2, 2, spellVBox, "spell", 4);
-        setImagesForCardsInShop(hBox3, 3, spellVBox, "spell", 4);
-        setImagesForCardsInShop(hBox4, 4, spellVBox, "spell", 4);
-        setImagesForCardsInShop(hBox5, 5, spellVBox, "spell", 4);
+        setAppearanceOfCardsInShop(hBox1, 1, spellVBox, "spell", 4);
+        setAppearanceOfCardsInShop(hBox2, 2, spellVBox, "spell", 4);
+        setAppearanceOfCardsInShop(hBox3, 3, spellVBox, "spell", 4);
+        setAppearanceOfCardsInShop(hBox4, 4, spellVBox, "spell", 4);
+        setAppearanceOfCardsInShop(hBox5, 5, spellVBox, "spell", 4);
 
         AllDatas.currentRoot.getChildren().remove(Shop.getRightVBox());
         Shop.setRightVBox(spellVBox);
@@ -305,7 +308,7 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(Shop.getRightVBox());
     }
 
-    public static void setVBoxForShowingItemCards(){
+    public static void showItemsInShop(){
         VBox itemsVBox = new VBox();
 
         HBox hBox1 = new HBox();
@@ -314,11 +317,11 @@ public class MenuView {
         HBox hBox4 = new HBox();
         HBox hBox5 = new HBox();
 
-        setImagesForCardsInShop(hBox1, 1, itemsVBox, "item", 4);
-        setImagesForCardsInShop(hBox2, 2, itemsVBox, "item", 4);
-        setImagesForCardsInShop(hBox3, 3, itemsVBox, "item", 4);
-        setImagesForCardsInShop(hBox4, 4, itemsVBox, "item", 4);
-        setImagesForCardsInShop(hBox5, 5, itemsVBox, "item", 4);
+        setAppearanceOfCardsInShop(hBox1, 1, itemsVBox, "item", 4);
+        setAppearanceOfCardsInShop(hBox2, 2, itemsVBox, "item", 4);
+        setAppearanceOfCardsInShop(hBox3, 3, itemsVBox, "item", 4);
+        setAppearanceOfCardsInShop(hBox4, 4, itemsVBox, "item", 4);
+        setAppearanceOfCardsInShop(hBox5, 5, itemsVBox, "item", 4);
 
         AllDatas.currentRoot.getChildren().remove(Shop.getRightVBox());
         Shop.setRightVBox(itemsVBox);
@@ -326,14 +329,14 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(Shop.getRightVBox());
     }
 
-    public static void setVBoxForShowingHeroCards(){
+    public static void showHeroesInShop(){
         VBox heroVBox = new VBox();
 
         HBox hBox1 = new HBox();
         HBox hBox2 = new HBox();
 
-        setImagesForCardsInShop(hBox1, 1, heroVBox, "hero", 5);
-        setImagesForCardsInShop(hBox2, 2, heroVBox, "hero", 5);
+        setAppearanceOfCardsInShop(hBox1, 1, heroVBox, "hero", 5);
+        setAppearanceOfCardsInShop(hBox2, 2, heroVBox, "hero", 5);
 
         AllDatas.currentRoot.getChildren().remove(Shop.getRightVBox());
         Shop.setRightVBox(heroVBox);
@@ -341,23 +344,21 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(Shop.getRightVBox());
     }
 
-    public static void setImagesForCardsInShop(HBox hBox, int rowNumber, VBox vBox, String cardType, int numOfCardsInEachRow){
+    public static void setAppearanceOfCardsInShop(HBox hBox, int rowNumber, VBox vBox, String cardType, int numOfCardsInEachRow){
         for (int i = (rowNumber - 1)*numOfCardsInEachRow; i < rowNumber*numOfCardsInEachRow; i++) {
+            VBox cardVBox = new VBox();
+
+
+
+
             Card card = Card.returnNthCard(cardType, i);
 
             StackPane stackPane = new StackPane();
             stackPane.setAccessibleText(Integer.toString(i));
+            stackPane.setPadding(new Insets(13));
 
-            Text desc = card.getTextForCard();
-            desc.setWrappingWidth(Shop.CARD_IN_SHOP_WIDTH);
-            desc.setFont(Font.font(10));
-            desc.setFill(Color.YELLOW);
+            setImageForCardInShop(card, stackPane);
 
-            ImageView minionImage = card.getImageViewOfCard();
-            minionImage.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
-            minionImage.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
-
-            stackPane.getChildren().addAll(minionImage, desc);
             stackPane.setAlignment(Pos.CENTER);
             stackPane.setOnMouseClicked(event -> {
                 if (stackPane.getEffect() == null) {
@@ -373,10 +374,68 @@ public class MenuView {
                 }
             });
 
-            hBox.getChildren().add(stackPane);
+            cardVBox.getChildren().add(stackPane);
+
+            setPriceForCardInShop(card, cardVBox);
+         //   setManaForCardInShop(card, stackPane, onCardVBox);
+
+            hBox.getChildren().add(cardVBox);
         }
         hBox.setSpacing(20);
         vBox.getChildren().add(hBox);
+    }
+
+    public static void setPriceForCardInShop(Card card, VBox vBox){
+
+        StackPane stackPane = new StackPane();
+
+        int price = card.getPrice();
+        Text priceText = new Text(Integer.toString(price));
+        priceText.setFont(Font.font(20));
+        priceText.setFill(rgb(192, 200, 214));
+
+        try {
+
+            ImageView priceBack = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_back.png")));
+            priceBack.setFitWidth(200);
+            priceBack.setFitHeight(50);
+
+            ImageView priceIcon = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_icon.png")));
+            priceIcon.setFitWidth(100);
+            priceIcon.setFitHeight(110);
+
+            stackPane.getChildren().addAll(priceBack, priceIcon, priceText);
+            StackPane.setAlignment(priceBack, Pos.CENTER);
+            StackPane.setAlignment(priceIcon, Pos.CENTER_LEFT);
+            StackPane.setAlignment(priceText, Pos.CENTER);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        vBox.getChildren().add(stackPane);
+    }
+
+    public static void setManaForCardInShop(Card card, StackPane stackPane, VBox vBox){
+
+    }
+
+    public static void setImageForCardInShop(Card card, StackPane stackPane){
+        ImageView image = card.getImageViewOfCard();
+        image.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
+        image.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
+
+        stackPane.getChildren().add(image);
+    }
+
+    public static void setDescForCardInShop(Card card, StackPane stackPane, VBox vBox){
+        Text desc = card.getTextForCard();
+        desc.setWrappingWidth(Shop.CARD_IN_SHOP_WIDTH);
+        desc.setFont(Font.font(10));
+        desc.setFill(Color.YELLOW);
+
+        stackPane.getChildren().add(desc);
+
     }
 
     public static void makeSceneBlur(){
