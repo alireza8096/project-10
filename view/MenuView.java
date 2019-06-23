@@ -233,12 +233,6 @@ public class MenuView {
         BattleView.setEndTurn(MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/button_end_turn_mine@2x.png"));
         AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
         BattleView.handleEndTurn();
-        ImageView imageView = MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/f2_altgeneraltier2_breathing.gif");
-        imageView.setX(300);
-        imageView.setY(300);
-        imageView.setScaleX(5);
-        imageView.setScaleY(5);
-        AllDatas.currentRoot.getChildren().add(imageView);
 
     }
 
