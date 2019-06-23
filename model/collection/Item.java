@@ -10,22 +10,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Item implements Cloneable{
+public class Item extends Card implements Cloneable {
 
     private static ArrayList<Item> items = new ArrayList<>();
     private Spell spell;
     private String itemType;
-    private int price;
-    private String name;
-    private int id;
-    private String type;
     private String desc;
     private String specification;
     private String user;
     private String activationTime;
-    private int x;
-    private int y;
-
 
     public Item(Spell spell,String itemType,String price,String name,String id,String desc,String specification,String user,String activationTime){
         this.spell = spell;
@@ -38,7 +31,7 @@ public class Item implements Cloneable{
       this.specification = specification;
       this.user = user;
       this.activationTime = activationTime;
-      this.type = "item";
+      this.cardType = "item";
   }
 
     public Spell getSpell() {
@@ -65,52 +58,12 @@ public class Item implements Cloneable{
         Item.items = items;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getItemType() {
         return itemType;
     }
 
     public void setItemType(String itemType) {
         this.itemType = itemType;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public static Item findItemByID(int id) throws CloneNotSupportedException {

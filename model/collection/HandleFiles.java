@@ -1,6 +1,8 @@
 package model.collection;
 
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.Deck;
 import model.Player;
 import model.Hand;
@@ -9,10 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -20,13 +19,13 @@ import java.util.ArrayList;
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
-    private static final String ADDRESS_HERO = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Heroes";
-    private static final String ADDRESS_MINION = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Minions";
-    private static final String ADDRESS_SPELL = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Spells";
-    private static final String ADDRESS_ITEM = "/Users/hamilamailee/Documents/project-10/model/collection/JSON-Items";
+    private static final String ADDRESS_HERO = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Heroes";
+    private static final String ADDRESS_MINION = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Minions";
+    private static final String ADDRESS_SPELL = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Spells";
+    private static final String ADDRESS_ITEM = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Items";
 
         public static void createStringOfPlayers() {
-        File folder = new File("/Users/hamilamailee/Documents/project-10/model/collection/players");
+        File folder = new File("/Users/bahar/Desktop/DUELYST/model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
@@ -53,6 +52,7 @@ public class HandleFiles {
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget);
+                spell.imageViewOfCard = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/cardSample.jpg")));
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Spell.getSpells().add(spell);
             }
@@ -118,6 +118,7 @@ public class HandleFiles {
                 String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
                         , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime);
+                minion.setImageViewOfCard(new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/cardSample.jpg"))));
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
                 Minion.getMinions().add(minion);
             }
@@ -151,6 +152,7 @@ public class HandleFiles {
                 String locationOfTarget = jsonObject.get("healthPoint").toString();
                 Hero hero = new Hero(mana, id, "hero", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType, attackRange,
                         specialPower, action, locationOfTarget, coolDown);
+                hero.setImageViewOfCard(new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/Heroes.png"))));
                 Buff.createBuffsForHero(hero, action, buffs, effectValue, delay, last);
                 Hero.getHeroes().add(hero);
             }

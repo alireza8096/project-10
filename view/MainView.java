@@ -3,8 +3,6 @@ package view;
 import controller.Controller;
 import javafx.application.Application;
 
-import javafx.scene.Cursor;
-import javafx.scene.ImageCursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -22,14 +20,18 @@ public class MainView extends Application {
     public static Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws FileNotFoundException, CloneNotSupportedException {
+    public void start(Stage stage) throws FileNotFoundException {
+        Shop.setRightVBox(new VBox());
+        Shop.setLeftVBox(new VBox());
+        Shop.getRightVBox().setLayoutX(300);
+
+
+     //   MenuView.setVBoxForShowingMinionCards();
         primaryStage = stage;
         primaryStage.setMaximized(true);
 
-//        Controller.enterLoginMenu();
-//        MenuView.showLoginMenu();
-        Controller.enterBattle();
-        MenuView.showBattle();
+        Controller.enterLoginMenu();
+        MenuView.showLoginMenu();
         stage.show();
     }
     public static void main(String[] args) throws Exception {

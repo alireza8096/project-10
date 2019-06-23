@@ -6,8 +6,6 @@ import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
-import view.BattleView;
-import view.MainView;
 import view.MenuView;
 
 import java.io.FileInputStream;
