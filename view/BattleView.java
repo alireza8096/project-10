@@ -1,6 +1,11 @@
 package view;
 
 import controller.BattleController;
+import javafx.event.EventHandler;
+import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.Hand;
@@ -11,14 +16,71 @@ import model.collection.Minion;
 import model.collection.Spell;
 import org.json.simple.parser.ParseException;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.Callable;
 
 public class BattleView {
+    private static ImageView endTurn;
+
+    public static ImageView getEndTurn() {
+        return endTurn;
+    }
+
+    public static void setEndTurn(ImageView endTurn) {
+        BattleView.endTurn = endTurn;
+        endTurn.setX(1150);
+        endTurn.setY(745);
+        endTurn.setScaleX(0.5);
+        endTurn.setScaleY(0.5);
+    }
+
     //not completed
-    public static void showGameInfo(String[] commands){
-        if(commands.length == 2 && commands[0].compareToIgnoreCase("game") == 0
-        && commands[1].compareToIgnoreCase("info")==0) {
+    public static void handleEndTurn(){
+        endTurn.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("handleee");
+                Game.getInstance().setPlayer1Turn(!Game.getInstance().isPlayer1Turn());
+                try {
+                    showEndTurn();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        endTurn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Glow glow = new Glow(0.5);
+                endTurn.setEffect(glow);
+            }
+        });
+        endTurn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Glow glow = new Glow(0);
+                endTurn.setEffect(glow);
+            }
+        });
+    }
+    public static void showEndTurn() throws FileNotFoundException {
+        Image setImage;
+        if (Game.getInstance().isPlayer1Turn()) {
+            System.out.println("1");
+            setImage = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/button_end_turn_mine@2x.png"));
+        } else {
+            System.out.println("2");
+            setImage = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/button_end_turn_enemy@2x.png"));
+        }
+        endTurn.setImage(setImage);
+
+    }
+
+    public static void showGameInfo(String[] commands) {
+        if (commands.length == 2 && commands[0].compareToIgnoreCase("game") == 0
+                && commands[1].compareToIgnoreCase("info") == 0) {
             System.out.println("Game info :");
             int ownMana = Game.getInstance().getPlayer1().getNumOfMana();
             int enemyMana = Game.getInstance().getPlayer2().getNumOfMana();
@@ -36,9 +98,10 @@ public class BattleView {
             AllDatas.hasEnteredBattle = true;
         }
     }
-    public static void showMyMinions(String[] commands){
-        if(commands.length == 3 && commands[0].compareToIgnoreCase("show") == 0
-        && commands[1].compareToIgnoreCase("my") ==0 && commands[2].compareToIgnoreCase("minions")==0) {
+
+    public static void showMyMinions(String[] commands) {
+        if (commands.length == 3 && commands[0].compareToIgnoreCase("show") == 0
+                && commands[1].compareToIgnoreCase("my") == 0 && commands[2].compareToIgnoreCase("minions") == 0) {
 //            Hero hero = Game.getInstance().getHeroOfPlayer1();
 //            System.out.println((300 + hero.getId()) + " : " + hero.getName() + ", health : " + hero.getHealthPoint() + ", location : " + "(" + hero.getX() + ", " + hero.getY() + "), power : " + hero.getAttackPower());
             for (Card card : Game.getInstance().getMap().getFriendMinions()) {
@@ -50,9 +113,10 @@ public class BattleView {
             AllDatas.hasEnteredBattle = true;
         }
     }
+
     public static void showOpponentMinions(String[] commmands) {
-        if(commmands.length == 3 && commmands[0].compareToIgnoreCase("show") == 0
-        && commmands[1].compareToIgnoreCase("opponent") == 0 && commmands[2].compareToIgnoreCase("minions") == 0) {
+        if (commmands.length == 3 && commmands[0].compareToIgnoreCase("show") == 0
+                && commmands[1].compareToIgnoreCase("opponent") == 0 && commmands[2].compareToIgnoreCase("minions") == 0) {
 //            Hero hero = Game.getInstance().getHeroOfPlayer2();
 //            System.out.println((300 + hero.getId()) + " : " + hero.getName() + ", health : " + hero.getHealthPoint() + ", location : " + "(" + hero.getX() + ", " + hero.getY() + "), power : " + hero.getAttackPower());
             for (Card card : Game.getInstance().getMap().getEnemyMinions()) {
@@ -64,9 +128,10 @@ public class BattleView {
             AllDatas.hasEnteredBattle = true;
         }
     }
-    public static void showCardInfo(String[] commands) throws Exception{
-        if(commands.length == 4 && commands[0].compareToIgnoreCase("show") == 0 && commands[1].compareToIgnoreCase("card") == 0
-        && commands[2].compareToIgnoreCase("info") == 0 && commands[3].matches("[\\d]+")) {
+
+    public static void showCardInfo(String[] commands) throws Exception {
+        if (commands.length == 4 && commands[0].compareToIgnoreCase("show") == 0 && commands[1].compareToIgnoreCase("card") == 0
+                && commands[2].compareToIgnoreCase("info") == 0 && commands[3].matches("[\\d]+")) {
             int cardId = Integer.parseInt(commands[3]);
             if (Shop.checkValidId(cardId)) {
                 String name = BattleController.returnNameById(cardId);
@@ -81,7 +146,8 @@ public class BattleView {
             AllDatas.hasEnteredBattle = true;
         }
     }
-//    public static void showGameForFirstMode(){
+
+    //    public static void showGameForFirstMode(){
 //        int ownHP = Game.getInstance().getHeroOfPlayer1().getHealthPoint();
 //        int enemyHP = Game.getInstance().getHeroOfPlayer2().getHealthPoint();
 //        System.out.println("Your health point : " + ownHP);
@@ -100,16 +166,16 @@ public class BattleView {
 //    }
     public static void showMinionInGame(String cardName) {
         Minion minion = null;
-        for (Card card:
+        for (Card card :
                 Game.getInstance().getMap().getFriendMinions()) {
-            if(card.getName().equals(cardName)){
-                minion = (Minion)card;
+            if (card.getName().equals(cardName)) {
+                minion = (Minion) card;
             }
         }
-        for (Card card:
+        for (Card card :
                 Game.getInstance().getMap().getEnemyMinions()) {
-            if(card.getName().equals(cardName)){
-                minion = (Minion)card;
+            if (card.getName().equals(cardName)) {
+                minion = (Minion) card;
             }
         }
         System.out.println("Minion :");
@@ -120,7 +186,8 @@ public class BattleView {
         System.out.println("Cost : " + minion.getPrice());
         System.out.println("Desc : " + minion.getSpecialPower());
     }
-//    public static void showSpellInGame(String cardName){
+
+    //    public static void showSpellInGame(String cardName){
 //        Spell spell = null;
 //        for (Card card:
 //                Game.getInstance().getMap().getFriendMinions()) {
@@ -141,15 +208,15 @@ public class BattleView {
 //        System.out.println("Desc : " + spell.getDesc());
 //    }
     public static void showHand(String[] commands) throws Exception {
-        if(commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0
-        && commands[1].compareToIgnoreCase("hand") == 0){
+        if (commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0
+                && commands[1].compareToIgnoreCase("hand") == 0) {
             Hand hand = Game.getInstance().getPlayer1().getMainDeck().getHand();
             Card nextCard = hand.getNextCard();
             System.out.println("Next card information : ");
             GameView.searchTypeAndShow(nextCard.getName());
             System.out.println("Cards in hand : ");
-            for (Card card:
-                 hand.getCardsInHand()) {
+            for (Card card :
+                    hand.getCardsInHand()) {
                 GameView.searchTypeAndShow(card.getName());
             }
             AllDatas.hasEnteredBattle = true;

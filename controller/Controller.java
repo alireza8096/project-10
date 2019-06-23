@@ -137,8 +137,6 @@ public class Controller {
         AllDatas.shop.setNowInThisMenu(true);
         AllDatas.commandLine.setNowInThisMenu(false);
 
-        //AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
-
         MenuView.showShop();
     }
 
@@ -147,14 +145,16 @@ public class Controller {
         AllDatas.currentScene = AllDatas.collection.getScene();
     }
 
-    public static void enterBattle() throws IOException{
-        FXMLLoader loader = new FXMLLoader();
-        String path = "/Users/bahar/Desktop/DUELYST/JavaFx/src/sample.fxml";
-        FileInputStream fxmlStream = new FileInputStream(path);
-        AllDatas.currentRoot = loader.load(fxmlStream);
-        AllDatas.currentScene.setRoot(AllDatas.currentRoot);
-        AllDatas.commandLine.setNowInThisMenu(true);
-        AllDatas.account.setNowInThisMenu(false);
+    public static void enterBattle() throws FileNotFoundException, CloneNotSupportedException {
+        Game game = new Game();
+        game.setMap(new Map());
+        game.setPlayer1Turn(true);
+        Game.setCurrentGame(game);
+        AI.createAIPlayer();
+        AllDatas.currentRoot = AllDatas.battle.getRoot();
+        AllDatas.currentScene = AllDatas.battle.getScene();
+        AllDatas.battle.setNowInThisMenu(true);
+        AllDatas.commandLine.setNowInThisMenu(false);
         MenuView.showBattle();
     }
 

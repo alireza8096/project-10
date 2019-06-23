@@ -1,17 +1,23 @@
 package model;
 
+import javafx.scene.image.ImageView;
 import model.collection.*;
 
 import java.util.ArrayList;
 
 public class Map {
     private Cell[][] cells = new Cell[5][9];
+    private static ImageView[][] cellsView = new ImageView[9][5];
 
     private ArrayList<Minion> enemyMinions = new ArrayList<>();
     private ArrayList<Minion> friendMinions = new ArrayList<>();
     private Hero enemyHero;
     private Hero friendHero;
 
+
+    public static ImageView[][] getCellsView() {
+        return cellsView;
+    }
 
     public static void show() {
         for (int i = 0; i < 5; i++) {

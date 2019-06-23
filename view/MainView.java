@@ -10,6 +10,10 @@ import javafx.stage.Stage;
 import model.AllDatas;
 import model.Shop;
 
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -18,7 +22,7 @@ public class MainView extends Application {
     public static Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws FileNotFoundException {
+    public void start(Stage stage) throws FileNotFoundException, CloneNotSupportedException {
         Shop.setRightVBox(new VBox());
         Shop.setLeftVBox(new VBox());
         Shop.getRightVBox().setLayoutX(300);

@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"1",
   "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Heros/Rakhsh/general_portrait_image_hex_f6-third@2x.png"
 }

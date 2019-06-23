@@ -1,18 +1,68 @@
 package model;
 
+import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.collection.Card;
 import model.collection.Minion;
 import model.collection.Spell;
 import org.json.simple.parser.ParseException;
+import view.MainView;
+import view.MenuView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Hand {
+    private static ImageView[] cards = new ImageView[5];
     private ArrayList<Card> cardsInHand = new ArrayList<>();
     private Card nextCard;
 
+    public static void handleHand(ImageView cardInHand){
+        cardInHand.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image activated = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/cardActivatedInHand.png"));
+                    cardInHand.setImage(activated);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        cardInHand.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Image disabled = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/card_background_disabled@2x.png"));
+                    cardInHand.setImage(disabled);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+    public static void createHand() throws FileNotFoundException {
+        HBox handView = new HBox();
+        for(int i=0; i<5; i++){
+            cards[i] =  MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/card_background_disabled@2x.png");
+            handView.getChildren().add(cards[i]);
+            handleHand(cards[i]);
+        }
+        handView.setLayoutX(130);
+        handView.setLayoutY(700);
+        handView.setSpacing(5);
+        handView.setScaleX(0.6);
+        handView.setScaleY(0.6);
+        AllDatas.currentRoot.getChildren().add(handView);
+    }
     public Card getNextCard() {
         return nextCard;
     }

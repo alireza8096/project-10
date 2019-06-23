@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 import view.GameView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -24,8 +25,8 @@ public class Minion extends Force implements Cloneable{
     private int numOfAttacksBefore;
 
 
-    public Minion(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String doesNotGetAttack, String activationTime) {
-        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets);
+    public Minion(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String doesNotGetAttack, String activationTime,String imagePath) throws FileNotFoundException {
+        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets,imagePath);
         if(!doesNotGetAttack.matches("null")) this.doesNotGetAttack = doesNotGetAttack;
         if(!activationTime.matches("null")) this.activationTime = activationTime;
     }

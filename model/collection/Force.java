@@ -2,6 +2,7 @@ package model.collection;
 
 import model.Game;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Force extends Card{
@@ -38,8 +39,8 @@ public class Force extends Card{
         return returnString;
     }
 
-    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets) {
-        super(mana, id, cardType, name, price);
+    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets,String imagePath) throws FileNotFoundException {
+        super(mana, id, cardType, name, price,imagePath);
         this.targets = returnArrayList(targets);
         this.numOfTargets = returnArrayList(numOfTargets);
         this.friendOrEnemy = returnArrayList(friendOrEnemy);

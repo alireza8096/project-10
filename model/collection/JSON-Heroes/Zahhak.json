@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"3",
   "friendOrEnemy" : "friend/enemy",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Heros/Zahhak/boss_shinkage_zendo_portrait_image_hex@2x.png"
 }

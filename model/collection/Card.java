@@ -5,12 +5,14 @@ import model.AttackType;
 import model.Game;
 import model.Map;
 import org.json.simple.parser.ParseException;
+import view.MainView;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Card implements Cloneable{
-//    private static ArrayList<String> cardNames = new ArrayList<>();
+    //    private static ArrayList<String> cardNames = new ArrayList<>();
     protected int mana;
     protected int id;
     protected String cardType;
@@ -31,7 +33,7 @@ public class Card implements Cloneable{
 
     }
 
-    public Card(String mana, String id, String cardType, String name,String price) {
+    public Card(String mana, String id, String cardType, String name,String price,String imagePath) throws FileNotFoundException {
         if (mana.equals("null")) this.mana = 0;
         else this.mana = Integer.parseInt(mana);
         this.id = Integer.parseInt(id);
@@ -39,6 +41,10 @@ public class Card implements Cloneable{
         this.name = name;
         if (!price.equals("null")) this.price = Integer.parseInt(price);
         else this.price = 0;
+        System.out.println(HandleFiles.BEFORE_RELATIVE + imagePath);
+        if(cardType.matches("hero")) {
+            this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
+        }
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {
