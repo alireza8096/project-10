@@ -26,18 +26,18 @@ public class HandleFiles {
     private static final String ADDRESS_ITEM = "model/collection/JSON-Items";
 
         public static void createStringOfPlayers() {
-        File folder = new File("/Users/hamilamailee/Documents/project-10/model/collection/players");
+        File folder = new File(BEFORE_RELATIVE+"model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
         }
     }
     public static void createSpells() throws IOException, ParseException {
-        File folder = new File(ADDRESS_SPELL);
+        File folder = new File(BEFORE_RELATIVE+ADDRESS_SPELL);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_SPELL + "/" + listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_SPELL + "/" + listOfFiles[i].getName());
                 String mana = jsonObject.get("mana").toString();
                 String price = jsonObject.get("price").toString();
                 String name = jsonObject.get("name").toString();
@@ -60,11 +60,11 @@ public class HandleFiles {
     }
 
     public static void createItems() throws IOException, ParseException {
-        File folder = new File(ADDRESS_ITEM);
+        File folder = new File(BEFORE_RELATIVE+ADDRESS_ITEM);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_ITEM+"/"+listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_ITEM+"/"+listOfFiles[i].getName());
                 String itemType = jsonObject.get("itemType").toString();
                 String price = jsonObject.get("price").toString();
                 String name = jsonObject.get("name").toString();
@@ -91,11 +91,11 @@ public class HandleFiles {
         }
     }
     public static void createMinions() throws IOException, ParseException {
-        File folder = new File(ADDRESS_MINION);
+        File folder = new File(BEFORE_RELATIVE+ADDRESS_MINION);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_MINION + "/" + listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_MINION + "/" + listOfFiles[i].getName());
                 String healthPoint = jsonObject.get("healthPoint").toString();
                 String attackRange = jsonObject.get("attackRange").toString();
                 String attackPower = jsonObject.get("attackPower").toString();
@@ -125,11 +125,11 @@ public class HandleFiles {
     }
 
     public static void createHeroes() throws IOException, ParseException {
-        File folder = new File(ADDRESS_HERO);
+        File folder = new File(BEFORE_RELATIVE+ADDRESS_HERO);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(ADDRESS_HERO + "/" + listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_HERO + "/" + listOfFiles[i].getName());
                 String healthPoint = jsonObject.get("healthPoint").toString();
                 String attackRange = jsonObject.get("attackRange").toString();
                 String attackPower = jsonObject.get("attackPower").toString();
