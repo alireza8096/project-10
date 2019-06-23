@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"permanent",
   "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Heros/Div Sefid/boss_boreal_juggernaut_portrait_image_hex@2x.png"
 }

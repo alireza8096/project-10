@@ -19,13 +19,14 @@ import java.util.ArrayList;
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
-    private static final String ADDRESS_HERO = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Heroes";
-    private static final String ADDRESS_MINION = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Minions";
-    private static final String ADDRESS_SPELL = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Spells";
-    private static final String ADDRESS_ITEM = "/Users/bahar/Desktop/DUELYST/model/collection/JSON-Items";
+    public static final String BEFORE_RELATIVE = "/Users/hamilamailee/Documents/project-10/";
+    private static final String ADDRESS_HERO = "model/collection/JSON-Heroes";
+    private static final String ADDRESS_MINION = "model/collection/JSON-Minions";
+    private static final String ADDRESS_SPELL = "model/collection/JSON-Spells";
+    private static final String ADDRESS_ITEM = "model/collection/JSON-Items";
 
         public static void createStringOfPlayers() {
-        File folder = new File("/Users/bahar/Desktop/DUELYST/model/collection/players");
+        File folder = new File("/Users/hamilamailee/Documents/project-10/model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
@@ -51,8 +52,7 @@ public class HandleFiles {
                 String last = jsonObject.get("last").toString();
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget);
-                spell.imageViewOfCard = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/cardSample.jpg")));
+                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,"");
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Spell.getSpells().add(spell);
             }
@@ -117,8 +117,7 @@ public class HandleFiles {
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
-                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime);
-                minion.setImageViewOfCard(new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/cardSample.jpg"))));
+                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,"");
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
                 Minion.getMinions().add(minion);
             }
@@ -150,9 +149,9 @@ public class HandleFiles {
                 String last = jsonObject.get("last").toString();
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("healthPoint").toString();
+                String imagePath = jsonObject.get("imagePath").toString();
                 Hero hero = new Hero(mana, id, "hero", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType, attackRange,
-                        specialPower, action, locationOfTarget, coolDown);
-                hero.setImageViewOfCard(new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/Heroes.png"))));
+                        specialPower, action, locationOfTarget, coolDown, imagePath);
                 Buff.createBuffsForHero(hero, action, buffs, effectValue, delay, last);
                 Hero.getHeroes().add(hero);
             }

@@ -2,26 +2,41 @@ package view;
 
 import controller.Controller;
 import controller.MenusCommandController;
-import javafx.event.ActionEvent;
+import controller.ShopController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
-import javafx.scene.control.Hyperlink;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Window;
 import model.AllDatas;
+import model.Cell;
+import model.Hand;
 import model.LinkedListMenus;
+import model.Shop;
+import model.collection.Card;
+import model.collection.HandleFiles;
+
+import javax.management.ObjectName;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Stack;
+
+import static javafx.scene.paint.Color.rgb;
 
 import javax.swing.event.HyperlinkListener;
 import java.awt.*;
@@ -132,8 +147,7 @@ public class MenuView {
     }
 
     public static void setBackgroundOfMainMenu() throws FileNotFoundException {
-        Image backgroundImage = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/login" +
-                "/Screen Shot 1398-03-25 at 16.32.26.png"));
+        Image backgroundImage = new Image(new FileInputStream("view/Photos/login/Screen Shot 1398-03-25 at 16.32.26.png"));
         ImageView backgroundImageView = new ImageView(backgroundImage);
         backgroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         backgroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
@@ -151,44 +165,44 @@ public class MenuView {
 
         setScrollBar();
 
-        ImageView background = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/shopBackground.jpg");
+        ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/shopBackground.jpg");
         background.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         background.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
         AllDatas.currentRoot.getChildren().add(background);
 
         HBox minionsHBox = new HBox();
-        ImageView minionIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/minion.png");
-      //  minionIcon.getStyleClass().add("shopOptionsImage");
+        ImageView minionIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/minion.png");
+        //  minionIcon.getStyleClass().add("shopOptionsImage");
         minionIcon.setFitWidth(40);
         minionIcon.setFitHeight(40);
         Hyperlink minionText = new Hyperlink("Minions");
         minionsHBox.getChildren().addAll(minionIcon, minionText);
 
         HBox heroesHBox = new HBox();
-        ImageView heroIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/Heroes.png");
+        ImageView heroIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Heroes.png");
         heroIcon.setFitWidth(40);
         heroIcon.setFitHeight(40);
         Hyperlink heroText = new Hyperlink("Heroes");
         heroesHBox.getChildren().addAll(heroIcon, heroText);
 
         HBox itemHBox = new HBox();
-        ImageView itemIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/Item.png");
+        ImageView itemIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Item.png");
         itemIcon.setFitWidth(50);
         itemIcon.setFitHeight(50);
         Hyperlink itemText = new Hyperlink("Items");
         itemHBox.getChildren().addAll(itemIcon, itemText);
 
         HBox spellHBox = new HBox();
-        ImageView spellIcon = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/spell.png");
+        ImageView spellIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/spell.png");
         spellIcon.setFitWidth(50);
         spellIcon.setFitHeight(50);
         Hyperlink spellText = new Hyperlink("Spells");
         spellHBox.getChildren().addAll(spellIcon, spellText);
 
-        VBox.setMargin(minionsHBox, new Insets(50,100,10,30));
-        VBox.setMargin(spellHBox, new Insets(10,100,10,30));
-        VBox.setMargin(itemHBox, new Insets(10,100,10,30));
-        VBox.setMargin(heroesHBox, new Insets(10,100,10,30));
+        VBox.setMargin(minionsHBox, new Insets(50, 100, 10, 30));
+        VBox.setMargin(spellHBox, new Insets(10, 100, 10, 30));
+        VBox.setMargin(itemHBox, new Insets(10, 100, 10, 30));
+        VBox.setMargin(heroesHBox, new Insets(10, 100, 10, 30));
 
         Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
 
@@ -198,7 +212,7 @@ public class MenuView {
 
     }
 
-    public static void setScrollBar(){
+    public static void setScrollBar() {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(AllDatas.currentRoot);
         AllDatas.currentScene.setRoot(scrollPane);
@@ -219,18 +233,18 @@ public class MenuView {
         middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
-        AllDatas.currentRoot.getChildren().addAll(background,middleGround);
+        AllDatas.currentRoot.getChildren().addAll(background, middleGround);
         Cell.createCellsAndView();
         Hand.createHand();
-        BattleView.setEndTurn(MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/button_end_turn_mine@2x.png"));
+        BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/button_end_turn_mine@2x.png"));
         AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
         BattleView.handleEndTurn();
-
     }
+
 
     public static void showThisMenu(LinkedListMenus menu) throws FileNotFoundException {
         String menuName = menu.getMenuName();
-        switch (menuName){
+        switch (menuName) {
             case "Account":
                 showLoginMenu();
                 break;
@@ -241,7 +255,7 @@ public class MenuView {
                 showMainMenu();
                 break;
             case "Collection":
-                //showCollection();
+//                showCollection();
                 break;
             case "Shop":
                 showShop();
@@ -268,7 +282,7 @@ public class MenuView {
 //        setVBoxForShowingHeroCards();
 //    }
 
-    public static void showMinionsInShop(){
+    public static void showMinionsInShop() {
 
         VBox minionVBox = new VBox();
 
@@ -301,7 +315,7 @@ public class MenuView {
 
     }
 
-    public static void showSpellsInShop(){
+    public static void showSpellsInShop() {
         VBox spellVBox = new VBox();
 
         HBox hBox1 = new HBox();
@@ -322,7 +336,7 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(Shop.getRightVBox());
     }
 
-    public static void showItemsInShop(){
+    public static void showItemsInShop() {
         VBox itemsVBox = new VBox();
 
         HBox hBox1 = new HBox();
@@ -343,7 +357,7 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(Shop.getRightVBox());
     }
 
-    public static void showHeroesInShop(){
+    public static void showHeroesInShop() {
         VBox heroVBox = new VBox();
 
         HBox hBox1 = new HBox();
@@ -358,11 +372,9 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(Shop.getRightVBox());
     }
 
-    public static void setAppearanceOfCardsInShop(HBox hBox, int rowNumber, VBox vBox, String cardType, int numOfCardsInEachRow){
-        for (int i = (rowNumber - 1)*numOfCardsInEachRow; i < rowNumber*numOfCardsInEachRow; i++) {
+    public static void setAppearanceOfCardsInShop(HBox hBox, int rowNumber, VBox vBox, String cardType, int numOfCardsInEachRow) {
+        for (int i = (rowNumber - 1) * numOfCardsInEachRow; i < rowNumber * numOfCardsInEachRow; i++) {
             VBox cardVBox = new VBox();
-
-
 
 
             Card card = Card.returnNthCard(cardType, i);
@@ -391,7 +403,7 @@ public class MenuView {
             cardVBox.getChildren().add(stackPane);
 
             setPriceForCardInShop(card, cardVBox);
-         //   setManaForCardInShop(card, stackPane, onCardVBox);
+            //   setManaForCardInShop(card, stackPane, onCardVBox);
 
             hBox.getChildren().add(cardVBox);
         }
@@ -399,7 +411,7 @@ public class MenuView {
         vBox.getChildren().add(hBox);
     }
 
-    public static void setPriceForCardInShop(Card card, VBox vBox){
+    public static void setPriceForCardInShop(Card card, VBox vBox) {
 
         StackPane stackPane = new StackPane();
 
@@ -410,11 +422,11 @@ public class MenuView {
 
         try {
 
-            ImageView priceBack = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_back.png")));
+            ImageView priceBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
             priceBack.setFitWidth(200);
             priceBack.setFitHeight(50);
 
-            ImageView priceIcon = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_icon.png")));
+            ImageView priceIcon = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_icon.png")));
             priceIcon.setFitWidth(100);
             priceIcon.setFitHeight(110);
 
@@ -430,11 +442,11 @@ public class MenuView {
         vBox.getChildren().add(stackPane);
     }
 
-    public static void setManaForCardInShop(Card card, StackPane stackPane, VBox vBox){
+    public static void setManaForCardInShop(Card card, StackPane stackPane, VBox vBox) {
 
     }
 
-    public static void setImageForCardInShop(Card card, StackPane stackPane){
+    public static void setImageForCardInShop(Card card, StackPane stackPane) {
         ImageView image = card.getImageViewOfCard();
         image.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
         image.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
@@ -442,7 +454,7 @@ public class MenuView {
         stackPane.getChildren().add(image);
     }
 
-    public static void setDescForCardInShop(Card card, StackPane stackPane, VBox vBox){
+    public static void setDescForCardInShop(Card card, StackPane stackPane, VBox vBox) {
         Text desc = card.getTextForCard();
         desc.setWrappingWidth(Shop.CARD_IN_SHOP_WIDTH);
         desc.setFont(Font.font(10));
@@ -452,7 +464,7 @@ public class MenuView {
 
     }
 
-    public static void makeSceneBlur(){
+    public static void makeSceneBlur() {
         ColorAdjust adj = new ColorAdjust(0, 0, -0.5, 0);
         GaussianBlur blur = new GaussianBlur(55); // 55 is just to show edge effect more clearly.
         adj.setInput(blur);
@@ -460,25 +472,23 @@ public class MenuView {
             node.setEffect(adj);
     }
 
-    public static void removeBlurEffectOfWindow(){
-        for (Node node : AllDatas.currentRoot.getChildren()){
+    public static void removeBlurEffectOfWindow() {
+        for (Node node : AllDatas.currentRoot.getChildren()) {
             node.setEffect(null);
         }
     }
 
-    public static void showCardForBuying (Card card) throws FileNotFoundException{
+    public static void showCardForBuying(Card card) throws FileNotFoundException {
         //Todo : set the card minion image itself
         ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
 
-        ImageView cancelButton = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/" +
-                "shop/button_cancel@2x.png")));
-        ImageView buyCardButton = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/" +
-                "view/Photos/shop/button_buy@2x.png")));
+        ImageView cancelButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
+        ImageView buyCardButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_buy@2x.png")));
 
         cardImage.setFitWidth(200);
         cardImage.setFitHeight(300);
-        cardImage.setX(WINDOW_WIDTH/2 + 80);
-        cardImage.setY(WINDOW_HEIGHT/2 - 250);
+        cardImage.setX(WINDOW_WIDTH / 2 + 80);
+        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
 
         buyCardButton.setFitWidth(200);
         buyCardButton.setFitHeight(70);
@@ -495,8 +505,6 @@ public class MenuView {
         GameView.makeImageGlowWhileMouseEnters(buyCardButton);
 
         ShopController.handleEventsOfBuyingCard(card, cardImage, cancelButton, buyCardButton, hBox);
-
-
 
 
     }

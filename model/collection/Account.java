@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.*;
 //testing
 public class Account {
-    public static final String PLAYERS_FOLDER = "/Users/bahar/Desktop/DUELYST/model/collection/players";
+    public static final String PLAYERS_FOLDER = "model/collection/players";
     private static ArrayList<String> players = new ArrayList<>();
     public static ArrayList<String> getPlayers() {
         return players;
@@ -69,7 +69,7 @@ public class Account {
         tempPlayer.put("daric",150000000);
         tempPlayer.put("numOfWins",0);
         tempPlayer.put("justCreated",justCreated);
-        Files.write(Paths.get(PLAYERS_FOLDER+name+".json"),tempPlayer.toJSONString().getBytes());
+        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER+name+".json"),tempPlayer.toJSONString().getBytes());
     }
     public static boolean usernameAlreadyExists(String checkName){
         for (String name: players) {

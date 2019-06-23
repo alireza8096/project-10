@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"continuous",
   "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Heros/Esfandiyar/general_portrait_image_hex_f3-third@2x.png"
 }

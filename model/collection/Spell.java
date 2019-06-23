@@ -6,6 +6,7 @@ import org.json.simple.parser.ParseException;
 import view.GameView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -42,8 +43,8 @@ public class Spell extends Card implements Cloneable{
     }
 
 
-    public Spell(String mana, String id, String cardType, String name, String price, String desc, String target, String numOfTarget, String actionType, String friendOrEnemy, String locationOfTarget) {
-        super(mana, id, cardType, name, price);
+    public Spell(String mana, String id, String cardType, String name, String price, String desc, String target, String numOfTarget, String actionType, String friendOrEnemy, String locationOfTarget,String imagePath) throws FileNotFoundException {
+        super(mana, id, cardType, name, price, imagePath);
         this.desc = desc;
         this.target = target;
         this.numOfTarget = numOfTarget;

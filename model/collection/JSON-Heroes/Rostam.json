@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"null",
   "friendOrEnemy" : "null",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Heros/Rostam/general_portrait_image_hex_f1@2x.png"
 }

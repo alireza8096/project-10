@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"3",
   "friendOrEnemy" : "cell",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Heros/Kaveh/general_portrait_image_hex_f1-third@2x.png"
 }

@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"1",
   "friendOrEnemy" : "friend/enemy",
-  "locationOfTarget" : "row"
+  "locationOfTarget" : "row",
+  "imagePath" : "view/Photos/Heros/Arash/general_portrait_image_hex_f2@2x.png"
 }

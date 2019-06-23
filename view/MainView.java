@@ -5,8 +5,10 @@ import javafx.application.Application;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.AllDatas;
+import model.Shop;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -20,7 +22,7 @@ public class MainView extends Application {
     public static Stage primaryStage;
 
     @Override
-    public void start(Stage stage) throws FileNotFoundException {
+    public void start(Stage stage) throws FileNotFoundException, CloneNotSupportedException {
         Shop.setRightVBox(new VBox());
         Shop.setLeftVBox(new VBox());
         Shop.getRightVBox().setLayoutX(300);

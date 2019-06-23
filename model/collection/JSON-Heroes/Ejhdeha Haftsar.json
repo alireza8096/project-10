@@ -17,5 +17,6 @@
   "delay" : "null",
   "last" :"1",
   "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Heros/Ejhdeha Haftsar/general_portrait_image_hex_f5-third@2x.png"
 }
