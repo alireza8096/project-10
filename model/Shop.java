@@ -10,16 +10,27 @@ public class Shop{
     private static VBox rightVBox;
     private static VBox leftVBox;
 
-    public static final int CARD_IN_SHOP_WIDTH = 130;
-    public static final int CARD_IN_SHOP_HEIGHT = 180;
+    public static final int CARD_IN_SHOP_WIDTH = 200;
+    public static final int CARD_IN_SHOP_HEIGHT = 300;
 
     private static VBox minionCardsVBox = new VBox();
     private static VBox spellCardsVBox = new VBox();
     private static VBox itemCardsVBox = new VBox();
     private static VBox heroCardsVBox = new VBox();
 
+    //for not handle events of cards that are not selected while buying a card
+    private static boolean isShowingSpecificCard;
+
 
     private Game game;
+
+    public static boolean isIsShowingSpecificCard() {
+        return isShowingSpecificCard;
+    }
+
+    public static void setIsShowingSpecificCard(boolean isShowingSpecificCard) {
+        Shop.isShowingSpecificCard = isShowingSpecificCard;
+    }
 
     public static VBox getRightVBox() {
         return rightVBox;

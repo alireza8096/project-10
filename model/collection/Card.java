@@ -1,5 +1,6 @@
 package model.collection;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import model.AttackType;
 import model.Game;
 import model.Map;
@@ -310,6 +311,35 @@ public class Card implements Cloneable{
         if(this.name.equals(Game.getInstance().getMap().getFriendHero().name))
             return true;
         return false;
+    }
+
+    public static Card returnNthCard(String cardType, int index){
+        switch (cardType){
+            case "minion":
+                return Minion.getMinions().get(index);
+            case "spell":
+                return Spell.getSpells().get(index);
+            case "hero":
+                return Hero.getHeroes().get(index);
+            case "item":
+                return Item.getItems().get(index);
+
+        }
+        return null;
+    }
+
+    public Text getTextForCard(){
+        switch (cardType){
+            case "minion":
+                return new Text(((Minion)this).getSpecialPower());
+            case "spell":
+                return new Text(((Spell)this).getDesc());
+            case "item":
+                return new Text(((Item)this).getDesc());
+            case "hero":
+                return new Text(((Hero)this).getSpecialPower());
+        }
+        return null;
     }
 
 }

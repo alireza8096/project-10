@@ -160,6 +160,7 @@ public class ShopController {
         cancelButton.setOnMouseClicked(event -> {
            AllDatas.currentRoot.getChildren().removeAll(cardImage, hBox);
             MenuView.removeBlurEffectOfWindow();
+            Shop.setIsShowingSpecificCard(false);
         });
 
         buyButton.setOnMouseClicked(event -> {

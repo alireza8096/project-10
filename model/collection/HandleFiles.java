@@ -52,6 +52,7 @@ public class HandleFiles {
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget);
+                spell.imageViewOfCard = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/button_buy@2x.png")));
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Spell.getSpells().add(spell);
             }
@@ -151,6 +152,7 @@ public class HandleFiles {
                 String locationOfTarget = jsonObject.get("healthPoint").toString();
                 Hero hero = new Hero(mana, id, "hero", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType, attackRange,
                         specialPower, action, locationOfTarget, coolDown);
+                hero.setImageViewOfCard(new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/Heroes.png"))));
                 Buff.createBuffsForHero(hero, action, buffs, effectValue, delay, last);
                 Hero.getHeroes().add(hero);
             }
