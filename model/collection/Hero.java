@@ -2,6 +2,7 @@ package model.collection;
 
 import model.CellType;
 import model.Game;
+import model.Map;
 import model.Shop;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -246,6 +247,8 @@ public class Hero extends Force implements Cloneable{
         hero.setX(2);
         hero.setY(0);
         Game.getInstance().getMap().getCells()[2][0].setCellType(CellType.selfHero);
+        Map.getForcesView()[0][2].setImage(hero.getForceInField());
+        Map.getCellsView()[0][2].setDisable(true);
         Game.getInstance().getMap().setFriendHero(hero);
         System.out.println("****"+ Game.getInstance().getMap().getEnemyHero().getX() + " " + Game.getInstance().getMap().getEnemyHero().getY());
 

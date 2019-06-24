@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
+import org.json.simple.parser.ParseException;
 import view.MenuView;
 
 import java.io.FileInputStream;
@@ -145,11 +146,9 @@ public class Controller {
         AllDatas.currentScene = AllDatas.collection.getScene();
     }
 
-    public static void enterBattle() throws FileNotFoundException, CloneNotSupportedException {
+    public static void enterBattle() throws IOException, CloneNotSupportedException, ParseException {
+        sampleGame();
         Game.getInstance().setMap(new Map());
-        Hero.insertHeroInMap();
-        Hand.setHand();
-        AI.createAIPlayer();
         AllDatas.currentRoot = AllDatas.battle.getRoot();
         AllDatas.currentScene = AllDatas.battle.getScene();
         AllDatas.battle.setNowInThisMenu(true);
@@ -162,6 +161,53 @@ public class Controller {
         AllDatas.currentScene = AllDatas.leaderboard.getScene();
     }
 
+
+    public static void sampleGame() throws CloneNotSupportedException, IOException, ParseException {
+        Shop.buyCardAndAddToCollection("Arash");
+        Shop.buyCardAndAddToCollection("Total Disarm");
+        Shop.buyCardAndAddToCollection("Lighting Bolt");
+        Shop.buyCardAndAddToCollection("All Disarm");
+        Shop.buyCardAndAddToCollection("All Poison");
+        Shop.buyCardAndAddToCollection("Dispel");
+        Shop.buyCardAndAddToCollection("Sacrifice");
+        Shop.buyCardAndAddToCollection("Shock");
+        Shop.buyCardAndAddToCollection("Kamandar Fars");
+        Shop.buyCardAndAddToCollection("Neyzedar Toorani");
+        Shop.buyCardAndAddToCollection("Gorzdar Toorani");
+        Shop.buyCardAndAddToCollection("Gorzdar Toorani");
+        Shop.buyCardAndAddToCollection("Div Siah");
+        Shop.buyCardAndAddToCollection("Ghool Takcheshm");
+        Shop.buyCardAndAddToCollection("Mar Sammi");
+        Shop.buyCardAndAddToCollection("Mar Ghoolpeikar");
+        Shop.buyCardAndAddToCollection("Gorg Sefid");
+        Shop.buyCardAndAddToCollection("Jadoogar Aazam");
+        Shop.buyCardAndAddToCollection("Siavash");
+        Shop.buyCardAndAddToCollection("Nane Sarma");
+        Shop.buyCardAndAddToCollection("Arjhang Div");
+        Deck.createDeck("bahar");
+        Deck.addCardOrItemToDeck(107,"bahar");
+        Deck.addCardOrItemToDeck(401,"bahar");
+        Deck.addCardOrItemToDeck(407,"bahar");
+        Deck.addCardOrItemToDeck(410,"bahar");
+        Deck.addCardOrItemToDeck(411,"bahar");
+        Deck.addCardOrItemToDeck(412,"bahar");
+        Deck.addCardOrItemToDeck(418,"bahar");
+        Deck.addCardOrItemToDeck(420,"bahar");
+        Deck.addCardOrItemToDeck(301,"bahar");
+        Deck.addCardOrItemToDeck(309,"bahar");
+        Deck.addCardOrItemToDeck(311,"bahar");
+        Deck.addCardOrItemToDeck(311,"bahar");
+        Deck.addCardOrItemToDeck(313,"bahar");
+        Deck.addCardOrItemToDeck(317,"bahar");
+        Deck.addCardOrItemToDeck(318,"bahar");
+        Deck.addCardOrItemToDeck(321,"bahar");
+        Deck.addCardOrItemToDeck(322,"bahar");
+        Deck.addCardOrItemToDeck(326,"bahar");
+        Deck.addCardOrItemToDeck(338,"bahar");
+        Deck.addCardOrItemToDeck(336,"bahar");
+        Deck.addCardOrItemToDeck(340,"bahar");
+        Deck.selectDeck("bahar");
+    }
 
 
 }

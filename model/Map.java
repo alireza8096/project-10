@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Map {
     private Cell[][] cells = new Cell[5][9];
     private static ImageView[][] cellsView = new ImageView[9][5];
+    private static ImageView[][] forcesView = new ImageView[9][5];
 
     private ArrayList<Minion> enemyMinions = new ArrayList<>();
     private ArrayList<Minion> friendMinions = new ArrayList<>();
@@ -15,8 +16,16 @@ public class Map {
     private Hero friendHero;
 
 
+    public static ImageView[][] getForcesView() {
+        return forcesView;
+    }
+
     public static ImageView[][] getCellsView() {
         return cellsView;
+    }
+
+    public void setForcesView(ImageView view,int i,int j) {
+        forcesView[i][j] = view;
     }
 
     public static void show() {

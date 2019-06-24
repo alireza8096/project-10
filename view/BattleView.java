@@ -10,10 +10,7 @@ import model.AllDatas;
 import model.Game;
 import model.Hand;
 import model.Shop;
-import model.collection.Card;
-import model.collection.Hero;
-import model.collection.Minion;
-import model.collection.Spell;
+import model.collection.*;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileInputStream;
@@ -69,10 +66,10 @@ public class BattleView {
         Image setImage;
         if (Game.getInstance().isPlayer1Turn()) {
             System.out.println("1");
-            setImage = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/button_end_turn_mine@2x.png"));
+            setImage = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+ "view/Photos/battle/button_end_turn_mine@2x.png"));
         } else {
             System.out.println("2");
-            setImage = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/button_end_turn_enemy@2x.png"));
+            setImage = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/button_end_turn_enemy@2x.png"));
         }
         endTurn.setImage(setImage);
 

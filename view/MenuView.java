@@ -1,5 +1,6 @@
 package view;
 
+import controller.AI;
 import controller.Controller;
 import controller.MenusCommandController;
 import controller.ShopController;
@@ -30,6 +31,7 @@ import model.LinkedListMenus;
 import model.Shop;
 import model.collection.Card;
 import model.collection.HandleFiles;
+import model.collection.Hero;
 
 import javax.management.ObjectName;
 import java.io.FileInputStream;
@@ -105,7 +107,7 @@ public class MenuView {
         shopOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         shopOption.setTextFill(Color.WHITE);
 
-        Image shopIcon = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop@2x.png"));
+        Image shopIcon = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop@2x.png"));
         ImageView shopIconImage = new ImageView(shopIcon);
         shopIconImage.setFitWidth(40);
         shopIconImage.setFitHeight(40);
@@ -221,28 +223,32 @@ public class MenuView {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
-    public static void showBattle() throws FileNotFoundException {
+    public static void showBattle() throws FileNotFoundException, CloneNotSupportedException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
         MainView.primaryStage.setMaximized(true);
 
-        ImageView background = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/background@2x.jpg");
+        ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
-        ImageView middleGround = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/midground@2x.png");
+        ImageView middleGround = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/midground@2x.png");
         middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
         AllDatas.currentRoot.getChildren().addAll(background, middleGround);
         Cell.createCellsAndView();
+        Cell.createForceView();
+        AI.createAIPlayer();
+        Hero.insertHeroInMap();
         Hand.createHand();
+        Hand.setHand();
         BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/button_end_turn_mine@2x.png"));
         AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
         BattleView.handleEndTurn();
     }
 
 
-    public static void showThisMenu(LinkedListMenus menu) throws FileNotFoundException {
+    public static void showThisMenu(LinkedListMenus menu) throws FileNotFoundException, CloneNotSupportedException {
         String menuName = menu.getMenuName();
         switch (menuName) {
             case "Account":
@@ -518,10 +524,10 @@ public class MenuView {
     }
 
     public static void addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
-        ImageView priceBack = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_back.png")));
-        ImageView manaBack = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_back.png")));
-        ImageView priceIcon = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_icon.png")));
-        ImageView manaIcon = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/icon_mana.png")));
+        ImageView priceBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
+        ImageView manaBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
+        ImageView priceIcon = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_icon.png")));
+        ImageView manaIcon = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/icon_mana.png")));
 
         int price = card.getPrice();
         int mana = card.getMana();

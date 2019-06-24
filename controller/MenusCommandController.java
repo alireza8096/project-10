@@ -13,6 +13,7 @@ import model.Game;
 import model.LinkedListMenus;
 import model.collection.Account;
 import model.collection.Card;
+import org.json.simple.parser.ParseException;
 import view.BattleView;
 import view.GameView;
 import view.MenuView;
@@ -216,6 +217,8 @@ public class MenusCommandController {
                 e.printStackTrace();
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -230,13 +233,13 @@ public class MenusCommandController {
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
-            } catch (IOException | CloneNotSupportedException e) {
+            } catch (IOException | CloneNotSupportedException | ParseException e) {
                 e.printStackTrace();
             }
         });
     }
 
-    public static void enterThisMenu(LinkedListMenus menu) throws IOException, CloneNotSupportedException {
+    public static void enterThisMenu(LinkedListMenus menu) throws IOException, CloneNotSupportedException, ParseException {
         String menuName = menu.getMenuName();
 
         switch (menuName){

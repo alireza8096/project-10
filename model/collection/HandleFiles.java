@@ -19,14 +19,14 @@ import java.util.ArrayList;
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
-    public static final String BEFORE_RELATIVE = "/Users/bahar/Desktop/DUELYST/";
+    public static final String BEFORE_RELATIVE = "/Users/hamilamailee/Documents/project-10/";
     private static final String ADDRESS_HERO = "model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "model/collection/JSON-Spells";
     private static final String ADDRESS_ITEM = "model/collection/JSON-Items";
 
         public static void createStringOfPlayers() {
-        File folder = new File("/Users/bahar/Desktop/DUELYST/model/collection/players");
+        File folder = new File(BEFORE_RELATIVE + "model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
@@ -52,7 +52,7 @@ public class HandleFiles {
                 String last = jsonObject.get("last").toString();
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,"");
+                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,"", "view/Photos/Heros/Simorgh/f4_altgeneraltier2_breathing.gif");
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Spell.getSpells().add(spell);
             }
@@ -116,7 +116,7 @@ public class HandleFiles {
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
-                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,"","");
+                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,"","view/Photos/Heros/Kaveh/f1_bromemk2_breathing.gif");
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
                 Minion.getMinions().add(minion);
             }

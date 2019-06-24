@@ -43,8 +43,8 @@ public class Spell extends Card implements Cloneable{
     }
 
 
-    public Spell(String mana, String id, String cardType, String name, String price, String desc, String target, String numOfTarget, String actionType, String friendOrEnemy, String locationOfTarget,String imagePath) throws FileNotFoundException {
-        super(mana, id, cardType, name, price, imagePath);
+    public Spell(String mana, String id, String cardType, String name, String price, String desc, String target, String numOfTarget, String actionType, String friendOrEnemy, String locationOfTarget,String imagePath,String inField) throws FileNotFoundException {
+        super(mana, id, cardType, name, price, imagePath,inField);
         this.desc = desc;
         this.target = target;
         this.numOfTarget = numOfTarget;

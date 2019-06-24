@@ -5,21 +5,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import model.collection.Card;
+import model.collection.HandleFiles;
 import model.collection.Minion;
 import model.collection.Spell;
-import org.json.simple.parser.ParseException;
 import view.MainView;
-import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static model.AllDatas.battle;
+
 public class Hand {
+    private static ImageView[] scenesBehind = new ImageView[5];
     private static ImageView[] cards = new ImageView[5];
     private ArrayList<Card> cardsInHand = new ArrayList<>();
     private Card nextCard;
@@ -29,7 +29,7 @@ public class Hand {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image activated = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/cardActivatedInHand.png"));
+                    Image activated = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png"));
                     cardInHand.setImage(activated);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -40,7 +40,7 @@ public class Hand {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image disabled = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/card_background_disabled@2x.png"));
+                    Image disabled = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png"));
                     cardInHand.setImage(disabled);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -50,18 +50,27 @@ public class Hand {
         });
     }
     public static void createHand() throws FileNotFoundException {
-        HBox handView = new HBox();
+        HBox handScenes = new HBox();
+        HBox cardsView = new HBox();
         for(int i=0; i<5; i++){
-            cards[i] =  MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/card_background_disabled@2x.png");
-            handView.getChildren().add(cards[i]);
-            handleHand(cards[i]);
+            cards[i] = new ImageView();
+            scenesBehind[i] =  new ImageView();
+            handScenes.getChildren().add(scenesBehind[i]);
+            cardsView.getChildren().add(cards[i]);
+//            handleHand(scenesBehind[i]);
         }
-        handView.setLayoutX(130);
-        handView.setLayoutY(700);
-        handView.setSpacing(5);
-        handView.setScaleX(0.6);
-        handView.setScaleY(0.6);
-        AllDatas.currentRoot.getChildren().add(handView);
+        handScenes.setLayoutX(130);
+        handScenes.setLayoutY(700);
+        handScenes.setSpacing(5);
+        handScenes.setScaleX(0.6);
+        handScenes.setScaleY(0.6);
+        AllDatas.currentRoot.getChildren().add(handScenes);
+        cardsView.setLayoutX(465);
+        cardsView.setLayoutY(745);
+        cardsView.setSpacing(25);
+        cardsView.setScaleX(1.1);
+        cardsView.setScaleY(1.1);
+        AllDatas.currentRoot.getChildren().add(cardsView);
     }
     public Card getNextCard() {
         return nextCard;
@@ -85,13 +94,20 @@ public class Hand {
             System.out.println(card.getName() + " : " + card.getCardType() + " " + card.getMana());
         }
     }
-    public static void setHand(){
+    public static void setHand() throws FileNotFoundException {
         Hand hand = new Hand();
         ArrayList<Card> cardsInDeck = Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck();
         Collections.shuffle(cardsInDeck);
         for (int i = 0; i < 5; i++) {
             Card card = cardsInDeck.get(i);
             hand.getCardsInHand().add(card);
+            if(card.getMana() <= Game.getInstance().getPlayer1().getNumOfMana()){
+                Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
+            }
+            else {
+                Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+            }
+            Hand.cards[i].setImage(card.getForceInField());
             Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck().remove(card);
         }
         Game.getInstance().getPlayer1().getMainDeck().setHand(hand);

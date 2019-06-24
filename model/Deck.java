@@ -173,7 +173,7 @@ public class Deck implements Cloneable {
     public static boolean allConditionsOfAddingCardToDeckAreRight(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
         Deck deck = findDeckByName(deckName);
         if (!checkIfThisCardOrItemIsInCollection(ID)) {
-            System.out.println("This card isn't available in collection!");
+            System.out.println("This card isn't available in collection! id : " + ID );
             return false;
         } else {
             if (ID / 100 != 1) {
