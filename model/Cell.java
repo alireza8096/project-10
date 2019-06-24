@@ -1,10 +1,12 @@
 package model;
 
 import javafx.event.EventHandler;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.collection.Buff;
+import model.collection.HandleFiles;
 import view.MainView;
 
 import java.io.FileInputStream;
@@ -21,10 +23,21 @@ public class Cell {
     private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
     private CellItemType cellItemType;
 
+    public static void createForceView(){
+        for(int i=0; i<9; i++){
+            for(int j=0; j<5; j++){
+                Map.getForcesView()[i][j] = new ImageView();
+                Map.getForcesView()[i][j].setX(Map.getCellsView()[i][j].getX());
+                Map.getForcesView()[i][j].setY(Map.getCellsView()[i][j].getY()-25);
+                handleEventForce(Map.getForcesView()[i][j]);
+                AllDatas.currentRoot.getChildren().add(Map.getForcesView()[i][j]);
+            }
+        }
+    }
     public static void createCellsAndView() throws FileNotFoundException {
         for(int i=0; i<9; i++){
             for(int j=0; j<5; j++){
-                Map.getCellsView()[i][j]= MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/tiles_board.png");
+                Map.getCellsView()[i][j]= MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png");
                 Map.getCellsView()[i][j].setScaleX(0.55);
                 Map.getCellsView()[i][j].setScaleY(0.55);
                 Map.getCellsView()[i][j].setX(510 + i*69);
@@ -39,7 +52,7 @@ public class Cell {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image selectedCell = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/tiles_board_select.png"));
+                    Image selectedCell = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/tiles_board_select.png"));
                     cell.setImage(selectedCell);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -50,12 +63,26 @@ public class Cell {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image normalCell = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/tiles_board.png"));
+                    Image normalCell = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/tiles_board.png"));
                     cell.setImage(normalCell);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
 
+            }
+        });
+    }
+    public static void handleEventForce(ImageView force){
+        force.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                force.setEffect(new Glow(0.7));
+            }
+        });
+        force.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                force.setEffect(null);
             }
         });
     }

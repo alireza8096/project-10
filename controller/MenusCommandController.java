@@ -1,16 +1,24 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
 import model.collection.Account;
+import model.collection.Card;
+import org.json.simple.parser.ParseException;
 import view.BattleView;
+import view.GameView;
+import view.MenuView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -211,8 +219,10 @@ public class MenusCommandController {
         battle.setOnAction(event -> {
             try {
                 Controller.enterBattle();
-            } catch (IOException | CloneNotSupportedException e) {
+            } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
             }
         });
 
@@ -225,7 +235,7 @@ public class MenusCommandController {
         logout.setOnAction(event -> {
             try {
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | ParseException e) {
                 e.printStackTrace();
             } catch (IOException | CloneNotSupportedException e) {
                 e.printStackTrace();
@@ -233,7 +243,7 @@ public class MenusCommandController {
         });
     }
 
-    public static void enterThisMenu(LinkedListMenus menu) throws IOException, CloneNotSupportedException {
+    public static void enterThisMenu(LinkedListMenus menu) throws IOException, CloneNotSupportedException, ParseException {
         String menuName = menu.getMenuName();
 
         switch (menuName){

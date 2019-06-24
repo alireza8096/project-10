@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import org.json.simple.parser.ParseException;
 import view.MainView;
 import view.MenuView;
 
@@ -100,7 +101,7 @@ public class LinkedListMenus {
         return null;
     }
 
-    public void backFromThisMenu() throws IOException, CloneNotSupportedException {
+    public void backFromThisMenu() throws IOException, CloneNotSupportedException, ParseException {
         System.out.println(this.menuName);
         AllDatas.currentRoot = this.parent.root;
         AllDatas.currentScene = this.parent.scene;

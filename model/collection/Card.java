@@ -1,4 +1,5 @@
 package model.collection;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import model.AttackType;
@@ -7,6 +8,7 @@ import model.Map;
 import org.json.simple.parser.ParseException;
 import view.MainView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,12 +30,18 @@ public class Card implements Cloneable{
     protected int y;
     protected boolean inGame;
     protected ImageView imageViewOfCard;
+    private Image forceInField;
+
 
     public Card(){
 
     }
 
-    public Card(String mana, String id, String cardType, String name,String price,String imagePath) throws FileNotFoundException {
+    public Image getForceInField() {
+        return forceInField;
+    }
+
+    public Card(String mana, String id, String cardType, String name, String price, String imagePath, String inField) throws FileNotFoundException {
         if (mana.equals("null")) this.mana = 0;
         else this.mana = Integer.parseInt(mana);
         this.id = Integer.parseInt(id);
@@ -43,6 +51,9 @@ public class Card implements Cloneable{
         else this.price = 0;
         if(cardType.matches("hero")) {
             this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
+        }
+        if(this.cardType.matches("hero") || this.cardType.matches("minion") || this.cardType.matches("spell")) {
+            this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
         }
     }
 
