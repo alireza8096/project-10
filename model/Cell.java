@@ -24,7 +24,7 @@ public class Cell {
     public static void createCellsAndView() throws FileNotFoundException {
         for(int i=0; i<9; i++){
             for(int j=0; j<5; j++){
-                Map.getCellsView()[i][j]= MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/tiles_board.png");
+                Map.getCellsView()[i][j]= MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/tiles_board.png");
                 Map.getCellsView()[i][j].setScaleX(0.55);
                 Map.getCellsView()[i][j].setScaleY(0.55);
                 Map.getCellsView()[i][j].setX(510 + i*69);
@@ -39,7 +39,7 @@ public class Cell {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image selectedCell = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/tiles_board_select.png"));
+                    Image selectedCell = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/tiles_board_select.png"));
                     cell.setImage(selectedCell);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -50,7 +50,7 @@ public class Cell {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image normalCell = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/tiles_board.png"));
+                    Image normalCell = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/tiles_board.png"));
                     cell.setImage(normalCell);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

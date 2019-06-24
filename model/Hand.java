@@ -29,7 +29,7 @@ public class Hand {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image activated = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/cardActivatedInHand.png"));
+                    Image activated = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/cardActivatedInHand.png"));
                     cardInHand.setImage(activated);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -40,7 +40,7 @@ public class Hand {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    Image disabled = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/card_background_disabled@2x.png"));
+                    Image disabled = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/card_background_disabled@2x.png"));
                     cardInHand.setImage(disabled);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -52,7 +52,7 @@ public class Hand {
     public static void createHand() throws FileNotFoundException {
         HBox handView = new HBox();
         for(int i=0; i<5; i++){
-            cards[i] =  MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/card_background_disabled@2x.png");
+            cards[i] =  MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/card_background_disabled@2x.png");
             handView.getChildren().add(cards[i]);
             handleHand(cards[i]);
         }

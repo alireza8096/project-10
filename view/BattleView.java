@@ -69,10 +69,10 @@ public class BattleView {
         Image setImage;
         if (Game.getInstance().isPlayer1Turn()) {
             System.out.println("1");
-            setImage = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/button_end_turn_mine@2x.png"));
+            setImage = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/button_end_turn_mine@2x.png"));
         } else {
             System.out.println("2");
-            setImage = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/battle/button_end_turn_enemy@2x.png"));
+            setImage = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/battle/button_end_turn_enemy@2x.png"));
         }
         endTurn.setImage(setImage);
 
