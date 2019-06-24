@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import view.MenuView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import static javafx.application.Application.launch;

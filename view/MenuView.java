@@ -6,7 +6,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Window;
 import model.*;
 import model.Cell;
 import model.collection.Card;
@@ -28,12 +28,19 @@ import model.collection.HandleFiles;
 import model.collection.Hero;
 import model.collection.Item;
 
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
+import javax.management.ObjectName;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Stack;
 
-import static javafx.scene.paint.Color.*;
+import static javafx.scene.paint.Color.rgb;
+
+import javax.swing.event.HyperlinkListener;
+import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class MenuView {
 
@@ -250,7 +257,7 @@ public class MenuView {
                 showMainMenu();
                 break;
             case "Collection":
-//                showCollection();
+                showCollection();
                 break;
             case "Shop":
                 showShop();
