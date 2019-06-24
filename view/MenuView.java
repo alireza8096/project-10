@@ -1,6 +1,7 @@
 package view;
 
 import controller.CollectionController;
+import controller.Controller;
 import controller.MenusCommandController;
 import controller.ShopController;
 import javafx.event.EventHandler;
@@ -31,6 +32,7 @@ import model.collection.Item;
 import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static javafx.scene.paint.Color.*;
@@ -85,6 +87,7 @@ public class MenuView {
     }
 
     public static void showMainMenu() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
         MainView.primaryStage.setMaximized(true);
 
@@ -123,12 +126,12 @@ public class MenuView {
         helpOption.setTextFill(Color.WHITE);
 
         vBox.setSpacing(15);
-        vBox.setMargin(shopHBox, new Insets(40, 10, 10, 100));
-        vBox.setMargin(collectionOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(battleOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(helpOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(exitOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(logoutOption, new Insets(7, 10, 10, 100));
+        VBox.setMargin(shopHBox, new Insets(40, 10, 10, 100));
+        VBox.setMargin(collectionOption, new Insets(7, 10, 10, 100));
+        VBox.setMargin(battleOption, new Insets(7, 10, 10, 100));
+        VBox.setMargin(helpOption, new Insets(7, 10, 10, 100));
+        VBox.setMargin(exitOption, new Insets(7, 10, 10, 100));
+        VBox.setMargin(logoutOption, new Insets(7, 10, 10, 100));
 
         vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
@@ -151,8 +154,11 @@ public class MenuView {
     //Todo : define a style for text and image
     public static void showShop() throws FileNotFoundException {
         AllDatas.currentRoot.getChildren().clear();
+        Shop.setRightVBox(new VBox());
+        Shop.setLeftVBox(new VBox());
+
         MainView.primaryStage.setScene(AllDatas.currentScene);
-        MainView.primaryStage.setMaximized(true);
+//        MainView.primaryStage.setMaximized(true);
 
         setScrollBar();
 
@@ -195,12 +201,46 @@ public class MenuView {
         VBox.setMargin(itemHBox, new Insets(10, 100, 10, 30));
         VBox.setMargin(heroesHBox, new Insets(10, 100, 10, 30));
 
-        Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox);
+
+        Shop.getLeftVBox().setPadding(new Insets(50, 10, 10, 10));
+        Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox, setBackButtonForShop());
 
         AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
 
         ShopController.handleEventsOfShop(minionText, spellText, itemText, heroText);
 
+    }
+
+    public static StackPane setBackButtonForShop(){
+        ImageView backButton = null;
+        try {
+            backButton = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/collection/blueButton.png")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assert backButton != null;
+        backButton.setFitWidth(100);
+        backButton.setFitHeight(60);
+
+        Text text = new Text("Back");
+        text.setFont(Font.font(25));
+        text.setFill(Color.rgb(204, 249, 255));
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().addAll(backButton, text);
+        stackPane.setAlignment(Pos.CENTER);
+
+        GameView.makeImageGlowWhileMouseEnters(stackPane);
+
+        stackPane.setOnMouseClicked(event -> {
+            try {
+                Controller.enterMainMenu();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        return stackPane;
     }
 
     public static void setScrollBar() {
@@ -625,18 +665,42 @@ public class MenuView {
         VBox cardsVBox = new VBox();
         VBox itemsVBox = new VBox();
 
-        ArrayList<Card> cards = new ArrayList<>();
+        AllDatas.currentRoot.getChildren().addAll(cardsVBox, itemsVBox);
 
-        for (int i = 0; i < cardsInCollection.size(); i += 4) {
-
+        for (int i = 0; i < cardsInCollection.size(); i++) {
+            if (i + 3 < cardsInCollection.size()){
+                HBox hBox = new HBox();
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 1));
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 2));
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 3));
+                cardsVBox.getChildren().add(hBox);
+            }else if (i + 2 < cardsInCollection.size()){
+                HBox hBox = new HBox();
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 1));
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 2));
+                cardsVBox.getChildren().add(hBox);
+            }else if (i + 1 < cardsInCollection.size()){
+                HBox hBox = new HBox();
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 1));
+                cardsVBox.getChildren().add(hBox);
+            }else {
+                HBox hBox = new HBox();
+                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
+                cardsVBox.getChildren().add(hBox);
+            }
         }
 
 
 
     }
 
-    public static void setAppearanceOfCardsInCollection(){
+    public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
+        ImageView cardImage = card.getImageViewOfCard();
 
+        hBox.getChildren().add(cardImage);
     }
 
     public static void showDecksInCollection(){
