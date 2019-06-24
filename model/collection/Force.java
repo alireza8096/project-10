@@ -281,14 +281,14 @@ public class Force extends Card{
         }
         return false;
     }
-    public static Force returnEnemyCardByIDFromMap(int id){
-        for (Minion minion:
+    public static Force returnEnemyCardByIDFromMap(int id) {
+        for (Minion minion :
                 Game.getInstance().getMap().getEnemyMinions()) {
-            if(minion.id == id){
+            if (minion.id == id) {
                 return minion;
             }
         }
-        if(Game.getInstance().getMap().getEnemyHero().id == id){
+        if (Game.getInstance().getMap().getEnemyHero().id == id) {
             return Game.getInstance().getMap().getEnemyHero();
         }
         return null;

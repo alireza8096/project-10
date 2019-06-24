@@ -1,12 +1,16 @@
 package model;
 
+import controller.AI;
+import controller.BattleController;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.collection.Buff;
+import model.collection.Card;
 import model.collection.HandleFiles;
+import model.collection.Hero;
 import view.MainView;
 
 import java.io.FileInputStream;
@@ -23,27 +27,17 @@ public class Cell {
     private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
     private CellItemType cellItemType;
 
-    public static void createForceView(){
+    public static void handleForce() throws CloneNotSupportedException {
         for(int i=0; i<9; i++){
             for(int j=0; j<5; j++){
-                Map.getForcesView()[i][j] = new ImageView();
-                Map.getForcesView()[i][j].setX(Map.getCellsView()[i][j].getX());
-                Map.getForcesView()[i][j].setY(Map.getCellsView()[i][j].getY()-25);
-                handleEventForce(Map.getForcesView()[i][j]);
-                AllDatas.currentRoot.getChildren().add(Map.getForcesView()[i][j]);
+                handleEventForce(Map.getForcesView()[i][j],j,i);
             }
         }
     }
-    public static void createCellsAndView() throws FileNotFoundException {
+    public static void handleCell() throws FileNotFoundException {
         for(int i=0; i<9; i++){
             for(int j=0; j<5; j++){
-                Map.getCellsView()[i][j]= MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png");
-                Map.getCellsView()[i][j].setScaleX(0.55);
-                Map.getCellsView()[i][j].setScaleY(0.55);
-                Map.getCellsView()[i][j].setX(510 + i*69);
-                Map.getCellsView()[i][j].setY(320+j*69);
                 handleEventCell(Map.getCellsView()[i][j]);
-                AllDatas.currentRoot.getChildren().add(Map.getCellsView()[i][j]);
             }
         }
     }
@@ -51,40 +45,47 @@ public class Cell {
         cell.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    Image selectedCell = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/tiles_board_select.png"));
-                    cell.setImage(selectedCell);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                cell.setEffect(new Glow(0.7));
             }
         });
         cell.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    Image normalCell = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/tiles_board.png"));
-                    cell.setImage(normalCell);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
+                cell.setEffect(null);
             }
         });
     }
-    public static void handleEventForce(ImageView force){
-        force.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                force.setEffect(new Glow(0.7));
-            }
-        });
-        force.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                force.setEffect(null);
-            }
-        });
+    public static void handleCardAfterSelection(int x,int y) throws FileNotFoundException {
+        BattleController.move(x,y);
+    }
+    public static void handleEventForce(ImageView force,int x,int y){
+        if(Card.thisCardIsYours(x,y)) {
+            force.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    force.setEffect(new Glow(0.7));
+                }
+            });
+            force.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    force.setEffect(null);
+                }
+            });
+            force.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    force.setEffect(new Glow(0.7));
+                    try {
+                        System.out.println("***********");
+                        handleCardAfterSelection(x,y);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+//                    force.setDisable(true);
+                }
+            });
+        }
     }
     public int getCoordinateX() {
         return coordinateX;
