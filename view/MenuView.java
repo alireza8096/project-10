@@ -1,16 +1,14 @@
 package view;
 
+import controller.*;
 import controller.CollectionController;
 import controller.Controller;
 import controller.MenusCommandController;
 import controller.ShopController;
-import controller.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -31,8 +29,8 @@ import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import model.collection.Item;
+import org.json.simple.parser.ParseException;
 
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -256,6 +254,7 @@ public class MenuView {
     }
 
     public static void showBattle() throws FileNotFoundException, CloneNotSupportedException {
+        AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
         MainView.primaryStage.setMaximized(true);
 
@@ -600,6 +599,11 @@ public class MenuView {
     }
 
     public static void showCollection() throws FileNotFoundException {
+        try {
+            Controller.sampleGame();
+        } catch (CloneNotSupportedException | IOException | ParseException e) {
+            e.printStackTrace();
+        }
         AllDatas.currentRoot.getChildren().clear();
         setBackGroundOfCollection();
 
@@ -668,44 +672,57 @@ public class MenuView {
 
         ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
         ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
+        ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
 
         VBox cardsVBox = new VBox();
         VBox itemsVBox = new VBox();
+        VBox heroesVBox = new VBox();
 
-        AllDatas.currentRoot.getChildren().addAll(cardsVBox, itemsVBox);
+        VBox generalVBox = new VBox(cardsVBox, itemsVBox, heroesVBox);
 
-        for (int i = 0; i < cardsInCollection.size(); i++) {
-            if (i + 3 < cardsInCollection.size()){
+        AllDatas.currentRoot.getChildren().add(generalVBox);
+
+//        addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
+//        addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
+        addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
+    }
+
+    public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
+        for (int i = 0; i < cards.size(); i++) {
+            if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 1));
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 2));
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 3));
-                cardsVBox.getChildren().add(hBox);
-            }else if (i + 2 < cardsInCollection.size()){
+                setAppearanceOfCardsInCollection(hBox, cards.get(i));
+                setAppearanceOfCardsInCollection(hBox, cards.get(i + 1));
+                setAppearanceOfCardsInCollection(hBox, cards.get(i + 2));
+                setAppearanceOfCardsInCollection(hBox, cards.get(i + 3));
+                vBox.getChildren().add(hBox);
+                i += 3;
+            }else if (i + 2 < cards.size()){
                 HBox hBox = new HBox();
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 1));
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 2));
-                cardsVBox.getChildren().add(hBox);
-            }else if (i + 1 < cardsInCollection.size()){
+                setAppearanceOfCardsInCollection(hBox, cards.get(i));
+                setAppearanceOfCardsInCollection(hBox, cards.get(i + 1));
+                setAppearanceOfCardsInCollection(hBox, cards.get(i + 2));
+                vBox.getChildren().add(hBox);
+                i += 3;
+            }else if (i + 1 < cards.size()){
                 HBox hBox = new HBox();
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i + 1));
-                cardsVBox.getChildren().add(hBox);
+                setAppearanceOfCardsInCollection(hBox, cards.get(i));
+                setAppearanceOfCardsInCollection(hBox, cards.get(i + 1));
+                vBox.getChildren().add(hBox);
+                i += 3;
             }else {
                 HBox hBox = new HBox();
-                setAppearanceOfCardsInCollection(hBox, cardsInCollection.get(i));
-                cardsVBox.getChildren().add(hBox);
+                setAppearanceOfCardsInCollection(hBox, cards.get(i));
+                vBox.getChildren().add(hBox);
+                i += 3;
             }
         }
-
-
-
     }
 
     public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
         ImageView cardImage = card.getImageViewOfCard();
+        cardImage.setFitWidth(200);
+        cardImage.setFitHeight(200);
 
         hBox.getChildren().add(cardImage);
     }

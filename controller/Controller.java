@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import view.MenuView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import static javafx.application.Application.launch;
@@ -191,6 +192,16 @@ public class Controller {
         Shop.buyCardAndAddToCollection("Siavash");
         Shop.buyCardAndAddToCollection("Nane Sarma");
         Shop.buyCardAndAddToCollection("Arjhang Div");
+        //
+        Shop.buyCardAndAddToCollection("Afsaneh");
+        Shop.buyCardAndAddToCollection("Div Sefid");
+        Shop.buyCardAndAddToCollection("Kaveh");
+        Shop.buyCardAndAddToCollection("Rakhsh");
+        Shop.buyCardAndAddToCollection("Rostam");
+        Shop.buyCardAndAddToCollection("Zahhak");
+        Shop.buyCardAndAddToCollection("Simorgh");
+        Shop.buyCardAndAddToCollection("Esfandiyar");
+        //
         Deck.createDeck("bahar");
         Deck.addCardOrItemToDeck(107,"bahar");
         Deck.addCardOrItemToDeck(401,"bahar");

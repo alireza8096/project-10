@@ -32,7 +32,6 @@ public class MainView extends Application {
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         primaryStage = stage;
-//        primaryStage.setMaximized(true);
         primaryStage.setX(primaryScreenBounds.getMinX());
         primaryStage.setY(primaryScreenBounds.getMinY());
         primaryStage.setWidth(primaryScreenBounds.getWidth());

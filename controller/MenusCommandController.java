@@ -219,7 +219,7 @@ public class MenusCommandController {
         battle.setOnAction(event -> {
             try {
                 Controller.enterBattle();
-            } catch (CloneNotSupportedException e) {
+            } catch (CloneNotSupportedException | IOException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
                 System.out.println(e.getMessage());
