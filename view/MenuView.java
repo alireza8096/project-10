@@ -492,8 +492,6 @@ public class MenuView {
         cardImage.setX(WINDOW_WIDTH / 2 + 80);
         cardImage.setY(WINDOW_HEIGHT / 2 - 250);
 
-        cardHBox.getChildren().add(cardImage);
-
         buyCardButton.setFitWidth(200);
         buyCardButton.setFitHeight(70);
         cancelButton.setFitWidth(200);
@@ -511,23 +509,37 @@ public class MenuView {
         cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
         cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
 
+        cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
 
-        addPriceAndManaForShowingCard(card, cardHBox);
-
-        ShopController.handleEventsOfBuyingCard(card, cardImage, cancelButton, buyCardButton, hBox);
+//        ShopController.handleEventsOfBuyingCard(card, cardImage, cancelButton, buyCardButton, hBox);
+        ShopController.handleEventsOfBuyingCard(cardHBox, hBox, cancelButton, buyCardButton, card);
     }
 
-    public static void addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
+    public static VBox addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
         ImageView priceBack = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_back.png")));
         ImageView manaBack = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_back.png")));
         ImageView priceIcon = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/price_icon.png")));
         ImageView manaIcon = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop/icon_mana.png")));
+
+        priceBack.setFitWidth(200);
+        priceBack.setFitHeight(70);
+        manaBack.setFitWidth(200);
+        manaBack.setFitHeight(70);
+        priceIcon.setFitWidth(100);
+        priceIcon.setFitHeight(120);
+        manaIcon.setFitWidth(60);
+        manaIcon.setFitHeight(70);
 
         int price = card.getPrice();
         int mana = card.getMana();
 
         Text priceText = new Text(Integer.toString(price));
         Text manaText = new Text(Integer.toString(mana));
+
+        priceText.setFont(Font.font(20));
+        manaText.setFont(Font.font(20));
+        priceText.setFill(Color.rgb(193, 244, 240));
+        manaText.setFill(Color.rgb(193, 244, 240));
 
         VBox vBox = new VBox();
 
@@ -541,12 +553,11 @@ public class MenuView {
 
         manaStackPane.getChildren().addAll(manaBack, manaIcon, manaText);
         StackPane.setAlignment(manaBack, Pos.CENTER);
-        StackPane.setAlignment(manaIcon, Pos.CENTER_LEFT);
         StackPane.setAlignment(manaText, Pos.CENTER);
+        StackPane.setAlignment(manaIcon, Pos.CENTER_LEFT);
 
         vBox.getChildren().addAll(priceStackPane, manaStackPane);
-        cardHBox.getChildren().add(vBox);
 
-        AllDatas.currentRoot.getChildren().add(vBox);
+        return vBox;
     }
 }
