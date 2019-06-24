@@ -3,9 +3,11 @@ package view;
 import controller.Controller;
 import javafx.application.Application;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.AllDatas;
 import model.Shop;
@@ -27,10 +29,13 @@ public class MainView extends Application {
         Shop.setLeftVBox(new VBox());
         Shop.getRightVBox().setLayoutX(300);
 
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
-     //   MenuView.setVBoxForShowingMinionCards();
         primaryStage = stage;
-        primaryStage.setMaximized(true);
+        primaryStage.setX(primaryScreenBounds.getMinX());
+        primaryStage.setY(primaryScreenBounds.getMinY());
+        primaryStage.setWidth(primaryScreenBounds.getWidth());
+        primaryStage.setHeight(primaryScreenBounds.getHeight());
 
         Controller.enterLoginMenu();
         MenuView.showLoginMenu();

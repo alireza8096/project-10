@@ -2,6 +2,7 @@ package view;
 
 import controller.BattleController;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
@@ -130,19 +131,19 @@ public class GameView {
         alert.show();
     }
 
-    public static void makeImageGlowWhileMouseEnters(ImageView imageView){
-        imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+    public static void makeImageGlowWhileMouseEnters(Node node){
+        node.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 Glow glow = new Glow(0.9);
-                imageView.setEffect(glow);
+                node.setEffect(glow);
             }
         });
 
-        imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
+        node.setOnMouseExited(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                imageView.setEffect(null);
+                node.setEffect(null);
             }
         });
     }
