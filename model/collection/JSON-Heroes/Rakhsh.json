@@ -18,5 +18,7 @@
   "last" :"1",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Heros/Rakhsh/general_portrait_image_hex_f6-third@2x.png"
+  "imagePath" : "view/Photos/Heros/Rakhsh/general_portrait_image_hex_f6-third@2x.png",
+  "forceInField" : "view/Photos/Heros/Afsaneh/f2_altgeneraltier2_breathing.gif"
+
 }

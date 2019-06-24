@@ -1,6 +1,8 @@
 package model.collection;
 
+import javafx.scene.image.ImageView;
 import model.Game;
+import view.MainView;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -31,6 +33,7 @@ public class Force extends Card{
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
+    private ImageView forceInField;
 
     public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
@@ -39,7 +42,7 @@ public class Force extends Card{
         return returnString;
     }
 
-    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets,String imagePath) throws FileNotFoundException {
+    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets,String imagePath,String inField) throws FileNotFoundException {
         super(mana, id, cardType, name, price,imagePath);
         this.targets = returnArrayList(targets);
         this.numOfTargets = returnArrayList(numOfTargets);
@@ -52,6 +55,9 @@ public class Force extends Card{
         this.actionTypes = returnArrayList(actionTypes);
         this.specialPower = specialPower;
         this.locationOfTargets = returnArrayList(locationOfTargets);
+        if(this.cardType.matches("hero")) {
+            this.forceInField = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + inField);
+        }
     }
 
     public ArrayList<String> getTargets() {

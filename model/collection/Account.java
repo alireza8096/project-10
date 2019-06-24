@@ -2,6 +2,7 @@ package model.collection;
 
 import controller.AI;
 import controller.Controller;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.CornerRadii;
 import model.AllDatas;
 import model.Deck;
@@ -33,8 +34,11 @@ public class Account {
             GameView.printInvalidCommandWithThisContent("Invalid Username!");
         }
         else {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("Account created successfully");
+            alert.show();
             writeJustCreatedPlayerToFile(name,password,"true");
-            Controller.enterMainMenu();
+//            Controller.enterMainMenu();
             players.add(name);
         }
     }
@@ -69,7 +73,7 @@ public class Account {
         tempPlayer.put("daric",150000000);
         tempPlayer.put("numOfWins",0);
         tempPlayer.put("justCreated",justCreated);
-        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER+name+".json"),tempPlayer.toJSONString().getBytes());
+        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/"+name+".json"),tempPlayer.toJSONString().getBytes());
     }
     public static boolean usernameAlreadyExists(String checkName){
         for (String name: players) {
@@ -94,10 +98,10 @@ public class Account {
         }
         jsonObject.put("mainDeck",returnStringOfDeck(player.getMainDeck()));
         jsonObject.put("collection",returnStringOfCollection(player));
-        Files.write(Paths.get(PLAYERS_FOLDER + player.getUserName()+".json"),jsonObject.toJSONString().getBytes());
+        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE+PLAYERS_FOLDER + player.getUserName()+".json"),jsonObject.toJSONString().getBytes());
     }
     public static boolean checkCorrectPassword(String name,String password) throws Exception{
-        JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER+name+".json");
+        JSONObject jsonObject = (JSONObject) readPlayerFromFile(HandleFiles.BEFORE_RELATIVE+PLAYERS_FOLDER + "/"+name+".json");
         return jsonObject.get("password").toString().matches(password);
     }
     public static String returnStringOfDeck(Deck deck){
@@ -170,7 +174,7 @@ public class Account {
         setPlayerThatHasPlayedBefore(name);
     }
     public static void setJustCreatedPlayer(String name) throws Exception {
-        JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER + name + ".json");
+        JSONObject jsonObject = (JSONObject) readPlayerFromFile(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER +"/"+ name + ".json");
         Player player;
         if(jsonObject.get("justCreated").toString().matches("true")) {
             player = new Player(
@@ -190,7 +194,7 @@ public class Account {
         }
     }
     public static void setPlayerThatHasPlayedBefore(String name) throws Exception {
-        JSONObject jsonObject = (JSONObject) readPlayerFromFile(PLAYERS_FOLDER + name + ".json");
+        JSONObject jsonObject = (JSONObject) readPlayerFromFile(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER+"/" + name + ".json");
         Player player;
         if(jsonObject.get("justCreated").toString().matches("false")){
             player = new Player(
@@ -212,8 +216,8 @@ public class Account {
             createCollectionFromString(player,(String)jsonObject.get("collection"));
             Game createGame = new Game();
             Game.setCurrentGame(createGame);
-            model.Map map = new Map();
-            Game.getInstance().setMap(map);
+//            model.Map map = new Map();
+//            Game.getInstance().setMap(map);
             Game.getInstance().setPlayer1(player);
             Game.getInstance().setPlayer1Turn(true);
         }

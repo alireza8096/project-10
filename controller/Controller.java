@@ -146,10 +146,9 @@ public class Controller {
     }
 
     public static void enterBattle() throws FileNotFoundException, CloneNotSupportedException {
-        Game game = new Game();
-        game.setMap(new Map());
-        game.setPlayer1Turn(true);
-        Game.setCurrentGame(game);
+        Game.getInstance().setMap(new Map());
+        Hero.insertHeroInMap();
+        Hand.setHand();
         AI.createAIPlayer();
         AllDatas.currentRoot = AllDatas.battle.getRoot();
         AllDatas.currentScene = AllDatas.battle.getScene();
