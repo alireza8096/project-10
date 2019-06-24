@@ -10,8 +10,8 @@ public class Shop{
     private static VBox rightVBox;
     private static VBox leftVBox;
 
-    public static final int CARD_IN_SHOP_WIDTH = 200;
-    public static final int CARD_IN_SHOP_HEIGHT = 300;
+    public static final int CARD_IN_SHOP_WIDTH = 170;
+    public static final int CARD_IN_SHOP_HEIGHT = 270;
 
     private static VBox minionCardsVBox = new VBox();
     private static VBox spellCardsVBox = new VBox();

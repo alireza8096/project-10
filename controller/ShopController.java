@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -150,9 +151,9 @@ public class ShopController {
         heroes.setOnAction(event -> MenuView.showHeroesInShop());
     }
 
-    public static void handleEventsOfBuyingCard(Card card, ImageView cardImage, ImageView cancelButton, ImageView buyButton, HBox hBox){
+    public static void handleEventsOfBuyingCard(HBox cardHBox, HBox buttonsHBox , ImageView cancelButton, ImageView buyButton, Card card/*Card card, ImageView cardImage, ImageView cancelButton, ImageView buyButton, HBox hBox*/){
         cancelButton.setOnMouseClicked(event -> {
-           AllDatas.currentRoot.getChildren().removeAll(cardImage, hBox);
+           AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
             MenuView.removeBlurEffectOfWindow();
             Shop.setIsShowingSpecificCard(false);
         });
@@ -160,6 +161,7 @@ public class ShopController {
         buyButton.setOnMouseClicked(event -> {
             try {
                 Shop.buyCardAndAddToCollection(card.getName());
+
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }

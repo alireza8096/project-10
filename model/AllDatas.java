@@ -16,6 +16,11 @@ public class AllDatas {
     public static LinkedListMenus shop;
     public static LinkedListMenus battle;
     public static LinkedListMenus help;
+
+//    public static LinkedListMenus cardsInCollection;
+//    public static LinkedListMenus decksInCollection;
+
+
     public static boolean hasEnteredAccount = false;
     public static boolean hasEnteredCollection = false;
     public static boolean hasEnteredShop = false;

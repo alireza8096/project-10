@@ -49,7 +49,6 @@ public class Card implements Cloneable{
         this.name = name;
         if (!price.equals("null")) this.price = Integer.parseInt(price);
         else this.price = 0;
-        System.out.println(HandleFiles.BEFORE_RELATIVE + imagePath);
         if(cardType.matches("hero")) {
             this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
         }

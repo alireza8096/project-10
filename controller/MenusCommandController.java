@@ -208,13 +208,17 @@ public class MenusCommandController {
             }
         });
 
-        collection.setOnAction(event -> Controller.enterColllection());
+        collection.setOnAction(event -> {
+            try {
+                Controller.enterCollection();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
         battle.setOnAction(event -> {
             try {
                 Controller.enterBattle();
-            } catch (IOException e) {
-                e.printStackTrace();
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             } catch (ParseException e) {
@@ -231,9 +235,9 @@ public class MenusCommandController {
         logout.setOnAction(event -> {
             try {
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
-            } catch (FileNotFoundException e) {
+            } catch (FileNotFoundException | ParseException e) {
                 e.printStackTrace();
-            } catch (IOException | CloneNotSupportedException | ParseException e) {
+            } catch (IOException | CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         });
@@ -253,7 +257,7 @@ public class MenusCommandController {
                 Controller.enterMainMenu();
                 break;
             case "Collection":
-                Controller.enterColllection();
+                Controller.enterCollection();
                 break;
             case "Shop":
                 Controller.enterShop();

@@ -1,5 +1,8 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import model.*;
 import model.Game;
 import model.collection.Card;
@@ -7,6 +10,7 @@ import model.collection.Hero;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import view.GameView;
+import view.MenuView;
 
 import javax.swing.text.DefaultEditorKit;
 import java.io.IOException;
@@ -238,4 +242,10 @@ public class CollectionController {
     }
 
     */
+
+    public static void handleEventsOfCollectionOptions(ImageView showCardsButton, ImageView showDecksButton){
+        showCardsButton.setOnMouseClicked(event -> MenuView.showCardsInCollection());
+
+        showDecksButton.setOnMouseClicked(event -> MenuView.showDecksInCollection());
+    }
 }
