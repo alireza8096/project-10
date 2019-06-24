@@ -105,7 +105,7 @@ public class MenuView {
         shopOption.setFont(Font.font(java.awt.Font.SERIF, 25));
         shopOption.setTextFill(Color.WHITE);
 
-        Image shopIcon = new Image(new FileInputStream("/Users/hamilamailee/Documents/project-10/view/Photos/shop@2x.png"));
+        Image shopIcon = new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/shop@2x.png"));
         ImageView shopIconImage = new ImageView(shopIcon);
         shopIconImage.setFitWidth(40);
         shopIconImage.setFitHeight(40);
@@ -225,11 +225,11 @@ public class MenuView {
         MainView.primaryStage.setScene(AllDatas.currentScene);
         MainView.primaryStage.setMaximized(true);
 
-        ImageView background = MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/background@2x.jpg");
+        ImageView background = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
-        ImageView middleGround = MainView.getPhotoWithThisPath("/Users/hamilamailee/Documents/project-10/view/Photos/battle/midground@2x.png");
+        ImageView middleGround = MainView.getPhotoWithThisPath("/Users/bahar/Desktop/DUELYST/view/Photos/battle/midground@2x.png");
         middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
