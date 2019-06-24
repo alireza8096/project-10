@@ -1,18 +1,12 @@
 package controller;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import view.MenuView;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
-import java.util.concurrent.Callable;
 
 import static javafx.application.Application.launch;
 
@@ -31,7 +25,7 @@ public class Controller {
 
 
 
-    public static void createAllMenus() throws FileNotFoundException {
+    public static void createAllMenus() {
         AllDatas.account= new LinkedListMenus("Account",true);
         AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
         AllDatas.commandLine = new LinkedListMenus("Command Line",false);
@@ -48,6 +42,11 @@ public class Controller {
         AllDatas.collection.setParent(AllDatas.commandLine);
         AllDatas.shop.setParent(AllDatas.commandLine);
         AllDatas.battle.setParent(AllDatas.commandLine);
+
+//        AllDatas.cardsInCollection = new LinkedListMenus("cardsInCollection", false);
+//        AllDatas.decksInCollection = new LinkedListMenus("decksInCollection", false);
+//        AllDatas.cardsInCollection.setParent(AllDatas.collection);
+//        AllDatas.decksInCollection.setParent(AllDatas.collection);
 
    //     Controller.enterLoginMenu();
 //        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
@@ -66,9 +65,12 @@ public class Controller {
         LinkedListMenus.allMenus.add(AllDatas.shop);
         LinkedListMenus.allMenus.add(AllDatas.battle);
         LinkedListMenus.allMenus.add(AllDatas.help);
+//        LinkedListMenus.allMenus.add(AllDatas.cardsInCollection);
+//        LinkedListMenus.allMenus.add(AllDatas.decksInCollection);
 
     }
     public static void handleCommands(Scanner scanner) throws Exception{
+        assert LinkedListMenus.whichMenuNow() != null;
         switch (LinkedListMenus.whichMenuNow().getMenuName()) {
             case "Account":
                 System.out.println("account");
@@ -140,9 +142,14 @@ public class Controller {
         MenuView.showShop();
     }
 
-    public static void enterColllection(){
+    public static void enterCollection() throws FileNotFoundException {
         AllDatas.currentRoot = AllDatas.collection.getRoot();
         AllDatas.currentScene = AllDatas.collection.getScene();
+
+        AllDatas.collection.setNowInThisMenu(true);
+        AllDatas.commandLine.setNowInThisMenu(false);
+
+        MenuView.showCollection();
     }
 
     public static void enterBattle() throws FileNotFoundException, CloneNotSupportedException {

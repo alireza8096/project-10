@@ -1,23 +1,16 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
 import model.collection.Account;
-import model.collection.Card;
 import view.BattleView;
-import view.GameView;
-import view.MenuView;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -207,14 +200,18 @@ public class MenusCommandController {
             }
         });
 
-        collection.setOnAction(event -> Controller.enterColllection());
+        collection.setOnAction(event -> {
+            try {
+                Controller.enterCollection();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
         battle.setOnAction(event -> {
             try {
                 Controller.enterBattle();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (CloneNotSupportedException e) {
+            } catch (IOException | CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         });
@@ -250,7 +247,7 @@ public class MenusCommandController {
                 Controller.enterMainMenu();
                 break;
             case "Collection":
-                Controller.enterColllection();
+                Controller.enterCollection();
                 break;
             case "Shop":
                 Controller.enterShop();

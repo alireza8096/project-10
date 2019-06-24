@@ -1,13 +1,13 @@
 package view;
 
-import controller.Controller;
+import controller.CollectionController;
 import controller.MenusCommandController;
 import controller.ShopController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -22,27 +22,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Window;
-import model.AllDatas;
+import model.*;
 import model.Cell;
-import model.Hand;
-import model.LinkedListMenus;
-import model.Shop;
 import model.collection.Card;
 import model.collection.HandleFiles;
+import model.collection.Item;
 
-import javax.management.ObjectName;
+import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Stack;
+import java.util.ArrayList;
 
-import static javafx.scene.paint.Color.rgb;
-
-import javax.swing.event.HyperlinkListener;
-import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import static javafx.scene.paint.Color.*;
 
 public class MenuView {
 
@@ -152,7 +143,7 @@ public class MenuView {
         backgroundImageView.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         backgroundImageView.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
-        AllDatas.currentRoot.getChildren().addAll(backgroundImageView);
+        AllDatas.currentRoot.getChildren().add(backgroundImageView);
 
 
     }
@@ -165,7 +156,7 @@ public class MenuView {
 
         setScrollBar();
 
-        ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/shopBackground.jpg");
+        ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/blurBackground.jpg");
         background.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         background.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
         AllDatas.currentRoot.getChildren().add(background);
@@ -255,7 +246,7 @@ public class MenuView {
                 showMainMenu();
                 break;
             case "Collection":
-//                showCollection();
+                showCollection();
                 break;
             case "Shop":
                 showShop();
@@ -559,5 +550,96 @@ public class MenuView {
         vBox.getChildren().addAll(priceStackPane, manaStackPane);
 
         return vBox;
+    }
+
+    public static void showCollection() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+        setBackGroundOfCollection();
+
+        StackPane stackPane = new StackPane();
+        AllDatas.currentRoot.getChildren().add(stackPane);
+        stackPane.setAlignment(Pos.CENTER);
+
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+        MainView.primaryStage.setMaximized(true);
+
+        showOptionsInCollection(stackPane);
+    }
+
+    public static void setBackGroundOfCollection() throws FileNotFoundException {
+        ImageView backGround = new ImageView(new Image(new FileInputStream(
+                "/Users/bahar/Desktop/DUELYST/view/Photos/blurBackground.jpg")));
+        backGround.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
+        backGround.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
+
+        AllDatas.currentRoot.getChildren().add(backGround);
+    }
+
+    public static void showOptionsInCollection(StackPane stackPane) throws FileNotFoundException {
+        ImageView showCardsButton = new ImageView(new Image(new FileInputStream(
+                "/Users/bahar/Desktop/DUELYST/view/Photos/collection/blueButton.png")));
+        showCardsButton.setFitWidth(300);
+        showCardsButton.setFitHeight(120);
+        ImageView showDecksButton = new ImageView(new Image(new FileInputStream(
+                "/Users/bahar/Desktop/DUELYST/view/Photos/collection/blueButton.png")));
+        showDecksButton.setFitWidth(300);
+        showDecksButton.setFitHeight(120);
+
+        GameView.makeImageGlowWhileMouseEnters(showCardsButton);
+        GameView.makeImageGlowWhileMouseEnters(showDecksButton);
+
+        Text cardsText= new Text("Show Cards");
+        cardsText.setFont(Font.font(25));
+        cardsText.setFill(Color.rgb(178, 247, 255));
+        Text decksText = new Text("Show Decks");
+        decksText.setFont(Font.font(25));
+        decksText.setFill(Color.rgb(178, 247, 255));
+
+        StackPane cardsStackPane = new StackPane(showCardsButton, cardsText);
+        cardsStackPane.setAlignment(Pos.CENTER);
+        StackPane itemsStackPane = new StackPane(showDecksButton, decksText);
+        itemsStackPane.setAlignment(Pos.CENTER);
+
+        HBox optionsHBox = new HBox(cardsStackPane, itemsStackPane);
+        optionsHBox.setPadding(new Insets(50));
+
+        stackPane.getChildren().add(optionsHBox);
+        stackPane.setAlignment(Pos.CENTER);
+        stackPane.setLayoutX(MenuView.WINDOW_WIDTH/2 - 150);
+        stackPane.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 120);
+
+        CollectionController.handleEventsOfCollectionOptions(showCardsButton, showDecksButton);
+    }
+
+    public static void showCardsInCollection(){
+        AllDatas.currentRoot.getChildren().clear();
+        try {
+            setBackGroundOfCollection();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
+        ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
+
+        VBox cardsVBox = new VBox();
+        VBox itemsVBox = new VBox();
+
+        ArrayList<Card> cards = new ArrayList<>();
+
+        for (int i = 0; i < cardsInCollection.size(); i += 4) {
+
+        }
+
+
+
+    }
+
+    public static void setAppearanceOfCardsInCollection(){
+
+    }
+
+    public static void showDecksInCollection(){
+
     }
 }
