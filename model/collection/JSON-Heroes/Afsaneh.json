@@ -18,5 +18,6 @@
   "last" :"null",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Heros/Afsaneh/general_portrait_image_hex_f2-alt@2x.png"
+  "imagePath" : "view/Photos/Heros/Afsaneh/general_portrait_image_hex_f2-alt@2x.png",
+  "forceInField" : "view/Photos/Heros/Afsaneh/f2_altgeneraltier2_breathing.gif"
 }

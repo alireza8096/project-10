@@ -267,12 +267,12 @@ public class Deck implements Cloneable {
             Deck deck = findDeckByName(deckName);
             setAllCardsMovable(deck);
             Game.getInstance().getPlayer1().setMainDeck(deck);
-            Map map = new Map();
-            Game.getInstance().setMap(map);
-            AI.createAIPlayer();
-            Hero.insertHeroInMap();
+//            Map map = new Map();
+//            Game.getInstance().setMap(map);
+//            AI.createAIPlayer();
+//            Hero.insertHeroInMap();
+//            Hand.setHand();
             deck.setDeckIsSelected(true);
-            Hand.setHand();
         }
     }
 }

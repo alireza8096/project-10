@@ -69,7 +69,6 @@ public class HandleFiles {
                 String price = jsonObject.get("price").toString();
                 String name = jsonObject.get("name").toString();
                 String id = jsonObject.get("id").toString();
-                String type = jsonObject.get("type").toString();
                 String desc = jsonObject.get("desc").toString();
                 String target = jsonObject.get("target").toString();
                 String numOfTarget = jsonObject.get("numOfTarget").toString();
@@ -85,8 +84,8 @@ public class HandleFiles {
                 String activationTime = jsonObject.get("activationTime").toString();
                 Spell spell = new Spell(target, numOfTarget, action, friendOrEnemy, locationOfTarget);
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
-//                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime);
-//                Item.getItems().add(item);
+                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime);
+                Item.getItems().add(item);
             }
         }
     }
@@ -117,7 +116,7 @@ public class HandleFiles {
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
-                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,"");
+                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,"","");
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
                 Minion.getMinions().add(minion);
             }
@@ -150,8 +149,9 @@ public class HandleFiles {
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("healthPoint").toString();
                 String imagePath = jsonObject.get("imagePath").toString();
+                String forceInField = jsonObject.get("forceInField").toString();
                 Hero hero = new Hero(mana, id, "hero", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType, attackRange,
-                        specialPower, action, locationOfTarget, coolDown, imagePath);
+                        specialPower, action, locationOfTarget, coolDown, imagePath,forceInField);
                 Buff.createBuffsForHero(hero, action, buffs, effectValue, delay, last);
                 Hero.getHeroes().add(hero);
             }

@@ -25,8 +25,8 @@ public class Hero extends Force implements Cloneable{
         return heroes;
     }
 
-    public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown,String imagePath) throws FileNotFoundException {
-        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets,imagePath);
+    public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown,String imagePath,String forceInField) throws FileNotFoundException {
+        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets,imagePath,forceInField);
         if (!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
         else this.coolDown = 0;
     }
