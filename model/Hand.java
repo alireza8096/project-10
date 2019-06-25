@@ -102,10 +102,12 @@ public class Hand {
             Card card = cardsInDeck.get(i);
             hand.getCardsInHand().add(card);
             if(card.getMana() <= Game.getInstance().getPlayer1().getNumOfMana()){
-                Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
+                Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
+                        "view/Photos/battle/cardActivatedInHand.png")));
             }
             else {
-                Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
+                        "view/Photos/battle/card_background_disabled@2x.png")));
             }
             Hand.cards[i].setImage(card.getForceInField());
             Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck().remove(card);

@@ -40,8 +40,8 @@ public class Cell {
                 Map.getCellsView()[i][j]= MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png");
                 Map.getCellsView()[i][j].setScaleX(0.55);
                 Map.getCellsView()[i][j].setScaleY(0.55);
-                Map.getCellsView()[i][j].setX(510 + i*69);
-                Map.getCellsView()[i][j].setY(320+j*69);
+                Map.getCellsView()[i][j].setX(510 + i*69 - 100);
+                Map.getCellsView()[i][j].setY(320+j*69 - 100);
                 handleEventCell(Map.getCellsView()[i][j]);
                 AllDatas.currentRoot.getChildren().add(Map.getCellsView()[i][j]);
             }

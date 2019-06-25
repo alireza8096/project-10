@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.*;
@@ -243,7 +244,7 @@ public class CollectionController {
 
     */
 
-    public static void handleEventsOfCollectionOptions(ImageView showCardsButton, ImageView showDecksButton){
+    public static void handleEventsOfCollectionOptions(Node showCardsButton, Node showDecksButton){
         showCardsButton.setOnMouseClicked(event -> MenuView.showCardsInCollection());
 
         showDecksButton.setOnMouseClicked(event -> MenuView.showDecksInCollection());

@@ -159,7 +159,6 @@ public class MenuView {
         Shop.setLeftVBox(new VBox());
 
         MainView.primaryStage.setScene(AllDatas.currentScene);
-//        MainView.primaryStage.setMaximized(true);
 
         setScrollBar();
 
@@ -256,7 +255,7 @@ public class MenuView {
     public static void showBattle() throws FileNotFoundException, CloneNotSupportedException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
-        MainView.primaryStage.setMaximized(true);
+//        MainView.primaryStage.setMaximized(true);
 
         ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
@@ -604,15 +603,16 @@ public class MenuView {
         } catch (CloneNotSupportedException | IOException | ParseException e) {
             e.printStackTrace();
         }
+        MainView.primaryStage.setScene(AllDatas.currentScene);
         AllDatas.currentRoot.getChildren().clear();
+        setScrollBar();
         setBackGroundOfCollection();
 
         StackPane stackPane = new StackPane();
         AllDatas.currentRoot.getChildren().add(stackPane);
         stackPane.setAlignment(Pos.CENTER);
 
-        MainView.primaryStage.setScene(AllDatas.currentScene);
-        MainView.primaryStage.setMaximized(true);
+//        MainView.primaryStage.setMaximized(true);
 
         showOptionsInCollection(stackPane);
     }
@@ -636,9 +636,6 @@ public class MenuView {
         showDecksButton.setFitWidth(300);
         showDecksButton.setFitHeight(120);
 
-        GameView.makeImageGlowWhileMouseEnters(showCardsButton);
-        GameView.makeImageGlowWhileMouseEnters(showDecksButton);
-
         Text cardsText= new Text("Show Cards");
         cardsText.setFont(Font.font(25));
         cardsText.setFill(Color.rgb(178, 247, 255));
@@ -648,10 +645,10 @@ public class MenuView {
 
         StackPane cardsStackPane = new StackPane(showCardsButton, cardsText);
         cardsStackPane.setAlignment(Pos.CENTER);
-        StackPane itemsStackPane = new StackPane(showDecksButton, decksText);
-        itemsStackPane.setAlignment(Pos.CENTER);
+        StackPane decksStackPane = new StackPane(showDecksButton, decksText);
+        decksStackPane.setAlignment(Pos.CENTER);
 
-        HBox optionsHBox = new HBox(cardsStackPane, itemsStackPane);
+        HBox optionsHBox = new HBox(cardsStackPane, decksStackPane);
         optionsHBox.setPadding(new Insets(50));
 
         stackPane.getChildren().add(optionsHBox);
@@ -659,7 +656,10 @@ public class MenuView {
         stackPane.setLayoutX(MenuView.WINDOW_WIDTH/2 - 150);
         stackPane.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 120);
 
-        CollectionController.handleEventsOfCollectionOptions(showCardsButton, showDecksButton);
+        GameView.makeImageGlowWhileMouseEnters(cardsStackPane);
+        GameView.makeImageGlowWhileMouseEnters(decksStackPane);
+
+        CollectionController.handleEventsOfCollectionOptions(cardsStackPane, decksStackPane);
     }
 
     public static void showCardsInCollection(){
@@ -679,6 +679,7 @@ public class MenuView {
         VBox heroesVBox = new VBox();
 
         VBox generalVBox = new VBox(cardsVBox, itemsVBox, heroesVBox);
+        generalVBox.setLayoutX(200);
 
         AllDatas.currentRoot.getChildren().add(generalVBox);
 
@@ -720,11 +721,36 @@ public class MenuView {
     }
 
     public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
+        StackPane cardPane = new StackPane();
+
+        Text manaText = new Text(Integer.toString(card.getMana()));
+        ImageView manaIcon = null;
+        manaText.setFont(Font.font("verdana", 20));
+        manaText.setFill(Color.rgb(204, 249, 255));
+
+        try {
+            manaIcon = new ImageView(new Image(new FileInputStream(
+                    "/Users/bahar/Desktop/DUELYST/view/Photos/collection/icon_mana.png")));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        StackPane manaPane = new StackPane(manaIcon, manaText);
+
         ImageView cardImage = card.getImageViewOfCard();
         cardImage.setFitWidth(200);
         cardImage.setFitHeight(200);
 
-        hBox.getChildren().add(cardImage);
+        Text cardName = new Text(card.getName());
+        cardName.setFont(Font.font(20));
+        VBox vBox = new VBox(cardImage, cardName, manaPane);
+
+//        cardPane.getChildren().addAll(cardImage, manaPane);
+//        StackPane.setAlignment(cardImage, Pos.CENTER);
+//        StackPane.setAlignment(manaPane, Pos.TOP_LEFT);
+//        StackPane.setMargin(manaPane, new Insets(30, 10, 10, 30));
+
+        hBox.getChildren().add(vBox);
     }
 
     public static void showDecksInCollection(){
