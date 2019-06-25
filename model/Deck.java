@@ -123,15 +123,19 @@ public class Deck implements Cloneable {
             Deck deck = Deck.exactDeck(deckName);
             switch (ID / 100) {
                 case 2:
+                    assert deck != null;
                     deck.itemsInDeck.add(Item.findItemByID(ID));
                     break;
                 case 3:
+                    assert deck != null;
                     deck.cardsInDeck.add(Minion.findMinionByID(ID));
                     break;
                 case 4:
+                    assert deck != null;
                     deck.cardsInDeck.add(Spell.findSpellByID(ID));
                     break;
                 case 1:
+                    assert deck != null;
                     deck.setHeroInDeck(Hero.findHeroByID(ID));
                     break;
             }

@@ -274,4 +274,24 @@ public class CollectionController {
             }
         });
     }
+
+    public static void handleEventsOfShowingDeckButtons(StackPane selectDeck, StackPane back){
+        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    MenuView.showOptionsInCollection();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        selectDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
+    }
 }

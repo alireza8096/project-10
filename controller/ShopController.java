@@ -160,6 +160,7 @@ public class ShopController {
 
         buyButton.setOnMouseClicked(event -> {
             try {
+
                 Shop.buyCardAndAddToCollection(card.getName());
                 AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
                 MenuView.removeBlurEffectOfWindow();

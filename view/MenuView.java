@@ -4,6 +4,7 @@ import com.sun.source.doctree.TextTree;
 import controller.*;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -40,6 +41,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static controller.Controller.sampleGame;
 import static javafx.scene.paint.Color.*;
@@ -558,7 +560,7 @@ public class MenuView {
         }
     }
 
-    public static void showCardForBuying (Card card) throws FileNotFoundException{
+    public static void showCardForBuying (Card card) throws FileNotFoundException {
 
         HBox cardHBox = new HBox();
         //Todo : set the card minion image itself
@@ -641,16 +643,7 @@ public class MenuView {
     }
 
     public static void showCollection() throws FileNotFoundException {
-        MainView.primaryStage.setScene(AllDatas.currentScene);
-        AllDatas.currentRoot.getChildren().clear();
-        setScrollBar();
-        setBackGroundOfCollection();
-
-        StackPane stackPane = new StackPane();
-        AllDatas.currentRoot.getChildren().add(stackPane);
-        stackPane.setAlignment(Pos.CENTER);
-
-        showOptionsInCollection(stackPane);
+        showOptionsInCollection();
     }
 
     public static void setBackGroundOfCollection() throws FileNotFoundException {
@@ -662,7 +655,16 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(backGround);
     }
 
-    public static void showOptionsInCollection(StackPane stackPane) throws FileNotFoundException {
+    public static void showOptionsInCollection() throws FileNotFoundException {
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+        AllDatas.currentRoot.getChildren().clear();
+        setScrollBar();
+        setBackGroundOfCollection();
+
+        StackPane stackPane = new StackPane();
+        AllDatas.currentRoot.getChildren().add(stackPane);
+        stackPane.setAlignment(Pos.CENTER);
+
         ImageView showCardsButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
         showCardsButton.setFitWidth(300);
@@ -706,6 +708,62 @@ public class MenuView {
         GameView.makeImageGlowWhileMouseEnters(cardsStackPane, decksStackPane, backStackPane);
 
         CollectionController.handleEventsOfCollectionOptions(cardsStackPane, decksStackPane, backStackPane);
+    }
+
+    public static void showDecksInCollection(){
+        try{
+
+            AllDatas.currentRoot.getChildren().clear();
+            setBackGroundOfCollection();
+
+            ArrayList<Deck> decks = Game.getInstance().getPlayer1().getDecksOfPlayer();
+
+            VBox generalVBox = new VBox();
+            generalVBox.setLayoutX(250);
+
+            VBox buttonsVBox = new VBox();
+
+            setButtonsVBoxForShowingDecks(buttonsVBox);
+
+            AllDatas.currentRoot.getChildren().add(buttonsVBox);
+
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
+        ImageView selectDeckButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        selectDeckButton.setFitWidth(200);
+        selectDeckButton.setFitHeight(80);
+
+        Text selectDeckText = new Text("Select Deck");
+        selectDeckText.setFont(Font.font(20));
+        selectDeckText.setFill(rgb(160, 255, 255));
+
+        StackPane selectDeckPane = new StackPane(selectDeckButton, selectDeckText);
+
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        backButton.setFitWidth(200);
+        backButton.setFitHeight(80);
+
+        Text backText = new Text("Back");
+        backText.setFont(Font.font(20));
+        backText.setFill(rgb(160, 255, 255));
+
+        StackPane backPane = new StackPane(backButton, backText);
+
+        GameView.makeImageGlowWhileMouseEnters(selectDeckPane, backPane);
+
+        vBox.getChildren().addAll(selectDeckPane, backPane);
+
+        VBox.setMargin(selectDeckPane, new Insets(30, 1, 1, 20));
+        VBox.setMargin(backPane, new Insets(20, 1, 1, 20));
+
+        CollectionController.handleEventsOfShowingDeckButtons(selectDeckPane, backPane);
     }
 
     public static void showCardsInCollection(){
@@ -764,7 +822,6 @@ public class MenuView {
     public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
         vBox.getChildren().clear();
         for (int i = 0; i < cards.size(); i++) {
-            System.out.println("__________card size : " + cards.size());
             if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
                 setAppearanceOfCardsInCollection(hBox, cards.get(i));
@@ -830,7 +887,5 @@ public class MenuView {
         hBox.getChildren().add(vBox);
     }
 
-    public static void showDecksInCollection(){
 
-    }
 }
