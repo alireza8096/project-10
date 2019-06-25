@@ -40,6 +40,7 @@ import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -712,26 +713,70 @@ public class MenuView {
 
     public static void showDecksInCollection(){
         try{
-
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
 
             ArrayList<Deck> decks = Game.getInstance().getPlayer1().getDecksOfPlayer();
 
             VBox generalVBox = new VBox();
-            generalVBox.setLayoutX(250);
+            generalVBox.setLayoutX(300);
 
             VBox buttonsVBox = new VBox();
 
             setButtonsVBoxForShowingDecks(buttonsVBox);
 
-            AllDatas.currentRoot.getChildren().add(buttonsVBox);
+            AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
+
+            for (Deck deck : decks){
+                showThisDeck(generalVBox, deck);
+            }
 
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
 
     }
+
+    public static void showThisDeck(VBox generalVBox, Deck deck) throws FileNotFoundException {
+        VBox deckVBox = new VBox();
+        AllDatas.currentRoot.getChildren().add(deckVBox);
+
+        Text constantText = new Text("Deck Name : ");
+        constantText.setFont(Font.font(null, FontWeight.BOLD, 25));
+        constantText.setFill(Color.rgb(33, 247, 255));
+        constantText.setStrokeWidth(1);
+        constantText.setStroke(Color.rgb(25, 112, 122));
+
+        ImageView leftCollapse = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/battlelog_button_collapse@2x.png")));
+        ImageView rightCollapse = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/battlelog_button_expand@2x.png")));
+
+        Text deckName = new Text(deck.getDeckName());
+        deckName.setFont(Font.font(null, FontWeight.BOLD, 25));
+        deckName.setFill(Color.rgb(33, 247, 255));
+        deckName.setStrokeWidth(1);
+        deckName.setStroke(Color.rgb(25, 112, 122));
+
+        HBox nameHBox = new HBox(constantText, leftCollapse, deckName, rightCollapse);
+        HBox.setMargin(deckName, new Insets(20, 1, 1, 1));
+        HBox.setMargin(constantText, new Insets(20, 1, 1, 1));
+        deckVBox.getChildren().add(nameHBox);
+
+        ArrayList<Card> cardsInDeck = deck.getCardsInDeck();
+        ArrayList<Item> itemsInDeck = deck.getItemsInDeck();
+        Hero hero = deck.getHeroInDeck();
+        ArrayList<Hero> heroes = new ArrayList<>();
+        heroes.add(hero);
+
+//        addCardsOfCollectionToVBox(cardsInDeck, deckVBox);
+//        addCardsOfCollectionToVBox(itemsInDeck, deckVBox);
+        addCardsOfCollectionToVBox(heroes, deckVBox);
+        generalVBox.getChildren().add(deckVBox);
+
+    }
+
+
 
     public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
         ImageView selectDeckButton = new ImageView(new Image(new FileInputStream(
@@ -820,7 +865,7 @@ public class MenuView {
     }
 
     public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
-        vBox.getChildren().clear();
+//        vBox.getChildren().clear();
         for (int i = 0; i < cards.size(); i++) {
             if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
