@@ -12,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +22,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import model.*;
 import model.Cell;
@@ -614,8 +617,6 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(stackPane);
         stackPane.setAlignment(Pos.CENTER);
 
-//        MainView.primaryStage.setMaximized(true);
-
         showOptionsInCollection(stackPane);
     }
 
@@ -637,6 +638,11 @@ public class MenuView {
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
         showDecksButton.setFitWidth(300);
         showDecksButton.setFitHeight(120);
+        ImageView backButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
+                "view/Photos/collection/blueButton.png")));
+        backButton.setFitWidth(300);
+        backButton.setFitHeight(120);
+
 
         Text cardsText= new Text("Show Cards");
         cardsText.setFont(Font.font(25));
@@ -644,50 +650,83 @@ public class MenuView {
         Text decksText = new Text("Show Decks");
         decksText.setFont(Font.font(25));
         decksText.setFill(Color.rgb(178, 247, 255));
+        Text backText = new Text("Back");
+        backText.setFont(Font.font(25));
+        backText.setFill(Color.rgb(178, 247, 255));
 
         StackPane cardsStackPane = new StackPane(showCardsButton, cardsText);
         cardsStackPane.setAlignment(Pos.CENTER);
         StackPane decksStackPane = new StackPane(showDecksButton, decksText);
         decksStackPane.setAlignment(Pos.CENTER);
+        StackPane backStackPane = new StackPane(backButton, backText);
+        backStackPane.setAlignment(Pos.CENTER);
 
         HBox optionsHBox = new HBox(cardsStackPane, decksStackPane);
         optionsHBox.setPadding(new Insets(50));
 
-        stackPane.getChildren().add(optionsHBox);
+        VBox buttonsVBox = new VBox(optionsHBox, backStackPane);
+
+        stackPane.getChildren().add(buttonsVBox);
         stackPane.setAlignment(Pos.CENTER);
         stackPane.setLayoutX(MenuView.WINDOW_WIDTH/2 - 150);
         stackPane.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 120);
 
-        GameView.makeImageGlowWhileMouseEnters(cardsStackPane);
-        GameView.makeImageGlowWhileMouseEnters(decksStackPane);
+        GameView.makeImageGlowWhileMouseEnters(cardsStackPane, decksStackPane, backStackPane);
 
-        CollectionController.handleEventsOfCollectionOptions(cardsStackPane, decksStackPane);
+        CollectionController.handleEventsOfCollectionOptions(cardsStackPane, decksStackPane, backStackPane);
     }
 
     public static void showCardsInCollection(){
-        AllDatas.currentRoot.getChildren().clear();
         try {
+            AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
-        ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
-        ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
-        ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
+            ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
+            ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
+            ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
 
-        VBox cardsVBox = new VBox();
-        VBox itemsVBox = new VBox();
-        VBox heroesVBox = new VBox();
+            VBox cardsVBox = new VBox();
+            VBox itemsVBox = new VBox();
+            VBox heroesVBox = new VBox();
 
-        VBox generalVBox = new VBox(cardsVBox, itemsVBox, heroesVBox);
-        generalVBox.setLayoutX(200);
+            ImageView createDeckButton = new ImageView(new Image(new FileInputStream(
+                        HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+            createDeckButton.setFitWidth(250);
+            createDeckButton.setFitHeight(100);
+            ImageView backButton = new ImageView(new Image(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+            backButton.setFitWidth(250);
+            backButton.setFitHeight(100);
 
-        AllDatas.currentRoot.getChildren().add(generalVBox);
+            Text createDeckText = new Text("Create New Deck");
+            Text backText = new Text("Back");
+            createDeckText.setFill(Color.rgb(130, 255, 255));
+            backText.setFill(Color.rgb(130, 255, 255));
+            createDeckText.setFont(Font.font(null, FontWeight.BOLD, 20));
+            backText.setFont(Font.font(null, FontWeight.BOLD, 20));
+
+            StackPane createDeckStack = new StackPane(createDeckButton, createDeckText);
+            createDeckStack.setAlignment(Pos.CENTER);
+            StackPane backStack = new StackPane(backButton, backText);
+            backStack.setAlignment(Pos.CENTER);
+            GameView.makeImageGlowWhileMouseEnters(createDeckStack, backStack);
+
+            VBox buttonsVBox = new VBox(createDeckStack, backStack);
+            buttonsVBox.setPadding(new Insets(30, 1, 1, 20));
+
+            CollectionController.handleEventsOfShowCardsButtons(createDeckStack, backStack);
+
+            VBox generalVBox = new VBox(cardsVBox, itemsVBox, heroesVBox);
+            generalVBox.setLayoutX(300);
+
+            AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
 
 //        addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
 //        addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
-        addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
+            addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
+        }catch (FileNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
@@ -732,7 +771,7 @@ public class MenuView {
 
         try {
             manaIcon = new ImageView(new Image(new FileInputStream(
-                    "/Users/bahar/Desktop/DUELYST/view/Photos/collection/icon_mana.png")));
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/icon_mana.png")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -743,14 +782,16 @@ public class MenuView {
         cardImage.setFitWidth(200);
         cardImage.setFitHeight(200);
 
-        Text cardName = new Text(card.getName());
-        cardName.setFont(Font.font(20));
-        VBox vBox = new VBox(cardImage, cardName, manaPane);
+        DropShadow ds = new DropShadow();
+        ds.setOffsetY(3.0f);
+        ds.setColor(Color.color(0.4f, 0.4f, 0.4f));
 
-//        cardPane.getChildren().addAll(cardImage, manaPane);
-//        StackPane.setAlignment(cardImage, Pos.CENTER);
-//        StackPane.setAlignment(manaPane, Pos.TOP_LEFT);
-//        StackPane.setMargin(manaPane, new Insets(30, 10, 10, 30));
+        Text cardName = new Text(card.getName());
+        cardName.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
+        cardName.setEffect(ds);
+        VBox vBox = new VBox(cardImage, cardName, manaPane);
+        VBox.setMargin(cardName, new Insets(1,1,1,60));
+        cardName.setFill(Color.rgb(255, 225, 58));
 
         hBox.getChildren().add(vBox);
     }

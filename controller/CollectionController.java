@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
 import model.*;
 import model.Game;
 import model.collection.Card;
@@ -14,6 +15,7 @@ import view.GameView;
 import view.MenuView;
 
 import javax.swing.text.DefaultEditorKit;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -244,9 +246,32 @@ public class CollectionController {
 
     */
 
-    public static void handleEventsOfCollectionOptions(Node showCardsButton, Node showDecksButton){
+    public static void handleEventsOfCollectionOptions(Node showCardsButton, Node showDecksButton, Node backButton){
         showCardsButton.setOnMouseClicked(event -> MenuView.showCardsInCollection());
-
         showDecksButton.setOnMouseClicked(event -> MenuView.showDecksInCollection());
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Controller.enterMainMenu();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void handleEventsOfShowCardsButtons(StackPane createDeck, StackPane back){
+        createDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //Todo : create deck of player
+            }
+        });
+
+        back.setOnMouseClicked(event -> {
+            try {
+                Controller.enterCollection();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
     }
 }

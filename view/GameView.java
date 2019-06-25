@@ -131,20 +131,14 @@ public class GameView {
         alert.show();
     }
 
-    public static void makeImageGlowWhileMouseEnters(Node node){
-        node.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+    public static void makeImageGlowWhileMouseEnters(Node... nodes){
+        for (Node node : nodes) {
+            node.setOnMouseEntered(event -> {
                 Glow glow = new Glow(0.9);
                 node.setEffect(glow);
-            }
-        });
+            });
 
-        node.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                node.setEffect(null);
-            }
-        });
+            node.setOnMouseExited(event -> node.setEffect(null));
+        }
     }
 }
