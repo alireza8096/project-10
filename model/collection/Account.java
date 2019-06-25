@@ -51,6 +51,7 @@ public class Account {
 //            String password = scanner.nextLine();
             if(checkCorrectPassword(name,password)){
                 setPlayer(name);
+                Controller.sampleGame();
 //                AllDatas.account.setNowInThisMenu(false);
 //                AllDatas.commandLine.setNowInThisMenu(true);
                 Controller.enterMainMenu();

@@ -1,6 +1,9 @@
 package view;
 
+import com.sun.source.doctree.TextTree;
 import controller.*;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -172,10 +175,10 @@ public class MenuView {
 
         HBox minionsHBox = new HBox();
         ImageView minionIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/minion.png");
-        //  minionIcon.getStyleClass().add("shopOptionsImage");
         minionIcon.setFitWidth(40);
         minionIcon.setFitHeight(40);
         Hyperlink minionText = new Hyperlink("Minions");
+        minionText.setFont(Font.font(null, FontWeight.BOLD, 20));
         minionsHBox.getChildren().addAll(minionIcon, minionText);
 
         HBox heroesHBox = new HBox();
@@ -183,6 +186,7 @@ public class MenuView {
         heroIcon.setFitWidth(40);
         heroIcon.setFitHeight(40);
         Hyperlink heroText = new Hyperlink("Heroes");
+        heroText.setFont(Font.font(null, FontWeight.BOLD, 20));
         heroesHBox.getChildren().addAll(heroIcon, heroText);
 
         HBox itemHBox = new HBox();
@@ -190,6 +194,7 @@ public class MenuView {
         itemIcon.setFitWidth(50);
         itemIcon.setFitHeight(50);
         Hyperlink itemText = new Hyperlink("Items");
+        itemText.setFont(Font.font(null, FontWeight.BOLD, 20));
         itemHBox.getChildren().addAll(itemIcon, itemText);
 
         HBox spellHBox = new HBox();
@@ -197,6 +202,7 @@ public class MenuView {
         spellIcon.setFitWidth(50);
         spellIcon.setFitHeight(50);
         Hyperlink spellText = new Hyperlink("Spells");
+        spellText.setFont(Font.font(null, FontWeight.BOLD, 20));
         spellHBox.getChildren().addAll(spellIcon, spellText);
 
         VBox.setMargin(minionsHBox, new Insets(50, 100, 10, 30));
@@ -206,7 +212,10 @@ public class MenuView {
 
 
         Shop.getLeftVBox().setPadding(new Insets(50, 10, 10, 10));
-        Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox, setBackButtonForShop());
+        StackPane daricStack = setCurrentDaricView();
+        StackPane backStack = setBackButtonForShop();
+        Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox, backStack, daricStack);
+        VBox.setMargin(backStack, new Insets(70, 1, 1, 1));
 
         AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
 
@@ -214,10 +223,40 @@ public class MenuView {
 
     }
 
+    public static StackPane setCurrentDaricView() throws FileNotFoundException {
+        ImageView imageView = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE
+                + "view/Photos/shop/gray_button.png")));
+        imageView.setFitWidth(180);
+        imageView.setFitHeight(100);
+
+        Text currentDaric = new Text(Integer.toString(Game.getInstance().getPlayer1().getDaric()));
+        currentDaric.setFill(Color.rgb(45, 58, 58));
+        currentDaric.setFont(Font.font(null, FontWeight.BOLD, 20));
+
+        Task<Text> task = new Task<Text>() {
+            @Override
+            protected Text call() throws Exception {
+                Platform.runLater(() -> {
+                    currentDaric.setText(Integer.toString(Game.getInstance().getPlayer1().getDaric()));
+
+                });
+                return currentDaric;
+            }
+        };
+
+        Thread th = new Thread(task);
+        th.setDaemon(true);
+        th.start();
+
+        return new StackPane(imageView, currentDaric);
+
+    }
+
     public static StackPane setBackButtonForShop(){
         ImageView backButton = null;
         try {
-            backButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+            backButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE
+                    + "view/Photos/collection/blueButton.png")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -299,7 +338,7 @@ public class MenuView {
 //                showCollection();
                 break;
             case "Shop":
-                showShop();
+                 showShop();
                 break;
             case "Battle":
                 showBattle();
@@ -552,7 +591,6 @@ public class MenuView {
 
         cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
 
-//        ShopController.handleEventsOfBuyingCard(card, cardImage, cancelButton, buyCardButton, hBox);
         ShopController.handleEventsOfBuyingCard(cardHBox, hBox, cancelButton, buyCardButton, card);
     }
 
@@ -603,11 +641,6 @@ public class MenuView {
     }
 
     public static void showCollection() throws FileNotFoundException {
-        try {
-            Controller.sampleGame();
-        } catch (CloneNotSupportedException | IOException | ParseException e) {
-            e.printStackTrace();
-        }
         MainView.primaryStage.setScene(AllDatas.currentScene);
         AllDatas.currentRoot.getChildren().clear();
         setScrollBar();
@@ -642,7 +675,6 @@ public class MenuView {
                 "view/Photos/collection/blueButton.png")));
         backButton.setFitWidth(300);
         backButton.setFitHeight(120);
-
 
         Text cardsText= new Text("Show Cards");
         cardsText.setFont(Font.font(25));
@@ -730,7 +762,9 @@ public class MenuView {
     }
 
     public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
+        vBox.getChildren().clear();
         for (int i = 0; i < cards.size(); i++) {
+            System.out.println("__________card size : " + cards.size());
             if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
                 setAppearanceOfCardsInCollection(hBox, cards.get(i));
@@ -762,7 +796,7 @@ public class MenuView {
     }
 
     public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
-        StackPane cardPane = new StackPane();
+//        StackPane cardPane = new StackPane();
 
         Text manaText = new Text(Integer.toString(card.getMana()));
         ImageView manaIcon = null;
