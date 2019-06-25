@@ -2,7 +2,9 @@ package model;
 
 import javafx.scene.image.ImageView;
 import model.collection.*;
+import view.MainView;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Map {
@@ -15,6 +17,27 @@ public class Map {
     private Hero enemyHero;
     private Hero friendHero;
 
+
+    {
+        for(int i=0; i<9; i++){
+            for(int j=0; j<5; j++){
+                try {
+                    cellsView[i][j]= MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png");
+                    cellsView[i][j].setScaleX(0.55);
+                    cellsView[i][j].setScaleY(0.55);
+                    cellsView[i][j].setX(510 + i*69);
+                    cellsView[i][j].setY(320+j*69);
+                    AllDatas.currentRoot.getChildren().add(cellsView[i][j]);
+                    forcesView[i][j] = new ImageView();
+                    forcesView[i][j].setX(cellsView[i][j].getX());
+                    forcesView[i][j].setY(cellsView[i][j].getY()-25);
+                    AllDatas.currentRoot.getChildren().add(forcesView[i][j]);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public static ImageView[][] getForcesView() {
         return forcesView;

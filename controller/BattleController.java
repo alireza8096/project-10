@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import model.*;
 import model.collection.*;
@@ -8,6 +9,8 @@ import view.BattleView;
 import view.MainView;
 import view.MenuView;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -67,6 +70,9 @@ public class BattleController {
         }
     }
 
+    public static void selectCardInField(ImageView force){
+
+    }
     public static void selectCardById(String[] commands, Scanner scanner) throws Exception {
         if (Game.getInstance().isPlayer1Turn()) {
             int id = Integer.parseInt(commands[1]);
@@ -99,6 +105,8 @@ public class BattleController {
         return false;
     }
 
+
+
     public static void doActionOnCard(Force force, Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commands = command.split(" ");
@@ -130,7 +138,7 @@ public class BattleController {
 
     }
 
-    public static void moveToXY(String[] commands, Force force) {
+    public static void moveToXY(String[] commands, Force force) throws FileNotFoundException {
         if (commands.length == 3 && commands[0].compareToIgnoreCase("move") == 0
                 && commands[1].compareToIgnoreCase("to") == 0
                 && commands[2].matches("\\([\\d]+,[\\d]+\\)")) {
@@ -260,9 +268,9 @@ public class BattleController {
 //        }
     }
 
-    public static void checkAllConditionsToMoveCard(Force force, int x, int y) {
+    public static void checkAllConditionsToMoveCard(Force force, int x, int y) throws FileNotFoundException {
         System.out.println("HERE");
-        move(force, x, y);
+        move(x, y);
 //        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)){
 //            move(Game.getInstance().getHeroOfPlayer1(), x, y);
 //        }
@@ -286,7 +294,33 @@ public class BattleController {
         }
     }
 
-    public static void move(Force force, int x, int y) {
+    public static Force returnCardinThisCoordination(int x,int y){
+        if(Game.getInstance().getMap().getFriendHero().getX() == x
+        && Game.getInstance().getMap().getFriendHero().getY() == y){
+            return Game.getInstance().getMap().getFriendHero();
+        }
+        else{
+            for(Force force : Game.getInstance().getMap().getFriendMinions()){
+                if(force.getX() == x && force.getY() == y){
+                    return force;
+                }
+            }
+            return null;
+        }
+    }
+
+    public static void showAllPossibilities(Force force) throws FileNotFoundException {
+        for(int i=0; i<5; i++){
+            for (int j=0; j<9; j++){
+                if(Map.cardCanBeMovedToThisCell(force,i,j)){
+                    Map.getCellsView()[j][i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board_move.png")));
+                }
+            }
+        }
+    }
+    public static void move(int x,int y) throws FileNotFoundException {
+        Force force = returnCardinThisCoordination(x,y);
+        showAllPossibilities(force);
         if (force.isCanMove() && !force.isHasMovedInThisTurn()) {
             System.out.println("x : " + x + " , y : " + y);
             System.out.println("forceX : " + force.getX() + " , forceY : " + force.getY());

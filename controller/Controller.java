@@ -155,8 +155,6 @@ public class Controller {
     }
 
     public static void enterBattle() throws IOException, CloneNotSupportedException, ParseException {
-        sampleGame();
-        Game.getInstance().setMap(new Map());
         AllDatas.currentRoot = AllDatas.battle.getRoot();
         AllDatas.currentScene = AllDatas.battle.getScene();
         AllDatas.battle.setNowInThisMenu(true);

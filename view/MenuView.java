@@ -1,14 +1,12 @@
 package view;
 
 import controller.*;
-import controller.CollectionController;
-import controller.Controller;
-import controller.MenusCommandController;
-import controller.ShopController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -31,11 +29,13 @@ import model.collection.Hero;
 import model.collection.Item;
 import org.json.simple.parser.ParseException;
 
+import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static controller.Controller.sampleGame;
 import static javafx.scene.paint.Color.*;
 
 public class MenuView {
@@ -214,7 +214,7 @@ public class MenuView {
     public static StackPane setBackButtonForShop(){
         ImageView backButton = null;
         try {
-            backButton = new ImageView(new Image(new FileInputStream("/Users/bahar/Desktop/DUELYST/view/Photos/collection/blueButton.png")));
+            backButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -252,7 +252,7 @@ public class MenuView {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
-    public static void showBattle() throws FileNotFoundException, CloneNotSupportedException {
+    public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
 //        MainView.primaryStage.setMaximized(true);
@@ -266,10 +266,12 @@ public class MenuView {
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
         AllDatas.currentRoot.getChildren().addAll(background, middleGround);
-        Cell.createCellsAndView();
-        Cell.createForceView();
+        sampleGame();
+        Game.getInstance().setMap(new Map());
         AI.createAIPlayer();
         Hero.insertHeroInMap();
+        Cell.handleCell();
+        Cell.handleForce();
         Hand.createHand();
         Hand.setHand();
         BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/button_end_turn_mine@2x.png"));
@@ -278,7 +280,7 @@ public class MenuView {
     }
 
 
-    public static void showThisMenu(LinkedListMenus menu) throws FileNotFoundException, CloneNotSupportedException {
+    public static void showThisMenu(LinkedListMenus menu) throws IOException, CloneNotSupportedException, ParseException {
         String menuName = menu.getMenuName();
         switch (menuName) {
             case "Account":
@@ -619,7 +621,7 @@ public class MenuView {
 
     public static void setBackGroundOfCollection() throws FileNotFoundException {
         ImageView backGround = new ImageView(new Image(new FileInputStream(
-                "/Users/bahar/Desktop/DUELYST/view/Photos/blurBackground.jpg")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/blurBackground.jpg")));
         backGround.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
         backGround.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
@@ -628,11 +630,11 @@ public class MenuView {
 
     public static void showOptionsInCollection(StackPane stackPane) throws FileNotFoundException {
         ImageView showCardsButton = new ImageView(new Image(new FileInputStream(
-                "/Users/bahar/Desktop/DUELYST/view/Photos/collection/blueButton.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
         showCardsButton.setFitWidth(300);
         showCardsButton.setFitHeight(120);
         ImageView showDecksButton = new ImageView(new Image(new FileInputStream(
-                "/Users/bahar/Desktop/DUELYST/view/Photos/collection/blueButton.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
         showDecksButton.setFitWidth(300);
         showDecksButton.setFitHeight(120);
 

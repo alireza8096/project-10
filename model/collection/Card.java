@@ -319,6 +319,20 @@ public class Card implements Cloneable{
         return null;
     }
 
+    public static boolean thisCardIsYours(int x,int y) {
+        if (Game.getInstance().getMap().getFriendHero().x == x
+                && Game.getInstance().getMap().getFriendHero().y == y) {
+            return true;
+        } else {
+            for (Card card : Game.getInstance().getMap().getFriendMinions()) {
+                if (card.x == x && card.y == y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+    //TODO : erase below
     public boolean thisCardIsFriend(){
         for (Card card : Game.getInstance().getMap().getFriendMinions()){
             if (card.getName().equals(this.name))
