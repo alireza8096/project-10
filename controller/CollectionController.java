@@ -349,12 +349,13 @@ public class CollectionController {
         cancelButton.setOnMouseClicked(event -> {
             deckIsBeingCreated = null;
             AllDatas.currentRoot.getChildren().remove(generalVBox);
-            MenuView.showDecksInCollection();
             CollectionController.setIsChoosingForCreatingNewDeck(false);
+            MenuView.showDecksInCollection();
         });
 
         createButton.setOnMouseClicked(event -> {
             String deckName = deckNameField.getText();
+            System.out.println("deckName : " + deckName);
             if (!deckName.equals("")) {
                 Deck deck = null;
                 try {

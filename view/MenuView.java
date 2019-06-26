@@ -720,45 +720,16 @@ public class MenuView {
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
-
-    }
-
-    public static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
-        for (Deck deck : decks){
-            Tab deckTab = new Tab(deck.getDeckName());
-            decksTabPane.getTabs().add(deckTab);
-            VBox eachDeckVBox = new VBox();
-            deckTab.setContent(eachDeckVBox);
-            ArrayList<Hero> heroInDeck = new ArrayList<>();
-            heroInDeck.add(deck.getHeroInDeck());
-            if (deck.getCardsInDeck().size() != 0)
-                 addCardsToVBox(deck.getCardsInDeck(), eachDeckVBox);
-            if (deck.getItemsInDeck().size() != 0)
-                addCardsToVBox(deck.getItemsInDeck(), eachDeckVBox);
-            if (heroInDeck.size() != 0)
-                addCardsToVBox(heroInDeck, eachDeckVBox);
-        }
-    }
-
-    public static void showCards(VBox generalVBox){
-        generalVBox.getChildren().clear();
-
-        VBox cardsVBox = new VBox();
-        VBox itemsVBox = new VBox();
-        VBox heroesVBox = new VBox();
-
-        generalVBox.getChildren().addAll(cardsVBox, itemsVBox, heroesVBox);
-
-        ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
-        ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
-        ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
-
-        addCardsToVBox(cardsInCollection, cardsVBox);
-        addCardsToVBox(itemsInCollection, itemsVBox);
-        addCardsToVBox(heroesInCollection, heroesVBox);
     }
 
     public static void createNewDeck() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+
+        setBackGroundOfCollection();
+        VBox buttonsVBox = new VBox();
+        setButtonsVBoxForShowingDecks(buttonsVBox);
+
+
         setWindowForCreatingNewDeck();
 
         VBox generalVBox = new VBox();
@@ -808,6 +779,41 @@ public class MenuView {
         GameView.makeImageGlowWhileMouseEnters(cancelStack, createStack);
 
         CollectionController.handleEventsOfCreatingNewDeck(cancelStack, createStack, deckName, createDeckVBox);
+    }
+
+    public static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
+        for (Deck deck : decks){
+            Tab deckTab = new Tab(deck.getDeckName());
+            decksTabPane.getTabs().add(deckTab);
+            VBox eachDeckVBox = new VBox();
+            deckTab.setContent(eachDeckVBox);
+            ArrayList<Hero> heroInDeck = new ArrayList<>();
+            heroInDeck.add(deck.getHeroInDeck());
+            if (!deck.getCardsInDeck().contains(null))
+                 addCardsToVBox(deck.getCardsInDeck(), eachDeckVBox);
+            if (!deck.getItemsInDeck().contains(null))
+                addCardsToVBox(deck.getItemsInDeck(), eachDeckVBox);
+            if (!heroInDeck.contains(null))
+                addCardsToVBox(heroInDeck, eachDeckVBox);
+        }
+    }
+
+    public static void showCards(VBox generalVBox){
+        generalVBox.getChildren().clear();
+
+        VBox cardsVBox = new VBox();
+        VBox itemsVBox = new VBox();
+        VBox heroesVBox = new VBox();
+
+        generalVBox.getChildren().addAll(cardsVBox, itemsVBox, heroesVBox);
+
+        ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
+        ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
+        ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
+
+        addCardsToVBox(cardsInCollection, cardsVBox);
+        addCardsToVBox(itemsInCollection, itemsVBox);
+        addCardsToVBox(heroesInCollection, heroesVBox);
     }
 
     public static void setWindowForCreatingNewDeck() throws FileNotFoundException {
@@ -983,7 +989,7 @@ public class MenuView {
 
         StackPane manaPane = new StackPane(manaIcon, manaText);
 
-        ImageView cardImage = card.getImageViewOfCard();
+        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
         cardImage.setFitWidth(150);
         cardImage.setFitHeight(150);
 
@@ -1015,7 +1021,7 @@ public class MenuView {
                 @Override
                 public void handle(MouseEvent event) {
                     CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
-                    GameView.printInvalidCommandWithThisContent(card.getName() + " was added");
+                    GameView.printInfoMessageWithThisContent(card.getName() + " was added");
                 }
             });
         }

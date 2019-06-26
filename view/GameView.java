@@ -141,4 +141,10 @@ public class GameView {
             node.setOnMouseExited(event -> node.setEffect(null));
         }
     }
+
+    public static void printInfoMessageWithThisContent(String content){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText(content);
+        alert.show();
+    }
 }
