@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import view.GameView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,19 +21,16 @@ public class Item extends Card implements Cloneable {
     private String user;
     private String activationTime;
 
-    public Item(Spell spell,String itemType,String price,String name,String id,String desc,String specification,String user,String activationTime){
+    public Item(Spell spell, String itemType, String price, String name, String id, String desc, String specification, String user, String activationTime, String imagePath, String inField) throws FileNotFoundException {
+        super("0", id, "item", name, price, imagePath, inField);
         this.spell = spell;
-      this.itemType = itemType;
-      if(!price.matches("null")) this.price = Integer.parseInt(price);
-      else this.price =0;
-      this.name = name;
-      this.id = Integer.parseInt(id);
-      this.desc = desc;
-      this.specification = specification;
-      this.user = user;
-      this.activationTime = activationTime;
-      this.cardType = "item";
-  }
+        this.itemType = itemType;
+        this.desc = desc;
+        this.specification = specification;
+        this.user = user;
+        this.activationTime = activationTime;
+        this.cardType = "item";
+    }
 
     public Spell getSpell() {
         return spell;
@@ -69,7 +67,7 @@ public class Item extends Card implements Cloneable {
     public static Item findItemByID(int id) throws CloneNotSupportedException {
         for (Item item : items) {
             if (item.id == id) {
-                return (Item)item.clone();
+                return (Item) item.clone();
             }
         }
         return null;
@@ -96,12 +94,13 @@ public class Item extends Card implements Cloneable {
 
     public static Item findItemByName(String cardName) throws CloneNotSupportedException {
         for (Item item : items) {
-            if(item.name.matches(cardName)){
-                return (Item)item.clone();
+            if (item.name.matches(cardName)) {
+                return (Item) item.clone();
             }
         }
         return null;
     }
+
     public static String getItemTypeByName(String itemName) {
         for (Item item :
                 items) {
@@ -365,7 +364,7 @@ public class Item extends Card implements Cloneable {
 //        }
 //    }
 
-    public void applyUsableItemOnMinionOrHero(){
+    public void applyUsableItemOnMinionOrHero() {
 
     }
 

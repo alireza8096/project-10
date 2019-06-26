@@ -1,0 +1,16 @@
+{"mana":"0",
+  "price":"1000",
+  "name":"Total Disarm",
+  "id":"401",
+  "type":"spell",
+  "desc":"becomes disarm to the end of the game",
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addBuff",
+  "buffs" : "disarm",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" :"permanent",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null"
+}
