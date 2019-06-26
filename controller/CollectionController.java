@@ -1,8 +1,12 @@
 package controller;
 
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import model.*;
 import model.Game;
 import model.collection.Card;
@@ -13,6 +17,7 @@ import view.GameView;
 import view.MenuView;
 
 import javax.swing.text.DefaultEditorKit;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -243,9 +248,74 @@ public class CollectionController {
 
     */
 
-    public static void handleEventsOfCollectionOptions(ImageView showCardsButton, ImageView showDecksButton){
+    public static void handleEventsOfCollectionOptions(Node showCardsButton, Node showDecksButton, Node backButton){
         showCardsButton.setOnMouseClicked(event -> MenuView.showCardsInCollection());
-
         showDecksButton.setOnMouseClicked(event -> MenuView.showDecksInCollection());
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Controller.enterMainMenu();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void handleEventsOfShowCardsButtons(StackPane createDeck, StackPane back){
+        createDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //Todo : create deck of player
+            }
+        });
+
+        back.setOnMouseClicked(event -> {
+            try {
+                Controller.enterCollection();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void handleEventsOfShowingDeckButtons(StackPane selectDeck, StackPane back){
+        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    MenuView.showOptionsInCollection();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        selectDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
+    }
+
+    public static void handleEventsOfSellingCard(HBox cardHBox, HBox buttonsHBox,
+                                                 ImageView cancelButton, ImageView sellButton, Card card, VBox cardVBox, HBox inRowHBox){
+        cancelButton.setOnMouseClicked(event -> {
+            AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
+            MenuView.removeBlurEffectOfWindow();
+            Shop.setIsShowingSpecificCard(false);
+        });
+
+        sellButton.setOnMouseClicked(event -> {
+            inRowHBox.getChildren().remove(cardVBox);
+            try {
+                Shop.sellCardAndRemoveFromCollection(card.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox, cardVBox);
+            MenuView.removeBlurEffectOfWindow();
+            Shop.setIsShowingSpecificCard(false);
+
+        });
     }
 }

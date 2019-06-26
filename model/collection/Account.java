@@ -21,13 +21,13 @@ import java.net.Inet4Address;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-
-import static controller.Controller.sampleGame;
-
 //testing
 public class Account {
     public static final String PLAYERS_FOLDER = "model/collection/players";
     private static ArrayList<String> players = new ArrayList<>();
+    public static ArrayList<String> getPlayers() {
+        return players;
+    }
 
     public static void createAccount(String name, String password) throws Exception {
         if (usernameAlreadyExists(name)) {
@@ -51,7 +51,6 @@ public class Account {
 //            String password = scanner.nextLine();
             if (checkCorrectPassword(name, password)) {
                 setPlayer(name);
-//                sampleGame();
 //                AllDatas.account.setNowInThisMenu(false);
 //                AllDatas.commandLine.setNowInThisMenu(true);
                 Controller.enterMainMenu();
@@ -222,9 +221,6 @@ public class Account {
         Game.getInstance().setPlayer1Turn(true);
     }
 
-    public static ArrayList<String> getPlayers() {
-        return players;
-    }
 //    public static void setPlayerThatHasPlayedBefore(String name) throws Exception {
 //        JSONObject jsonObject = (JSONObject) readPlayerFromFile(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER+"/" + name + ".json");
 //        Player player;

@@ -11,7 +11,7 @@ public class Shop{
     private static VBox leftVBox;
 
     public static final int CARD_IN_SHOP_WIDTH = 170;
-    public static final int CARD_IN_SHOP_HEIGHT = 270;
+    public static final int CARD_IN_SHOP_HEIGHT = 250;
 
     private static VBox minionCardsVBox = new VBox();
     private static VBox spellCardsVBox = new VBox();
@@ -213,16 +213,19 @@ public class Shop{
     }
 
     public static void sellCardAndRemoveFromCollection(int cardID) throws Exception {
+        //Todo : delete sold card from decks
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (cardID / 100) {
             case 1:
-                Hero hero = Hero.findHeroByID(cardID);
+                Hero hero = (Hero)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
                 daric += hero.getPrice();
                 System.out.println(hero.getName() + " was sold successfully");
+                for (Hero hero1 : Game.getInstance().getPlayer1().getHeroesInCollection())
+                    System.out.println(hero1.getName());
                 break;
             case 2:
-                Item item = Item.findItemByID(cardID);
+                Item item = (Item)Card.findCardInCollectionByID(cardID);
                 if (item.getItemType().matches("usable")) {
                     removeProcess(Game.getInstance().getPlayer1().getItemsInCollection(), item);
                     daric += item.getPrice();
@@ -231,13 +234,13 @@ public class Shop{
                     System.out.println("This item can not be sold");
                 break;
             case 3:
-                Minion minion = Minion.findMinionByID(cardID);
+                Minion minion = (Minion)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), minion);
                 daric += minion.getPrice();
                 System.out.println(minion.getName() + " was sold successfully");
                 break;
             case 4:
-                Spell spell = Spell.findSpellByID(cardID);
+                Spell spell = (Spell)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), spell);
                 daric += spell.getPrice();
                 System.out.println(spell.getName() + " was sold successfully");

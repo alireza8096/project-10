@@ -154,19 +154,21 @@ public class ShopController {
     public static void handleEventsOfBuyingCard(HBox cardHBox, HBox buttonsHBox , ImageView cancelButton, ImageView buyButton, Card card/*Card card, ImageView cardImage, ImageView cancelButton, ImageView buyButton, HBox hBox*/){
         cancelButton.setOnMouseClicked(event -> {
            AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
-            MenuView.removeBlurEffectOfWindow();
-            Shop.setIsShowingSpecificCard(false);
+           MenuView.removeBlurEffectOfWindow();
+           Shop.setIsShowingSpecificCard(false);
         });
 
         buyButton.setOnMouseClicked(event -> {
             try {
+
                 Shop.buyCardAndAddToCollection(card.getName());
+                AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
+                MenuView.removeBlurEffectOfWindow();
+                Shop.setIsShowingSpecificCard(false);
 
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         });
-
-
     }
 }
