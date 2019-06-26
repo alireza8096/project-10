@@ -298,7 +298,7 @@ public class CollectionController {
     }
 
     public static void handleEventsOfSellingCard(HBox cardHBox, HBox buttonsHBox,
-                                                 ImageView cancelButton, ImageView sellButton, Card card, VBox cardVBox, HBox inRowHBox){
+                                                 ImageView cancelButton, StackPane sellButton, Card card, VBox cardVBox, HBox inRowHBox){
         cancelButton.setOnMouseClicked(event -> {
             AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
             MenuView.removeBlurEffectOfWindow();

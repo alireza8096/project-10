@@ -1,14 +1,10 @@
 package view;
 
 import controller.*;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -33,7 +29,6 @@ import model.collection.Hero;
 import model.collection.Item;
 import org.json.simple.parser.ParseException;
 
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -98,7 +93,7 @@ public class MenuView {
 
         setBackgroundOfMainMenu();
 
-        Font herculanum = Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Herculanum.ttf"),25);
+        Font herculanum = Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"),25);
         VBox vBox = new VBox();
 
         Hyperlink shopOption = new Hyperlink("Shop");
@@ -214,7 +209,6 @@ public class MenuView {
         VBox.setMargin(itemHBox, new Insets(10, 100, 10, 30));
         VBox.setMargin(heroesHBox, new Insets(10, 100, 10, 30));
 
-
         Shop.getLeftVBox().setPadding(new Insets(50, 10, 10, 10));
         StackPane daricStack = setCurrentDaricView();
         StackPane backStack = setBackButtonForShop();
@@ -233,27 +227,14 @@ public class MenuView {
         imageView.setFitWidth(180);
         imageView.setFitHeight(100);
 
-        Text currentDaric = new Text(Integer.toString(Game.getInstance().getPlayer1().getDaric()));
-        currentDaric.setFill(Color.rgb(45, 58, 58));
+        Label currentDaric = new Label(Integer.toString(Game.getInstance().getPlayer1().getDaric()));
+        currentDaric.setTextFill(Color.rgb(45, 58, 58));
         currentDaric.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-        Task<Text> task = new Task<Text>() {
-            @Override
-            protected Text call() throws Exception {
-                Platform.runLater(() -> {
-                    currentDaric.setText(Integer.toString(Game.getInstance().getPlayer1().getDaric()));
+        currentDaric.textProperty().bind(Game.getInstance().getPlayer1().daricPropertyProperty().asString());
 
-                });
-                return currentDaric;
-            }
-        };
-
-        Thread th = new Thread(task);
-        th.setDaemon(true);
-        th.start();
 
         return new StackPane(imageView, currentDaric);
-
     }
 
     public static StackPane setBackButtonForShop(){
@@ -956,7 +937,15 @@ public class MenuView {
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
         //Todo : set sell text for sellButton
         ImageView sellButton = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_buy@2x.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/green_button.png")));
+        Label sellLabel = new Label("Sell");
+        sellLabel.setTextFill(rgb(190, 237, 173));
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 30);
+
+        StackPane sellStack = new StackPane(sellButton, sellLabel);
+        sellStack.setAlignment(Pos.CENTER);
+        sellLabel.setFont(font);
 
         cardImage.setFitWidth(200);
         cardImage.setFitHeight(300);
@@ -968,22 +957,21 @@ public class MenuView {
         cancelButton.setFitWidth(200);
         cancelButton.setFitHeight(70);
 
-        HBox hBox = new HBox(sellButton, cancelButton);
+        HBox hBox = new HBox(sellStack, cancelButton);
         hBox.setLayoutX(480);
         hBox.setLayoutY(500);
         hBox.setSpacing(20);
 
         AllDatas.currentRoot.getChildren().addAll(cardHBox, hBox);
 
-        GameView.makeImageGlowWhileMouseEnters(cancelButton);
-        GameView.makeImageGlowWhileMouseEnters(sellButton);
+        GameView.makeImageGlowWhileMouseEnters(cancelButton, sellStack);
 
         cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
         cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
 
         cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
 
-        CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellButton, card, cardVBox, inRowCardsHBox);
+        CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellStack, card, cardVBox, inRowCardsHBox);
 
 
     }

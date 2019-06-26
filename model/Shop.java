@@ -1,5 +1,6 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.collection.*;
@@ -113,22 +114,27 @@ public class Shop{
     }
 
     public static void buyCardAndAddToCollection(String cardName) throws CloneNotSupportedException {
+        IntegerProperty daricValue = Game.getInstance().getPlayer1().daricPropertyProperty();
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (returnCardTypeByName(cardName)) {
             case "hero":
                 daric -= Hero.findHeroByName(cardName).getPrice();
+                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getHeroesInCollection().add(Hero.findHeroByName(cardName));
                 break;
             case "item":
                 daric -= Item.findItemByName(cardName).getPrice();
+                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getItemsInCollection().add(Item.findItemByName(cardName));
                 break;
             case "minion":
                 daric -= Minion.findMinionByName(cardName).getPrice();
+                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
             case "spell":
                 daric -= Spell.findCardByName(cardName).getPrice();
+                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
         }

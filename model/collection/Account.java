@@ -47,8 +47,6 @@ public class Account {
         if (!usernameAlreadyExists(name)) {
             GameView.printInvalidCommandWithThisContent("Invalid username");
         } else {
-//            System.out.println("Please enter password :");
-//            String password = scanner.nextLine();
             if (checkCorrectPassword(name, password)) {
                 setPlayer(name);
 //                AllDatas.account.setNowInThisMenu(false);
@@ -204,6 +202,7 @@ public class Account {
                 (String) jsonObject.get("password")
         );
         player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
+        player.setDaricProperty(player.getDaric());
         player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
         player.setNumOfMana(2);
         int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());
