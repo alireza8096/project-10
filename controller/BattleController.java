@@ -77,6 +77,9 @@ public class BattleController {
             if (Game.getInstance().getNumOfRound() < 14) {
                 Game.getInstance().getPlayer1().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer1().setNumOfMana(9);
+            for(int i=0; i<Game.getInstance().getPlayer1().getNumOfMana();i++){
+                Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
+            }
             makeAllCardsActivePlayer();
             Game.getInstance().getPlayer1().getMainDeck().getHand().addCardToHandFromDeck();
             for (ImageView card : Hand.getCards()) {
