@@ -21,7 +21,6 @@ import java.util.concurrent.Callable;
 
 public class BattleView {
     private static ImageView endTurn;
-
     public static ImageView getEndTurn() {
         return endTurn;
     }

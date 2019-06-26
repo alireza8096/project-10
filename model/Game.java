@@ -1,9 +1,16 @@
 package model;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.collection.Card;
+import model.collection.HandleFiles;
 import model.collection.Hero;
 import model.collection.Item;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Game {
@@ -22,11 +29,61 @@ public class Game {
     private boolean isBeingPlayed;
     private GameType gameType;
     private GraveYard graveYard = new GraveYard();
+    private static ImageView[] playerMana = new ImageView[9];
+    private static ImageView[] enemyMana = new ImageView[9];
+    private static HBox yourHbox = new HBox();
+    private static HBox enemyHbox = new HBox();
+
+    {
+        for (int i = 0; i < 9 ; i++) {
+            try {
+                playerMana[i] = new ImageView();
+                yourHbox.getChildren().add(playerMana[i]);
+                playerMana[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
+                enemyMana[i] = new ImageView();
+                enemyMana[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
+                enemyHbox.getChildren().add(enemyMana[i]);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        for(int i=0; i<2; i++){
+            try {
+                playerMana[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+        yourHbox.setLayoutX(240);
+        yourHbox.setLayoutY(177);
+        enemyHbox.setLayoutX(860);
+        enemyHbox.setLayoutY(177);
+        yourHbox.setScaleX(0.7);
+        yourHbox.setScaleY(0.7);
+        enemyHbox.setScaleX(0.7);
+        enemyHbox.setScaleY(0.7);
+    }
 
     public Game(){
 
     }
-//
+
+    public static HBox getEnemyHbox() {
+        return enemyHbox;
+    }
+
+    public static HBox getYourHbox() {
+        return yourHbox;
+    }
+
+    public static ImageView[] getPlayerMana() {
+        return playerMana;
+    }
+
+    public static ImageView[] getEnemyMana() {
+        return enemyMana;
+    }
+    //
 //    public Game(GameMode gameMode){
 //        this.setGameMode(gameMode);
 //        this.setPlayer1Turn(true);

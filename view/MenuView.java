@@ -294,10 +294,31 @@ public class MenuView {
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
         AllDatas.currentRoot.getChildren().addAll(background, middleGround);
+
         sampleGame();
         Game.getInstance().setMap(new Map());
         AI.createAIPlayer();
         Hero.insertHeroInMap();
+        Rectangle rectangle = new Rectangle(258,293);
+        rectangle.setX(100);
+        rectangle.setY(100);
+        ImageView yourProfile = new ImageView(Game.getInstance().getMap().getFriendHero().getImageViewOfCard().getImage());
+        yourProfile.setX(100);
+        yourProfile.setY(30);
+        yourProfile.fitWidthProperty().bind(rectangle.widthProperty());
+        yourProfile.fitHeightProperty().bind(rectangle.heightProperty());
+        AllDatas.currentRoot.getChildren().add(yourProfile);
+
+        AllDatas.currentRoot.getChildren().addAll(Game.getYourHbox(),Game.getEnemyHbox());
+        ImageView enemyProfile = new ImageView(Game.getInstance().getMap().getEnemyHero().getImageViewOfCard().getImage());
+        enemyProfile.setX(1300);
+        enemyProfile.setY(30);
+        enemyProfile.fitHeightProperty().bind(rectangle.heightProperty());
+        enemyProfile.fitWidthProperty().bind(rectangle.widthProperty());
+        AllDatas.currentRoot.getChildren().add(enemyProfile);
+
+
+
         Cell.handleCell();
         Cell.handleForce();
         Hand.createHand();
