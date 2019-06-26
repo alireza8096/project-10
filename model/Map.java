@@ -30,7 +30,7 @@ public class Map {
                     AllDatas.currentRoot.getChildren().add(cellsView[i][j]);
                     forcesView[i][j] = new ImageView();
                     forcesView[i][j].setX(cellsView[i][j].getX());
-                    forcesView[i][j].setY(cellsView[i][j].getY()-25);
+                    forcesView[i][j].setY(cellsView[i][j].getY());
                     AllDatas.currentRoot.getChildren().add(forcesView[i][j]);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
