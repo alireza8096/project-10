@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import model.collection.*;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ public class Player implements Cloneable{
     private Deck mainDeck;
     private String userName;
     private String password;
+    private IntegerProperty daricProperty = new SimpleIntegerProperty();
     private int daric;
     private Game lastGame;
     private int numOfMana;
@@ -102,6 +105,17 @@ public class Player implements Cloneable{
         Player.players = players;
     }
 
+    public int getDaricProperty() {
+        return daricProperty.get();
+    }
+
+    public IntegerProperty daricPropertyProperty() {
+        return daricProperty;
+    }
+
+    public void setDaricProperty(int daricProperty) {
+        this.daricProperty.set(daricProperty);
+    }
 
     public int getDaric() {
         return daric;

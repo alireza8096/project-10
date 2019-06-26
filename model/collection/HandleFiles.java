@@ -19,19 +19,20 @@ import java.util.ArrayList;
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
-    public static final String BEFORE_RELATIVE = "/Users/hamilamailee/Documents/project-10/";
+    public static final String BEFORE_RELATIVE = "/Users/bahar/Desktop/DUELYST/";
     private static final String ADDRESS_HERO = "model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "model/collection/JSON-Spells";
     private static final String ADDRESS_ITEM = "model/collection/JSON-Items";
 
-        public static void createStringOfPlayers() {
+    public static void createStringOfPlayers() {
         File folder = new File(BEFORE_RELATIVE + "model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
         }
     }
+
     public static void createSpells() throws IOException, ParseException {
         File folder = new File(BEFORE_RELATIVE+ADDRESS_SPELL);
         File[] listOfFiles = folder.listFiles();
