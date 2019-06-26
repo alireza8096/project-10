@@ -290,7 +290,11 @@ public class CollectionController {
         newDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
+                try {
+                    MenuView.createNewDeck();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -307,6 +311,8 @@ public class CollectionController {
             inRowHBox.getChildren().remove(cardVBox);
             try {
                 Shop.sellCardAndRemoveFromCollection(card.getId());
+                for (Card card1 : Game.getInstance().getPlayer1().getCardsInCollection())
+                    System.out.println("_____"+card1.getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -317,17 +323,13 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfCreatingNewDeck(StackPane cancelButton, StackPane createButton, TextField deckNameField){
-        createButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-            }
-        });
+    public static void handleEventsOfCreatingNewDeck(StackPane cancelButton, StackPane createButton, TextField deckNameField, VBox generalVBox){
+        cancelButton.setOnMouseClicked(event -> AllDatas.currentRoot.getChildren().remove(generalVBox));
 
         createButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                String deckName = deckNameField.getText();
 
             }
         });

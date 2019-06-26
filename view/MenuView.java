@@ -683,8 +683,6 @@ public class MenuView {
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
 
-            setWindowForCreatingNewDeck();
-
             ArrayList<Deck> decks = Game.getInstance().getPlayer1().getDecksOfPlayer();
 
             VBox generalVBox = new VBox();
@@ -696,9 +694,7 @@ public class MenuView {
 
             AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
 
-            for (Deck deck : decks){
-                showThisDeck(generalVBox, deck);
-            }
+            showDecks();
 
         }catch (FileNotFoundException e){
             e.printStackTrace();
@@ -706,7 +702,13 @@ public class MenuView {
 
     }
 
+    public static void showDecks(){
+
+    }
+
     public static void createNewDeck() throws FileNotFoundException {
+        setWindowForCreatingNewDeck();
+
         VBox createDeckVBox = new VBox();
         createDeckVBox.setLayoutX(1040);
         createDeckVBox.setPrefHeight(AllDatas.currentScene.getHeight());
@@ -745,7 +747,9 @@ public class MenuView {
 
         AllDatas.currentRoot.getChildren().add(createDeckVBox);
 
-        CollectionController.handleEventsOfCreatingNewDeck(cancelStack, createStack, deckName);
+        GameView.makeImageGlowWhileMouseEnters(cancelStack, createStack);
+
+        CollectionController.handleEventsOfCreatingNewDeck(cancelStack, createStack, deckName, createDeckVBox);
     }
 
     public static void setWindowForCreatingNewDeck() throws FileNotFoundException {
@@ -835,13 +839,22 @@ public class MenuView {
 
     public static void showCardsInCollection(){
         try {
+            System.out.println("++++++");
+            for (Card card : Game.getInstance().getPlayer1().getCardsInCollection())
+                System.out.println("card : " + card.getName());
+            for (Card card : Game.getInstance().getPlayer1().getItemsInCollection())
+                System.out.println("item : " + card.getName());
+            for (Card card : Game.getInstance().getPlayer1().getHeroesInCollection())
+                System.out.println("hero : " + card.getName());
+            System.out.println("+++++++");
+
+
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
 
             ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
             ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
             ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
-
             VBox cardsVBox = new VBox();
             VBox itemsVBox = new VBox();
             VBox heroesVBox = new VBox();
@@ -887,7 +900,6 @@ public class MenuView {
     }
 
     public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
-//        vBox.getChildren().clear();
         for (int i = 0; i < cards.size(); i++) {
             if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
@@ -935,8 +947,8 @@ public class MenuView {
         StackPane manaPane = new StackPane(manaIcon, manaText);
 
         ImageView cardImage = card.getImageViewOfCard();
-        cardImage.setFitWidth(200);
-        cardImage.setFitHeight(200);
+        cardImage.setFitWidth(150);
+        cardImage.setFitHeight(150);
 
         DropShadow ds = new DropShadow();
         ds.setOffsetY(3.0f);
@@ -946,6 +958,7 @@ public class MenuView {
         cardName.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         cardName.setEffect(ds);
         VBox vBox = new VBox(cardImage, cardName, manaPane);
+        vBox.setAlignment(Pos.CENTER);
         vBox.setAccessibleText(Integer.toString(card.getId()));
 
         vBox.setOnMouseClicked(event -> {
@@ -975,7 +988,7 @@ public class MenuView {
 
         ImageView cancelButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
-        //Todo : set sell text for sellButton
+
         ImageView sellButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/green_button.png")));
         Label sellLabel = new Label("Sell");

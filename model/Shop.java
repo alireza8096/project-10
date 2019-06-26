@@ -226,14 +226,14 @@ public class Shop{
             case 1:
                 Hero hero = (Hero)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
+                assert hero != null;
                 daric += hero.getPrice();
                 daricValue.set(daric);
                 System.out.println(hero.getName() + " was sold successfully");
-                for (Hero hero1 : Game.getInstance().getPlayer1().getHeroesInCollection())
-                    System.out.println(hero1.getName());
                 break;
             case 2:
                 Item item = (Item)Card.findCardInCollectionByID(cardID);
+                assert item != null;
                 if (item.getItemType().matches("usable")) {
                     removeProcess(Game.getInstance().getPlayer1().getItemsInCollection(), item);
                     daric += item.getPrice();
@@ -245,13 +245,17 @@ public class Shop{
             case 3:
                 Minion minion = (Minion)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), minion);
+                assert minion != null;
                 daric += minion.getPrice();
                 daricValue.set(daric);
                 System.out.println(minion.getName() + " was sold successfully");
                 break;
             case 4:
                 Spell spell = (Spell)Card.findCardInCollectionByID(cardID);
+                if (spell == null)
+                    System.out.println("spell is null");
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), spell);
+                assert spell != null;
                 daric += spell.getPrice();
                 daricValue.set(daric);
                 System.out.println(spell.getName() + " was sold successfully");
