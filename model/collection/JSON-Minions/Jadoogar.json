@@ -18,5 +18,6 @@
   "last" : "1,1,1,1",
   "friendOrEnemy" : "friend,friend",
   "locationOfTarget" : "null,8around",
-  "doesNotGetAttack" : "null"
+  "doesNotGetAttack" : "null",
+  "imagePath" : "view/Photos/Minions/Jadoogar/Jadoogar.png"
 }

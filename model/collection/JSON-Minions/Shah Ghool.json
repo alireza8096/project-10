@@ -18,5 +18,6 @@
   "last" : "1",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
-  "doesNotGetAttack" : "null"
+  "doesNotGetAttack" : "null",
+  "imagePath" : "view/Photos/Minions/Shah Ghool/ShahGhool.png"
 }

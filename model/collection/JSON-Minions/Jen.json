@@ -18,5 +18,6 @@
   "last" : "continuous",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
-  "doesNotGetAttack" : "null"
+  "doesNotGetAttack" : "null",
+  "imagePath" : "view/Photos/Minions/Jen/Jen.png"
 }

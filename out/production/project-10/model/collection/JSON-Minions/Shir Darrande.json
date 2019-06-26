@@ -18,5 +18,6 @@
   "last" : "null",
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
-  "doesNotGetAttack" : "holyBuff"
+  "doesNotGetAttack" : "holyBuff",
+  "imagePath" : "view/Photos/Minions/Shir Darrande/ShirDarrande.png"
 }

@@ -18,5 +18,6 @@
   "last" : "1",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "random",
-  "doesNotGetAttack" : "null"
+  "doesNotGetAttack" : "null",
+  "imagePath" : "view/Photos/Minions/Bahman/Bahman.png"
 }

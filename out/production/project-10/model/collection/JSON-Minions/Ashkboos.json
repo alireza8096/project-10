@@ -18,5 +18,6 @@
   "last" : "null",
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
-  "doesNotGetAttack" : "leastAttackPower"
+  "doesNotGetAttack" : "leastAttackPower",
+  "imagePath" : "view/Photos/Minions/Ashkboos/Ashkboos.png"
 }

@@ -18,5 +18,6 @@
   "last" : "continuous,continuous",
   "friendOrEnemy" : "friend,friend",
   "locationOfTarget" : "null,8around",
-  "doesNotGetAttack" : "null"
+  "doesNotGetAttack" : "null",
+  "imagePath" : "view/Photos/Minions/Jadoogar Aazam/JadoogarAazam.png"
 }
