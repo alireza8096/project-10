@@ -191,7 +191,7 @@ public class MenusCommandController {
     }
 
     public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
-                                              Hyperlink help, Hyperlink exit, Hyperlink logout){
+                                              Hyperlink help, Hyperlink exit, Hyperlink logout,Hyperlink save){
 
         shop.setOnAction(event -> {
             try {
@@ -232,6 +232,13 @@ public class MenusCommandController {
                 e.printStackTrace();
             } catch (IOException | CloneNotSupportedException e) {
                 e.printStackTrace();
+            }
+        });
+        save.setOnAction(event -> {
+            try {
+                Account.savePlayer(Game.getInstance().getPlayer1());
+            } catch (IOException e) {
+                e.getMessage();
             }
         });
     }

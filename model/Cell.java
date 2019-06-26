@@ -1,19 +1,13 @@
 package model;
 
-import controller.AI;
 import controller.BattleController;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.collection.Buff;
 import model.collection.Card;
-import model.collection.HandleFiles;
-import model.collection.Hero;
-import view.MainView;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,6 +20,15 @@ public class Cell {
     private ArrayList<Buff> buffs = new ArrayList<>();
     private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
     private CellItemType cellItemType;
+    private static boolean aCellIsSelected;
+
+    public static boolean isaCellIsSelected() {
+        return aCellIsSelected;
+    }
+
+    public static void setaCellIsSelected(boolean aCellIsSelected) {
+        Cell.aCellIsSelected = aCellIsSelected;
+    }
 
     public static void handleForce() throws CloneNotSupportedException {
         for(int i=0; i<9; i++){
@@ -78,6 +81,7 @@ public class Cell {
                     force.setEffect(new Glow(0.7));
                     try {
                         System.out.println("***********");
+                        Cell.setaCellIsSelected(true);
                         handleCardAfterSelection(x,y);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();

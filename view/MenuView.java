@@ -93,10 +93,11 @@ public class MenuView {
 
         setBackgroundOfMainMenu();
 
+        Font herculanum = Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Herculanum.ttf"),25);
         VBox vBox = new VBox();
 
         Hyperlink shopOption = new Hyperlink("Shop");
-        shopOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        shopOption.setFont(herculanum);
         shopOption.setTextFill(Color.WHITE);
 
         Image shopIcon = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop@2x.png"));
@@ -106,23 +107,27 @@ public class MenuView {
         HBox shopHBox = new HBox(shopIconImage, shopOption);
 
         Hyperlink collectionOption = new Hyperlink("Collection");
-        collectionOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        collectionOption.setFont(herculanum);
         collectionOption.setTextFill(Color.WHITE);
 
         Hyperlink battleOption = new Hyperlink("Battle");
-        battleOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        battleOption.setFont(herculanum);
         battleOption.setTextFill(Color.WHITE);
 
         Hyperlink exitOption = new Hyperlink("Exit Game");
-        exitOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        exitOption.setFont(herculanum);
         exitOption.setTextFill(Color.WHITE);
 
         Hyperlink logoutOption = new Hyperlink("Logout");
-        logoutOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        logoutOption.setFont(herculanum);
         logoutOption.setTextFill(Color.WHITE);
 
         Hyperlink helpOption = new Hyperlink("Help");
-        helpOption.setFont(Font.font(java.awt.Font.SERIF, 25));
+        helpOption.setFont(herculanum);
+        helpOption.setTextFill(Color.WHITE);
+
+        Hyperlink saveOption = new Hyperlink("Save");
+        helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);
 
         vBox.setSpacing(15);
@@ -132,11 +137,12 @@ public class MenuView {
         vBox.setMargin(helpOption, new Insets(7, 10, 10, 100));
         vBox.setMargin(exitOption, new Insets(7, 10, 10, 100));
         vBox.setMargin(logoutOption, new Insets(7, 10, 10, 100));
+        vBox.setMargin(saveOption, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption);
+        vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
-        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption);
+        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption);
 
     }
 

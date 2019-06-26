@@ -118,7 +118,7 @@ public class Controller {
         }
     }
 
-    public static void enterLoginMenu() throws FileNotFoundException {
+    public static void enterLoginMenu() throws IOException, ParseException, CloneNotSupportedException {
         AllDatas.currentRoot = AllDatas.account.getRoot();
         AllDatas.currentScene = AllDatas.account.getScene();
         AllDatas.account.setNowInThisMenu(true);

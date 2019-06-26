@@ -320,8 +320,8 @@ public class BattleController {
     }
     public static void move(int x,int y) throws FileNotFoundException {
         Force force = returnCardinThisCoordination(x,y);
-        showAllPossibilities(force);
         if (force.isCanMove() && !force.isHasMovedInThisTurn()) {
+            showAllPossibilities(force);
             System.out.println("x : " + x + " , y : " + y);
             System.out.println("forceX : " + force.getX() + " , forceY : " + force.getY());
             if (!Map.cardCanBeMovedToThisCell(force, x, y)) {
