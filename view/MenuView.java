@@ -331,22 +331,6 @@ public class MenuView {
         }
     }
 
-//    public static void showMinionsInShop() {
-//        setVBoxForShowingMinionCards();
-//    }
-//
-//    public static void showSpellsInShop(){
-//        setVBoxForShowingSpellCards();
-//    }
-//
-//    public static void showItemsInShop(){
-//        setVBoxForShowingItemCards();
-//    }
-//
-//    public static void showHeroesInShop(){
-//        setVBoxForShowingHeroCards();
-//    }
-
     public static void showMinionsInShop() {
 
         VBox minionVBox = new VBox();
@@ -975,5 +959,4 @@ public class MenuView {
         CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellStack, card, cardVBox, inRowCardsHBox);
 
     }
-
 }
