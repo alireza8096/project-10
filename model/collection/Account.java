@@ -146,12 +146,14 @@ public class Account {
         if (!deckString.matches("")) {
             String[] parts = deckString.split(",");
             Deck deck = new Deck(parts[0]);
-            deck.setHeroInDeck(Hero.findHeroByName(parts[1]));
-            for (int i = 2; i < parts.length; i++) {
-                if (Item.thisCardIsItem(parts[i])) {
-                    deck.getItemsInDeck().add(Item.findItemByName(parts[i]));
-                } else {
-                    deck.getCardsInDeck().add(Card.findCardByName(parts[i]));
+            if (parts.length > 1) {
+                deck.setHeroInDeck(Hero.findHeroByName(parts[1]));
+                for (int i = 2; i < parts.length; i++) {
+                    if (Item.thisCardIsItem(parts[i])) {
+                        deck.getItemsInDeck().add(Item.findItemByName(parts[i]));
+                    } else {
+                        deck.getCardsInDeck().add(Card.findCardByName(parts[i]));
+                    }
                 }
             }
             return deck;

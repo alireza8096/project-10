@@ -85,30 +85,46 @@ public class Cell {
                 }
             });
         } else {
-            System.out.println("selected");
-            cell.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (Map.cardCanBeMovedToThisCell(Card.getCardByCoordination((int) selectedYImage, (int) selectedXImage), yImage, xImage)) {
-                        try {
-                            BattleController.move((Force) Card.getCardByCoordination((int) selectedYImage, (int) selectedXImage), yImage, xImage);
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    Map.getForcesView()[(int)selectedXImage][(int)selectedYImage].setDisable(false);
-                    aCellIsSelected = false;
-                    for(int i=0; i<9; i++){
-                        for (int j=0; j<5; j++){
+            if (!Hand.isSelectedInHand()) {
+                System.out.println("selected");
+                cell.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if (Map.cardCanBeMovedToThisCell(Card.getCardByCoordination((int) selectedYImage, (int) selectedXImage), yImage, xImage)) {
                             try {
-                                Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png")));
+                                BattleController.move((Force) Card.getCardByCoordination((int) selectedYImage, (int) selectedXImage), yImage, xImage);
                             } catch (FileNotFoundException e) {
                                 e.printStackTrace();
                             }
                         }
+                        Map.getForcesView()[(int) selectedXImage][(int) selectedYImage].setDisable(false);
+                        aCellIsSelected = false;
+                        for (int i = 0; i < 9; i++) {
+                            for (int j = 0; j < 5; j++) {
+                                try {
+                                    Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png")));
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                     }
-                }
-            });
+                });
+            }
+            else{
+                cell.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        if(Map.checkIfMinionCardCanBeInsertedInThisCoordination((int)selectedYImage,(int)selectedXImage)){
+                            try {
+                                Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(Hand.getIndexInnHand()).getName(),yImage,xImage);
+                            } catch (CloneNotSupportedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                });
+            }
         }
 
     }

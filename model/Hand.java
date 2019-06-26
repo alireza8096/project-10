@@ -9,20 +9,36 @@ import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Minion;
 import model.collection.Spell;
-import view.MainView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static model.AllDatas.battle;
-
 public class Hand {
     private static ImageView[] scenesBehind = new ImageView[5];
     private static ImageView[] cards = new ImageView[5];
     private ArrayList<Card> cardsInHand = new ArrayList<>();
     private Card nextCard;
+    private static boolean selectedInHand;
+    private static int indexInnHand;
+
+
+    public static boolean isSelectedInHand() {
+        return selectedInHand;
+    }
+
+    public static void setSelectedInHand(boolean selectedInHand) {
+        Hand.selectedInHand = selectedInHand;
+    }
+
+    public static int getIndexInnHand() {
+        return indexInnHand;
+    }
+
+    public static void setIndexInnHand(int indexInnHand) {
+        Hand.indexInnHand = indexInnHand;
+    }
 
     public static ImageView[] getCards() {
         return cards;
@@ -32,28 +48,35 @@ public class Hand {
         return scenesBehind;
     }
 
-    public static void handleHand(ImageView cardInHand){
-        cardInHand.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    Image activated = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png"));
-                    cardInHand.setImage(activated);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+    public static void handController(){
+        for(int i=0; i<5; i++){
+            handleHand(cards[i],i);
+        }
+    }
+    public static void showAllPossibleEntries(){
+        for (int i=0; i<9; i++){
+            for (int j=0; j<5; j++){
+                if(Map.checkIfMinionCardCanBeInsertedInThisCoordination(j,i)){
+                    try {
+                        Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board_hand.png")));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
-        });
-        cardInHand.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+        }
+    }
+    public static void handleHand(ImageView cards,int i){
+        cards.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                try {
-                    Image disabled = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png"));
-                    cardInHand.setImage(disabled);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i)!=null){
+                    if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()){
+                        selectedInHand = true;
+                    }
                 }
-
+                showAllPossibleEntries();
             }
         });
     }
