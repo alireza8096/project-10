@@ -86,7 +86,9 @@ public class Account {
         for (int i = 0; i < player.getDecksOfPlayer().size(); i++) {
             jsonObject.put("deck" + i, returnStringOfDeck(player.getDecksOfPlayer().get(i)));
         }
-        jsonObject.put("mainDeck", Game.getInstance().getPlayer1().getMainDeck().getDeckName());
+        if(Game.getInstance().getPlayer1().getMainDeck()!=null) {
+            jsonObject.put("mainDeck", Game.getInstance().getPlayer1().getMainDeck().getDeckName());
+        }
         jsonObject.put("collection", returnStringOfCollection(player));
         Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + player.getUserName() + ".json"), jsonObject.toJSONString().getBytes());
     }
