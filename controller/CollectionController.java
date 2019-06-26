@@ -2,6 +2,7 @@ package controller;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -277,19 +278,16 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfShowingDeckButtons(StackPane selectDeck, StackPane back){
-        back.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    MenuView.showOptionsInCollection();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back){
+        back.setOnMouseClicked(event -> {
+            try {
+                MenuView.showOptionsInCollection();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
 
-        selectDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        newDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
@@ -316,6 +314,22 @@ public class CollectionController {
             MenuView.removeBlurEffectOfWindow();
             Shop.setIsShowingSpecificCard(false);
 
+        });
+    }
+
+    public static void handleEventsOfCreatingNewDeck(StackPane cancelButton, StackPane createButton, TextField deckNameField){
+        createButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
+
+        createButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
         });
     }
 }

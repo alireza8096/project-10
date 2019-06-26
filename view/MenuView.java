@@ -29,6 +29,7 @@ import model.collection.Hero;
 import model.collection.Item;
 import org.json.simple.parser.ParseException;
 
+import javax.security.auth.callback.LanguageCallback;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -683,6 +684,8 @@ public class MenuView {
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
 
+            setWindowForCreatingNewDeck();
+
             ArrayList<Deck> decks = Game.getInstance().getPlayer1().getDecksOfPlayer();
 
             VBox generalVBox = new VBox();
@@ -702,6 +705,59 @@ public class MenuView {
             e.printStackTrace();
         }
 
+    }
+
+    public static void createNewDeck() throws FileNotFoundException {
+        VBox createDeckVBox = new VBox();
+        createDeckVBox.setLayoutX(1040);
+        createDeckVBox.setPrefHeight(AllDatas.currentScene.getHeight());
+
+        TextField deckName = new TextField();
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
+
+        ImageView cancelButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/deck/button_primary_right.png")));
+        cancelButton.setFitWidth(190);
+        cancelButton.setFitHeight(50);
+        Label cancelLabel = new Label("Cancel");
+        cancelLabel.setFont(font);
+        cancelLabel.setTextFill(rgb(150, 249, 255));
+
+        StackPane cancelStack = new StackPane(cancelButton, cancelLabel);
+
+        ImageView createButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/deck/button_primary_left_glow@2x.png")));
+        createButton.setFitWidth(180);
+        createButton.setFitHeight(50);
+        Label createLabel = new Label("Create Deck");
+        createLabel.setTextFill(rgb(150, 249, 255));
+        createLabel.setFont(font);
+
+        StackPane createStack = new StackPane(createButton, createLabel);
+        HBox buttonsHBox = new HBox(cancelStack, createStack);
+
+        VBox optionsVBox = new VBox(buttonsHBox, deckName);
+
+        createDeckVBox.getChildren().add(optionsVBox);
+        createDeckVBox.setAlignment(Pos.BOTTOM_CENTER);
+        VBox.setMargin(optionsVBox, new Insets(1, 1, 20, 1));
+
+        AllDatas.currentRoot.getChildren().add(createDeckVBox);
+
+        CollectionController.handleEventsOfCreatingNewDeck(cancelStack, createStack, deckName);
+    }
+
+    public static void setWindowForCreatingNewDeck() throws FileNotFoundException {
+        ImageView newDeckBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/deck/gray_window.png")));
+        newDeckBack.setX(1030);
+        newDeckBack.setOpacity(0.7);
+        newDeckBack.setFitWidth(400);
+        newDeckBack.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
+
+        AllDatas.currentRoot.getChildren().add(newDeckBack);
     }
 
     public static void showThisDeck(VBox generalVBox, Deck deck) throws FileNotFoundException {
@@ -736,8 +792,8 @@ public class MenuView {
         ArrayList<Hero> heroes = new ArrayList<>();
         heroes.add(hero);
 
-//        addCardsOfCollectionToVBox(cardsInDeck, deckVBox);
-//        addCardsOfCollectionToVBox(itemsInDeck, deckVBox);
+        addCardsOfCollectionToVBox(cardsInDeck, deckVBox);
+        addCardsOfCollectionToVBox(itemsInDeck, deckVBox);
         addCardsOfCollectionToVBox(heroes, deckVBox);
         generalVBox.getChildren().add(deckVBox);
 
@@ -746,16 +802,16 @@ public class MenuView {
 
 
     public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
-        ImageView selectDeckButton = new ImageView(new Image(new FileInputStream(
+        ImageView newDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        selectDeckButton.setFitWidth(200);
-        selectDeckButton.setFitHeight(80);
+        newDeckButton.setFitWidth(200);
+        newDeckButton.setFitHeight(80);
 
-        Text selectDeckText = new Text("Select Deck");
-        selectDeckText.setFont(Font.font(20));
-        selectDeckText.setFill(rgb(160, 255, 255));
+        Text newDeckText = new Text("New Deck");
+        newDeckText.setFont(Font.font(20));
+        newDeckText.setFill(rgb(160, 255, 255));
 
-        StackPane selectDeckPane = new StackPane(selectDeckButton, selectDeckText);
+        StackPane newDeckPane = new StackPane(newDeckButton, newDeckText);
 
         ImageView backButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
@@ -768,14 +824,14 @@ public class MenuView {
 
         StackPane backPane = new StackPane(backButton, backText);
 
-        GameView.makeImageGlowWhileMouseEnters(selectDeckPane, backPane);
+        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane);
 
-        vBox.getChildren().addAll(selectDeckPane, backPane);
+        vBox.getChildren().addAll(newDeckPane, backPane);
 
-        VBox.setMargin(selectDeckPane, new Insets(30, 1, 1, 20));
+        VBox.setMargin(newDeckPane, new Insets(30, 1, 1, 20));
         VBox.setMargin(backPane, new Insets(20, 1, 1, 20));
 
-        CollectionController.handleEventsOfShowingDeckButtons(selectDeckPane, backPane);
+        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane);
     }
 
     public static void showCardsInCollection(){
@@ -823,9 +879,9 @@ public class MenuView {
 
             AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
 
-//        addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
-        addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
-        addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
+           addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
+           addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
+           addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
