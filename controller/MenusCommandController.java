@@ -211,6 +211,9 @@ public class MenusCommandController {
 
         battle.setOnAction(event -> {
             try {
+
+
+
                 Controller.enterBattle();
             } catch (CloneNotSupportedException | IOException e) {
                 e.printStackTrace();

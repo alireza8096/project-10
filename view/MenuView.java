@@ -281,7 +281,6 @@ public class MenuView {
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
-//        MainView.primaryStage.setMaximized(true);
 
         ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());

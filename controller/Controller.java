@@ -1,11 +1,17 @@
 package controller;
 
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import org.json.simple.parser.ParseException;
 import view.MenuView;
 
+import java.awt.*;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -223,6 +229,23 @@ public class Controller {
         Deck.addCardOrItemToDeck(336,"bahar");
         Deck.addCardOrItemToDeck(340,"bahar");
 //        Deck.selectDeck("bahar");
+    }
+
+    public static void chooseSingleOrMultiPlayerWindow() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+
+        MenuView.setBackgroundOfMainMenu();
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
+
+
+        ImageView singleButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/deck/button_primary_right.png")));
+        Label singleLabel = new Label("Single Player");
+        singleLabel.setFont(font);
+
+
     }
 
 
