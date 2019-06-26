@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.java.accessibility.util.EventQueueMonitor;
 import controller.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -702,12 +703,22 @@ public class MenuView {
 
     }
 
+    public static void showCardsInCollectionForCreatingDeck(){
+
+    }
+
     public static void showDecks(){
 
     }
 
     public static void createNewDeck() throws FileNotFoundException {
         setWindowForCreatingNewDeck();
+
+        VBox generalVBox = new VBox();
+        AllDatas.currentRoot.getChildren().add(generalVBox);
+        generalVBox.setLayoutX(300);
+        generalVBox.setPrefWidth(700);
+        showCards(generalVBox);
 
         VBox createDeckVBox = new VBox();
         createDeckVBox.setLayoutX(1040);
@@ -839,25 +850,8 @@ public class MenuView {
 
     public static void showCardsInCollection(){
         try {
-            System.out.println("++++++");
-            for (Card card : Game.getInstance().getPlayer1().getCardsInCollection())
-                System.out.println("card : " + card.getName());
-            for (Card card : Game.getInstance().getPlayer1().getItemsInCollection())
-                System.out.println("item : " + card.getName());
-            for (Card card : Game.getInstance().getPlayer1().getHeroesInCollection())
-                System.out.println("hero : " + card.getName());
-            System.out.println("+++++++");
-
-
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
-
-            ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
-            ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
-            ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
-            VBox cardsVBox = new VBox();
-            VBox itemsVBox = new VBox();
-            VBox heroesVBox = new VBox();
 
             ImageView createDeckButton = new ImageView(new Image(new FileInputStream(
                         HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
@@ -886,17 +880,31 @@ public class MenuView {
 
             CollectionController.handleEventsOfShowCardsButtons(createDeckStack, backStack);
 
-            VBox generalVBox = new VBox(cardsVBox, itemsVBox, heroesVBox);
+            VBox generalVBox = new VBox();
             generalVBox.setLayoutX(300);
 
             AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
+            showCards(generalVBox);
 
-           addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
-           addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
-           addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
+    }
+
+    public static void showCards(VBox generalVBox){
+        VBox cardsVBox = new VBox();
+        VBox itemsVBox = new VBox();
+        VBox heroesVBox = new VBox();
+
+        generalVBox.getChildren().addAll(cardsVBox, itemsVBox, heroesVBox);
+
+        ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
+        ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
+        ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
+
+        addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
+        addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
+        addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
     }
 
     public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
@@ -961,18 +969,26 @@ public class MenuView {
         vBox.setAlignment(Pos.CENTER);
         vBox.setAccessibleText(Integer.toString(card.getId()));
 
-        vBox.setOnMouseClicked(event -> {
-            try {
-                if (!Shop.isIsShowingSpecificCard()) {
-                    makeSceneBlur();
-                    Shop.setIsShowingSpecificCard(true);
-                    showCardForSelling(card, vBox, hBox);
+        if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling
+            vBox.setOnMouseClicked(event -> {
+                try {
+                    if (!Shop.isIsShowingSpecificCard()) {
+                        makeSceneBlur();
+                        Shop.setIsShowingSpecificCard(true);
+                        showCardForSelling(card, vBox, hBox);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            });
+        }else{//is showing cards for creating new deck
+            vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
 
-        });
+                }
+            });
+        }
 
         VBox.setMargin(cardName, new Insets(1,1,1,60));
         cardName.setFill(Color.rgb(255, 225, 58));

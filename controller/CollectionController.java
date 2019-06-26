@@ -3,6 +3,7 @@ package controller;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -23,10 +24,30 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.logging.SocketHandler;
 
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class CollectionController {
+
+    private static boolean isChoosingForCreatingNewDeck = false;
+    private static Deck deckIsBeingCreated;
+
+    public static Deck getDeckIsBeingCreated() {
+        return deckIsBeingCreated;
+    }
+
+    public static void setDeckIsBeingCreated(Deck deckIsBeingCreated) {
+        CollectionController.deckIsBeingCreated = deckIsBeingCreated;
+    }
+
+    public static boolean isIsChoosingForCreatingNewDeck() {
+        return isChoosingForCreatingNewDeck;
+    }
+
+    public static void setIsChoosingForCreatingNewDeck(boolean isChoosingForCreatingNewDeck) {
+        CollectionController.isChoosingForCreatingNewDeck = isChoosingForCreatingNewDeck;
+    }
 
     public static String createName(String[] commands, int start) {
         String cardName = "";
@@ -97,6 +118,7 @@ public class CollectionController {
             Deck.deleteDeck(deckName);
             AllDatas.hasEnteredCollection = true;
         }
+
     }
 
     public static void addToDeck(String[] commands, String command) throws Exception {
@@ -291,6 +313,8 @@ public class CollectionController {
             @Override
             public void handle(MouseEvent event) {
                 try {
+                    isChoosingForCreatingNewDeck = true;
+                    deckIsBeingCreated = new Deck();
                     MenuView.createNewDeck();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -311,8 +335,6 @@ public class CollectionController {
             inRowHBox.getChildren().remove(cardVBox);
             try {
                 Shop.sellCardAndRemoveFromCollection(card.getId());
-                for (Card card1 : Game.getInstance().getPlayer1().getCardsInCollection())
-                    System.out.println("_____"+card1.getName());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -324,14 +346,22 @@ public class CollectionController {
     }
 
     public static void handleEventsOfCreatingNewDeck(StackPane cancelButton, StackPane createButton, TextField deckNameField, VBox generalVBox){
-        cancelButton.setOnMouseClicked(event -> AllDatas.currentRoot.getChildren().remove(generalVBox));
+        cancelButton.setOnMouseClicked(event -> {
+            deckIsBeingCreated = null;
+            AllDatas.currentRoot.getChildren().remove(generalVBox);
+        });
 
-        createButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                String deckName = deckNameField.getText();
-
+        createButton.setOnMouseClicked(event -> {
+            String deckName = deckNameField.getText();
+            Deck deck = null;
+            try {
+                deck = deckIsBeingCreated.returnCopyOfDeck();
+                deck.setDeckName(deckName);
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
             }
+            Game.getInstance().getPlayer1().getDecksOfPlayer().add(deck);
+
         });
     }
 }
