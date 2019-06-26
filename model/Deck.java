@@ -15,6 +15,10 @@ public class Deck implements Cloneable {
     private ArrayList<Item> itemsInDeck = new ArrayList<>();
     private boolean deckIsSelected;
 
+    public Deck(){
+
+    }
+
     public void setHeroInDeck(Hero heroInDeck) {
         this.heroInDeck = heroInDeck;
     }
@@ -278,5 +282,9 @@ public class Deck implements Cloneable {
 //            Hand.setHand();
             deck.setDeckIsSelected(true);
         }
+    }
+
+    public Deck returnCopyOfDeck() throws CloneNotSupportedException {
+        return (Deck)this.clone();
     }
 }

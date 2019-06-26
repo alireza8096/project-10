@@ -75,8 +75,9 @@ public class Minion extends Force implements Cloneable{
 
     public static Minion findMinionByName(String minionName) throws CloneNotSupportedException {
         for (Minion minion: minions) {
-            if(minion.name.matches(minionName))
-                return (Minion)minion.clone();
+            if(minion.name.matches(minionName)) {
+                return (Minion) minion.clone();
+            }
         }
         return null;
     }
