@@ -378,18 +378,31 @@ public class Card implements Cloneable {
                 return findHeroInCollection(cardID);
             case 2:
                 return findItemInCollection(cardID);
-            case 3 | 4:
-                return findMinionOrSpellInCollection(cardID);
+            case 3:
+                return findMinionInCollection(cardID);
+            case 4:
+                return findSpellInCollection(cardID);
         }
         return null;
     }
 
-    private static Card findMinionOrSpellInCollection(int cardID) {
+    public static Spell findSpellInCollection(int cardID){
         Iterator<Card> iterator = Game.getInstance().getPlayer1().getCardsInCollection().iterator();
         while (iterator.hasNext()) {
             Card card = iterator.next();
             if (card.getId() == cardID)
-                return card;
+                return (Spell)card;
+        }
+        return null;
+    }
+
+
+    public static Minion findMinionInCollection(int cardID) {
+        Iterator<Card> iterator = Game.getInstance().getPlayer1().getCardsInCollection().iterator();
+        while (iterator.hasNext()) {
+            Card card = iterator.next();
+            if (card.getId() == cardID)
+                return (Minion)card;
         }
         return null;
     }
