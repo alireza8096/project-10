@@ -212,13 +212,10 @@ public class MenusCommandController {
         battle.setOnAction(event -> {
             try {
 
-
-
-                Controller.enterBattle();
-            } catch (CloneNotSupportedException | IOException e) {
+                Controller.chooseSingleOrMultiPlayerWindow();
+//                Controller.enterBattle();
+            } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ParseException e) {
-                System.out.println(e.getMessage());
             }
         });
 

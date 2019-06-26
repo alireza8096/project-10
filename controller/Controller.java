@@ -1,13 +1,20 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import org.json.simple.parser.ParseException;
+import view.GameView;
 import view.MenuView;
 
 import java.awt.*;
@@ -237,13 +244,40 @@ public class Controller {
         MenuView.setBackgroundOfMainMenu();
 
         Font font = Font.loadFont(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 23);
 
 
         ImageView singleButton = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/deck/button_primary_right.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_primary_middle_glow@2x.png")));
         Label singleLabel = new Label("Single Player");
         singleLabel.setFont(font);
+        singleLabel.setTextFill(Color.rgb(158, 250, 255));
+
+        StackPane singleStack = new StackPane(singleButton, singleLabel);
+
+        ImageView multiButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_primary_middle_glow@2x.png")));
+        Label multiLabel = new Label("Single Player");
+        multiLabel.setFont(font);
+        multiLabel.setTextFill(Color.rgb(158, 250, 255));
+
+        StackPane multiStack = new StackPane(multiButton, multiLabel);
+
+        GameView.makeImageGlowWhileMouseEnters(singleStack, multiStack);
+
+        HBox hBox = new HBox(singleStack, multiStack);
+        hBox.setLayoutX(MenuView.WINDOW_WIDTH/2 - 140);
+        hBox.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 100);
+
+        AllDatas.currentRoot.getChildren().add(hBox);
+
+        singleStack.setOnMouseClicked(event -> {
+            try {
+                Controller.enterBattle();
+            } catch (IOException | CloneNotSupportedException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
 
 
     }
