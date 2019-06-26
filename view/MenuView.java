@@ -323,6 +323,7 @@ public class MenuView {
         Cell.handleForce();
         Hand.createHand();
         Hand.setHand();
+        Hand.handController();
         BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/button_end_turn_mine@2x.png"));
         AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
         BattleView.handleEndTurn();
