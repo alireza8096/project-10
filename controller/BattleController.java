@@ -77,7 +77,7 @@ public class BattleController {
             if (Game.getInstance().getNumOfRound() < 14) {
                 Game.getInstance().getPlayer1().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer1().setNumOfMana(9);
-            for(int i=0; i<Game.getInstance().getPlayer1().getNumOfMana();i++){
+            for (int i = 0; i < Game.getInstance().getPlayer1().getNumOfMana(); i++) {
                 Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
             }
             makeAllCardsActivePlayer();
@@ -88,12 +88,35 @@ public class BattleController {
             for (ImageView imageView : Hand.getScenesBehind()) {
                 imageView.setDisable(false);
             }
+            for (int i = 0; i < 5; i++) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                    Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
+                } else {
+                    Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                }
+            }
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 5; j++) {
+                    if (Game.getInstance().getMap().getCells()[j][i].getCellType() == CellType.empty) {
+                        Map.getCellsView()[i][j].setDisable(false);
+                    }
+                    else Map.getCellsView()[i][j].setDisable(true);
+                }
+            }
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 5; j++) {
+                    Map.getForcesView()[i][j].setDisable(false);
+                }
+            }
+            Cell.handleCell();
+            Cell.handleForce();
         }
     }
 
-    public static void selectCardInField(ImageView force){
+    public static void selectCardInField(ImageView force) {
 
     }
+
     public static void selectCardById(String[] commands, Scanner scanner) throws Exception {
         if (Game.getInstance().isPlayer1Turn()) {
             int id = Integer.parseInt(commands[1]);
@@ -125,7 +148,6 @@ public class BattleController {
             return true;
         return false;
     }
-
 
 
     public static void doActionOnCard(Force force, Scanner scanner) throws Exception {
@@ -291,7 +313,7 @@ public class BattleController {
 
     public static void checkAllConditionsToMoveCard(Force force, int x, int y) throws FileNotFoundException {
         System.out.println("HERE");
-        move(x, y);
+//        move(force,x, y);
 //        if(Game.getInstance().getHeroOfPlayer1().getName().equals(cardName)){
 //            move(Game.getInstance().getHeroOfPlayer1(), x, y);
 //        }
@@ -315,14 +337,13 @@ public class BattleController {
         }
     }
 
-    public static Force returnCardinThisCoordination(int x,int y){
-        if(Game.getInstance().getMap().getFriendHero().getX() == x
-        && Game.getInstance().getMap().getFriendHero().getY() == y){
+    public static Force returnCardinThisCoordination(int x, int y) {
+        if (Game.getInstance().getMap().getFriendHero().getX() == x
+                && Game.getInstance().getMap().getFriendHero().getY() == y) {
             return Game.getInstance().getMap().getFriendHero();
-        }
-        else{
-            for(Force force : Game.getInstance().getMap().getFriendMinions()){
-                if(force.getX() == x && force.getY() == y){
+        } else {
+            for (Force force : Game.getInstance().getMap().getFriendMinions()) {
+                if (force.getX() == x && force.getY() == y) {
                     return force;
                 }
             }
@@ -331,33 +352,50 @@ public class BattleController {
     }
 
     public static void showAllPossibilities(Force force) throws FileNotFoundException {
-        for(int i=0; i<5; i++){
-            for (int j=0; j<9; j++){
-                if(Map.cardCanBeMovedToThisCell(force,i,j)){
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (Map.cardCanBeMovedToThisCell(force, i, j)) {
                     Map.getCellsView()[j][i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board_move.png")));
                 }
             }
         }
     }
-    public static void move(int x,int y) throws FileNotFoundException {
-        Force force = returnCardinThisCoordination(x,y);
-        if (force.isCanMove() && !force.isHasMovedInThisTurn()) {
-            showAllPossibilities(force);
-            System.out.println("x : " + x + " , y : " + y);
-            System.out.println("forceX : " + force.getX() + " , forceY : " + force.getY());
-            if (!Map.cardCanBeMovedToThisCell(force, x, y)) {
-                System.out.println("Invalid target");
-            } else {
-                Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
-                force.setX(x);
-                force.setY(y);
-                force.setHasMovedInThisTurn(true);
-                System.out.println(force.getId() + " moved to (" + x + "," + y + ")");
-                applyEffectsOfTargetCellOnCard(force, x, y);
-            }
+
+    public static void move(Force force, int x, int y) throws FileNotFoundException {
+//        if (force.isCanMove() && !force.isHasMovedInThisTurn()) {
+//            showAllPossibilities(force);
+//            System.out.println("x : " + x + " , y : " + y);
+//            System.out.println("forceX : " + force.getX() + " , forceY : " + force.getY());
+//            if (!Map.cardCanBeMovedToThisCell(force, x, y)) {
+//                System.out.println("Invalid target");
+//            } else {
+        Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
+        Map.getForcesView()[force.getY()][force.getX()].setImage(null);
+        if (force.getCardType().matches("hero")) {
+            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() + 25);
         } else {
-            System.out.println("This card is not movable");
+            Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
+            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
         }
+        Map.getCellsView()[force.getY()][force.getX()].setDisable(false);
+        force.setX(x);
+        force.setY(y);
+        Map.getCellsView()[y][x].setDisable(true);
+        Map.getForcesView()[y][x].setImage(force.getForceInField());
+        if (force.getCardType().matches("hero")) {
+            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
+        } else {
+            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
+            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+        }
+        Map.getForcesView()[y][x].setDisable(false);
+        force.setHasMovedInThisTurn(true);
+        applyEffectsOfTargetCellOnCard(force, x, y);
+//                System.out.println(force.getId() + " moved to (" + x + "," + y + ")");
+//            }
+//        } else {
+//            System.out.println("This card is not movable");
+//        }
     }
 
     public static void attack(Card attackerCard, Card opponentCard) {
@@ -464,7 +502,7 @@ public class BattleController {
         } else {
             opponent.setHealthPoint(opponent.getHealthPoint() - attacker.getAttackPower());
         }
-        if(checkRangeForAttack(opponent,attacker)) {
+        if (checkRangeForAttack(opponent, attacker)) {
             if (attacker.getHealthPoint() <= opponent.getAttackPower()) {
                 attacker.setHealthPoint(0);
             } else {

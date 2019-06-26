@@ -34,7 +34,7 @@ public class AI {
 
     public static void createDeckOfAI(Player player) throws CloneNotSupportedException {
         Random random = new Random();
-        int heroId =7;//random.nextInt(10) + 1;
+        int heroId =random.nextInt(10) + 1;
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
         int[] idsOfSpells = new int[5];
