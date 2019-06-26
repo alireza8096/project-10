@@ -1,16 +1,12 @@
 package view;
 
-import com.sun.source.doctree.TextTree;
 import controller.*;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -18,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.GaussianBlur;
-import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -36,13 +31,10 @@ import model.collection.Hero;
 import model.collection.Item;
 import org.json.simple.parser.ParseException;
 
-import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.Inet4Address;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import static controller.Controller.sampleGame;
 import static javafx.scene.paint.Color.*;
@@ -579,6 +571,7 @@ public class MenuView {
         buyCardButton.setFitHeight(70);
         cancelButton.setFitWidth(200);
         cancelButton.setFitHeight(70);
+
         HBox hBox = new HBox(buyCardButton, cancelButton);
         hBox.setLayoutX(480);
         hBox.setLayoutY(500);
@@ -898,8 +891,6 @@ public class MenuView {
     }
 
     public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
-//        StackPane cardPane = new StackPane();
-
         Text manaText = new Text(Integer.toString(card.getMana()));
         ImageView manaIcon = null;
         manaText.setFont(Font.font("verdana", 20));
@@ -926,11 +917,104 @@ public class MenuView {
         cardName.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         cardName.setEffect(ds);
         VBox vBox = new VBox(cardImage, cardName, manaPane);
+        vBox.setAccessibleText(Integer.toString(card.getId()));
+
+        vBox.setOnMouseClicked(event -> {
+            try {
+                if (!Shop.isIsShowingSpecificCard()) {
+                    makeSceneBlur();
+                    Shop.setIsShowingSpecificCard(true);
+                    showCardForSelling(card, vBox, hBox);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        });
+
         VBox.setMargin(cardName, new Insets(1,1,1,60));
         cardName.setFill(Color.rgb(255, 225, 58));
 
         hBox.getChildren().add(vBox);
     }
+
+    public static void showCardForSelling(Card card, VBox cardVBox, HBox inRowCardsHBox) throws FileNotFoundException {
+        HBox cardHBox = new HBox();
+
+        ImageView cardImage = card.getImageViewOfCard();
+
+        ImageView cancelButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
+        //Todo : set sell text for sellButton
+        ImageView sellButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_buy@2x.png")));
+
+        cardImage.setFitWidth(200);
+        cardImage.setFitHeight(300);
+        cardImage.setX(WINDOW_WIDTH / 2 + 80);
+        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
+
+        sellButton.setFitWidth(200);
+        sellButton.setFitHeight(70);
+        cancelButton.setFitWidth(200);
+        cancelButton.setFitHeight(70);
+
+        HBox hBox = new HBox(sellButton, cancelButton);
+        hBox.setLayoutX(480);
+        hBox.setLayoutY(500);
+        hBox.setSpacing(20);
+
+        AllDatas.currentRoot.getChildren().addAll(cardHBox, hBox);
+
+        GameView.makeImageGlowWhileMouseEnters(cancelButton);
+        GameView.makeImageGlowWhileMouseEnters(sellButton);
+
+        cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
+        cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
+
+        cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
+
+        CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellButton, card, cardVBox, inRowCardsHBox);
+
+
+    }
+
+//    public static void showCardForBuying (Card card) throws FileNotFoundException {
+//
+//        HBox cardHBox = new HBox();
+//        //Todo : set the card minion image itself
+//        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
+//
+//        ImageView cancelButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
+//        ImageView buyCardButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_buy@2x.png")));
+//
+//        cardImage.setFitWidth(200);
+//        cardImage.setFitHeight(300);
+//        cardImage.setX(WINDOW_WIDTH / 2 + 80);
+//        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
+//
+//        buyCardButton.setFitWidth(200);
+//        buyCardButton.setFitHeight(70);
+//        cancelButton.setFitWidth(200);
+//        cancelButton.setFitHeight(70);
+//
+//        HBox hBox = new HBox(buyCardButton, cancelButton);
+//        hBox.setLayoutX(480);
+//        hBox.setLayoutY(500);
+//        hBox.setSpacing(20);
+//
+//        AllDatas.currentRoot.getChildren().addAll(cardHBox, hBox);
+//
+//        GameView.makeImageGlowWhileMouseEnters(cancelButton);
+//        GameView.makeImageGlowWhileMouseEnters(buyCardButton);
+//
+//        cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
+//        cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
+//
+//        cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
+//
+//        ShopController.handleEventsOfBuyingCard(cardHBox, hBox, cancelButton, buyCardButton, card);
+//    }
 
 
 }

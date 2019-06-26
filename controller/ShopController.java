@@ -170,7 +170,5 @@ public class ShopController {
                 e.printStackTrace();
             }
         });
-
-
     }
 }

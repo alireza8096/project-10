@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Card implements Cloneable{
     //    private static ArrayList<String> cardNames = new ArrayList<>();
@@ -371,5 +372,49 @@ public class Card implements Cloneable{
         }
         return null;
     }
+
+    public static Card findCardInCollectionByID(int cardID){
+        switch (cardID / 100){
+            case 1:
+                return findHeroInCollection(cardID);
+            case 2:
+                return findItemInCollection(cardID);
+            case 3 | 4:
+                return findMinionOrSpellInCollection(cardID);
+        }
+        return null;
+    }
+
+    private static Card findMinionOrSpellInCollection(int cardID) {
+        Iterator<Card> iterator = Game.getInstance().getPlayer1().getCardsInCollection().iterator();
+        while (iterator.hasNext()){
+            Card card = iterator.next();
+            if (card.getId() == cardID)
+                return card;
+        }
+        return null;
+    }
+
+    public static Card findHeroInCollection(int cardID){
+        Iterator<Hero> heroIterator = Game.getInstance().getPlayer1().getHeroesInCollection().iterator();
+        while (heroIterator.hasNext()){
+            Hero hero = heroIterator.next();
+            if (hero.getId() == cardID)
+                return hero;
+        }
+        return null;
+    }
+
+    public static Card findItemInCollection(int cardID){
+        Iterator<Item> itemIterator = Game.getInstance().getPlayer1().getItemsInCollection().iterator();
+        while (itemIterator.hasNext()){
+            Item item = itemIterator.next();
+            if (item.getId() == cardID)
+                return item;
+        }
+        return null;
+    }
+
+
 
 }

@@ -4,7 +4,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import model.*;
 import model.Game;
 import model.collection.Card;
@@ -292,6 +294,28 @@ public class CollectionController {
             public void handle(MouseEvent event) {
 
             }
+        });
+    }
+
+    public static void handleEventsOfSellingCard(HBox cardHBox, HBox buttonsHBox,
+                                                 ImageView cancelButton, ImageView sellButton, Card card, VBox cardVBox, HBox inRowHBox){
+        cancelButton.setOnMouseClicked(event -> {
+            AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
+            MenuView.removeBlurEffectOfWindow();
+            Shop.setIsShowingSpecificCard(false);
+        });
+
+        sellButton.setOnMouseClicked(event -> {
+            inRowHBox.getChildren().remove(cardVBox);
+            try {
+                Shop.sellCardAndRemoveFromCollection(card.getId());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox, cardVBox);
+            MenuView.removeBlurEffectOfWindow();
+            Shop.setIsShowingSpecificCard(false);
+
         });
     }
 }
