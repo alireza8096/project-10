@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"permanent",
   "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Total Disarm/Total Disarm.png"
 }

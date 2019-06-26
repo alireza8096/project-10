@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"1",
   "friendOrEnemy" : "cell",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Poison Lake/Poison Lake.png"
 }

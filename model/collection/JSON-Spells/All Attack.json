@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"1",
   "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "column"
+  "locationOfTarget" : "column",
+  "imagePath" : "view/Photos/Spells/All Attack/AllAttack.png"
 }

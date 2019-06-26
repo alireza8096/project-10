@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"1",
   "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Empower/Empower.png"
 }

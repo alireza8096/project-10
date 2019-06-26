@@ -53,7 +53,8 @@ public class HandleFiles {
                 String last = jsonObject.get("last").toString();
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
-                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,"", "view/Photos/Heros/Simorgh/f4_altgeneraltier2_breathing.gif");
+                String imagePath = jsonObject.get("imagePath").toString();
+                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,imagePath, "view/Photos/Heros/Simorgh/f4_altgeneraltier2_breathing.gif");
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Spell.getSpells().add(spell);
             }

@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"2",
   "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Shock/Shock.png"
 }

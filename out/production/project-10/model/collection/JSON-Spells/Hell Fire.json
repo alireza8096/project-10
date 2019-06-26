@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"2",
   "friendOrEnemy" : "cell",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Hell Fire/Hell Fire.png"
 }
