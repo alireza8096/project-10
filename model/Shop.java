@@ -220,12 +220,14 @@ public class Shop{
 
     public static void sellCardAndRemoveFromCollection(int cardID) throws Exception {
         //Todo : delete sold card from decks
+        IntegerProperty daricValue = Game.getInstance().getPlayer1().daricPropertyProperty();
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (cardID / 100) {
             case 1:
                 Hero hero = (Hero)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
                 daric += hero.getPrice();
+                daricValue.set(daric);
                 System.out.println(hero.getName() + " was sold successfully");
                 for (Hero hero1 : Game.getInstance().getPlayer1().getHeroesInCollection())
                     System.out.println(hero1.getName());
@@ -235,6 +237,7 @@ public class Shop{
                 if (item.getItemType().matches("usable")) {
                     removeProcess(Game.getInstance().getPlayer1().getItemsInCollection(), item);
                     daric += item.getPrice();
+                    daricValue.set(daric);
                     System.out.println(item.getName() + " was sold successfully");
                 } else
                     System.out.println("This item can not be sold");
@@ -243,12 +246,14 @@ public class Shop{
                 Minion minion = (Minion)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), minion);
                 daric += minion.getPrice();
+                daricValue.set(daric);
                 System.out.println(minion.getName() + " was sold successfully");
                 break;
             case 4:
                 Spell spell = (Spell)Card.findCardInCollectionByID(cardID);
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), spell);
                 daric += spell.getPrice();
+                daricValue.set(daric);
                 System.out.println(spell.getName() + " was sold successfully");
                 break;
         }

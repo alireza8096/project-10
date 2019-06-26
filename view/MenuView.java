@@ -840,8 +840,8 @@ public class MenuView {
             AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
 
 //        addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
-//        addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
-            addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
+        addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
+        addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
         }catch (FileNotFoundException e){
             e.printStackTrace();
         }
@@ -972,7 +972,6 @@ public class MenuView {
         cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
 
         CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellStack, card, cardVBox, inRowCardsHBox);
-
 
     }
 
