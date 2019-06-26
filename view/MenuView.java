@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.java.accessibility.util.EventQueueMonitor;
 import controller.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -30,7 +29,6 @@ import model.collection.Hero;
 import model.collection.Item;
 import org.json.simple.parser.ParseException;
 
-import javax.security.auth.callback.LanguageCallback;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -708,16 +706,17 @@ public class MenuView {
 
             ArrayList<Deck> decks = Game.getInstance().getPlayer1().getDecksOfPlayer();
 
-            VBox generalVBox = new VBox();
-            generalVBox.setLayoutX(300);
+            TabPane deckTabPane = new TabPane();
+            deckTabPane.setLayoutX(300);
+            deckTabPane.setPrefWidth(700);
 
             VBox buttonsVBox = new VBox();
 
             setButtonsVBoxForShowingDecks(buttonsVBox);
 
-            AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
+            AllDatas.currentRoot.getChildren().addAll(buttonsVBox, deckTabPane);
 
-            showDecks();
+            showDecks(deckTabPane, decks);
 
         }catch (FileNotFoundException e){
             e.printStackTrace();
@@ -725,12 +724,39 @@ public class MenuView {
 
     }
 
-    public static void showCardsInCollectionForCreatingDeck(){
-
+    public static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
+        for (Deck deck : decks){
+            Tab deckTab = new Tab(deck.getDeckName());
+            decksTabPane.getTabs().add(deckTab);
+            VBox eachDeckVBox = new VBox();
+            deckTab.setContent(eachDeckVBox);
+            ArrayList<Hero> heroInDeck = new ArrayList<>();
+            heroInDeck.add(deck.getHeroInDeck());
+            if (deck.getCardsInDeck().size() != 0)
+                 addCardsToVBox(deck.getCardsInDeck(), eachDeckVBox);
+            if (deck.getItemsInDeck().size() != 0)
+                addCardsToVBox(deck.getItemsInDeck(), eachDeckVBox);
+            if (heroInDeck.size() != 0)
+                addCardsToVBox(heroInDeck, eachDeckVBox);
+        }
     }
 
-    public static void showDecks(){
+    public static void showCards(VBox generalVBox){
+        generalVBox.getChildren().clear();
 
+        VBox cardsVBox = new VBox();
+        VBox itemsVBox = new VBox();
+        VBox heroesVBox = new VBox();
+
+        generalVBox.getChildren().addAll(cardsVBox, itemsVBox, heroesVBox);
+
+        ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
+        ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
+        ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
+
+        addCardsToVBox(cardsInCollection, cardsVBox);
+        addCardsToVBox(itemsInCollection, itemsVBox);
+        addCardsToVBox(heroesInCollection, heroesVBox);
     }
 
     public static void createNewDeck() throws FileNotFoundException {
@@ -739,7 +765,7 @@ public class MenuView {
         VBox generalVBox = new VBox();
         AllDatas.currentRoot.getChildren().add(generalVBox);
         generalVBox.setLayoutX(300);
-        generalVBox.setPrefWidth(700);
+        generalVBox.setPrefWidth(650);
         showCards(generalVBox);
 
         VBox createDeckVBox = new VBox();
@@ -828,14 +854,12 @@ public class MenuView {
         ArrayList<Hero> heroes = new ArrayList<>();
         heroes.add(hero);
 
-        addCardsOfCollectionToVBox(cardsInDeck, deckVBox);
-        addCardsOfCollectionToVBox(itemsInDeck, deckVBox);
-        addCardsOfCollectionToVBox(heroes, deckVBox);
+        addCardsToVBox(cardsInDeck, deckVBox);
+        addCardsToVBox(itemsInDeck, deckVBox);
+        addCardsToVBox(heroes, deckVBox);
         generalVBox.getChildren().add(deckVBox);
 
     }
-
-
 
     public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
         ImageView newDeckButton = new ImageView(new Image(new FileInputStream(
@@ -913,23 +937,7 @@ public class MenuView {
         }
     }
 
-    public static void showCards(VBox generalVBox){
-        VBox cardsVBox = new VBox();
-        VBox itemsVBox = new VBox();
-        VBox heroesVBox = new VBox();
-
-        generalVBox.getChildren().addAll(cardsVBox, itemsVBox, heroesVBox);
-
-        ArrayList<Card> cardsInCollection = Game.getInstance().getPlayer1().getCardsInCollection();
-        ArrayList<Item> itemsInCollection = Game.getInstance().getPlayer1().getItemsInCollection();
-        ArrayList<Hero> heroesInCollection = Game.getInstance().getPlayer1().getHeroesInCollection();
-
-        addCardsOfCollectionToVBox(cardsInCollection, cardsVBox);
-        addCardsOfCollectionToVBox(itemsInCollection, itemsVBox);
-        addCardsOfCollectionToVBox(heroesInCollection, heroesVBox);
-    }
-
-    public static <T extends Card> void addCardsOfCollectionToVBox(ArrayList<T> cards, VBox vBox){
+    public static <T extends Card> void addCardsToVBox(ArrayList<T> cards, VBox vBox){
         for (int i = 0; i < cards.size(); i++) {
             if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
@@ -1007,7 +1015,8 @@ public class MenuView {
             vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-
+                    CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
+                    GameView.printInvalidCommandWithThisContent(card.getName() + " was added");
                 }
             });
         }

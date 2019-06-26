@@ -222,7 +222,7 @@ public class Controller {
         Deck.addCardOrItemToDeck(338,"bahar");
         Deck.addCardOrItemToDeck(336,"bahar");
         Deck.addCardOrItemToDeck(340,"bahar");
-        Deck.selectDeck("bahar");
+//        Deck.selectDeck("bahar");
     }
 
 

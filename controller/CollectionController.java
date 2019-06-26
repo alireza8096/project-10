@@ -153,23 +153,23 @@ public class CollectionController {
         }
     }
 
-    public static void validateDeck(String[] commands) throws CloneNotSupportedException {
-        if (commands.length >= 3 && commands[0].compareToIgnoreCase("validate") == 0
-                && commands[1].compareToIgnoreCase("deck") == 0) {
-            String deckName = createName(commands, 2);
-            if (Deck.validateDeck(deckName))
-                System.out.println("This deck is valid");
-            else
-                System.out.println("This deck is not valid");
-            AllDatas.hasEnteredCollection = true;
-        }
-    }
+//    public static void validateDeck(String[] commands) throws CloneNotSupportedException {
+//        if (commands.length >= 3 && commands[0].compareToIgnoreCase("validate") == 0
+//                && commands[1].compareToIgnoreCase("deck") == 0) {
+//            String deckName = createName(commands, 2);
+//            if (Deck.validateDeck(deckName))
+//                System.out.println("This deck is valid");
+//            else
+//                System.out.println("This deck is not valid");
+//            AllDatas.hasEnteredCollection = true;
+//        }
+//    }
 
     public static void selectDeck(String[] commands) throws Exception {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
-            Deck.selectDeck(deckName);
+//            Deck.selectDeck(deckName);
             Hero hero = Deck.findDeckByName(deckName).getHeroInDeck();
             Game.getInstance().getMap().setFriendHero(hero);
             AllDatas.hasEnteredCollection = true;
@@ -349,18 +349,31 @@ public class CollectionController {
         cancelButton.setOnMouseClicked(event -> {
             deckIsBeingCreated = null;
             AllDatas.currentRoot.getChildren().remove(generalVBox);
+            MenuView.showDecksInCollection();
+            CollectionController.setIsChoosingForCreatingNewDeck(false);
         });
 
         createButton.setOnMouseClicked(event -> {
             String deckName = deckNameField.getText();
-            Deck deck = null;
-            try {
-                deck = deckIsBeingCreated.returnCopyOfDeck();
-                deck.setDeckName(deckName);
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
+            if (!deckName.equals("")) {
+                Deck deck = null;
+                try {
+                    deck = deckIsBeingCreated.returnCopyOfDeck();
+                    deck.setDeckName(deckName);
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+                if (!Deck.checkIfDeckWithThisNameExists(Game.getInstance().getPlayer1(), deckName)) {
+                    Game.getInstance().getPlayer1().getDecksOfPlayer().add(deck);
+                    AllDatas.currentRoot.getChildren().remove(generalVBox);
+                    CollectionController.setIsChoosingForCreatingNewDeck(false);
+                } else {
+                    GameView.printInvalidCommandWithThisContent("This name already exists");
+                }
+                MenuView.showDecksInCollection();
+            }else{
+                GameView.printInvalidCommandWithThisContent("Name is invalid");
             }
-            Game.getInstance().getPlayer1().getDecksOfPlayer().add(deck);
 
         });
     }
