@@ -3,9 +3,11 @@ package model;
 import controller.AI;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
+import view.GameView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Deck implements Cloneable {
     private Hand hand;
@@ -250,7 +252,7 @@ public class Deck implements Cloneable {
         return "";
     }
 
-    public static boolean validateDeck(String deckName) throws CloneNotSupportedException {
+    public boolean validateDeck() throws CloneNotSupportedException {
         Deck deck = Deck.findDeckByName(deckName);
         if (!deck.checkIfDeckHasHero()) {
             return false;
@@ -268,23 +270,43 @@ public class Deck implements Cloneable {
         }
     }
 
-    public static void selectDeck(String deckName) throws CloneNotSupportedException {
-        if (!validateDeck(deckName)) {
-            System.out.println("Selected deck in not valid!");
-        } else {
-            Deck deck = findDeckByName(deckName);
-            setAllCardsMovable(deck);
-            Game.getInstance().getPlayer1().setMainDeck(deck);
-//            Map map = new Map();
-//            Game.getInstance().setMap(map);
-//            AI.createAIPlayer();
-//            Hero.insertHeroInMap();
-//            Hand.setHand();
-            deck.setDeckIsSelected(true);
-        }
-    }
+//    public static void selectDeck(String deckName) throws CloneNotSupportedException {
+//        if (!validateDeck(deckName)) {
+//            System.out.println("Selected deck in not valid!");
+//        } else {
+//            Deck deck = findDeckByName(deckName);
+//            setAllCardsMovable(deck);
+//            Game.getInstance().getPlayer1().setMainDeck(deck);
+////            Map map = new Map();
+////            Game.getInstance().setMap(map);
+////            AI.createAIPlayer();
+////            Hero.insertHeroInMap();
+////            Hand.setHand();
+//            deck.setDeckIsSelected(true);
+//        }
+//    }
 
     public Deck returnCopyOfDeck() throws CloneNotSupportedException {
         return (Deck)this.clone();
+    }
+
+    public void addCardToDeck(Card card){
+        int cardID = card.getId();
+
+        if ((cardID / 10) == 1){
+            if (checkIfDeckHasHero()){
+                GameView.printInvalidCommandWithThisContent("Deck already has hero!");
+            }else {
+                setHeroInDeck((Hero) card);
+            }
+        }else if ((cardID / 10) == 2){
+            if (getItemsInDeck().size() == 0) {
+                getItemsInDeck().add((Item) card);
+            }else
+                GameView.printInvalidCommandWithThisContent("Deck already has an item!");
+        }else{
+            cardsInDeck.add(card);
+        }
+
     }
 }

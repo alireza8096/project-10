@@ -87,7 +87,7 @@ public class MenusCommandController {
         CollectionController.deleteDeck(commandsSplitted);
         CollectionController.addToDeck(commandsSplitted, command);
         CollectionController.remove(commandsSplitted, command);
-        CollectionController.validateDeck(commandsSplitted);
+//        CollectionController.validateDeck(commandsSplitted);
         CollectionController.selectDeck(commandsSplitted);
         CollectionController.showAllDecks(commandsSplitted);
         CollectionController.showDeckByName(commandsSplitted);
