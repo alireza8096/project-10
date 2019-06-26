@@ -21,7 +21,7 @@ public class BattleController {
 
     public static void endTurnCommand(String[] commands) {
         if (commands[0].matches("end") && commands[1].matches("turn")) {
-            endTurn();
+//            endTurn();
         }
     }
 
@@ -51,22 +51,40 @@ public class BattleController {
         Game.getInstance().getMap().getEnemyHero().setHasMovedInThisTurn(false);
     }
 
-    public static void endTurn() {
+    public static void endTurn() throws CloneNotSupportedException, FileNotFoundException {
         if (Game.getInstance().isPlayer1Turn()) {
             Game.getInstance().setPlayer1Turn(false);
+            BattleView.showEndTurn();
+            BattleView.getEndTurn().setDisable(true);
             Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
             if (Game.getInstance().getNumOfRound() < 14) {
                 Game.getInstance().getPlayer2().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer2().setNumOfMana(9);
             makeAllCardsActiveAI();
+            for (ImageView card : Hand.getCards()) {
+                card.setDisable(true);
+            }
+            for (ImageView imageView : Hand.getScenesBehind()) {
+                imageView.setDisable(true);
+            }
+            AI.insertCardTillPossible();
+            AI.moveTillPossible();
         } else {
             Game.getInstance().setPlayer1Turn(true);
+            BattleView.showEndTurn();
+            BattleView.getEndTurn().setDisable(false);
             Game.getInstance().setNumOfRound(Game.getInstance().getNumOfRound() + 1);
             if (Game.getInstance().getNumOfRound() < 14) {
-//                Game.getInstance().getPlayer1().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
+                Game.getInstance().getPlayer1().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer1().setNumOfMana(9);
             makeAllCardsActivePlayer();
             Game.getInstance().getPlayer1().getMainDeck().getHand().addCardToHandFromDeck();
+            for (ImageView card : Hand.getCards()) {
+                card.setDisable(false);
+            }
+            for (ImageView imageView : Hand.getScenesBehind()) {
+                imageView.setDisable(false);
+            }
         }
     }
 

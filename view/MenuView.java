@@ -126,7 +126,6 @@ public class MenuView {
         Hyperlink helpOption = new Hyperlink("Help");
         helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);
-
         Hyperlink saveOption = new Hyperlink("Save");
         helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);

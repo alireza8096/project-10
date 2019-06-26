@@ -1,6 +1,7 @@
 package view;
 
 import controller.BattleController;
+import controller.Controller;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -39,11 +40,12 @@ public class BattleView {
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("handleee");
-                Game.getInstance().setPlayer1Turn(!Game.getInstance().isPlayer1Turn());
                 try {
-                    showEndTurn();
+                    BattleController.endTurn();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
+                } catch (CloneNotSupportedException e) {
+                    e.getMessage();
                 }
             }
         });

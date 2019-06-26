@@ -24,6 +24,14 @@ public class Hand {
     private ArrayList<Card> cardsInHand = new ArrayList<>();
     private Card nextCard;
 
+    public static ImageView[] getCards() {
+        return cards;
+    }
+
+    public static ImageView[] getScenesBehind() {
+        return scenesBehind;
+    }
+
     public static void handleHand(ImageView cardInHand){
         cardInHand.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
             @Override
@@ -65,11 +73,11 @@ public class Hand {
         handScenes.setScaleX(0.6);
         handScenes.setScaleY(0.6);
         AllDatas.currentRoot.getChildren().add(handScenes);
-        cardsView.setLayoutX(465);
-        cardsView.setLayoutY(745);
-        cardsView.setSpacing(25);
-        cardsView.setScaleX(1.1);
-        cardsView.setScaleY(1.1);
+        cardsView.setScaleX(1.3);
+        cardsView.setScaleY(1.3);
+        cardsView.setSpacing(65);
+        cardsView.setLayoutX(540);
+        cardsView.setLayoutY(800);
         AllDatas.currentRoot.getChildren().add(cardsView);
     }
     public Card getNextCard() {
