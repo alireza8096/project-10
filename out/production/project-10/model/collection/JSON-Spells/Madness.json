@@ -12,5 +12,6 @@
   "delay" : "null,3,3",
   "last" :"1,1,1",
   "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Madness/Madness.png"
 }

@@ -12,5 +12,6 @@
   "delay" : "null,null",
   "last" :"1,1",
   "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Sacrifice/Sacrifice.png"
 }

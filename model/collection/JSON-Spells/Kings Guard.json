@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"null",
   "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "random8"
+  "locationOfTarget" : "random8",
+  "imagePath" : "view/Photos/Spells/Kings Guard/Kings Guard.png"
 }

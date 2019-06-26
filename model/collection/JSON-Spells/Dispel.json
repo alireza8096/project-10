@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"null",
   "friendOrEnemy" : "friend/enemy",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Dispel/Dispel.png"
 }

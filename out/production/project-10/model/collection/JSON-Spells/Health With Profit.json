@@ -12,5 +12,6 @@
   "delay" : "null,null",
   "last" :"1,3",
   "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/Health With Profit/HealthWithProfit.png"
 }

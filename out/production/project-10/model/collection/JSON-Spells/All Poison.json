@@ -12,5 +12,6 @@
   "delay" : "null",
   "last" :"4",
   "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null"
+  "locationOfTarget" : "null",
+  "imagePath" : "view/Photos/Spells/All Poison/AllPoison.png"
 }
