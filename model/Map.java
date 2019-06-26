@@ -184,20 +184,26 @@ public class Map {
     }
 
     public static boolean cardCanBeMovedToThisCell(Card card, int x, int y) {
-        if (distance(card.getX(), card.getY(), x, y) > 2) {
-            System.out.println("1");
+        if(card!=null) {
+            if (!card.isHasMovedInThisTurn()) {
+                if (distance(card.getX(), card.getY(), x, y) > 2) {
+                    System.out.println("1");
+                    return false;
+                }
+                if (!thisCellIsEmpty(x, y)) {
+                    System.out.println("2");
+                    return false;
+                }
+                if (enemyInWay(card.getX(), card.getY(), x, y)) {
+                    System.out.println("3");
+                    return false;
+                }
+                System.out.println("4");
+                return true;
+            }
             return false;
         }
-        if (!thisCellIsEmpty(x, y)) {
-            System.out.println("2");
-            return false;
-        }
-        if (enemyInWay(card.getX(), card.getY(), x, y)) {
-            System.out.println("3");
-            return false;
-        }
-        System.out.println("4");
-        return true;
+        return false;
     }
 
     public static int distance(int x1, int y1, int x2, int y2) {
