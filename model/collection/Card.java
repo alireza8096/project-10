@@ -1,4 +1,5 @@
 package model.collection;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
@@ -14,13 +15,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Card implements Cloneable{
+public class Card implements Cloneable {
     //    private static ArrayList<String> cardNames = new ArrayList<>();
     protected int mana;
     protected int id;
     protected String cardType;
     protected String name;
-//    protected AttackType targetType;
+    //    protected AttackType targetType;
     protected boolean isActive;
     protected boolean hasAttackedInThisTurn;
     protected boolean hasMovedInThisTurn;
@@ -34,7 +35,7 @@ public class Card implements Cloneable{
     private Image forceInField;
 
 
-    public Card(){
+    public Card() {
 
     }
 
@@ -50,39 +51,40 @@ public class Card implements Cloneable{
         this.name = name;
         if (!price.equals("null")) this.price = Integer.parseInt(price);
         else this.price = 0;
-        if(cardType.matches("hero")) {
+        if (cardType.matches("hero") || cardType.matches("item")) {
             this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
         }
-        if(this.cardType.matches("hero") || this.cardType.matches("minion") || this.cardType.matches("spell")) {
+        if(!this.cardType.matches("item")) {
             this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
         }
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {
-        switch (id/100){
+        switch (id / 100) {
             case 1:
-                return (Hero)Hero.findHeroByID(id).clone();
+                return (Hero) Hero.findHeroByID(id).clone();
             case 3:
-                return (Minion)Minion.findMinionByID(id).clone();
+                return (Minion) Minion.findMinionByID(id).clone();
             case 4:
-                return (Spell)Spell.findSpellByID(id).clone();
+                return (Spell) Spell.findSpellByID(id).clone();
         }
         return null;
     }
+
     public static Card findCardByName(String cardName) throws CloneNotSupportedException {
-        for (Hero hero: Hero.getHeroes()) {
-            if(hero.getName().matches(cardName)){
-                return (Hero)hero.clone();
+        for (Hero hero : Hero.getHeroes()) {
+            if (hero.getName().matches(cardName)) {
+                return (Hero) hero.clone();
             }
         }
-        for(Minion minion : Minion.getMinions()){
-            if(minion.getName().matches(cardName)){
-                return (Minion)minion.clone();
+        for (Minion minion : Minion.getMinions()) {
+            if (minion.getName().matches(cardName)) {
+                return (Minion) minion.clone();
             }
         }
-        for(Spell spell : Spell.getSpells()){
-            if(spell.getName().matches(cardName)){
-                return (Spell)spell.clone();
+        for (Spell spell : Spell.getSpells()) {
+            if (spell.getName().matches(cardName)) {
+                return (Spell) spell.clone();
             }
         }
         System.out.println(cardName + " : null");
@@ -215,7 +217,7 @@ public class Card implements Cloneable{
 //
 //    }
 
-    public void increaseCounterOfCards(){
+    public void increaseCounterOfCards() {
 
     }
 
@@ -256,18 +258,18 @@ public class Card implements Cloneable{
 //        return false;
 //    }
 
-    public static boolean checkIfCardCanAttack(Card card, int targetX, int targetY){
+    public static boolean checkIfCardCanAttack(Card card, int targetX, int targetY) {
         int cardX = card.getX();
         int cardY = card.getY();
 
         String attackType = null;
-        if (card.getCardType().equals("minion")){
-            attackType = ((Minion)card).getAttackType();
-        }else if (card.getCardType().equals("hero")){
-            attackType = ((Hero)card).getAttackType();
+        if (card.getCardType().equals("minion")) {
+            attackType = ((Minion) card).getAttackType();
+        } else if (card.getCardType().equals("hero")) {
+            attackType = ((Hero) card).getAttackType();
         }
 
-        switch (attackType){
+        switch (attackType) {
             case "melee":
                 if (Map.thisCellsAreAdjusting(cardX, cardY, targetX, targetY))
                     return true;
@@ -284,16 +286,16 @@ public class Card implements Cloneable{
         return true;
     }
 
-    public void dispelThisForce(String enemyOrFriend){
+    public void dispelThisForce(String enemyOrFriend) {
         //Todo : implementing
-        if (enemyOrFriend.equals("friend")){
+        if (enemyOrFriend.equals("friend")) {
 
-        }else if (enemyOrFriend.equals("enemy")){
+        } else if (enemyOrFriend.equals("enemy")) {
 
         }
     }
 
-    public void killCard(){
+    public void killCard() {
         //Todo : implementing
     }
 
@@ -320,7 +322,7 @@ public class Card implements Cloneable{
         return null;
     }
 
-    public static boolean thisCardIsYours(int x,int y) {
+    public static boolean thisCardIsYours(int x, int y) {
         if (Game.getInstance().getMap().getFriendHero().x == x
                 && Game.getInstance().getMap().getFriendHero().y == y) {
             return true;
@@ -333,19 +335,20 @@ public class Card implements Cloneable{
             return false;
         }
     }
+
     //TODO : erase below
-    public boolean thisCardIsFriend(){
-        for (Card card : Game.getInstance().getMap().getFriendMinions()){
+    public boolean thisCardIsFriend() {
+        for (Card card : Game.getInstance().getMap().getFriendMinions()) {
             if (card.getName().equals(this.name))
                 return true;
         }
-        if(this.name.equals(Game.getInstance().getMap().getFriendHero().name))
+        if (this.name.equals(Game.getInstance().getMap().getFriendHero().name))
             return true;
         return false;
     }
 
-    public static Card returnNthCard(String cardType, int index){
-        switch (cardType){
+    public static Card returnNthCard(String cardType, int index) {
+        switch (cardType) {
             case "minion":
                 return Minion.getMinions().get(index);
             case "spell":
@@ -359,22 +362,22 @@ public class Card implements Cloneable{
         return null;
     }
 
-    public Text getTextForCard(){
-        switch (cardType){
+    public Text getTextForCard() {
+        switch (cardType) {
             case "minion":
-                return new Text(((Minion)this).getSpecialPower());
+                return new Text(((Minion) this).getSpecialPower());
             case "spell":
-                return new Text(((Spell)this).getDesc());
+                return new Text(((Spell) this).getDesc());
             case "item":
-                return new Text(((Item)this).getDesc());
+                return new Text(((Item) this).getDesc());
             case "hero":
-                return new Text(((Hero)this).getSpecialPower());
+                return new Text(((Hero) this).getSpecialPower());
         }
         return null;
     }
 
-    public static Card findCardInCollectionByID(int cardID){
-        switch (cardID / 100){
+    public static Card findCardInCollectionByID(int cardID) {
+        switch (cardID / 100) {
             case 1:
                 return findHeroInCollection(cardID);
             case 2:
@@ -387,7 +390,7 @@ public class Card implements Cloneable{
 
     private static Card findMinionOrSpellInCollection(int cardID) {
         Iterator<Card> iterator = Game.getInstance().getPlayer1().getCardsInCollection().iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             Card card = iterator.next();
             if (card.getId() == cardID)
                 return card;
@@ -395,9 +398,9 @@ public class Card implements Cloneable{
         return null;
     }
 
-    public static Card findHeroInCollection(int cardID){
+    public static Card findHeroInCollection(int cardID) {
         Iterator<Hero> heroIterator = Game.getInstance().getPlayer1().getHeroesInCollection().iterator();
-        while (heroIterator.hasNext()){
+        while (heroIterator.hasNext()) {
             Hero hero = heroIterator.next();
             if (hero.getId() == cardID)
                 return hero;
@@ -405,16 +408,15 @@ public class Card implements Cloneable{
         return null;
     }
 
-    public static Card findItemInCollection(int cardID){
+    public static Card findItemInCollection(int cardID) {
         Iterator<Item> itemIterator = Game.getInstance().getPlayer1().getItemsInCollection().iterator();
-        while (itemIterator.hasNext()){
+        while (itemIterator.hasNext()) {
             Item item = itemIterator.next();
             if (item.getId() == cardID)
                 return item;
         }
         return null;
     }
-
 
 
 }

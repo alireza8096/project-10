@@ -1,0 +1,16 @@
+{"mana":"2",
+  "price":"1500",
+  "name":"Area Dispel",
+  "id":"402",
+  "type":"spell",
+  "desc":"destroys positive buffs of enemy and negative buffs of self forces",
+  "target" : "minion/hero",
+  "numOfTarget" : "all",
+  "action" : "dispel",
+  "buffs" : "null",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" :"null",
+  "friendOrEnemy" : "friend/enemy",
+  "locationOfTarget" : "square2"
+}

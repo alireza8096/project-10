@@ -1,0 +1,16 @@
+{"mana":"3",
+  "price":"600",
+  "name":"HellFire",
+  "id":"406",
+  "type":"spell",
+  "desc":"performs the effect of a fiery cell in selected cell of the map for 2 turns",
+  "target" : "cell",
+  "numOfTarget" : "square2",
+  "action" : "addAction",
+  "buffs" : "fireCellImpact",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" :"2",
+  "friendOrEnemy" : "cell",
+  "locationOfTarget" : "null"
+}

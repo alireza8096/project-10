@@ -1,0 +1,16 @@
+{"mana":"1",
+  "price":"400",
+  "name":"Fireball",
+  "id":"404",
+  "type":"spell",
+  "desc":"attacks with 4AP to an enemy",
+  "target" : "minion/hero",
+  "numOfTarget" : "1",
+  "action" : "addAction",
+  "buffs" : "healthPointWeaknessBuff",
+  "effectValue" : "4",
+  "delay" : "null",
+  "last" :"1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "null"
+}

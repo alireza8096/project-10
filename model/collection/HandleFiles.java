@@ -83,9 +83,10 @@ public class HandleFiles {
                 String specification = jsonObject.get("specification").toString();
                 String user = jsonObject.get("user").toString();
                 String activationTime = jsonObject.get("activationTime").toString();
+                String imagePath = jsonObject.get("imagePath").toString();
                 Spell spell = new Spell(target, numOfTarget, action, friendOrEnemy, locationOfTarget);
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
-                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime);
+                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime,imagePath,"");
                 Item.getItems().add(item);
             }
         }

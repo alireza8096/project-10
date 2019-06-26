@@ -1,0 +1,23 @@
+{"healthPoint":"3",
+  "attackRange":"5",
+  "attackPower":"4",
+  "mana":"3",
+  "attackType":"ranged",
+  "price":"500",
+  "name":"Nane Sarma",
+  "id":"336",
+  "activationTime":"On Spawn",
+  "type":"minion",
+  "specialPower": "the enemy minions on 8 neighbour cells will be stunned for 1 turn",
+  "target" : "minion",
+  "numOfTarget" : "all",
+  "action" : "addBuff",
+  "buffs" : "stunBuff",
+  "effectValue" : "null",
+  "delay" : "null",
+  "last" : "1",
+  "friendOrEnemy" : "enemy",
+  "locationOfTarget" : "8around",
+  "doesNotGetAttack" : "null"
+
+}
