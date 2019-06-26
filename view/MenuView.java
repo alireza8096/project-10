@@ -931,7 +931,8 @@ public class MenuView {
     public static void showCardForSelling(Card card, VBox cardVBox, HBox inRowCardsHBox) throws FileNotFoundException {
         HBox cardHBox = new HBox();
 
-        ImageView cardImage = card.getImageViewOfCard();
+
+        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
 
         ImageView cancelButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
@@ -974,45 +975,5 @@ public class MenuView {
         CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellStack, card, cardVBox, inRowCardsHBox);
 
     }
-
-//    public static void showCardForBuying (Card card) throws FileNotFoundException {
-//
-//        HBox cardHBox = new HBox();
-//        //Todo : set the card minion image itself
-//        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
-//
-//        ImageView cancelButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
-//        ImageView buyCardButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_buy@2x.png")));
-//
-//        cardImage.setFitWidth(200);
-//        cardImage.setFitHeight(300);
-//        cardImage.setX(WINDOW_WIDTH / 2 + 80);
-//        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
-//
-//        buyCardButton.setFitWidth(200);
-//        buyCardButton.setFitHeight(70);
-//        cancelButton.setFitWidth(200);
-//        cancelButton.setFitHeight(70);
-//
-//        HBox hBox = new HBox(buyCardButton, cancelButton);
-//        hBox.setLayoutX(480);
-//        hBox.setLayoutY(500);
-//        hBox.setSpacing(20);
-//
-//        AllDatas.currentRoot.getChildren().addAll(cardHBox, hBox);
-//
-//        GameView.makeImageGlowWhileMouseEnters(cancelButton);
-//        GameView.makeImageGlowWhileMouseEnters(buyCardButton);
-//
-//        cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
-//        cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
-//
-//        cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
-//
-//        ShopController.handleEventsOfBuyingCard(cardHBox, hBox, cancelButton, buyCardButton, card);
-//    }
-
-
-
 
 }
