@@ -18,6 +18,6 @@
   "last" : "1",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "8around",
-  "doesNotGetAttack" : "null"
-
+  "doesNotGetAttack" : "null",
+  "imagePath" : "view/Photos/Minions/Nane Sarma/NaneSarma.png"
 }

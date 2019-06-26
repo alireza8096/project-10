@@ -51,12 +51,8 @@ public class Card implements Cloneable {
         this.name = name;
         if (!price.equals("null")) this.price = Integer.parseInt(price);
         else this.price = 0;
-        if (cardType.matches("hero") || cardType.matches("item") || cardType.matches("spell")) {
-            this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
-        }
-        if(!this.cardType.matches("item")) {
-            this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
-        }
+        this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
+        this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {

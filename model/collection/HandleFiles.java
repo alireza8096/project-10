@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import static model.collection.Account.PLAYERS_FOLDER;
 
 public class HandleFiles {
-    public static final String BEFORE_RELATIVE = "/Users/bahar/Desktop/DUELYST/";
+    public static final String BEFORE_RELATIVE = "/Users/hamilamailee/Documents/project-10/";
     private static final String ADDRESS_HERO = "model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "model/collection/JSON-Spells";
@@ -54,7 +54,7 @@ public class HandleFiles {
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 String imagePath = jsonObject.get("imagePath").toString();
-                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,imagePath, "view/Photos/Heros/Simorgh/f4_altgeneraltier2_breathing.gif");
+                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,imagePath, imagePath);
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Spell.getSpells().add(spell);
             }
@@ -87,7 +87,7 @@ public class HandleFiles {
                 String imagePath = jsonObject.get("imagePath").toString();
                 Spell spell = new Spell(target, numOfTarget, action, friendOrEnemy, locationOfTarget);
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
-                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime,imagePath,"");
+                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime,imagePath,imagePath);
                 Item.getItems().add(item);
             }
         }
@@ -118,8 +118,9 @@ public class HandleFiles {
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
+                String imagePath = jsonObject.get("imagePath").toString();
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
-                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,"","view/Photos/Heros/Kaveh/f1_bromemk2_breathing.gif");
+                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,imagePath,imagePath);
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
                 Minion.getMinions().add(minion);
             }

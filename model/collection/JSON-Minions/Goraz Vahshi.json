@@ -18,5 +18,6 @@
   "last" : "null",
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
-  "doesNotGetAttack" : "disarm"
+  "doesNotGetAttack" : "disarm",
+  "imagePath" : "view/Photos/Minions/Goraz Vahshi/Goraz Vahshi.png"
 }

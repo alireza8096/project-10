@@ -18,5 +18,6 @@
   "last" : "permanent",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "distance2",
-  "doesNotGetAttack" : "null"
+  "doesNotGetAttack" : "null",
+  "imagePath" : "view/Photos/Minions/Mar Ghoolpeikar/MarGhoolpeikar.png"
 }
