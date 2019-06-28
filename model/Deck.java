@@ -17,6 +17,16 @@ public class Deck implements Cloneable {
     private ArrayList<Item> itemsInDeck = new ArrayList<>();
     private boolean deckIsSelected;
 
+    private static Deck selectedDeck;
+
+    public static Deck getSelectedDeck() {
+        return selectedDeck;
+    }
+
+    public static void setSelectedDeck(Deck selectedDeck) {
+        Deck.selectedDeck = selectedDeck;
+    }
+
     public Deck(){
 
     }

@@ -20,8 +20,6 @@ public class MenusCommandController {
     public static void accountController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
-      //  AccountController.createAccountCommand(commandsSplitted, scanner);
-      //  AccountController.login(commandsSplitted, scanner);
         AccountController.showLeaderboard(commandsSplitted);
         AccountController.save(commandsSplitted);
         AccountController.help(commandsSplitted);
@@ -234,6 +232,7 @@ public class MenusCommandController {
                 e.printStackTrace();
             }
         });
+
         save.setOnAction(event -> {
             try {
                 Account.savePlayer(Game.getInstance().getPlayer1());

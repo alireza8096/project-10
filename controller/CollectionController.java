@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.logging.SocketHandler;
 
 import static model.collection.Account.PLAYERS_FOLDER;
@@ -300,7 +301,7 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back){
+    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back, StackPane deleteDeckStack){
         back.setOnMouseClicked(event -> {
             try {
                 MenuView.showOptionsInCollection();
@@ -309,17 +310,24 @@ public class CollectionController {
             }
         });
 
-        newDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    isChoosingForCreatingNewDeck = true;
-                    deckIsBeingCreated = new Deck();
-                    MenuView.createNewDeck();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        newDeck.setOnMouseClicked(event -> {
+            try {
+                isChoosingForCreatingNewDeck = true;
+                deckIsBeingCreated = new Deck();
+                MenuView.createNewDeck();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+        });
+
+        deleteDeckStack.setOnMouseClicked(event -> {
+            try {
+                Game.getInstance().getPlayer1().getDecksOfPlayer().remove(Deck.getSelectedDeck());
+                MenuView.showDecksInCollection();
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+
         });
     }
 

@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -35,6 +36,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static controller.Controller.sampleGame;
+import static javafx.scene.layout.VBox.setMargin;
 import static javafx.scene.paint.Color.*;
 
 public class MenuView {
@@ -125,18 +127,19 @@ public class MenuView {
         Hyperlink helpOption = new Hyperlink("Help");
         helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);
+
         Hyperlink saveOption = new Hyperlink("Save");
         helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);
 
         vBox.setSpacing(15);
-        vBox.setMargin(shopHBox, new Insets(40, 10, 10, 100));
-        vBox.setMargin(collectionOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(battleOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(helpOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(exitOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(logoutOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(saveOption, new Insets(7, 10, 10, 100));
+        setMargin(shopHBox, new Insets(40, 10, 10, 100));
+        setMargin(collectionOption, new Insets(7, 10, 10, 100));
+        setMargin(battleOption, new Insets(7, 10, 10, 100));
+        setMargin(helpOption, new Insets(7, 10, 10, 100));
+        setMargin(exitOption, new Insets(7, 10, 10, 100));
+        setMargin(logoutOption, new Insets(7, 10, 10, 100));
+        setMargin(saveOption, new Insets(7, 10, 10, 100));
 
         vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
@@ -156,7 +159,6 @@ public class MenuView {
 
     }
 
-    //Todo : define a style for text and image
     public static void showShop() throws FileNotFoundException {
         AllDatas.currentRoot.getChildren().clear();
         Shop.setRightVBox(new VBox());
@@ -203,16 +205,16 @@ public class MenuView {
         spellText.setFont(Font.font(null, FontWeight.BOLD, 20));
         spellHBox.getChildren().addAll(spellIcon, spellText);
 
-        VBox.setMargin(minionsHBox, new Insets(50, 100, 10, 30));
-        VBox.setMargin(spellHBox, new Insets(10, 100, 10, 30));
-        VBox.setMargin(itemHBox, new Insets(10, 100, 10, 30));
-        VBox.setMargin(heroesHBox, new Insets(10, 100, 10, 30));
+        setMargin(minionsHBox, new Insets(50, 100, 10, 30));
+        setMargin(spellHBox, new Insets(10, 100, 10, 30));
+        setMargin(itemHBox, new Insets(10, 100, 10, 30));
+        setMargin(heroesHBox, new Insets(10, 100, 10, 30));
 
         Shop.getLeftVBox().setPadding(new Insets(50, 10, 10, 10));
         StackPane daricStack = setCurrentDaricView();
         StackPane backStack = setBackButtonForShop();
         Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox, backStack, daricStack);
-        VBox.setMargin(backStack, new Insets(70, 1, 1, 1));
+        setMargin(backStack, new Insets(70, 1, 1, 1));
 
         AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
 
@@ -772,7 +774,7 @@ public class MenuView {
 
         createDeckVBox.getChildren().add(optionsVBox);
         createDeckVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VBox.setMargin(optionsVBox, new Insets(1, 1, 20, 1));
+        setMargin(optionsVBox, new Insets(1, 1, 20, 1));
 
         AllDatas.currentRoot.getChildren().add(createDeckVBox);
 
@@ -784,6 +786,9 @@ public class MenuView {
     public static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
         for (Deck deck : decks){
             Tab deckTab = new Tab(deck.getDeckName());
+
+            deckTab.setOnSelectionChanged(event -> Deck.setSelectedDeck(deck));
+
             decksTabPane.getTabs().add(deckTab);
             VBox eachDeckVBox = new VBox();
             deckTab.setContent(eachDeckVBox);
@@ -891,12 +896,24 @@ public class MenuView {
 
         GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane);
 
-        vBox.getChildren().addAll(newDeckPane, backPane);
+        ImageView deleteDeckButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        deleteDeckButton.setFitWidth(200);
+        deleteDeckButton.setFitHeight(80);
 
-        VBox.setMargin(newDeckPane, new Insets(30, 1, 1, 20));
-        VBox.setMargin(backPane, new Insets(20, 1, 1, 20));
+        Text deleteDeckLabel = new Text("Delete deck");
+        deleteDeckLabel.setFont(Font.font(20));
+        deleteDeckLabel.setFill(rgb(160, 255, 255));
 
-        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane);
+        StackPane deleteDeckStack = new StackPane(deleteDeckButton, deleteDeckLabel);
+
+        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack);
+
+        setMargin(newDeckPane, new Insets(30, 1, 1, 20));
+        setMargin(backPane, new Insets(20, 1, 1, 20));
+        setMargin(deleteDeckStack, new Insets(20, 1, 1, 20));
+
+        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane, deleteDeckStack);
     }
 
     public static void showCardsInCollection(){
@@ -1026,7 +1043,7 @@ public class MenuView {
             });
         }
 
-        VBox.setMargin(cardName, new Insets(1,1,1,60));
+        setMargin(cardName, new Insets(1,1,1,60));
         cardName.setFill(Color.rgb(255, 225, 58));
 
         hBox.getChildren().add(vBox);
