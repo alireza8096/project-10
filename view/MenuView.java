@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static controller.Controller.sampleGame;
 import static javafx.scene.layout.VBox.setMargin;
@@ -731,7 +732,6 @@ public class MenuView {
         VBox buttonsVBox = new VBox();
         setButtonsVBoxForShowingDecks(buttonsVBox);
 
-
         setWindowForCreatingNewDeck();
 
         VBox generalVBox = new VBox();
@@ -832,6 +832,51 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(newDeckBack);
     }
 
+    public static void completeSelectedDeck() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+
+        setBackGroundOfCollection();
+        setWindowForCreatingNewDeck();
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 25);
+
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        Text backText = new Text("Back");
+        backText.setFont(font);
+        backText.setFill(rgb(130, 238, 255));
+
+        StackPane backStack = new StackPane(backButton, backText);
+        GameView.makeImageGlowWhileMouseEnters(backStack);
+
+        ImageView deckNameBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/gray_button.png")));
+        deckNameBack.setFitWidth(180);
+        deckNameBack.setFitHeight(70);
+
+        Text deckName = new Text(Deck.getSelectedDeck().getDeckName());
+        deckName.setFont(font);
+        deckName.setFill(rgb(130, 238, 255));
+
+        StackPane deckNameStack = new StackPane(deckNameBack, deckName);
+
+        HBox hBox = new HBox(deckNameStack, backStack);
+
+        hBox.setLayoutX(1050);
+        hBox.setLayoutY(100);
+
+        VBox generalVBox = new VBox();
+        generalVBox.setLayoutX(200);
+
+        showCards(generalVBox);
+
+        AllDatas.currentRoot.getChildren().addAll(generalVBox, hBox);
+
+        CollectionController.handleEventsOfAddingCardToDeck(backStack);
+
+    }
+
     public static void showThisDeck(VBox generalVBox, Deck deck) throws FileNotFoundException {
         VBox deckVBox = new VBox();
         AllDatas.currentRoot.getChildren().add(deckVBox);
@@ -882,6 +927,7 @@ public class MenuView {
         newDeckText.setFill(rgb(160, 255, 255));
 
         StackPane newDeckPane = new StackPane(newDeckButton, newDeckText);
+        newDeckPane.setAccessibleText("New Deck");
 
         ImageView backButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
@@ -893,27 +939,43 @@ public class MenuView {
         backText.setFill(rgb(160, 255, 255));
 
         StackPane backPane = new StackPane(backButton, backText);
+        backPane.setAccessibleText("Back");
 
-        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane);
 
         ImageView deleteDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
         deleteDeckButton.setFitWidth(200);
         deleteDeckButton.setFitHeight(80);
 
-        Text deleteDeckLabel = new Text("Delete deck");
+        Text deleteDeckLabel = new Text("Delete Deck");
         deleteDeckLabel.setFont(Font.font(20));
         deleteDeckLabel.setFill(rgb(160, 255, 255));
 
         StackPane deleteDeckStack = new StackPane(deleteDeckButton, deleteDeckLabel);
+        deleteDeckStack.setAccessibleText("Delete Deck");
 
-        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack);
+        ImageView completeDeckButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        completeDeckButton.setFitWidth(200);
+        completeDeckButton.setFitHeight(80);
+
+        Text completeDeckText = new Text("Add Card");
+        completeDeckText.setFont(Font.font(20));
+        completeDeckText.setFill(rgb(160, 255, 255));
+
+        StackPane completeDeckStack = new StackPane(completeDeckButton, completeDeckText);
+        completeDeckStack.setAccessibleText("Add Card");
+
+        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack, deleteDeckStack);
+
+        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
 
         setMargin(newDeckPane, new Insets(30, 1, 1, 20));
         setMargin(backPane, new Insets(20, 1, 1, 20));
         setMargin(deleteDeckStack, new Insets(20, 1, 1, 20));
+        setMargin(completeDeckStack, new Insets(20, 1, 1, 20));
 
-        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane, deleteDeckStack);
+        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
     }
 
     public static void showCardsInCollection(){
@@ -1024,7 +1086,11 @@ public class MenuView {
         if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling
             vBox.setOnMouseClicked(event -> {
                 try {
-                    if (!Shop.isIsShowingSpecificCard()) {
+                    if (Controller.getPressedButton().getAccessibleText().equals("Add Card")){
+                        Deck.getSelectedDeck().addCardToDeck(card);
+                        GameView.printInfoMessageWithThisContent(card.getName() +
+                                " was added to " + Deck.getSelectedDeck().getDeckName());
+                    }else if (!Shop.isIsShowingSpecificCard()) {
                         makeSceneBlur();
                         Shop.setIsShowingSpecificCard(true);
                         showCardForSelling(card, vBox, hBox);
@@ -1037,8 +1103,11 @@ public class MenuView {
             vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
-                    GameView.printInfoMessageWithThisContent(card.getName() + " was added");
+                    if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
+                        CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
+                        GameView.printInfoMessageWithThisContent(card.getName() + " was added to "
+                                + CollectionController.getDeckIsBeingCreated().getDeckName());
+                    }
                 }
             });
         }

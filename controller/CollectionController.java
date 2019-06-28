@@ -301,7 +301,7 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back, StackPane deleteDeckStack){
+    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back, StackPane deleteDeckStack, StackPane completeDeckStack){
         back.setOnMouseClicked(event -> {
             try {
                 MenuView.showOptionsInCollection();
@@ -312,6 +312,7 @@ public class CollectionController {
 
         newDeck.setOnMouseClicked(event -> {
             try {
+                Controller.setPressedButton(newDeck);
                 isChoosingForCreatingNewDeck = true;
                 deckIsBeingCreated = new Deck();
                 MenuView.createNewDeck();
@@ -328,6 +329,18 @@ public class CollectionController {
                 System.out.println(e.getMessage());
             }
 
+        });
+
+        completeDeckStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Controller.setPressedButton(completeDeckStack);
+                try {
+                    MenuView.completeSelectedDeck();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
         });
     }
 
@@ -384,6 +397,16 @@ public class CollectionController {
                 GameView.printInvalidCommandWithThisContent("Name is invalid");
             }
 
+        });
+    }
+
+    public static void handleEventsOfAddingCardToDeck(StackPane backButton){
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Controller.setPressedButton(null);
+                MenuView.showDecksInCollection();
+            }
         });
     }
 }

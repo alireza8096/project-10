@@ -26,6 +26,17 @@ import java.util.Scanner;
 import static javafx.application.Application.launch;
 
 public class Controller {
+
+    private static StackPane pressedButton;
+
+    public static StackPane getPressedButton() {
+        return pressedButton;
+    }
+
+    public static void setPressedButton(StackPane pressedButton) {
+        Controller.pressedButton = pressedButton;
+    }
+
     public static void createAll() throws Exception{
         createAllMenus();
         createAllDataFromJSON();
