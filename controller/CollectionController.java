@@ -1,5 +1,6 @@
 package controller;
 
+import com.sun.java.accessibility.util.EventQueueMonitor;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -301,7 +302,9 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back, StackPane deleteDeckStack, StackPane completeDeckStack){
+    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back,
+                                                        StackPane deleteDeckStack, StackPane completeDeckStack,
+                                                        StackPane mainDeckStack){
         back.setOnMouseClicked(event -> {
             try {
                 MenuView.showOptionsInCollection();
@@ -332,17 +335,16 @@ public class CollectionController {
 
         });
 
-        completeDeckStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Controller.setPressedButton(completeDeckStack);
-                try {
-                    MenuView.completeSelectedDeck();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        completeDeckStack.setOnMouseClicked(event -> {
+            Controller.setPressedButton(completeDeckStack);
+            try {
+                MenuView.completeSelectedDeck();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
+
+        mainDeckStack.setOnMouseClicked(event -> Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck()));
     }
 
     public static void handleEventsOfSellingCard(HBox cardHBox, HBox buttonsHBox,

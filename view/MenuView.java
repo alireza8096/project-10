@@ -1,6 +1,7 @@
 package view;
 
 import controller.*;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 import static controller.Controller.sampleGame;
 import static javafx.scene.layout.VBox.setMargin;
@@ -159,7 +161,6 @@ public class MenuView {
 
     }
 
-    //Todo : define a style for text and image
     public static void showShop() throws FileNotFoundException {
         AllDatas.currentRoot.getChildren().clear();
         Shop.setRightVBox(new VBox());
@@ -300,7 +301,6 @@ public class MenuView {
         Game.getInstance().setMap(new Map());
         AI.createAIPlayer();
         Hero.insertHeroInMap();
-
         Rectangle rectangle = new Rectangle(258,293);
         rectangle.setX(100);
         rectangle.setY(100);
@@ -310,6 +310,7 @@ public class MenuView {
         yourProfile.fitWidthProperty().bind(rectangle.widthProperty());
         yourProfile.fitHeightProperty().bind(rectangle.heightProperty());
         AllDatas.currentRoot.getChildren().add(yourProfile);
+
         AllDatas.currentRoot.getChildren().addAll(Game.getYourHbox(),Game.getEnemyHbox());
         ImageView enemyProfile = new ImageView(Game.getInstance().getMap().getEnemyHero().getImageViewOfCard().getImage());
         enemyProfile.setX(1300);
@@ -317,6 +318,8 @@ public class MenuView {
         enemyProfile.fitHeightProperty().bind(rectangle.heightProperty());
         enemyProfile.fitWidthProperty().bind(rectangle.widthProperty());
         AllDatas.currentRoot.getChildren().add(enemyProfile);
+
+
 
         Cell.handleCell();
         Cell.handleForce();
@@ -454,7 +457,11 @@ public class MenuView {
             stackPane.setAccessibleText(Integer.toString(i));
             stackPane.setPadding(new Insets(13));
 
-            setImageForCardInShop(card, stackPane);
+            try {
+                setImageForCardInShop(card, stackPane);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             stackPane.setAlignment(Pos.CENTER);
             stackPane.setOnMouseClicked(event -> {
@@ -471,7 +478,19 @@ public class MenuView {
                 }
             });
 
-            cardVBox.getChildren().add(stackPane);
+            Text cardName = new Text(card.getName());
+            Font font = null;
+            try {
+                font = Font.loadFont(new FileInputStream(
+                        HandleFiles.BEFORE_RELATIVE + "view/Fonts/averta-extrabold-webfont.ttf"), 15);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            cardName.setFont(font);
+            cardName.setFill(rgb(191, 222, 255));
+
+            cardVBox.getChildren().addAll(stackPane, cardName);
+            cardVBox.setAlignment(Pos.CENTER);
 
             setPriceForCardInShop(card, cardVBox);
             //   setManaForCardInShop(card, stackPane, onCardVBox);
@@ -513,26 +532,36 @@ public class MenuView {
         vBox.getChildren().add(stackPane);
     }
 
-    public static void setManaForCardInShop(Card card, StackPane stackPane, VBox vBox) {
+    public static void setImageForCardInShop(Card card, StackPane stackPane) throws FileNotFoundException {
+        ImageView cardBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/card_background_blue.png")));
+        cardBack.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
+        cardBack.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
 
-    }
+        ImageView image = new ImageView(card.getImageViewOfCard().getImage());
+        image.setFitWidth(Shop.CARD_IMAGE_IN_SHOP_WIDTH);
+        image.setFitHeight(Shop.CARD_IMAGE_IN_SHOP_HEIGHT);
 
-    public static void setImageForCardInShop(Card card, StackPane stackPane) {
-        ImageView image = card.getImageViewOfCard();
-        image.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
-        image.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
+        Text desc = new Text();
+        try {
+            card.setDescOfCard(desc);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
-        stackPane.getChildren().add(image);
-    }
+        Label cardType = new Label(card.getCardType());
+        cardType.setTextFill(rgb(172, 239, 250));
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/averta-extrabold-webfont.ttf"), 15);
+        cardType.setFont(font);
 
-    public static void setDescForCardInShop(Card card, StackPane stackPane, VBox vBox) {
-        Text desc = card.getTextForCard();
-        desc.setWrappingWidth(Shop.CARD_IN_SHOP_WIDTH);
-        desc.setFont(Font.font(10));
-        desc.setFill(Color.YELLOW);
+        stackPane.getChildren().addAll(cardBack, image, cardType, desc);
+        stackPane.setAlignment(Pos.CENTER);
 
-        stackPane.getChildren().add(desc);
-
+        StackPane.setMargin(image, new Insets(1, 1, 60, 1));
+        StackPane.setMargin(cardType, new Insets(1, 1, 170, 1));
+        StackPane.setMargin(desc, new Insets(150, 1, 1, 1));
+//        StackPane.setMargin(cardName, new Insets(60, 1, 1, 1));
     }
 
     private static void makeSceneBlur() {
@@ -550,18 +579,19 @@ public class MenuView {
     }
 
     public static void showCardForBuying (Card card) throws FileNotFoundException {
+        StackPane stackPane = new StackPane();
+        setImageForCardInShop(card, stackPane);
 
         HBox cardHBox = new HBox();
-        //Todo : set the card minion image itself
-        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
+        cardHBox.setPadding(new Insets(20, 50, 50, 20));
+        cardHBox.getChildren().addAll(stackPane, addPriceAndManaForShowingCard(card, cardHBox));
 
-        ImageView cancelButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
-        ImageView buyCardButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_buy@2x.png")));
+        VBox generalVBox = new VBox();
 
-        cardImage.setFitWidth(200);
-        cardImage.setFitHeight(300);
-        cardImage.setX(WINDOW_WIDTH / 2 + 80);
-        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
+        ImageView cancelButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
+        ImageView buyCardButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_buy@2x.png")));
 
         buyCardButton.setFitWidth(200);
         buyCardButton.setFitHeight(70);
@@ -573,24 +603,28 @@ public class MenuView {
         hBox.setLayoutY(500);
         hBox.setSpacing(20);
 
-        AllDatas.currentRoot.getChildren().addAll(cardHBox, hBox);
+        generalVBox.getChildren().addAll(cardHBox, hBox);
+
+        AllDatas.currentRoot.getChildren().addAll(generalVBox);
 
         GameView.makeImageGlowWhileMouseEnters(cancelButton);
         GameView.makeImageGlowWhileMouseEnters(buyCardButton);
 
-        cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
-        cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
+        generalVBox.setLayoutX(WINDOW_WIDTH/2 + 30);
+        generalVBox.setLayoutY(WINDOW_HEIGHT/2 - 200);
 
-        cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
-
-        ShopController.handleEventsOfBuyingCard(cardHBox, hBox, cancelButton, buyCardButton, card);
+        ShopController.handleEventsOfBuyingCard(generalVBox, cancelButton, buyCardButton, card);
     }
 
-    private static VBox addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
-        ImageView priceBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
-        ImageView manaBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
-        ImageView priceIcon = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_icon.png")));
-        ImageView manaIcon = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/icon_mana.png")));
+    public static VBox addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
+        ImageView priceBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
+        ImageView manaBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
+        ImageView priceIcon = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_icon.png")));
+        ImageView manaIcon = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/icon_mana.png")));
 
         priceBack.setFitWidth(200);
         priceBack.setFitHeight(70);
@@ -709,7 +743,7 @@ public class MenuView {
 
             TabPane deckTabPane = new TabPane();
             deckTabPane.setLayoutX(300);
-            deckTabPane.setPrefWidth(700);
+            deckTabPane.setPrefWidth(1000);
 
             VBox buttonsVBox = new VBox();
 
@@ -802,7 +836,7 @@ public class MenuView {
         }
     }
 
-    private static void showCards(VBox generalVBox){
+    public static void showCards(VBox generalVBox){
         generalVBox.getChildren().clear();
 
         VBox cardsVBox = new VBox();
@@ -820,7 +854,7 @@ public class MenuView {
         addCardsToVBox(heroesInCollection, heroesVBox);
     }
 
-    private static void setWindowForCreatingNewDeck() throws FileNotFoundException {
+    public static void setWindowForCreatingNewDeck() throws FileNotFoundException {
         ImageView newDeckBack = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/deck/gray_window.png")));
         newDeckBack.setX(1030);
@@ -866,7 +900,7 @@ public class MenuView {
         hBox.setLayoutY(100);
 
         VBox generalVBox = new VBox();
-        generalVBox.setLayoutX(200);
+        generalVBox.setLayoutX(30);
 
         showCards(generalVBox);
 
@@ -915,10 +949,10 @@ public class MenuView {
 
     }
 
-    private static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
+    public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
         ImageView newDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        newDeckButton.setFitWidth(200);
+        newDeckButton.setFitWidth(230);
         newDeckButton.setFitHeight(80);
 
         Text newDeckText = new Text("New Deck");
@@ -930,7 +964,7 @@ public class MenuView {
 
         ImageView backButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        backButton.setFitWidth(200);
+        backButton.setFitWidth(230);
         backButton.setFitHeight(80);
 
         Text backText = new Text("Back");
@@ -943,7 +977,7 @@ public class MenuView {
 
         ImageView deleteDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        deleteDeckButton.setFitWidth(200);
+        deleteDeckButton.setFitWidth(230);
         deleteDeckButton.setFitHeight(80);
 
         Text deleteDeckLabel = new Text("Delete Deck");
@@ -955,7 +989,7 @@ public class MenuView {
 
         ImageView completeDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        completeDeckButton.setFitWidth(200);
+        completeDeckButton.setFitWidth(230);
         completeDeckButton.setFitHeight(80);
 
         Text completeDeckText = new Text("Add Card");
@@ -965,16 +999,29 @@ public class MenuView {
         StackPane completeDeckStack = new StackPane(completeDeckButton, completeDeckText);
         completeDeckStack.setAccessibleText("Add Card");
 
-        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack, deleteDeckStack);
+        ImageView mainDeckButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        mainDeckButton.setFitWidth(230);
+        mainDeckButton.setFitHeight(80);
 
-        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
+        Text mainDeckText = new Text("Set as main deck");
+        mainDeckText.setFont(Font.font(20));
+        mainDeckText.setFill(rgb(160, 255, 255));
+
+        StackPane mainDeckStack = new StackPane(mainDeckButton, mainDeckText);
+
+        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack, deleteDeckStack, mainDeckStack);
+
+        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack, mainDeckStack);
 
         setMargin(newDeckPane, new Insets(30, 1, 1, 20));
         setMargin(backPane, new Insets(20, 1, 1, 20));
         setMargin(deleteDeckStack, new Insets(20, 1, 1, 20));
         setMargin(completeDeckStack, new Insets(20, 1, 1, 20));
+        setMargin(mainDeckStack, new Insets(20, 1, 1, 20));
 
-        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
+        CollectionController.handleEventsOfShowingDeckButtons(
+                newDeckPane, backPane, deleteDeckStack, completeDeckStack, mainDeckStack);
     }
 
     public static void showCardsInCollection(){
@@ -1010,7 +1057,7 @@ public class MenuView {
             CollectionController.handleEventsOfShowCardsButtons(createDeckStack, backStack);
 
             VBox generalVBox = new VBox();
-            generalVBox.setLayoutX(30);
+            generalVBox.setLayoutX(300);
 
             AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
             showCards(generalVBox);
@@ -1020,7 +1067,7 @@ public class MenuView {
         }
     }
 
-    private static <T extends Card> void addCardsToVBox(ArrayList<T> cards, VBox vBox){
+    public static <T extends Card> void addCardsToVBox(ArrayList<T> cards, VBox vBox){
         for (int i = 0; i < cards.size(); i++) {
             if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
@@ -1052,7 +1099,7 @@ public class MenuView {
         }
     }
 
-    private static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
+    public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
         Text manaText = new Text(Integer.toString(card.getMana()));
         ImageView manaIcon = null;
         manaText.setFont(Font.font("verdana", 20));
@@ -1120,7 +1167,7 @@ public class MenuView {
         hBox.getChildren().add(vBox);
     }
 
-    private static void showCardForSelling(Card card, VBox cardVBox, HBox inRowCardsHBox) throws FileNotFoundException {
+    public static void showCardForSelling(Card card, VBox cardVBox, HBox inRowCardsHBox) throws FileNotFoundException {
         HBox cardHBox = new HBox();
 
 

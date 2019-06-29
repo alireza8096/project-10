@@ -1,8 +1,11 @@
 package controller;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -14,6 +17,7 @@ import org.json.simple.parser.ParseException;
 import view.GameView;
 import view.MenuView;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -210,15 +214,7 @@ public class Controller {
         Shop.buyCardAndAddToCollection("Siavash");
         Shop.buyCardAndAddToCollection("Nane Sarma");
         Shop.buyCardAndAddToCollection("Arjhang Div");
-        Shop.buyCardAndAddToCollection("Afsaneh");
-        Shop.buyCardAndAddToCollection("Div Sefid");
-        Shop.buyCardAndAddToCollection("Kaveh");
-        Shop.buyCardAndAddToCollection("Rakhsh");
-        Shop.buyCardAndAddToCollection("Rostam");
-        Shop.buyCardAndAddToCollection("Zahhak");
-        Shop.buyCardAndAddToCollection("Simorgh");
-        Shop.buyCardAndAddToCollection("Esfandiyar");
-        //
+
 //        Deck.createDeck("bahar");
 //        Deck.addCardOrItemToDeck(107,"bahar");
 //        Deck.addCardOrItemToDeck(401,"bahar");
@@ -263,7 +259,7 @@ public class Controller {
 
         ImageView multiButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_primary_middle_glow@2x.png")));
-        Label multiLabel = new Label("Single Player");
+        Label multiLabel = new Label("Multi Player");
         multiLabel.setFont(font);
         multiLabel.setTextFill(Color.rgb(158, 250, 255));
 
