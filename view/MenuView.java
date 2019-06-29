@@ -101,12 +101,6 @@ public class MenuView {
         shopOption.setFont(herculanum);
         shopOption.setTextFill(Color.WHITE);
 
-        Image shopIcon = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop@2x.png"));
-        ImageView shopIconImage = new ImageView(shopIcon);
-        shopIconImage.setFitWidth(40);
-        shopIconImage.setFitHeight(40);
-        HBox shopHBox = new HBox(shopIconImage, shopOption);
-
         Hyperlink collectionOption = new Hyperlink("Collection");
         collectionOption.setFont(herculanum);
         collectionOption.setTextFill(Color.WHITE);
@@ -131,9 +125,8 @@ public class MenuView {
         saveOption.setFont(herculanum);
         saveOption.setTextFill(Color.WHITE);
 
-
         vBox.setSpacing(15);
-        setMargin(shopHBox, new Insets(40, 10, 10, 100));
+        setMargin(shopOption, new Insets(40, 10, 10, 100));
         setMargin(collectionOption, new Insets(7, 10, 10, 100));
         setMargin(battleOption, new Insets(7, 10, 10, 100));
         setMargin(helpOption, new Insets(7, 10, 10, 100));
@@ -141,7 +134,7 @@ public class MenuView {
         setMargin(logoutOption, new Insets(7, 10, 10, 100));
         setMargin(saveOption, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
+        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
         MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption);
@@ -1099,32 +1092,23 @@ public class MenuView {
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
 
-            ImageView createDeckButton = new ImageView(new Image(new FileInputStream(
-                        HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-            createDeckButton.setFitWidth(250);
-            createDeckButton.setFitHeight(100);
             ImageView backButton = new ImageView(new Image(new FileInputStream(
                     HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
             backButton.setFitWidth(250);
             backButton.setFitHeight(100);
 
-            Text createDeckText = new Text("Create New Deck");
             Text backText = new Text("Back");
-            createDeckText.setFill(Color.rgb(130, 255, 255));
             backText.setFill(Color.rgb(130, 255, 255));
-            createDeckText.setFont(Font.font(null, FontWeight.BOLD, 20));
             backText.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-            StackPane createDeckStack = new StackPane(createDeckButton, createDeckText);
-            createDeckStack.setAlignment(Pos.CENTER);
             StackPane backStack = new StackPane(backButton, backText);
             backStack.setAlignment(Pos.CENTER);
-            GameView.makeImageGlowWhileMouseEnters(createDeckStack, backStack);
+            GameView.makeImageGlowWhileMouseEnters(backStack);
 
-            VBox buttonsVBox = new VBox(createDeckStack, backStack);
+            VBox buttonsVBox = new VBox(backStack);
             buttonsVBox.setPadding(new Insets(30, 1, 1, 20));
 
-            CollectionController.handleEventsOfShowCardsButtons(createDeckStack, backStack);
+            CollectionController.handleEventsOfShowCardsButtons(backStack);
 
             VBox generalVBox = new VBox();
             generalVBox.setLayoutX(300);

@@ -285,14 +285,7 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfShowCardsButtons(StackPane createDeck, StackPane back){
-        createDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                //Todo : create deck of player
-            }
-        });
-
+    public static void handleEventsOfShowCardsButtons(StackPane back){
         back.setOnMouseClicked(event -> {
             try {
                 Controller.enterCollection();
