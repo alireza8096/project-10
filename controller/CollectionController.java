@@ -276,9 +276,13 @@ public class CollectionController {
     */
 
     public static void handleEventsOfCollectionOptions(Node showCardsButton, Node showDecksButton, Node backButton){
-        showCardsButton.setOnMouseClicked(event -> MenuView.showCardsInCollection());
+        showCardsButton.setOnMouseClicked(event -> {
+            Controller.setPressedButton((StackPane) showCardsButton);
+            MenuView.showCardsInCollection();
+        });
         showDecksButton.setOnMouseClicked(event -> MenuView.showDecksInCollection());
         backButton.setOnMouseClicked(event -> {
+            Controller.setPressedButton((StackPane)backButton);
             try {
                 Controller.enterMainMenu();
             } catch (FileNotFoundException e) {
@@ -342,25 +346,19 @@ public class CollectionController {
 
         mainDeckStack.setOnMouseClicked(event -> Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck()));
 
-        importDeckStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    MenuView.showImportDeckWindow();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        importDeckStack.setOnMouseClicked(event -> {
+            try {
+                MenuView.showImportDeckWindow();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
 
-        exportDeckStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    HandleFiles.exportDeck(Deck.getSelectedDeck());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        exportDeckStack.setOnMouseClicked(event -> {
+            try {
+                HandleFiles.exportDeck(Deck.getSelectedDeck());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
     }
@@ -368,12 +366,14 @@ public class CollectionController {
     public static void handleEventsOfSellingCard(HBox cardHBox, HBox buttonsHBox,
                                                  ImageView cancelButton, StackPane sellButton, Card card, VBox cardVBox, HBox inRowHBox){
         cancelButton.setOnMouseClicked(event -> {
+            Controller.getPressedButton().setAccessibleText("Cancel");
             AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
             MenuView.removeBlurEffectOfWindow();
             Shop.setIsShowingSpecificCard(false);
         });
 
         sellButton.setOnMouseClicked(event -> {
+            Controller.getPressedButton().setAccessibleText("Sell");
             inRowHBox.getChildren().remove(cardVBox);
             try {
                 Shop.sellCardAndRemoveFromCollection(card.getId());
