@@ -14,6 +14,9 @@ public class Shop{
     public static final int CARD_IN_SHOP_WIDTH = 170;
     public static final int CARD_IN_SHOP_HEIGHT = 250;
 
+    public static final int CARD_IMAGE_IN_SHOP_WIDTH = 90;
+    public static final int CARD_IMAGE_IN_SHOP_HEIGHT = 130;
+
     private static VBox minionCardsVBox = new VBox();
     private static VBox spellCardsVBox = new VBox();
     private static VBox itemCardsVBox = new VBox();
@@ -21,6 +24,8 @@ public class Shop{
 
     //for not handle events of cards that are not selected while buying a card
     private static boolean isShowingSpecificCard;
+
+
 
 
     private Game game;

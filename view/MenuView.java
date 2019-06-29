@@ -449,14 +449,28 @@ public class MenuView {
         for (int i = (rowNumber - 1) * numOfCardsInEachRow; i < rowNumber * numOfCardsInEachRow; i++) {
             VBox cardVBox = new VBox();
 
-
             Card card = Card.returnNthCard(cardType, i);
+
+            Text desc = new Text();
+            assert card != null;
+            try {
+                card.setDescOfCard(desc);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
             StackPane stackPane = new StackPane();
             stackPane.setAccessibleText(Integer.toString(i));
             stackPane.setPadding(new Insets(13));
 
-            setImageForCardInShop(card, stackPane);
+            try {
+                setImageForCardInShop(card, stackPane);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            stackPane.getChildren().add(desc);
+            StackPane.setMargin(desc, new Insets(100, 1, 1, 1));
 
             stackPane.setAlignment(Pos.CENTER);
             stackPane.setOnMouseClicked(event -> {
@@ -476,7 +490,6 @@ public class MenuView {
             cardVBox.getChildren().add(stackPane);
 
             setPriceForCardInShop(card, cardVBox);
-            //   setManaForCardInShop(card, stackPane, onCardVBox);
 
             hBox.getChildren().add(cardVBox);
         }
@@ -519,12 +532,19 @@ public class MenuView {
 
     }
 
-    public static void setImageForCardInShop(Card card, StackPane stackPane) {
-        ImageView image = card.getImageViewOfCard();
-        image.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
-        image.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
+    public static void setImageForCardInShop(Card card, StackPane stackPane) throws FileNotFoundException {
+        ImageView cardBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/card_background_blue.png")));
+        cardBack.setFitWidth(Shop.CARD_IN_SHOP_WIDTH);
+        cardBack.setFitHeight(Shop.CARD_IN_SHOP_HEIGHT);
 
-        stackPane.getChildren().add(image);
+        ImageView image = card.getImageViewOfCard();
+        image.setFitWidth(Shop.CARD_IMAGE_IN_SHOP_WIDTH);
+        image.setFitHeight(Shop.CARD_IMAGE_IN_SHOP_HEIGHT);
+
+        stackPane.getChildren().addAll(cardBack, image);
+
+        StackPane.setMargin(image, new Insets(1, 1, 50, 1));
     }
 
     public static void setDescForCardInShop(Card card, StackPane stackPane, VBox vBox) {

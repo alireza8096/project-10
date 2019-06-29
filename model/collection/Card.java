@@ -2,10 +2,13 @@ package model.collection;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.AttackType;
 import model.Game;
 import model.Map;
+import model.Shop;
 import org.json.simple.parser.ParseException;
 import view.MainView;
 
@@ -427,6 +430,26 @@ public class Card implements Cloneable {
                 return item;
         }
         return null;
+    }
+
+    public void setDescOfCard(Text text) throws FileNotFoundException {
+        String cardType = this.getCardType();
+        if (cardType.equals("spell")){
+            text.setText(((Spell)this).getDesc());
+        }else if (cardType.equals("item")){
+            text.setText(((Item)this).getDesc());
+        }else if (cardType.equals("minion")){
+            text.setText(((Minion)this).getSpecialPower());
+        }else{
+            text.setText(((Hero)this).getSpecialPower());
+        }
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/averta-regularitalic-webfont.ttf"), 10);
+        text.setWrappingWidth(Shop.CARD_IN_SHOP_WIDTH - 30);
+
+        text.setFont(font);
+        text.setFill(Color.YELLOW);
     }
 
 
