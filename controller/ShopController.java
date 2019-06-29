@@ -12,11 +12,14 @@ import javafx.scene.layout.VBox;
 import model.*;
 import model.collection.*;
 import model.Game;
+import org.json.simple.parser.ParseException;
 import org.w3c.dom.events.EventException;
 import view.GameView;
 import view.MenuView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
 public class ShopController {
@@ -165,13 +168,17 @@ public class ShopController {
 
         buyButton.setOnMouseClicked(event -> {
             try {
-
-                Shop.buyCardAndAddToCollection(card.getName());
+                if (Deck.checkIfThisCardOrItemIsInCollection(card.getId())) {
+                    Shop.buyCardAndAddToCollection(card.getName());
+                }else{
+                    System.out.println("__________-");
+                    GameView.printInvalidCommandWithThisContent("This card is already available in collection!");
+                }
                 AllDatas.currentRoot.getChildren().removeAll(generalVBox);
                 MenuView.removeBlurEffectOfWindow();
                 Shop.setIsShowingSpecificCard(false);
 
-            } catch (CloneNotSupportedException e) {
+            } catch (CloneNotSupportedException | ParseException | IOException e) {
                 e.printStackTrace();
             }
         });

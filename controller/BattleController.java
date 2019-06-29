@@ -1,7 +1,9 @@
 package controller;
 
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.*;
 import model.collection.*;
@@ -17,6 +19,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class BattleController {
 
@@ -726,4 +729,24 @@ public class BattleController {
             AllDatas.hasEnteredBattle = true;
         }
     }
+
+    public static void handleEventsOfChoosingMultiOrSingleMode(StackPane multiButton,
+                                                               StackPane singleButton, StackPane backButton){
+        singleButton.setOnMouseClicked(event -> {
+            try {
+                Controller.enterBattle();
+            } catch (IOException | CloneNotSupportedException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Controller.enterMainMenu();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
 }
