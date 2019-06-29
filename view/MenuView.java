@@ -101,12 +101,6 @@ public class MenuView {
         shopOption.setFont(herculanum);
         shopOption.setTextFill(Color.WHITE);
 
-        Image shopIcon = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop@2x.png"));
-        ImageView shopIconImage = new ImageView(shopIcon);
-        shopIconImage.setFitWidth(40);
-        shopIconImage.setFitHeight(40);
-        HBox shopHBox = new HBox(shopIconImage, shopOption);
-
         Hyperlink collectionOption = new Hyperlink("Collection");
         collectionOption.setFont(herculanum);
         collectionOption.setTextFill(Color.WHITE);
@@ -131,9 +125,8 @@ public class MenuView {
         saveOption.setFont(herculanum);
         saveOption.setTextFill(Color.WHITE);
 
-
         vBox.setSpacing(15);
-        setMargin(shopHBox, new Insets(40, 10, 10, 100));
+        setMargin(shopOption, new Insets(40, 10, 10, 100));
         setMargin(collectionOption, new Insets(7, 10, 10, 100));
         setMargin(battleOption, new Insets(7, 10, 10, 100));
         setMargin(helpOption, new Insets(7, 10, 10, 100));
@@ -141,7 +134,7 @@ public class MenuView {
         setMargin(logoutOption, new Insets(7, 10, 10, 100));
         setMargin(saveOption, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
+        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
         MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption);
@@ -980,118 +973,47 @@ public class MenuView {
 
     }
 
-    public static void showThisDeck(VBox generalVBox, Deck deck) throws FileNotFoundException {
-        VBox deckVBox = new VBox();
-        AllDatas.currentRoot.getChildren().add(deckVBox);
-
-        Text constantText = new Text("Deck Name : ");
-        constantText.setFont(Font.font(null, FontWeight.BOLD, 25));
-        constantText.setFill(Color.rgb(33, 247, 255));
-        constantText.setStrokeWidth(1);
-        constantText.setStroke(Color.rgb(25, 112, 122));
-
-        ImageView leftCollapse = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/battlelog_button_collapse@2x.png")));
-        ImageView rightCollapse = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/battlelog_button_expand@2x.png")));
-
-        Text deckName = new Text(deck.getDeckName());
-        deckName.setFont(Font.font(null, FontWeight.BOLD, 25));
-        deckName.setFill(Color.rgb(33, 247, 255));
-        deckName.setStrokeWidth(1);
-        deckName.setStroke(Color.rgb(25, 112, 122));
-
-        HBox nameHBox = new HBox(constantText, leftCollapse, deckName, rightCollapse);
-        HBox.setMargin(deckName, new Insets(20, 1, 1, 1));
-        HBox.setMargin(constantText, new Insets(20, 1, 1, 1));
-        deckVBox.getChildren().add(nameHBox);
-
-        ArrayList<Card> cardsInDeck = deck.getCardsInDeck();
-        ArrayList<Item> itemsInDeck = deck.getItemsInDeck();
-        Hero hero = deck.getHeroInDeck();
-        ArrayList<Hero> heroes = new ArrayList<>();
-        heroes.add(hero);
-
-        addCardsToVBox(cardsInDeck, deckVBox);
-        addCardsToVBox(itemsInDeck, deckVBox);
-        addCardsToVBox(heroes, deckVBox);
-        generalVBox.getChildren().add(deckVBox);
-
-    }
-
     public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
-        ImageView newDeckButton = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        newDeckButton.setFitWidth(230);
-        newDeckButton.setFitHeight(80);
+        StackPane newDeckPane = returnButtonsOfShowingDecks("New Deck");
+        StackPane backPane = returnButtonsOfShowingDecks("Back");
+        StackPane deleteDeckStack = returnButtonsOfShowingDecks("Delete Deck");
+        StackPane completeDeckStack = returnButtonsOfShowingDecks("Add Card");
+        StackPane mainDeckStack = returnButtonsOfShowingDecks("Set As Main Deck");
+        StackPane importDeckStack = returnButtonsOfShowingDecks("Import Deck");
+        StackPane exportDeckStack = returnButtonsOfShowingDecks("Export Deck");
 
-        Text newDeckText = new Text("New Deck");
-        newDeckText.setFont(Font.font(20));
-        newDeckText.setFill(rgb(160, 255, 255));
+        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack,
+                deleteDeckStack, mainDeckStack, importDeckStack, exportDeckStack);
 
-        StackPane newDeckPane = new StackPane(newDeckButton, newDeckText);
-        newDeckPane.setAccessibleText("New Deck");
-
-        ImageView backButton = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        backButton.setFitWidth(230);
-        backButton.setFitHeight(80);
-
-        Text backText = new Text("Back");
-        backText.setFont(Font.font(20));
-        backText.setFill(rgb(160, 255, 255));
-
-        StackPane backPane = new StackPane(backButton, backText);
-        backPane.setAccessibleText("Back");
-
-
-        ImageView deleteDeckButton = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        deleteDeckButton.setFitWidth(230);
-        deleteDeckButton.setFitHeight(80);
-
-        Text deleteDeckLabel = new Text("Delete Deck");
-        deleteDeckLabel.setFont(Font.font(20));
-        deleteDeckLabel.setFill(rgb(160, 255, 255));
-
-        StackPane deleteDeckStack = new StackPane(deleteDeckButton, deleteDeckLabel);
-        deleteDeckStack.setAccessibleText("Delete Deck");
-
-        ImageView completeDeckButton = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        completeDeckButton.setFitWidth(230);
-        completeDeckButton.setFitHeight(80);
-
-        Text completeDeckText = new Text("Add Card");
-        completeDeckText.setFont(Font.font(20));
-        completeDeckText.setFill(rgb(160, 255, 255));
-
-        StackPane completeDeckStack = new StackPane(completeDeckButton, completeDeckText);
-        completeDeckStack.setAccessibleText("Add Card");
-
-        ImageView mainDeckButton = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        mainDeckButton.setFitWidth(230);
-        mainDeckButton.setFitHeight(80);
-
-        Text mainDeckText = new Text("Set as main deck");
-        mainDeckText.setFont(Font.font(20));
-        mainDeckText.setFill(rgb(160, 255, 255));
-
-        StackPane mainDeckStack = new StackPane(mainDeckButton, mainDeckText);
-
-        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack, deleteDeckStack, mainDeckStack);
-
-        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack, mainDeckStack);
+        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack,
+                mainDeckStack, importDeckStack, exportDeckStack);
 
         setMargin(newDeckPane, new Insets(30, 1, 1, 20));
         setMargin(backPane, new Insets(20, 1, 1, 20));
         setMargin(deleteDeckStack, new Insets(20, 1, 1, 20));
         setMargin(completeDeckStack, new Insets(20, 1, 1, 20));
         setMargin(mainDeckStack, new Insets(20, 1, 1, 20));
+        setMargin(importDeckStack, new Insets(20, 1, 1, 20));
+        setMargin(exportDeckStack, new Insets(20, 1, 1, 20));
 
         CollectionController.handleEventsOfShowingDeckButtons(
-                newDeckPane, backPane, deleteDeckStack, completeDeckStack, mainDeckStack);
+                newDeckPane, backPane, deleteDeckStack, completeDeckStack, mainDeckStack, importDeckStack, exportDeckStack);
+    }
+
+    public static StackPane returnButtonsOfShowingDecks(String buttonText) throws FileNotFoundException {
+        ImageView button = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        button.setFitWidth(230);
+        button.setFitHeight(80);
+
+        Text text = new Text(buttonText);
+        text.setFont(Font.font(20));
+        text.setFill(rgb(160, 255, 255));
+
+        StackPane stackPane = new StackPane(button, text);
+        stackPane.setAccessibleText(buttonText);
+
+        return stackPane;
     }
 
     public static void showCardsInCollection(){
@@ -1099,32 +1021,23 @@ public class MenuView {
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
 
-            ImageView createDeckButton = new ImageView(new Image(new FileInputStream(
-                        HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-            createDeckButton.setFitWidth(250);
-            createDeckButton.setFitHeight(100);
             ImageView backButton = new ImageView(new Image(new FileInputStream(
                     HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
             backButton.setFitWidth(250);
             backButton.setFitHeight(100);
 
-            Text createDeckText = new Text("Create New Deck");
             Text backText = new Text("Back");
-            createDeckText.setFill(Color.rgb(130, 255, 255));
             backText.setFill(Color.rgb(130, 255, 255));
-            createDeckText.setFont(Font.font(null, FontWeight.BOLD, 20));
             backText.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-            StackPane createDeckStack = new StackPane(createDeckButton, createDeckText);
-            createDeckStack.setAlignment(Pos.CENTER);
             StackPane backStack = new StackPane(backButton, backText);
             backStack.setAlignment(Pos.CENTER);
-            GameView.makeImageGlowWhileMouseEnters(createDeckStack, backStack);
+            GameView.makeImageGlowWhileMouseEnters(backStack);
 
-            VBox buttonsVBox = new VBox(createDeckStack, backStack);
+            VBox buttonsVBox = new VBox(backStack);
             buttonsVBox.setPadding(new Insets(30, 1, 1, 20));
 
-            CollectionController.handleEventsOfShowCardsButtons(createDeckStack, backStack);
+            CollectionController.handleEventsOfShowCardsButtons(backStack);
 
             VBox generalVBox = new VBox();
             generalVBox.setLayoutX(300);
@@ -1311,6 +1224,49 @@ public class MenuView {
         hBox.setLayoutY(400);
 
         AllDatas.currentRoot.getChildren().add(hBox);
-
     }
+
+    public static void showImportDeckWindow() throws FileNotFoundException {
+        setBackGroundOfCollection();
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 22);
+
+        ImageView importButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        importButton.setFitWidth(280);
+        importButton.setFitHeight(90);
+        Text importText = new Text("Import");
+        importText.setFont(font);
+        importText.setFill(rgb(210, 250, 247));
+        StackPane importStack = new StackPane(importButton, importText);
+
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        backButton.setFitWidth(280);
+        backButton.setFitHeight(90);
+        Text backText = new Text("Back");
+        backText.setFont(font);
+        backText.setFill(rgb(210, 250, 247));
+        StackPane backStack = new StackPane(backButton, backText);
+
+        GameView.makeImageGlowWhileMouseEnters(backStack, importStack);
+
+        TextField textField = new TextField();
+        textField.setPrefWidth(280);
+        textField.setPrefHeight(80);
+        textField.setFont(Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/averta-extrabold-webfont.ttf"), 18));
+
+        HBox hBox = new HBox(textField, importStack, backStack);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setLayoutX(300);
+        hBox.setLayoutY(300);
+
+        AllDatas.currentRoot.getChildren().add(hBox);
+
+        CollectionController.handleEventsOfImportingDeck(textField, backStack, importStack);
+    }
+
+
 }
