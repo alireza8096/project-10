@@ -225,10 +225,9 @@ public class MenusCommandController {
 
         logout.setOnAction(event -> {
             try {
+                assert LinkedListMenus.whichMenuNow() != null;
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
-            } catch (FileNotFoundException | ParseException e) {
-                e.printStackTrace();
-            } catch (IOException | CloneNotSupportedException e) {
+            } catch (ParseException | IOException | CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         });

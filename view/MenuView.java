@@ -350,15 +350,19 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
 
-        ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
+        ImageView background = MainView.getPhotoWithThisPath(
+                HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
-        ImageView middleGround = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/midground@2x.png");
+        ImageView middleGround = MainView.getPhotoWithThisPath(
+                HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/midground@2x.png");
         middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
 
-        AllDatas.currentRoot.getChildren().addAll(background, middleGround);
+        ImageView backButton = setBackButtonInBattle();
+
+        AllDatas.currentRoot.getChildren().addAll(background, middleGround, backButton);
 
         sampleGame();
         Game.getInstance().setMap(new Map());
@@ -392,6 +396,22 @@ public class MenuView {
         BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/button_end_turn_mine@2x.png"));
         AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
         BattleView.handleEndTurn();
+    }
+
+    public static ImageView setBackButtonInBattle() throws FileNotFoundException {
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/battle_back_button.png")));
+        GameView.makeImageGlowWhileMouseEnters(backButton);
+
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Controller.chooseSingleOrMultiPlayerWindow();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        return backButton;
     }
 
 

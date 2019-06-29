@@ -145,7 +145,7 @@ public class Shop{
         }
         Game.getInstance().getPlayer1().setDaric(daric);
         System.out.println(cardName + " was added to your collection successfully");
-        System.out.println("Remained daric : " + Game.getInstance().getPlayer1().getDaric());
+//        System.out.println("Remained daric : " + Game.getInstance().getPlayer1().getDaric());
     }
 
     public static boolean checkIfCardWithThisNameIsValid(String cardName) {

@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
@@ -244,6 +245,8 @@ public class Controller {
 
         MenuView.setBackgroundOfMainMenu();
 
+        VBox generalVBox = new VBox();
+
         Font font = Font.loadFont(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 23);
 
@@ -264,22 +267,25 @@ public class Controller {
 
         StackPane multiStack = new StackPane(multiButton, multiLabel);
 
-        GameView.makeImageGlowWhileMouseEnters(singleStack, multiStack);
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_primary_middle_glow@2x.png")));
+        Label backLabel = new Label("Back");
+        backLabel.setFont(font);
+        backLabel.setTextFill(Color.rgb(158, 250, 255));
+
+        StackPane backStack = new StackPane(backButton, backLabel);
+
+        GameView.makeImageGlowWhileMouseEnters(singleStack, multiStack, backStack);
 
         HBox hBox = new HBox(singleStack, multiStack);
-        hBox.setLayoutX(MenuView.WINDOW_WIDTH/2 - 140);
-        hBox.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 100);
+        generalVBox.setLayoutX(MenuView.WINDOW_WIDTH/2 - 140);
+        generalVBox.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 100);
 
-        AllDatas.currentRoot.getChildren().add(hBox);
+        generalVBox.getChildren().addAll(hBox, backStack);
 
-        singleStack.setOnMouseClicked(event -> {
-            try {
-                Controller.enterBattle();
-            } catch (IOException | CloneNotSupportedException | ParseException e) {
-                e.printStackTrace();
-            }
-        });
+        AllDatas.currentRoot.getChildren().add(generalVBox);
 
+        BattleController.handleEventsOfChoosingMultiOrSingleMode(multiStack, singleStack, backStack);
 
     }
 
