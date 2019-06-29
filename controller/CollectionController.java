@@ -1,6 +1,7 @@
 package controller;
 
 import com.sun.java.accessibility.util.EventQueueMonitor;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import model.*;
 import model.Game;
 import model.collection.Card;
+import model.collection.HandleFiles;
 import model.collection.Hero;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -297,7 +299,8 @@ public class CollectionController {
 
     public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back,
                                                         StackPane deleteDeckStack, StackPane completeDeckStack,
-                                                        StackPane mainDeckStack){
+                                                        StackPane mainDeckStack, StackPane importDeckStack,
+                                                        StackPane exportDeckStack){
         back.setOnMouseClicked(event -> {
             try {
                 MenuView.showOptionsInCollection();
@@ -338,6 +341,28 @@ public class CollectionController {
         });
 
         mainDeckStack.setOnMouseClicked(event -> Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck()));
+
+        importDeckStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    MenuView.showImportDeckWindow();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        exportDeckStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    HandleFiles.exportDeck(Deck.getSelectedDeck());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public static void handleEventsOfSellingCard(HBox cardHBox, HBox buttonsHBox,
@@ -401,11 +426,23 @@ public class CollectionController {
     }
 
     public static void handleEventsOfAddingCardToDeck(StackPane backButton){
-        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Controller.setPressedButton(backButton);
-                MenuView.showDecksInCollection();
+        backButton.setOnMouseClicked(event -> {
+            Controller.setPressedButton(backButton);
+            MenuView.showDecksInCollection();
+        });
+    }
+
+    public static void handleEventsOfImportingDeck(TextField textField, StackPane backButton, StackPane importButton){
+        backButton.setOnMouseClicked(event -> MenuView.showDecksInCollection());
+
+        importButton.setOnMouseClicked(event -> {
+            String deckName = textField.getText();
+            Deck importedDeck;
+            try {
+                importedDeck = HandleFiles.importDeck(deckName);
+                Game.getInstance().getPlayer1().getDecksOfPlayer().add(importedDeck);
+            } catch (IOException | ParseException | CloneNotSupportedException e) {
+                e.printStackTrace();
             }
         });
     }

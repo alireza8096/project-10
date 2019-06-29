@@ -76,16 +76,6 @@ public class Account {
         Files.write((Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + name + ".json")), tempPlayer.toJSONString().getBytes());
     }
 
-    public static void saveDeck(Deck deck) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("deck0",returnStringOfDeck(deck));
-        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + DECKS_FOLDER + "/" + deck.getDeckName() + ".json"), jsonObject.toJSONString().getBytes());
-    }
-    public static Deck readDeck(String deckName) throws IOException, ParseException, CloneNotSupportedException {
-        JSONObject jsonObject = (JSONObject)HandleFiles.readJsonFiles(HandleFiles.BEFORE_RELATIVE+DECKS_FOLDER+"/" + deckName + ".json");
-        return createDeckFromString(jsonObject.get("deck" + 0).toString());
-    }
-
     public static void savePlayer(Player player) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("username", player.getUserName());
