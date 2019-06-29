@@ -711,7 +711,7 @@ public class MenuView {
 
             TabPane deckTabPane = new TabPane();
             deckTabPane.setLayoutX(300);
-            deckTabPane.setPrefWidth(700);
+            deckTabPane.setPrefWidth(1000);
 
             VBox buttonsVBox = new VBox();
 
@@ -868,7 +868,7 @@ public class MenuView {
         hBox.setLayoutY(100);
 
         VBox generalVBox = new VBox();
-        generalVBox.setLayoutX(200);
+        generalVBox.setLayoutX(30);
 
         showCards(generalVBox);
 
@@ -920,7 +920,7 @@ public class MenuView {
     public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
         ImageView newDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        newDeckButton.setFitWidth(200);
+        newDeckButton.setFitWidth(230);
         newDeckButton.setFitHeight(80);
 
         Text newDeckText = new Text("New Deck");
@@ -932,7 +932,7 @@ public class MenuView {
 
         ImageView backButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        backButton.setFitWidth(200);
+        backButton.setFitWidth(230);
         backButton.setFitHeight(80);
 
         Text backText = new Text("Back");
@@ -945,7 +945,7 @@ public class MenuView {
 
         ImageView deleteDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        deleteDeckButton.setFitWidth(200);
+        deleteDeckButton.setFitWidth(230);
         deleteDeckButton.setFitHeight(80);
 
         Text deleteDeckLabel = new Text("Delete Deck");
@@ -957,7 +957,7 @@ public class MenuView {
 
         ImageView completeDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
-        completeDeckButton.setFitWidth(200);
+        completeDeckButton.setFitWidth(230);
         completeDeckButton.setFitHeight(80);
 
         Text completeDeckText = new Text("Add Card");
@@ -967,16 +967,29 @@ public class MenuView {
         StackPane completeDeckStack = new StackPane(completeDeckButton, completeDeckText);
         completeDeckStack.setAccessibleText("Add Card");
 
-        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack, deleteDeckStack);
+        ImageView mainDeckButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        mainDeckButton.setFitWidth(230);
+        mainDeckButton.setFitHeight(80);
 
-        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
+        Text mainDeckText = new Text("Set as main deck");
+        mainDeckText.setFont(Font.font(20));
+        mainDeckText.setFill(rgb(160, 255, 255));
+
+        StackPane mainDeckStack = new StackPane(mainDeckButton, mainDeckText);
+
+        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack, deleteDeckStack, mainDeckStack);
+
+        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack, mainDeckStack);
 
         setMargin(newDeckPane, new Insets(30, 1, 1, 20));
         setMargin(backPane, new Insets(20, 1, 1, 20));
         setMargin(deleteDeckStack, new Insets(20, 1, 1, 20));
         setMargin(completeDeckStack, new Insets(20, 1, 1, 20));
+        setMargin(mainDeckStack, new Insets(20, 1, 1, 20));
 
-        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
+        CollectionController.handleEventsOfShowingDeckButtons(
+                newDeckPane, backPane, deleteDeckStack, completeDeckStack, mainDeckStack);
     }
 
     public static void showCardsInCollection(){
