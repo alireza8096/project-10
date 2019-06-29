@@ -128,8 +128,9 @@ public class MenuView {
         helpOption.setTextFill(Color.WHITE);
 
         Hyperlink saveOption = new Hyperlink("Save");
-        helpOption.setFont(herculanum);
-        helpOption.setTextFill(Color.WHITE);
+        saveOption.setFont(herculanum);
+        saveOption.setTextFill(Color.WHITE);
+
 
         vBox.setSpacing(15);
         setMargin(shopHBox, new Insets(40, 10, 10, 100));
@@ -519,9 +520,8 @@ public class MenuView {
         for (int i = (rowNumber - 1) * numOfCardsInEachRow; i < rowNumber * numOfCardsInEachRow; i++) {
             VBox cardVBox = new VBox();
 
+
             Card card = Card.returnNthCard(cardType, i);
-
-
 
             StackPane stackPane = new StackPane();
             stackPane.setAccessibleText(Integer.toString(i));
@@ -563,6 +563,7 @@ public class MenuView {
             cardVBox.setAlignment(Pos.CENTER);
 
             setPriceForCardInShop(card, cardVBox);
+            //   setManaForCardInShop(card, stackPane, onCardVBox);
 
             hBox.getChildren().add(cardVBox);
         }
@@ -633,7 +634,7 @@ public class MenuView {
 //        StackPane.setMargin(cardName, new Insets(60, 1, 1, 1));
     }
 
-    public static void makeSceneBlur() {
+    private static void makeSceneBlur() {
         ColorAdjust adj = new ColorAdjust(0, 0, -0.5, 0);
         GaussianBlur blur = new GaussianBlur(55); // 55 is just to show edge effect more clearly.
         adj.setInput(blur);
@@ -739,7 +740,7 @@ public class MenuView {
         showOptionsInCollection();
     }
 
-    public static void setBackGroundOfCollection() throws FileNotFoundException {
+    private static void setBackGroundOfCollection() throws FileNotFoundException {
         ImageView backGround = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/blurBackground.jpg")));
         backGround.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
@@ -885,7 +886,7 @@ public class MenuView {
         CollectionController.handleEventsOfCreatingNewDeck(cancelStack, createStack, deckName, createDeckVBox);
     }
 
-    public static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
+    private static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
         for (Deck deck : decks){
             Tab deckTab = new Tab(deck.getDeckName());
 
