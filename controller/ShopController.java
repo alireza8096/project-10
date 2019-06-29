@@ -168,17 +168,16 @@ public class ShopController {
 
         buyButton.setOnMouseClicked(event -> {
             try {
-                if (Deck.checkIfThisCardOrItemIsInCollection(card.getId())) {
+                if (!Deck.checkIfThisCardOrItemIsInCollection(card.getId())) {
                     Shop.buyCardAndAddToCollection(card.getName());
                 }else{
-                    System.out.println("__________-");
                     GameView.printInvalidCommandWithThisContent("This card is already available in collection!");
                 }
                 AllDatas.currentRoot.getChildren().removeAll(generalVBox);
                 MenuView.removeBlurEffectOfWindow();
                 Shop.setIsShowingSpecificCard(false);
 
-            } catch (CloneNotSupportedException | ParseException | IOException e) {
+            } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
         });

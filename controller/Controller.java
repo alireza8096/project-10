@@ -286,7 +286,6 @@ public class Controller {
         AllDatas.currentRoot.getChildren().add(generalVBox);
 
         BattleController.handleEventsOfChoosingMultiOrSingleMode(multiStack, singleStack, backStack);
-
     }
 
 
