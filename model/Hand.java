@@ -22,7 +22,7 @@ public class Hand {
     private static ImageView[] scenesBehind = new ImageView[5];
     private static ImageView[] cards = new ImageView[5];
     private static Label[] manas = new Label[5];
-    private ArrayList<Card> cardsInHand = new ArrayList<>();
+    private Card[] cardsInHand = new Card[5];
     private Card nextCard;
     private static boolean selectedInHand;
     private static int indexInHand;
@@ -79,30 +79,34 @@ public class Hand {
     public static void handleHand(ImageView cards, int i) {
         cards.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             Hand.indexInHand = i;
-            if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i) != null) {
-                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
-                    showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand.get(i));
+            if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                    showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
                     selectedInHand = true;
                 }
             }
         });
-        cards.addEventHandler(MouseEvent.MOUSE_ENTERED,event -> {
-            if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()){
-                cards.setEffect(new Glow(0.7));
-                scenesBehind[i].setEffect(new Glow(0.7));
+        cards.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+            if(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i] != null) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                    cards.setEffect(new Glow(0.7));
+                    scenesBehind[i].setEffect(new Glow(0.7));
+                }
             }
         });
         cards.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
-            if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i)!=null) {
-                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
-                    cards.setEffect(null);
-                    scenesBehind[i].setEffect(null);
+            if(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]!=null) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
+                    if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                        cards.setEffect(null);
+                        scenesBehind[i].setEffect(null);
+                    }
                 }
             }
         });
     }
 
-    public static void createHand(){
+    public static void createHand() {
         HBox handScenes = new HBox();
         HBox cardsView = new HBox();
         HBox manasView = new HBox();
@@ -144,11 +148,11 @@ public class Hand {
         this.nextCard = nextCard;
     }
 
-    public ArrayList<Card> getCardsInHand() {
+    public Card[] getCardsInHand() {
         return cardsInHand;
     }
 
-    public void setCardsInHand(ArrayList<Card> cardsInHand) {
+    public void setCardsInHand(Card[] cardsInHand) {
         this.cardsInHand = cardsInHand;
     }
 
@@ -165,7 +169,7 @@ public class Hand {
         Collections.shuffle(cardsInDeck);
         for (int i = 0; i < 5; i++) {
             Card card = cardsInDeck.get(i);
-            hand.getCardsInHand().add(card);
+            hand.getCardsInHand()[i] = card;
             if (card.getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
                 Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
                         "view/Photos/battle/cardActivatedInHand.png")));
@@ -181,8 +185,13 @@ public class Hand {
     }
 
     public boolean checkIfNumberOfCardsInHandIsValid() {
-        int numberOfCardsInHand = this.getCardsInHand().size();
-        return numberOfCardsInHand < 5;
+        int counter = 0;
+        for (int i = 0; i < 5; i++) {
+            if (cardsInHand[i] != null) {
+                counter++;
+            }
+        }
+        return counter < 5;
     }
 
 //    public void deleteCardFromHand(Card card){
@@ -195,7 +204,25 @@ public class Hand {
             Collections.shuffle(mainDeck.getCardsInDeck());
             nextCard = mainDeck.getCardsInDeck().get(0);
             mainDeck.getCardsInDeck().remove(nextCard);
-            this.getCardsInHand().add(nextCard);
+            for (int i = 0; i < 5; i++) {
+                if (cards[i].getOpacity() == 0) {
+                    cards[i].setOpacity(1);
+                    manas[i].setOpacity(1);
+                    cardsInHand[i] = nextCard;
+                    try {
+                        if (nextCard.getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                            scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
+                        } else {
+                            scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                        }
+                    }catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                    cards[i].setImage(nextCard.getForceInField());
+                    manas[i].setText(Integer.toString(nextCard.getMana()));
+                    return;
+                }
+            }
         }
     }
 
@@ -207,18 +234,15 @@ public class Hand {
         return false;
     }
 
-    public void insertCardFromHandInMap(String cardName, int x, int y) {
-        if (Minion.thisCardIsMinion(cardName)) {
-            Minion minion = (Minion) returnCardInHand(cardName);
+    public void insertCardFromHandInMap(int index, int x, int y) throws FileNotFoundException {
+        if (Minion.thisCardIsMinion(cardsInHand[index].getName())) {
+            Minion minion = (Minion)cardsInHand[index];
             Game.getInstance().getPlayer1().setNumOfMana(Game.getInstance().getPlayer1().getNumOfMana() - minion.getMana());
-            for (int i = 0; i < 9; i++) {
-                try {
-                    Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
-                    if (i < Game.getInstance().getPlayer1().getNumOfMana()) {
-                        Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
+            for(int i=0; i<5; i++){
+                if(cardsInHand[i] != null) {
+                    if (cardsInHand[i].getMana() > Game.getInstance().getPlayer1().getNumOfMana()) {
+                        scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                     }
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
             }
             Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
@@ -230,7 +254,17 @@ public class Hand {
             Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
             minion.setCanMove(false);
             minion.setCanAttack(false);
-            Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(cardName);
+            minion.setHasMovedInThisTurn(true);
+            Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);
+            for(int i=0; i<5; i++){
+                if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i]!=null){
+                    System.out.println("num of mana of this card : " + Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana());
+                    System.out.println("id and name of this card : " + i + " , " + Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getName());
+                }
+                else {
+                    System.out.println("this card is null" + i);
+                }
+            }
             try {
                 Hand.cards[Hand.indexInHand].setOpacity(0);
                 Hand.manas[Hand.indexInHand].setOpacity(0);
@@ -249,21 +283,19 @@ public class Hand {
     }
 
     public Card returnCardInHand(String cardName) {
-        for (Card card : this.getCardsInHand()) {
-            if (card.getName().equals(cardName)) {
-                return card;
+        for(int i=0; i<5; i++){
+            if(cardsInHand[i]!=null){
+                if(cardsInHand[i].getName().equals(cardName)){
+                    System.out.println(i + "**********");
+                    return cardsInHand[i];
+                }
             }
         }
         return null;
     }
 
-    public void removeCardFromHand(String cardName) {
-        ArrayList<Card> copy = new ArrayList<>(getCardsInHand());
-        for (Card card : copy) {
-            if (card.getName().equals(cardName)) {
-                this.getCardsInHand().remove(card);
-            }
-        }
+    public void removeCardFromHand(int index) {
+        cardsInHand[index] = null;
     }
 
 

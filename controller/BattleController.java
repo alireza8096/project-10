@@ -94,9 +94,14 @@ public class BattleController {
                 imageView.setDisable(false);
             }
             for (int i = 0; i < 5; i++) {
-                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
-                    Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
-                } else {
+                if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i]!=null) {
+                    if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                        Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
+                    } else {
+                        Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                    }
+                }
+                else{
                     Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                 }
             }
@@ -113,8 +118,17 @@ public class BattleController {
                     Map.getForcesView()[i][j].setDisable(false);
                 }
             }
-            Cell.handleCell();
-            Cell.handleForce();
+//            Cell.handleCell();
+//            Cell.handleForce();
+//            for(int i=0; i<5; i++){
+//                if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i]!=null){
+//                    System.out.println("num of mana of this card : " + Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana());
+//                    System.out.println("id and name of this card : " + i + " , " + Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getName());
+//                }
+//                else {
+//                    System.out.println("this card is null" + i);
+//                }
+//            }
         }
     }
 
