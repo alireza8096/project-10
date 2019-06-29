@@ -1,7 +1,6 @@
 package view;
 
 import controller.*;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -34,7 +33,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import static controller.Controller.sampleGame;
 import static javafx.scene.layout.VBox.setMargin;
@@ -175,36 +173,16 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(background);
 
         HBox minionsHBox = new HBox();
-        ImageView minionIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/minion.png");
-        minionIcon.setFitWidth(40);
-        minionIcon.setFitHeight(40);
-        Hyperlink minionText = new Hyperlink("Minions");
-        minionText.setFont(Font.font(null, FontWeight.BOLD, 20));
-        minionsHBox.getChildren().addAll(minionIcon, minionText);
+        Hyperlink minionText = setHBoxForHyperlinksInShop(minionsHBox, "minion");
 
         HBox heroesHBox = new HBox();
-        ImageView heroIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Heroes.png");
-        heroIcon.setFitWidth(40);
-        heroIcon.setFitHeight(40);
-        Hyperlink heroText = new Hyperlink("Heroes");
-        heroText.setFont(Font.font(null, FontWeight.BOLD, 20));
-        heroesHBox.getChildren().addAll(heroIcon, heroText);
+        Hyperlink heroText = setHBoxForHyperlinksInShop(heroesHBox, "hero");
 
         HBox itemHBox = new HBox();
-        ImageView itemIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Item.png");
-        itemIcon.setFitWidth(50);
-        itemIcon.setFitHeight(50);
-        Hyperlink itemText = new Hyperlink("Items");
-        itemText.setFont(Font.font(null, FontWeight.BOLD, 20));
-        itemHBox.getChildren().addAll(itemIcon, itemText);
+        Hyperlink itemText = setHBoxForHyperlinksInShop(itemHBox, "item");
 
         HBox spellHBox = new HBox();
-        ImageView spellIcon = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/spell.png");
-        spellIcon.setFitWidth(50);
-        spellIcon.setFitHeight(50);
-        Hyperlink spellText = new Hyperlink("Spells");
-        spellText.setFont(Font.font(null, FontWeight.BOLD, 20));
-        spellHBox.getChildren().addAll(spellIcon, spellText);
+        Hyperlink spellText = setHBoxForHyperlinksInShop(spellHBox, "spell");
 
         setMargin(minionsHBox, new Insets(50, 100, 10, 30));
         setMargin(spellHBox, new Insets(10, 100, 10, 30));
@@ -214,13 +192,105 @@ public class MenuView {
         Shop.getLeftVBox().setPadding(new Insets(50, 10, 10, 10));
         StackPane daricStack = setCurrentDaricView();
         StackPane backStack = setBackButtonForShop();
-        Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox, backStack, daricStack);
-        setMargin(backStack, new Insets(70, 1, 1, 1));
+        StackPane searchButton = returnSearchButtonInShop();
+        Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox,
+                heroesHBox, searchButton, backStack, daricStack);
+        setMargin(backStack, new Insets(15, 1, 1, 1));
+        setMargin(searchButton, new Insets(50, 1, 1, 1));
 
         AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
 
         ShopController.handleEventsOfShop(minionText, spellText, itemText, heroText);
+    }
 
+    public static StackPane returnSearchButtonInShop() throws FileNotFoundException {
+        ImageView imageView = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(60);
+
+        Text searchText = new Text("Search");
+        searchText.setFont(Font.font(25));
+        searchText.setFill(Color.rgb(204, 249, 255));
+
+        StackPane stackPane = new StackPane(imageView, searchText);
+        GameView.makeImageGlowWhileMouseEnters(stackPane);
+
+        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    showSearchWindow();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        return stackPane;
+    }
+
+    public static void showSearchWindow() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+
+        setBackGroundOfCollection();
+
+//        VBox generalVBox = new VBox();
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
+        ImageView searchButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/yellow_button.png")));
+        Text searchText = new Text("Search");
+        searchText.setFont(font);
+        searchText.setFill(rgb(247, 250, 210));
+
+
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/yellow_button.png")));
+        Text backText = new Text("Back");
+        backText.setFont(font);
+        backText.setFill(rgb(247, 250, 210));
+
+        StackPane searchStack = new StackPane(searchButton, searchText);
+        StackPane backStack = new StackPane(backButton, backText);
+        TextField searchingBox = new TextField();
+
+        GameView.makeImageGlowWhileMouseEnters(searchStack, backStack);
+        HBox hBox = new HBox(searchingBox, searchStack, backStack);
+        hBox.setAlignment(Pos.CENTER);
+        hBox.setLayoutX(200);
+        hBox.setLayoutY(200);
+//        generalVBox.getChildren().add(hBox);
+        AllDatas.currentRoot.getChildren().add(hBox);
+
+        ShopController.handleEventsOfSearchingInShop(searchStack, backStack, searchingBox);
+    }
+
+    public static Hyperlink setHBoxForHyperlinksInShop(HBox hBox, String type) throws FileNotFoundException {
+        String fileName;
+        String text;
+        if (type.equals("minion")){
+            fileName = HandleFiles.BEFORE_RELATIVE + "view/Photos/minion.png";
+            text = "Minions";
+        }else if (type.equals("spell")){
+            fileName =  HandleFiles.BEFORE_RELATIVE + "view/Photos/spell.png";
+            text = "Spells";
+        }else if (type.equals("hero")){
+            fileName = HandleFiles.BEFORE_RELATIVE + "view/Photos/Heroes.png";
+            text = "Heroes";
+        }else{
+            fileName = HandleFiles.BEFORE_RELATIVE + "view/Photos/Item.png";
+            text = "Items";
+        }
+        ImageView icon = MainView.getPhotoWithThisPath(fileName);
+        icon.setFitWidth(40);
+        icon.setFitHeight(40);
+        Hyperlink cardText = new Hyperlink(text);
+        cardText.setFont(Font.font(null, FontWeight.BOLD, 20));
+        hBox.getChildren().addAll(icon, cardText);
+
+        return cardText;
     }
 
     public static StackPane setCurrentDaricView() throws FileNotFoundException {
@@ -1211,6 +1281,35 @@ public class MenuView {
         cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
 
         CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellStack, card, cardVBox, inRowCardsHBox);
+
+    }
+
+    public static void showSearchedCard(String cardName) throws CloneNotSupportedException {
+        Card card = Card.findCardByName(cardName);
+
+        StackPane stackPane = new StackPane();
+
+        try {
+            assert card != null;
+            setImageForCardInShop(card, stackPane);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        HBox hBox = new HBox();
+        VBox priceAndManaVBox = new VBox();
+
+        try {
+            priceAndManaVBox = addPriceAndManaForShowingCard(card, hBox);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        hBox.getChildren().addAll(stackPane, priceAndManaVBox);
+        hBox.setLayoutX(500);
+        hBox.setLayoutY(400);
+
+        AllDatas.currentRoot.getChildren().add(hBox);
 
     }
 }

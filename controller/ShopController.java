@@ -3,13 +3,16 @@ package controller;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.*;
 import model.collection.*;
 import model.Game;
+import org.w3c.dom.events.EventException;
 import view.GameView;
 import view.MenuView;
 
@@ -47,6 +50,7 @@ public class ShopController {
             AllDatas.hasEnteredShop = true;
         }
     }
+
     public static void searchInCollection(String[] commands) throws Exception{
         if(commands.length>=3 && commands[0].compareToIgnoreCase("search") == 0
         && commands[1].compareToIgnoreCase("collection") == 0){
@@ -171,7 +175,28 @@ public class ShopController {
                 e.printStackTrace();
             }
         });
+    }
 
+    public static void handleEventsOfSearchingInShop(StackPane searchButton, StackPane backButton, TextField searchBox){
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Controller.enterShop();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
 
+        searchButton.setOnMouseClicked(event -> {
+            String cardName = searchBox.getText();
+            if (Shop.checkIfCardWithThisNameIsValid(cardName)){
+                try {
+                    MenuView.showSearchedCard(cardName);
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                GameView.printInvalidCommandWithThisContent("This card isn't available in shop!");
+            }
+        });
     }
 }

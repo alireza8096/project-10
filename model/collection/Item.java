@@ -85,7 +85,7 @@ public class Item extends Card implements Cloneable {
 
     public static boolean thisCardIsItem(String cardName) {
         for (Item item : items) {
-            if (item.name.matches(cardName)) {
+            if (item.name.compareToIgnoreCase(cardName) == 0) {
                 return true;
             }
         }
