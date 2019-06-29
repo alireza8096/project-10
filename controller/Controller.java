@@ -1,11 +1,20 @@
 package controller;
 
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import model.*;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import org.json.simple.parser.ParseException;
+import view.GameView;
 import view.MenuView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
@@ -13,6 +22,17 @@ import java.util.Scanner;
 import static javafx.application.Application.launch;
 
 public class Controller {
+
+    private static StackPane pressedButton;
+
+    public static StackPane getPressedButton() {
+        return pressedButton;
+    }
+
+    public static void setPressedButton(StackPane pressedButton) {
+        Controller.pressedButton = pressedButton;
+    }
+
     public static void createAll() throws Exception{
         createAllMenus();
         createAllDataFromJSON();
@@ -190,39 +210,82 @@ public class Controller {
         Shop.buyCardAndAddToCollection("Siavash");
         Shop.buyCardAndAddToCollection("Nane Sarma");
         Shop.buyCardAndAddToCollection("Arjhang Div");
+        Shop.buyCardAndAddToCollection("Afsaneh");
+        Shop.buyCardAndAddToCollection("Div Sefid");
+        Shop.buyCardAndAddToCollection("Kaveh");
+        Shop.buyCardAndAddToCollection("Rakhsh");
+        Shop.buyCardAndAddToCollection("Rostam");
+        Shop.buyCardAndAddToCollection("Zahhak");
+        Shop.buyCardAndAddToCollection("Simorgh");
+        Shop.buyCardAndAddToCollection("Esfandiyar");
         //
-//        Shop.buyCardAndAddToCollection("Afsaneh");
-//        Shop.buyCardAndAddToCollection("Div Sefid");
-//        Shop.buyCardAndAddToCollection("Kaveh");
-//        Shop.buyCardAndAddToCollection("Rakhsh");
-//        Shop.buyCardAndAddToCollection("Rostam");
-//        Shop.buyCardAndAddToCollection("Zahhak");
-//        Shop.buyCardAndAddToCollection("Simorgh");
-//        Shop.buyCardAndAddToCollection("Esfandiyar");
-        //
-        Deck.createDeck("bahar");
-        Deck.addCardOrItemToDeck(107,"bahar");
-        Deck.addCardOrItemToDeck(401,"bahar");
-        Deck.addCardOrItemToDeck(407,"bahar");
-        Deck.addCardOrItemToDeck(410,"bahar");
-        Deck.addCardOrItemToDeck(411,"bahar");
-        Deck.addCardOrItemToDeck(412,"bahar");
-        Deck.addCardOrItemToDeck(418,"bahar");
-        Deck.addCardOrItemToDeck(420,"bahar");
-        Deck.addCardOrItemToDeck(301,"bahar");
-        Deck.addCardOrItemToDeck(309,"bahar");
-        Deck.addCardOrItemToDeck(311,"bahar");
-        Deck.addCardOrItemToDeck(311,"bahar");
-        Deck.addCardOrItemToDeck(313,"bahar");
-        Deck.addCardOrItemToDeck(317,"bahar");
-        Deck.addCardOrItemToDeck(318,"bahar");
-        Deck.addCardOrItemToDeck(321,"bahar");
-        Deck.addCardOrItemToDeck(322,"bahar");
-        Deck.addCardOrItemToDeck(326,"bahar");
-        Deck.addCardOrItemToDeck(338,"bahar");
-        Deck.addCardOrItemToDeck(336,"bahar");
-        Deck.addCardOrItemToDeck(340,"bahar");
-        Deck.selectDeck("bahar");
+//        Deck.createDeck("bahar");
+//        Deck.addCardOrItemToDeck(107,"bahar");
+//        Deck.addCardOrItemToDeck(401,"bahar");
+//        Deck.addCardOrItemToDeck(407,"bahar");
+//        Deck.addCardOrItemToDeck(410,"bahar");
+//        Deck.addCardOrItemToDeck(411,"bahar");
+//        Deck.addCardOrItemToDeck(412,"bahar");
+//        Deck.addCardOrItemToDeck(418,"bahar");
+//        Deck.addCardOrItemToDeck(420,"bahar");
+//        Deck.addCardOrItemToDeck(301,"bahar");
+//        Deck.addCardOrItemToDeck(309,"bahar");
+//        Deck.addCardOrItemToDeck(311,"bahar");
+//        Deck.addCardOrItemToDeck(311,"bahar");
+//        Deck.addCardOrItemToDeck(313,"bahar");
+//        Deck.addCardOrItemToDeck(317,"bahar");
+//        Deck.addCardOrItemToDeck(318,"bahar");
+//        Deck.addCardOrItemToDeck(321,"bahar");
+//        Deck.addCardOrItemToDeck(322,"bahar");
+//        Deck.addCardOrItemToDeck(326,"bahar");
+//        Deck.addCardOrItemToDeck(338,"bahar");
+//        Deck.addCardOrItemToDeck(336,"bahar");
+//        Deck.addCardOrItemToDeck(340,"bahar");
+//        Deck.selectDeck("bahar");
+    }
+
+    public static void chooseSingleOrMultiPlayerWindow() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+
+        MenuView.setBackgroundOfMainMenu();
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 23);
+
+
+        ImageView singleButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_primary_middle_glow@2x.png")));
+        Label singleLabel = new Label("Single Player");
+        singleLabel.setFont(font);
+        singleLabel.setTextFill(Color.rgb(158, 250, 255));
+
+        StackPane singleStack = new StackPane(singleButton, singleLabel);
+
+        ImageView multiButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_primary_middle_glow@2x.png")));
+        Label multiLabel = new Label("Single Player");
+        multiLabel.setFont(font);
+        multiLabel.setTextFill(Color.rgb(158, 250, 255));
+
+        StackPane multiStack = new StackPane(multiButton, multiLabel);
+
+        GameView.makeImageGlowWhileMouseEnters(singleStack, multiStack);
+
+        HBox hBox = new HBox(singleStack, multiStack);
+        hBox.setLayoutX(MenuView.WINDOW_WIDTH/2 - 140);
+        hBox.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 100);
+
+        AllDatas.currentRoot.getChildren().add(hBox);
+
+        singleStack.setOnMouseClicked(event -> {
+            try {
+                Controller.enterBattle();
+            } catch (IOException | CloneNotSupportedException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
+
+
     }
 
 

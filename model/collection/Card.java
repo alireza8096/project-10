@@ -407,17 +407,19 @@ public class Card implements Cloneable {
         return null;
     }
 
-    public static Card findHeroInCollection(int cardID) {
+    public static Hero findHeroInCollection(int cardID) {
         Iterator<Hero> heroIterator = Game.getInstance().getPlayer1().getHeroesInCollection().iterator();
         while (heroIterator.hasNext()) {
             Hero hero = heroIterator.next();
-            if (hero.getId() == cardID)
+            if (hero.getId() == cardID) {
+                System.out.println(hero.getName());
                 return hero;
+            }
         }
         return null;
     }
 
-    public static Card findItemInCollection(int cardID) {
+    public static Item findItemInCollection(int cardID) {
         Iterator<Item> itemIterator = Game.getInstance().getPlayer1().getItemsInCollection().iterator();
         while (itemIterator.hasNext()) {
             Item item = itemIterator.next();

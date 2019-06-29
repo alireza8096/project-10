@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import model.*;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
@@ -9,6 +10,7 @@ import view.BattleView;
 import view.MainView;
 import view.MenuView;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -351,24 +353,21 @@ public class BattleController {
         }
     }
 
-    public static void showAllPossibilities(Force force) throws FileNotFoundException {
+    public static void showAllPossibilities(Force force){
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 if (Map.cardCanBeMovedToThisCell(force, i, j)) {
-                    Map.getCellsView()[j][i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board_move.png")));
+                    try {
+                        Map.getCellsView()[j][i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board_move.png")));
+                    } catch (FileNotFoundException e) {
+                        e.getMessage();
+                    }
                 }
             }
         }
     }
 
-    public static void move(Force force, int x, int y) throws FileNotFoundException {
-//        if (force.isCanMove() && !force.isHasMovedInThisTurn()) {
-//            showAllPossibilities(force);
-//            System.out.println("x : " + x + " , y : " + y);
-//            System.out.println("forceX : " + force.getX() + " , forceY : " + force.getY());
-//            if (!Map.cardCanBeMovedToThisCell(force, x, y)) {
-//                System.out.println("Invalid target");
-//            } else {
+    public static void move(Force force, int x, int y){
         Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
         Map.getForcesView()[force.getY()][force.getX()].setImage(null);
         if (force.getCardType().matches("hero")) {
@@ -391,15 +390,6 @@ public class BattleController {
         Map.getForcesView()[y][x].setDisable(false);
         force.setHasMovedInThisTurn(true);
         applyEffectsOfTargetCellOnCard(force, x, y);
-//                System.out.println(force.getId() + " moved to (" + x + "," + y + ")");
-//            }
-//        } else {
-//            System.out.println("This card is not movable");
-//        }
-    }
-
-    public static void attack(Card attackerCard, Card opponentCard) {
-
     }
 
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y) {
@@ -732,7 +722,7 @@ public class BattleController {
             String coordination = command.substring(command.indexOf("("));
             int x = Character.getNumericValue(coordination.charAt(1)) - 1;
             int y = Character.getNumericValue(coordination.charAt(3)) - 1;
-            Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(cardName, x, y);
+//            Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(cardName, x, y);
             AllDatas.hasEnteredBattle = true;
         }
     }

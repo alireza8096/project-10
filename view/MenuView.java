@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static controller.Controller.sampleGame;
+import static javafx.scene.layout.VBox.setMargin;
 import static javafx.scene.paint.Color.*;
 
 public class MenuView {
@@ -122,22 +123,23 @@ public class MenuView {
         logoutOption.setFont(herculanum);
         logoutOption.setTextFill(Color.WHITE);
 
-        Hyperlink saveOption = new Hyperlink("Save");
-        saveOption.setFont(herculanum);
-        saveOption.setTextFill(Color.WHITE);
-
         Hyperlink helpOption = new Hyperlink("Help");
         helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);
 
+        Hyperlink saveOption = new Hyperlink("Save");
+        saveOption.setFont(herculanum);
+        saveOption.setTextFill(Color.WHITE);
+
+
         vBox.setSpacing(15);
-        vBox.setMargin(shopHBox, new Insets(40, 10, 10, 100));
-        vBox.setMargin(collectionOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(battleOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(helpOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(exitOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(logoutOption, new Insets(7, 10, 10, 100));
-        vBox.setMargin(saveOption, new Insets(7, 10, 10, 100));
+        setMargin(shopHBox, new Insets(40, 10, 10, 100));
+        setMargin(collectionOption, new Insets(7, 10, 10, 100));
+        setMargin(battleOption, new Insets(7, 10, 10, 100));
+        setMargin(helpOption, new Insets(7, 10, 10, 100));
+        setMargin(exitOption, new Insets(7, 10, 10, 100));
+        setMargin(logoutOption, new Insets(7, 10, 10, 100));
+        setMargin(saveOption, new Insets(7, 10, 10, 100));
 
         vBox.getChildren().addAll(shopHBox, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
@@ -204,16 +206,16 @@ public class MenuView {
         spellText.setFont(Font.font(null, FontWeight.BOLD, 20));
         spellHBox.getChildren().addAll(spellIcon, spellText);
 
-        VBox.setMargin(minionsHBox, new Insets(50, 100, 10, 30));
-        VBox.setMargin(spellHBox, new Insets(10, 100, 10, 30));
-        VBox.setMargin(itemHBox, new Insets(10, 100, 10, 30));
-        VBox.setMargin(heroesHBox, new Insets(10, 100, 10, 30));
+        setMargin(minionsHBox, new Insets(50, 100, 10, 30));
+        setMargin(spellHBox, new Insets(10, 100, 10, 30));
+        setMargin(itemHBox, new Insets(10, 100, 10, 30));
+        setMargin(heroesHBox, new Insets(10, 100, 10, 30));
 
         Shop.getLeftVBox().setPadding(new Insets(50, 10, 10, 10));
         StackPane daricStack = setCurrentDaricView();
         StackPane backStack = setBackButtonForShop();
         Shop.getLeftVBox().getChildren().addAll(minionsHBox, spellHBox, itemHBox, heroesHBox, backStack, daricStack);
-        VBox.setMargin(backStack, new Insets(70, 1, 1, 1));
+        setMargin(backStack, new Insets(70, 1, 1, 1));
 
         AllDatas.currentRoot.getChildren().addAll(Shop.getRightVBox(), Shop.getLeftVBox());
 
@@ -266,6 +268,7 @@ public class MenuView {
                 e.printStackTrace();
             }
         });
+        stackPane.setAccessibleText("Back");
 
         return stackPane;
     }
@@ -282,7 +285,6 @@ public class MenuView {
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
-//        MainView.primaryStage.setMaximized(true);
 
         ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
@@ -298,6 +300,7 @@ public class MenuView {
         Game.getInstance().setMap(new Map());
         AI.createAIPlayer();
         Hero.insertHeroInMap();
+
         Rectangle rectangle = new Rectangle(258,293);
         rectangle.setX(100);
         rectangle.setY(100);
@@ -307,7 +310,6 @@ public class MenuView {
         yourProfile.fitWidthProperty().bind(rectangle.widthProperty());
         yourProfile.fitHeightProperty().bind(rectangle.heightProperty());
         AllDatas.currentRoot.getChildren().add(yourProfile);
-
         AllDatas.currentRoot.getChildren().addAll(Game.getYourHbox(),Game.getEnemyHbox());
         ImageView enemyProfile = new ImageView(Game.getInstance().getMap().getEnemyHero().getImageViewOfCard().getImage());
         enemyProfile.setX(1300);
@@ -315,8 +317,6 @@ public class MenuView {
         enemyProfile.fitHeightProperty().bind(rectangle.heightProperty());
         enemyProfile.fitWidthProperty().bind(rectangle.widthProperty());
         AllDatas.currentRoot.getChildren().add(enemyProfile);
-
-
 
         Cell.handleCell();
         Cell.handleForce();
@@ -535,7 +535,7 @@ public class MenuView {
 
     }
 
-    public static void makeSceneBlur() {
+    private static void makeSceneBlur() {
         ColorAdjust adj = new ColorAdjust(0, 0, -0.5, 0);
         GaussianBlur blur = new GaussianBlur(55); // 55 is just to show edge effect more clearly.
         adj.setInput(blur);
@@ -586,7 +586,7 @@ public class MenuView {
         ShopController.handleEventsOfBuyingCard(cardHBox, hBox, cancelButton, buyCardButton, card);
     }
 
-    public static VBox addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
+    private static VBox addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
         ImageView priceBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
         ImageView manaBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
         ImageView priceIcon = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_icon.png")));
@@ -636,7 +636,7 @@ public class MenuView {
         showOptionsInCollection();
     }
 
-    public static void setBackGroundOfCollection() throws FileNotFoundException {
+    private static void setBackGroundOfCollection() throws FileNotFoundException {
         ImageView backGround = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/blurBackground.jpg")));
         backGround.fitWidthProperty().bind(AllDatas.currentRoot.widthProperty());
@@ -731,7 +731,6 @@ public class MenuView {
         VBox buttonsVBox = new VBox();
         setButtonsVBoxForShowingDecks(buttonsVBox);
 
-
         setWindowForCreatingNewDeck();
 
         VBox generalVBox = new VBox();
@@ -774,7 +773,7 @@ public class MenuView {
 
         createDeckVBox.getChildren().add(optionsVBox);
         createDeckVBox.setAlignment(Pos.BOTTOM_CENTER);
-        VBox.setMargin(optionsVBox, new Insets(1, 1, 20, 1));
+        setMargin(optionsVBox, new Insets(1, 1, 20, 1));
 
         AllDatas.currentRoot.getChildren().add(createDeckVBox);
 
@@ -783,9 +782,12 @@ public class MenuView {
         CollectionController.handleEventsOfCreatingNewDeck(cancelStack, createStack, deckName, createDeckVBox);
     }
 
-    public static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
+    private static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
         for (Deck deck : decks){
             Tab deckTab = new Tab(deck.getDeckName());
+
+            deckTab.setOnSelectionChanged(event -> Deck.setSelectedDeck(deck));
+
             decksTabPane.getTabs().add(deckTab);
             VBox eachDeckVBox = new VBox();
             deckTab.setContent(eachDeckVBox);
@@ -800,7 +802,7 @@ public class MenuView {
         }
     }
 
-    public static void showCards(VBox generalVBox){
+    private static void showCards(VBox generalVBox){
         generalVBox.getChildren().clear();
 
         VBox cardsVBox = new VBox();
@@ -818,7 +820,7 @@ public class MenuView {
         addCardsToVBox(heroesInCollection, heroesVBox);
     }
 
-    public static void setWindowForCreatingNewDeck() throws FileNotFoundException {
+    private static void setWindowForCreatingNewDeck() throws FileNotFoundException {
         ImageView newDeckBack = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/deck/gray_window.png")));
         newDeckBack.setX(1030);
@@ -827,6 +829,51 @@ public class MenuView {
         newDeckBack.fitHeightProperty().bind(AllDatas.currentRoot.heightProperty());
 
         AllDatas.currentRoot.getChildren().add(newDeckBack);
+    }
+
+    public static void completeSelectedDeck() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+
+        setBackGroundOfCollection();
+        setWindowForCreatingNewDeck();
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 25);
+
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        Text backText = new Text("Back");
+        backText.setFont(font);
+        backText.setFill(rgb(130, 238, 255));
+
+        StackPane backStack = new StackPane(backButton, backText);
+        GameView.makeImageGlowWhileMouseEnters(backStack);
+
+        ImageView deckNameBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/gray_button.png")));
+        deckNameBack.setFitWidth(180);
+        deckNameBack.setFitHeight(70);
+
+        Text deckName = new Text(Deck.getSelectedDeck().getDeckName());
+        deckName.setFont(font);
+        deckName.setFill(rgb(130, 238, 255));
+
+        StackPane deckNameStack = new StackPane(deckNameBack, deckName);
+
+        HBox hBox = new HBox(deckNameStack, backStack);
+
+        hBox.setLayoutX(1050);
+        hBox.setLayoutY(100);
+
+        VBox generalVBox = new VBox();
+        generalVBox.setLayoutX(200);
+
+        showCards(generalVBox);
+
+        AllDatas.currentRoot.getChildren().addAll(generalVBox, hBox);
+
+        CollectionController.handleEventsOfAddingCardToDeck(backStack);
+
     }
 
     public static void showThisDeck(VBox generalVBox, Deck deck) throws FileNotFoundException {
@@ -868,7 +915,7 @@ public class MenuView {
 
     }
 
-    public static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
+    private static void setButtonsVBoxForShowingDecks(VBox vBox) throws FileNotFoundException {
         ImageView newDeckButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
         newDeckButton.setFitWidth(200);
@@ -879,6 +926,7 @@ public class MenuView {
         newDeckText.setFill(rgb(160, 255, 255));
 
         StackPane newDeckPane = new StackPane(newDeckButton, newDeckText);
+        newDeckPane.setAccessibleText("New Deck");
 
         ImageView backButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
@@ -890,15 +938,43 @@ public class MenuView {
         backText.setFill(rgb(160, 255, 255));
 
         StackPane backPane = new StackPane(backButton, backText);
+        backPane.setAccessibleText("Back");
 
-        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane);
 
-        vBox.getChildren().addAll(newDeckPane, backPane);
+        ImageView deleteDeckButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        deleteDeckButton.setFitWidth(200);
+        deleteDeckButton.setFitHeight(80);
 
-        VBox.setMargin(newDeckPane, new Insets(30, 1, 1, 20));
-        VBox.setMargin(backPane, new Insets(20, 1, 1, 20));
+        Text deleteDeckLabel = new Text("Delete Deck");
+        deleteDeckLabel.setFont(Font.font(20));
+        deleteDeckLabel.setFill(rgb(160, 255, 255));
 
-        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane);
+        StackPane deleteDeckStack = new StackPane(deleteDeckButton, deleteDeckLabel);
+        deleteDeckStack.setAccessibleText("Delete Deck");
+
+        ImageView completeDeckButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        completeDeckButton.setFitWidth(200);
+        completeDeckButton.setFitHeight(80);
+
+        Text completeDeckText = new Text("Add Card");
+        completeDeckText.setFont(Font.font(20));
+        completeDeckText.setFill(rgb(160, 255, 255));
+
+        StackPane completeDeckStack = new StackPane(completeDeckButton, completeDeckText);
+        completeDeckStack.setAccessibleText("Add Card");
+
+        GameView.makeImageGlowWhileMouseEnters(newDeckPane, backPane, completeDeckStack, deleteDeckStack);
+
+        vBox.getChildren().addAll(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
+
+        setMargin(newDeckPane, new Insets(30, 1, 1, 20));
+        setMargin(backPane, new Insets(20, 1, 1, 20));
+        setMargin(deleteDeckStack, new Insets(20, 1, 1, 20));
+        setMargin(completeDeckStack, new Insets(20, 1, 1, 20));
+
+        CollectionController.handleEventsOfShowingDeckButtons(newDeckPane, backPane, deleteDeckStack, completeDeckStack);
     }
 
     public static void showCardsInCollection(){
@@ -934,7 +1010,7 @@ public class MenuView {
             CollectionController.handleEventsOfShowCardsButtons(createDeckStack, backStack);
 
             VBox generalVBox = new VBox();
-            generalVBox.setLayoutX(300);
+            generalVBox.setLayoutX(30);
 
             AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
             showCards(generalVBox);
@@ -944,7 +1020,7 @@ public class MenuView {
         }
     }
 
-    public static <T extends Card> void addCardsToVBox(ArrayList<T> cards, VBox vBox){
+    private static <T extends Card> void addCardsToVBox(ArrayList<T> cards, VBox vBox){
         for (int i = 0; i < cards.size(); i++) {
             if (i + 3 < cards.size()){
                 HBox hBox = new HBox();
@@ -976,7 +1052,7 @@ public class MenuView {
         }
     }
 
-    public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
+    private static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
         Text manaText = new Text(Integer.toString(card.getMana()));
         ImageView manaIcon = null;
         manaText.setFont(Font.font("verdana", 20));
@@ -1009,7 +1085,13 @@ public class MenuView {
         if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling
             vBox.setOnMouseClicked(event -> {
                 try {
-                    if (!Shop.isIsShowingSpecificCard()) {
+                    if (Controller.getPressedButton().getAccessibleText() != null) {
+                        if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
+                            Deck.getSelectedDeck().addCardToDeck(card);
+                            GameView.printInfoMessageWithThisContent(card.getName() +
+                                    " was added to " + Deck.getSelectedDeck().getDeckName());
+                        }
+                    }else if (!Shop.isIsShowingSpecificCard()) {
                         makeSceneBlur();
                         Shop.setIsShowingSpecificCard(true);
                         showCardForSelling(card, vBox, hBox);
@@ -1019,22 +1101,26 @@ public class MenuView {
                 }
             });
         }else{//is showing cards for creating new deck
-            vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
-                    GameView.printInfoMessageWithThisContent(card.getName() + " was added");
+            vBox.setOnMouseClicked(event -> {
+                if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
+                    try {
+                        CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
+                    } catch (ParseException | CloneNotSupportedException | IOException e) {
+                        e.printStackTrace();
+                    }
+                    GameView.printInfoMessageWithThisContent(card.getName() + " was added to "
+                            + CollectionController.getDeckIsBeingCreated().getDeckName());
                 }
             });
         }
 
-        VBox.setMargin(cardName, new Insets(1,1,1,60));
+        setMargin(cardName, new Insets(1,1,1,60));
         cardName.setFill(Color.rgb(255, 225, 58));
 
         hBox.getChildren().add(vBox);
     }
 
-    public static void showCardForSelling(Card card, VBox cardVBox, HBox inRowCardsHBox) throws FileNotFoundException {
+    private static void showCardForSelling(Card card, VBox cardVBox, HBox inRowCardsHBox) throws FileNotFoundException {
         HBox cardHBox = new HBox();
 
 

@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Stack;
 import java.util.logging.SocketHandler;
 
 import static model.collection.Account.PLAYERS_FOLDER;
@@ -121,21 +122,21 @@ public class CollectionController {
 
     }
 
-    public static void addToDeck(String[] commands, String command) throws Exception {
-        if (commands[0].compareToIgnoreCase("add") == 0 && command.contains("to deck") && command.length() >= 5) {
-            AllDatas.hasEnteredCollection = true;
-            int id = Integer.parseInt(commands[1]);
-            String deckName = "";
-            d:
-            for (int i = 0; i < commands.length; i++) {
-                if (commands[i].equals("deck")) {
-                    deckName = createName(commands, i + 1);
-                    break d;
-                }
-            }
-            Deck.addCardOrItemToDeck(id,deckName);
-        }
-    }
+//    public static void addToDeck(String[] commands, String command) throws Exception {
+//        if (commands[0].compareToIgnoreCase("add") == 0 && command.contains("to deck") && command.length() >= 5) {
+//            AllDatas.hasEnteredCollection = true;
+//            int id = Integer.parseInt(commands[1]);
+//            String deckName = "";
+//            d:
+//            for (int i = 0; i < commands.length; i++) {
+//                if (commands[i].equals("deck")) {
+//                    deckName = createName(commands, i + 1);
+//                    break d;
+//                }
+//            }
+//            Deck.addCardOrItemToDeck(id,deckName);
+//        }
+//    }
 
     public static void remove(String[] commands, String command) throws Exception {
         if (command.contains("remove") && command.contains("from deck") && command.length() >= 5) {
@@ -300,7 +301,7 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back){
+    public static void handleEventsOfShowingDeckButtons(StackPane newDeck, StackPane back, StackPane deleteDeckStack, StackPane completeDeckStack){
         back.setOnMouseClicked(event -> {
             try {
                 MenuView.showOptionsInCollection();
@@ -309,13 +310,34 @@ public class CollectionController {
             }
         });
 
-        newDeck.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        newDeck.setOnMouseClicked(event -> {
+            try {
+                Controller.setPressedButton(newDeck);
+                isChoosingForCreatingNewDeck = true;
+                deckIsBeingCreated = new Deck("deck is being created");
+                Game.getInstance().getPlayer1().getDecksOfPlayer().add(deckIsBeingCreated);
+                MenuView.createNewDeck();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        deleteDeckStack.setOnMouseClicked(event -> {
+            try {
+                Game.getInstance().getPlayer1().getDecksOfPlayer().remove(Deck.getSelectedDeck());
+                MenuView.showDecksInCollection();
+            } catch (NullPointerException e) {
+                System.out.println(e.getMessage());
+            }
+
+        });
+
+        completeDeckStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                Controller.setPressedButton(completeDeckStack);
                 try {
-                    isChoosingForCreatingNewDeck = true;
-                    deckIsBeingCreated = new Deck();
-                    MenuView.createNewDeck();
+                    MenuView.completeSelectedDeck();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -345,9 +367,12 @@ public class CollectionController {
         });
     }
 
-    public static void handleEventsOfCreatingNewDeck(StackPane cancelButton, StackPane createButton, TextField deckNameField, VBox generalVBox){
+    public static void handleEventsOfCreatingNewDeck(StackPane cancelButton, StackPane createButton,
+                                                     TextField deckNameField, VBox generalVBox){
         cancelButton.setOnMouseClicked(event -> {
             deckIsBeingCreated = null;
+            //Todo
+            Game.getInstance().getPlayer1().getDecksOfPlayer().remove(Deck.exactDeck("deck is being created"));
             AllDatas.currentRoot.getChildren().remove(generalVBox);
             CollectionController.setIsChoosingForCreatingNewDeck(false);
             MenuView.showDecksInCollection();
@@ -365,6 +390,7 @@ public class CollectionController {
                     e.printStackTrace();
                 }
                 if (!Deck.checkIfDeckWithThisNameExists(Game.getInstance().getPlayer1(), deckName)) {
+                    Game.getInstance().getPlayer1().getDecksOfPlayer().remove(Deck.exactDeck("deck is being created"));
                     Game.getInstance().getPlayer1().getDecksOfPlayer().add(deck);
                     AllDatas.currentRoot.getChildren().remove(generalVBox);
                     CollectionController.setIsChoosingForCreatingNewDeck(false);
@@ -376,6 +402,16 @@ public class CollectionController {
                 GameView.printInvalidCommandWithThisContent("Name is invalid");
             }
 
+        });
+    }
+
+    public static void handleEventsOfAddingCardToDeck(StackPane backButton){
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Controller.setPressedButton(backButton);
+                MenuView.showDecksInCollection();
+            }
         });
     }
 }

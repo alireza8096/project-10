@@ -20,8 +20,6 @@ public class MenusCommandController {
     public static void accountController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
-      //  AccountController.createAccountCommand(commandsSplitted, scanner);
-      //  AccountController.login(commandsSplitted, scanner);
         AccountController.showLeaderboard(commandsSplitted);
         AccountController.save(commandsSplitted);
         AccountController.help(commandsSplitted);
@@ -85,7 +83,7 @@ public class MenusCommandController {
         CollectionController.save(commandsSplitted);
         CollectionController.createDeck(commandsSplitted);
         CollectionController.deleteDeck(commandsSplitted);
-        CollectionController.addToDeck(commandsSplitted, command);
+//        CollectionController.addToDeck(commandsSplitted, command);
         CollectionController.remove(commandsSplitted, command);
 //        CollectionController.validateDeck(commandsSplitted);
         CollectionController.selectDeck(commandsSplitted);
@@ -211,11 +209,11 @@ public class MenusCommandController {
 
         battle.setOnAction(event -> {
             try {
-                Controller.enterBattle();
-            } catch (CloneNotSupportedException | IOException e) {
+
+                Controller.chooseSingleOrMultiPlayerWindow();
+//                Controller.enterBattle();
+            } catch (IOException e) {
                 e.printStackTrace();
-            } catch (ParseException e) {
-                System.out.println(e.getMessage());
             }
         });
 
@@ -234,6 +232,7 @@ public class MenusCommandController {
                 e.printStackTrace();
             }
         });
+
         save.setOnAction(event -> {
             try {
                 Account.savePlayer(Game.getInstance().getPlayer1());

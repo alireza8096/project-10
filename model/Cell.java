@@ -1,58 +1,46 @@
 package model;
 
 import controller.BattleController;
-import javafx.event.EventHandler;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import model.collection.Buff;
 import model.collection.Card;
 import model.collection.Force;
 import model.collection.HandleFiles;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Cell {
-    private int coordinateX;
-    private int coordinateY;
+    //    private int coordinateX;
+//    private int coordinateY;
     private CellType cellType;
-    private ArrayList<Buff> actionBuffs = new ArrayList<>();
-    private ArrayList<Buff> buffs = new ArrayList<>();
-    private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
-    private CellItemType cellItemType;
-    private static boolean aCellIsSelected;
-    private static double selectedXImage;
-    private static double selectedYImage;
+    //    private ArrayList<Buff> actionBuffs = new ArrayList<>();
+//    private ArrayList<Buff> buffs = new ArrayList<>();
+//    private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
+    private static CellItemType cellItemType;
+    private static boolean aForceIsSelected;
+    private static int selectedXImage;
+    private static int selectedYImage;
 
-    public double getSelectedX() {
-        return selectedXImage;
+
+    public static CellItemType getCellItemType() {
+        return cellItemType;
     }
 
-    public void setSelectedX(int selectedX) {
-        this.selectedXImage = selectedX;
+    public static void setCellItemType(CellItemType cellItemType) {
+        Cell.cellItemType = cellItemType;
     }
 
-    public double getSelectedY() {
-        return selectedYImage;
+
+    private static void setaForceIsSelected(boolean aForceIsSelected) {
+        Cell.aForceIsSelected = aForceIsSelected;
     }
 
-    public void setSelectedY(int selectedY) {
-        this.selectedYImage = selectedY;
-    }
-
-    public static boolean isaCellIsSelected() {
-        return aCellIsSelected;
-    }
-
-    public static void setaCellIsSelected(boolean aCellIsSelected) {
-        Cell.aCellIsSelected = aCellIsSelected;
-    }
-
-    public static void handleForce() throws CloneNotSupportedException {
+    public static void handleForce() {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 5; j++) {
                 handleEventForce(Map.getForcesView()[i][j], i, j);
@@ -68,132 +56,70 @@ public class Cell {
         }
     }
 
-    public static void handleEventCell(ImageView cell, int xImage, int yImage) {
-        System.out.println("handle event cell");
-        if (!aCellIsSelected && !Hand.isSelectedInHand()) {
-            System.out.println("nothingselected");
-            cell.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    cell.setEffect(new Glow(0.7));
-                }
-            });
-            cell.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    cell.setEffect(null);
-                }
-            });
-        } else {
-            if (!Hand.isSelectedInHand()) {
-                System.out.println("selected");
-                cell.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        if (Map.cardCanBeMovedToThisCell(Card.getCardByCoordination((int) selectedYImage, (int) selectedXImage), yImage, xImage)) {
-                            try {
-                                BattleController.move((Force) Card.getCardByCoordination((int) selectedYImage, (int) selectedXImage), yImage, xImage);
-                            } catch (FileNotFoundException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        Map.getForcesView()[(int) selectedXImage][(int) selectedYImage].setDisable(false);
-                        aCellIsSelected = false;
-                        for (int i = 0; i < 9; i++) {
-                            for (int j = 0; j < 5; j++) {
-                                try {
-                                    Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png")));
-                                } catch (FileNotFoundException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            else{
-                cell.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        if(Map.checkIfMinionCardCanBeInsertedInThisCoordination(yImage,xImage)){
-                            try {
-                                Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(Hand.getIndexInHand()).getName(),yImage,xImage);
-                            } catch (CloneNotSupportedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-    }
-
-    public static void handleCardAfterSelection(int x, int y) throws FileNotFoundException {
-//        BattleController.move(x,y);
-    }
-
-    public static void handleEventForce(ImageView force, int xImage, int yImage) {
-        if (Card.thisCardIsYours(yImage, xImage)) {
-            force.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    force.setEffect(new Glow(0.7));
-                }
-            });
-            force.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    force.setEffect(null);
-                }
-            });
-            force.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    force.setEffect(new Glow(0.7));
-//                    Map.getForcesView()[xImage][yImage].setDisable(true);
+    private static void handleEventCell(ImageView cell, int xImage, int yImage) {
+        cell.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> cell.setEffect(new Glow(0.7)));
+        cell.addEventHandler(MouseEvent.MOUSE_EXITED, event -> cell.setEffect(null));
+        cell.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            for(int i=0; i<9; i++){
+                for(int j=0; j<5; j++){
                     try {
-                        BattleController.showAllPossibilities((Force)Card.getCardByCoordination(yImage,xImage));
+                        Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png")));
                     } catch (FileNotFoundException e) {
-                        e.getMessage();
+                        e.printStackTrace();
                     }
-                    System.out.println("***********");
-                    Cell.setaCellIsSelected(true);
+                }
+            }
+            if (aForceIsSelected) {
+                setaForceIsSelected(false);
+                Map.getForcesView()[selectedXImage][selectedYImage].setDisable(false);
+                if (Map.cardCanBeMovedToThisCell(Card.getCardByCoordination(selectedYImage,selectedXImage), yImage, xImage)) {
+                    BattleController.move((Force) Objects.requireNonNull(Card.getCardByCoordination(selectedYImage, selectedXImage)), yImage, xImage);
+                }
+            } else if (Hand.isSelectedInHand()) {
+                Hand.setSelectedInHand(false);
+                if(Map.checkIfMinionCardCanBeInsertedInThisCoordination(yImage,xImage)){
+                    Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(Hand.getIndexInHand()).getName(),yImage,xImage);
+                }
+            }
+        });
+//        else {
+//            cell.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//                if (Map.checkIfMinionCardCanBeInsertedInThisCoordination(yImage, xImage)) {
+//                    try {
+//                        Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(Hand.getIndexInHand()).getName(), yImage, xImage);
+//                    } catch (CloneNotSupportedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//                Hand.setSelectedInHand(false);
+//            });
+//        }
+    }
+
+
+    private static void handleEventForce(ImageView force, int xImage, int yImage) {
+        force.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
+                    if (Card.thisCardIsYours(yImage, xImage) && !Card.getCardByCoordination(yImage,xImage).isHasMovedInThisTurn()) {
+                        force.setEffect(new Glow(0.7));
+                    }
+                }
+        );
+        force.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+            if (Card.thisCardIsYours(yImage, xImage)) {
+                force.setEffect(null);
+            }
+        });
+        force.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            if (Card.thisCardIsYours(yImage, xImage)) {
+                if(!Objects.requireNonNull(Card.getCardByCoordination(yImage, xImage)).isHasMovedInThisTurn()) {
+                    force.setDisable(true);
+                    BattleController.showAllPossibilities((Force) Card.getCardByCoordination(yImage, xImage));
+                    Cell.setaForceIsSelected(true);
                     Cell.selectedXImage = xImage;
                     Cell.selectedYImage = yImage;
-                    handleCell();
-//                    try {
-//                        BattleController.showAllPossibilities((Force) Card.getCardByCoordination((int) selectedYImage, (int) selectedXImage));
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    }
-//                    } catch (FileNotFoundException e) {
-//                        e.printStackTrace();
-//                    }
-//                    force.setDisable(true);
                 }
-            });
-        }
-    }
-
-    public int getCoordinateX() {
-        return coordinateX;
-    }
-
-    public void setCoordinateX(int coordinateX) {
-        this.coordinateX = coordinateX;
-    }
-
-    public int getCoordinateY() {
-        return coordinateY;
-    }
-
-    public void setCoordinateY(int coordinateY) {
-        this.coordinateY = coordinateY;
-    }
-
-    public CellItemType getCellItemType() {
-        return cellItemType;
+            }
+        });
     }
 
     public CellType getCellType() {
@@ -204,18 +130,13 @@ public class Cell {
         this.cellType = cellType;
     }
 
-    public void setCellItemType(CellItemType cellItemType) {
-        this.cellItemType = cellItemType;
-    }
-
     public static Cell getCellByCoordination(int x, int y) {
         return Game.getInstance().getMap().getCells()[x][y];
     }
 
     public static int returnRandomNumberForCoordinationInThisRange(int i1, int i2) {
         Random randomGenerator = new Random();
-        int randomInt = randomGenerator.nextInt(i2) + i1;
-        return randomInt;
+        return randomGenerator.nextInt(i2) + i1;
     }
 
 
