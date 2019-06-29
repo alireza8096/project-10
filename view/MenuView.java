@@ -122,10 +122,11 @@ public class MenuView {
         logoutOption.setFont(herculanum);
         logoutOption.setTextFill(Color.WHITE);
 
-        Hyperlink helpOption = new Hyperlink("Help");
-        helpOption.setFont(herculanum);
-        helpOption.setTextFill(Color.WHITE);
         Hyperlink saveOption = new Hyperlink("Save");
+        saveOption.setFont(herculanum);
+        saveOption.setTextFill(Color.WHITE);
+
+        Hyperlink helpOption = new Hyperlink("Help");
         helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);
 

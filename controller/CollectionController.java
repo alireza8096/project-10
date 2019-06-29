@@ -169,7 +169,7 @@ public class CollectionController {
         if (commands.length >= 3 && commands[0].compareToIgnoreCase("select") == 0
                 && commands[1].compareToIgnoreCase("deck") == 0) {
             String deckName = createName(commands, 2);
-//            Deck.selectDeck(deckName);
+            Deck.selectDeck(deckName);
             Hero hero = Deck.findDeckByName(deckName).getHeroInDeck();
             Game.getInstance().getMap().setFriendHero(hero);
             AllDatas.hasEnteredCollection = true;

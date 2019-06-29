@@ -70,7 +70,7 @@ public class Cell {
 
     public static void handleEventCell(ImageView cell, int xImage, int yImage) {
         System.out.println("handle event cell");
-        if (!aCellIsSelected) {
+        if (!aCellIsSelected && !Hand.isSelectedInHand()) {
             System.out.println("nothingselected");
             cell.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
                 @Override
@@ -115,9 +115,9 @@ public class Cell {
                 cell.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        if(Map.checkIfMinionCardCanBeInsertedInThisCoordination((int)selectedYImage,(int)selectedXImage)){
+                        if(Map.checkIfMinionCardCanBeInsertedInThisCoordination(yImage,xImage)){
                             try {
-                                Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(Hand.getIndexInnHand()).getName(),yImage,xImage);
+                                Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(Hand.getIndexInHand()).getName(),yImage,xImage);
                             } catch (CloneNotSupportedException e) {
                                 e.printStackTrace();
                             }

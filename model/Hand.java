@@ -32,7 +32,7 @@ public class Hand {
         Hand.selectedInHand = selectedInHand;
     }
 
-    public static int getIndexInnHand() {
+    public static int getIndexInHand() {
         return indexInnHand;
     }
 
@@ -189,9 +189,12 @@ public class Hand {
                         Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
                         minion.setX(x);
                         minion.setY(y);
+                        Map.getCellsView()[y][x].setDisable(true);
+                        Map.getForcesView()[y][x].setImage(minion.getForceInField());
                         minion.setCanMove(false);
                         minion.setCanAttack(false);
                         Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(cardName);
+                        Hand.cards[Hand.indexInnHand].setImage(null);
                         Game.getInstance().getMap().getFriendMinions().add(minion);
                     }
                 }else if (Spell.thisCardIsSpell(cardName)){
