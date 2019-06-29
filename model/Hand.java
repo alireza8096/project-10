@@ -2,6 +2,7 @@ package model;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -85,9 +86,23 @@ public class Hand {
                 }
             }
         });
+        cards.addEventHandler(MouseEvent.MOUSE_ENTERED,event -> {
+            if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()){
+                cards.setEffect(new Glow(0.7));
+                scenesBehind[i].setEffect(new Glow(0.7));
+            }
+        });
+        cards.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
+            if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i)!=null) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                    cards.setEffect(null);
+                    scenesBehind[i].setEffect(null);
+                }
+            }
+        });
     }
 
-    public static void createHand() throws FileNotFoundException {
+    public static void createHand(){
         HBox handScenes = new HBox();
         HBox cardsView = new HBox();
         HBox manasView = new HBox();
@@ -113,11 +128,11 @@ public class Hand {
         cardsView.setLayoutX(540);
         cardsView.setLayoutY(800);
         AllDatas.currentRoot.getChildren().add(cardsView);
-        manasView.setLayoutX(540);
-        manasView.setLayoutY(800);
-        manasView.setSpacing(5);
-        manasView.setScaleX(2);
-        manasView.setScaleY(2);
+        manasView.setLayoutX(607);
+        manasView.setLayoutY(890);
+        manasView.setSpacing(106);
+        manasView.setScaleX(1.5);
+        manasView.setScaleY(1.5);
         AllDatas.currentRoot.getChildren().add(manasView);
     }
 
@@ -218,6 +233,7 @@ public class Hand {
             Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(cardName);
             try {
                 Hand.cards[Hand.indexInHand].setOpacity(0);
+                Hand.manas[Hand.indexInHand].setOpacity(0);
                 Hand.scenesBehind[Hand.indexInHand].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
