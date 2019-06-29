@@ -79,7 +79,7 @@ public class Cell {
                 Hand.setSelectedInHand(false);
                 if(Map.checkIfMinionCardCanBeInsertedInThisCoordination(yImage,xImage)){
                     try {
-                        Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[Hand.getIndexInHand()].getName(),yImage,xImage);
+                        Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Hand.getIndexInHand(),yImage,xImage);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
