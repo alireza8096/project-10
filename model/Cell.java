@@ -78,7 +78,11 @@ public class Cell {
             } else if (Hand.isSelectedInHand()) {
                 Hand.setSelectedInHand(false);
                 if(Map.checkIfMinionCardCanBeInsertedInThisCoordination(yImage,xImage)){
-                    Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(Hand.getIndexInHand()).getName(),yImage,xImage);
+                    try {
+                        Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[Hand.getIndexInHand()].getName(),yImage,xImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });

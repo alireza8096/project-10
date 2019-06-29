@@ -91,9 +91,14 @@ public class BattleController {
                 imageView.setDisable(false);
             }
             for (int i = 0; i < 5; i++) {
-                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand().get(i).getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
-                    Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
-                } else {
+                if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i]!=null) {
+                    if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                        Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
+                    } else {
+                        Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                    }
+                }
+                else{
                     Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                 }
             }
