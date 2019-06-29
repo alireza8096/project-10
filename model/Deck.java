@@ -1,5 +1,6 @@
 package model;
 
+import com.sun.management.GarbageCollectorMXBean;
 import controller.AI;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
@@ -126,37 +127,39 @@ public class Deck implements Cloneable {
     public static Deck exactDeck(String deckName){
         for (Deck deck:
              Game.getInstance().getPlayer1().getDecksOfPlayer()) {
+//            System.out.println("$%$%$%$ : " + deck.getDeckName());
             if(deck.deckName.matches(deckName)){
+//                System.out.println("__________ : " + deckName);
                 return deck;
             }
         }
         return null;
     }
 
-    public static void addCardOrItemToDeck(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
-        //if all conditions are true for adding a new card to deck
-        if (allConditionsOfAddingCardToDeckAreRight(ID, deckName)) {
-            Deck deck = Deck.exactDeck(deckName);
-            switch (ID / 100) {
-                case 2:
-                    assert deck != null;
-                    deck.itemsInDeck.add(Item.findItemByID(ID));
-                    break;
-                case 3:
-                    assert deck != null;
-                    deck.cardsInDeck.add(Minion.findMinionByID(ID));
-                    break;
-                case 4:
-                    assert deck != null;
-                    deck.cardsInDeck.add(Spell.findSpellByID(ID));
-                    break;
-                case 1:
-                    assert deck != null;
-                    deck.setHeroInDeck(Hero.findHeroByID(ID));
-                    break;
-            }
-        }
-    }
+//    public static void addCardOrItemToDeck(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
+//        //if all conditions are true for adding a new card to deck
+//        if (allConditionsOfAddingCardToDeckAreRight(ID, deckName)) {
+//            Deck deck = Deck.exactDeck(deckName);
+//            switch (ID / 100) {
+//                case 2:
+//                    assert deck != null;
+//                    deck.itemsInDeck.add(Item.findItemByID(ID));
+//                    break;
+//                case 3:
+//                    assert deck != null;
+//                    deck.cardsInDeck.add(Minion.findMinionByID(ID));
+//                    break;
+//                case 4:
+//                    assert deck != null;
+//                    deck.cardsInDeck.add(Spell.findSpellByID(ID));
+//                    break;
+//                case 1:
+//                    assert deck != null;
+//                    deck.setHeroInDeck(Hero.findHeroByID(ID));
+//                    break;
+//            }
+//        }
+//    }
 
 
     public static void removeCardOrItemFromDeck(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
@@ -190,20 +193,19 @@ public class Deck implements Cloneable {
         return false;
     }
 
-    public static boolean allConditionsOfAddingCardToDeckAreRight(int ID, String deckName) throws IOException, ParseException, CloneNotSupportedException {
-        Deck deck = findDeckByName(deckName);
+    public boolean allConditionsOfAddingCardToDeckAreRight(int ID) throws IOException, ParseException, CloneNotSupportedException {
         if (!checkIfThisCardOrItemIsInCollection(ID)) {
-            System.out.println("This card isn't available in collection! id : " + ID );
+            GameView.printInvalidCommandWithThisContent("This card isn't available in collection");
             return false;
         } else {
             if (ID / 100 != 1) {
-                if (!deck.checkIfNumberOfCardsInDeckIsValid()) {
-                    System.out.println("Number of cards can't be more than 20!");
+                if (!this.checkIfNumberOfCardsInDeckIsValid()) {
+                    GameView.printInvalidCommandWithThisContent("Number of cards can't be more than 20!");
                     return false;
                 }
             } else {
-                if (deck.checkIfDeckHasHero()) {
-                    System.out.println("A hero already exists in deck!");
+                if (this.checkIfDeckHasHero()) {
+                    GameView.printInvalidCommandWithThisContent("A hero already exists in deck!");
                     return false;
                 }
             }
@@ -300,23 +302,26 @@ public class Deck implements Cloneable {
         return (Deck)this.clone();
     }
 
-    public void addCardToDeck(Card card){
-        int cardID = card.getId();
+    public void addCardToDeck(Card card) throws ParseException, CloneNotSupportedException, IOException {
+        int ID = card.getId();
 
-        if ((cardID / 10) == 1){
-            if (checkIfDeckHasHero()){
-                GameView.printInvalidCommandWithThisContent("Deck already has hero!");
-            }else {
-                setHeroInDeck((Hero) card);
+        if (allConditionsOfAddingCardToDeckAreRight(ID)) {
+            Deck deck = Deck.exactDeck(deckName);
+            if (ID / 100 == 1){
+                System.out.println("hero");
+                assert deck != null;
+                deck.setHeroInDeck((Hero)Card.findCardInCollectionByID(ID));
+            }else if (ID / 100 == 2){
+                System.out.println("item");
+                assert deck != null;
+                deck.itemsInDeck.add((Item)Card.findCardInCollectionByID(ID));
+            }else if (ID / 100 == 3 || ID / 100 == 4){
+                System.out.println("minion/spell");
+                assert deck != null;
+                deck.cardsInDeck.add(Card.findCardInCollectionByID(ID));
             }
-        }else if ((cardID / 10) == 2){
-            if (getItemsInDeck().size() == 0) {
-                getItemsInDeck().add((Item) card);
-            }else
-                GameView.printInvalidCommandWithThisContent("Deck already has an item!");
-        }else{
-            cardsInDeck.add(card);
         }
-
     }
+
+
 }

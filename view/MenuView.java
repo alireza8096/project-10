@@ -268,6 +268,7 @@ public class MenuView {
                 e.printStackTrace();
             }
         });
+        stackPane.setAccessibleText("Back");
 
         return stackPane;
     }
@@ -1086,10 +1087,12 @@ public class MenuView {
         if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling
             vBox.setOnMouseClicked(event -> {
                 try {
-                    if (Controller.getPressedButton().getAccessibleText().equals("Add Card")){
-                        Deck.getSelectedDeck().addCardToDeck(card);
-                        GameView.printInfoMessageWithThisContent(card.getName() +
-                                " was added to " + Deck.getSelectedDeck().getDeckName());
+                    if (Controller.getPressedButton().getAccessibleText() != null) {
+                        if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
+                            Deck.getSelectedDeck().addCardToDeck(card);
+                            GameView.printInfoMessageWithThisContent(card.getName() +
+                                    " was added to " + Deck.getSelectedDeck().getDeckName());
+                        }
                     }else if (!Shop.isIsShowingSpecificCard()) {
                         makeSceneBlur();
                         Shop.setIsShowingSpecificCard(true);
@@ -1100,14 +1103,15 @@ public class MenuView {
                 }
             });
         }else{//is showing cards for creating new deck
-            vBox.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
+            vBox.setOnMouseClicked(event -> {
+                if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
+                    try {
                         CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
-                        GameView.printInfoMessageWithThisContent(card.getName() + " was added to "
-                                + CollectionController.getDeckIsBeingCreated().getDeckName());
+                    } catch (ParseException | CloneNotSupportedException | IOException e) {
+                        e.printStackTrace();
                     }
+                    GameView.printInfoMessageWithThisContent(card.getName() + " was added to "
+                            + CollectionController.getDeckIsBeingCreated().getDeckName());
                 }
             });
         }

@@ -252,8 +252,6 @@ public class Hero extends Force implements Cloneable{
         Map.getCellsView()[0][2].setDisable(true);
         Game.getInstance().getMap().setFriendHero(hero);
         System.out.println("****"+ Game.getInstance().getMap().getEnemyHero().getX() + " " + Game.getInstance().getMap().getEnemyHero().getY());
-
-
     }
 
 //    public static Hero findHeroInMap(int x, int y){
