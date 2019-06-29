@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static javafx.scene.paint.Color.rgb;
+
 public class Card implements Cloneable {
     //    private static ArrayList<String> cardNames = new ArrayList<>();
     protected int mana;
@@ -449,7 +451,7 @@ public class Card implements Cloneable {
         text.setWrappingWidth(Shop.CARD_IN_SHOP_WIDTH - 30);
 
         text.setFont(font);
-        text.setFill(Color.YELLOW);
+        text.setFill(rgb(199, 247, 255));
     }
 
 
