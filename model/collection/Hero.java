@@ -61,7 +61,7 @@ public class Hero extends Force implements Cloneable{
 
     public static boolean thisCardIsHero(String cardName) {
         for (Hero hero : heroes) {
-            if (hero.name.matches(cardName))
+            if (hero.name.compareToIgnoreCase(cardName) == 0)
                 return true;
         }
         return false;

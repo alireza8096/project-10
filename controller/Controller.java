@@ -124,7 +124,6 @@ public class Controller {
                     MenusCommandController.battleController(scanner);
                     System.out.println(Game.getInstance().getPlayer1().getNumOfMana());
                 }else{
-//                    System.out.println("AIAIAIAIAAI");
                     System.out.println(Game.getInstance().getPlayer2().getNumOfMana());
                     AI.insertCardTillPossible();
                     AI.moveTillPossible();
@@ -142,7 +141,7 @@ public class Controller {
         }
     }
 
-    public static void enterLoginMenu() throws IOException, ParseException, CloneNotSupportedException {
+    public static void enterLoginMenu() throws IOException{
         AllDatas.currentRoot = AllDatas.account.getRoot();
         AllDatas.currentScene = AllDatas.account.getScene();
         AllDatas.account.setNowInThisMenu(true);

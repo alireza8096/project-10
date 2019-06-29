@@ -91,7 +91,7 @@ public class Minion extends Force implements Cloneable{
     }
     public static boolean thisCardIsMinion(String cardName){
         for (Minion minion : minions){
-            if (minion.name.equals(cardName)) {
+            if (minion.name.compareToIgnoreCase(cardName) == 0) {
                 return true;
             }
         }

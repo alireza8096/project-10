@@ -88,7 +88,7 @@ public class Spell extends Card implements Cloneable{
 
     public static boolean thisCardIsSpell(String cardName){
         for (Spell spell:spells) {
-            if(spell.name.matches(cardName)){
+            if(spell.name.compareToIgnoreCase(cardName) == 0){
                 return true;
             }
         }

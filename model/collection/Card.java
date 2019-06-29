@@ -74,21 +74,20 @@ public class Card implements Cloneable {
 
     public static Card findCardByName(String cardName) throws CloneNotSupportedException {
         for (Hero hero : Hero.getHeroes()) {
-            if (hero.getName().matches(cardName)) {
+            if (hero.getName().compareToIgnoreCase(cardName) == 0) {
                 return (Hero) hero.clone();
             }
         }
         for (Minion minion : Minion.getMinions()) {
-            if (minion.getName().matches(cardName)) {
+            if (minion.getName().compareToIgnoreCase(cardName) == 0) {
                 return (Minion) minion.clone();
             }
         }
         for (Spell spell : Spell.getSpells()) {
-            if (spell.getName().matches(cardName)) {
+            if (spell.getName().compareToIgnoreCase(cardName) == 0) {
                 return (Spell) spell.clone();
             }
         }
-        System.out.println(cardName + " : null");
         return null;
     }
 
