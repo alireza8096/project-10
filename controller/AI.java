@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.regex.Matcher;
 
@@ -34,7 +35,7 @@ public class AI {
 
     public static void createDeckOfAI(Player player) throws CloneNotSupportedException {
         Random random = new Random();
-        int heroId =random.nextInt(10) + 1;
+        int heroId = random.nextInt(10) + 1;
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
         int[] idsOfSpells = new int[5];
@@ -192,7 +193,7 @@ public class AI {
         }
     }
 
-    public static void moveTillPossible(){
+    public static void moveTillPossible() {
         Random random = new Random();
         int x;
         int y;
@@ -213,15 +214,24 @@ public class AI {
     }
 
     public static void attackTillPossible() {
-        for (Minion minion:Game.getInstance().getMap().getFriendMinions()) {
-            BattleController.checkAllConditionsToAttack(Game.getInstance().getMap().getEnemyHero(),minion);
-        }
-        BattleController.checkAllConditionsToAttack(Game.getInstance().getMap().getEnemyHero(),Game.getInstance().getMap().getFriendHero());
-        for(Minion attacker : Game.getInstance().getMap().getEnemyMinions()){
-            for (Minion target:Game.getInstance().getMap().getFriendMinions()) {
-                BattleController.checkAllConditionsToAttack(attacker,target);
+        try {
+            ArrayList<Minion> friendMinionCopy = Game.getInstance().getMap().getFriendMinions();
+            for (Minion minion : friendMinionCopy) {
+                BattleController.checkAllConditionsToAttack(Game.getInstance().getMap().getEnemyHero(), minion);
+                System.out.println("1");
             }
-            BattleController.checkAllConditionsToAttack(attacker,Game.getInstance().getMap().getFriendHero());
+            BattleController.checkAllConditionsToAttack(Game.getInstance().getMap().getEnemyHero(), Game.getInstance().getMap().getFriendHero());
+            System.out.println("2");
+            for (Minion attacker : Game.getInstance().getMap().getEnemyMinions()) {
+                BattleController.checkAllConditionsToAttack(attacker, Game.getInstance().getMap().getFriendHero());
+                Random random = new Random();
+                int index = random.nextInt(Game.getInstance().getMap().getFriendMinions().size());
+                Minion randomTarget = Game.getInstance().getMap().getFriendMinions().get(index);
+                BattleController.checkAllConditionsToAttack(attacker, randomTarget);
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
         }
         try {
             BattleController.endTurn();
@@ -231,6 +241,7 @@ public class AI {
             e.printStackTrace();
         }
     }
+
 
     public static void setRandomIdsItems(int[] array) {
         Random random = new Random();

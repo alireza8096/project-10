@@ -32,7 +32,7 @@ import java.util.logging.SocketHandler;
 
 import static model.collection.Account.PLAYERS_FOLDER;
 
-public class CollectionController {
+public class CollectionController{
 
     private static boolean isChoosingForCreatingNewDeck = false;
     private static Deck deckIsBeingCreated;
@@ -347,7 +347,7 @@ public class CollectionController {
         mainDeckStack.setOnMouseClicked(event -> {
             try {
                 if (Deck.getSelectedDeck().validateDeck()){
-                    Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck());
+                    Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck().returnCopyOfDeck());
                 }else{
                     GameView.printInvalidCommandWithThisContent("Deck is not valid!");
                 }
