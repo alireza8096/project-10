@@ -122,10 +122,31 @@ public class Cell {
                     Cell.selectedXImage = xImage;
                     Cell.selectedYImage = yImage;
                 }
+                if(!Card.getCardByCoordination(yImage,xImage).isHasAttackedInThisTurn()){
+                    force.setDisable(true);
+                    showAllPossibleAttacks((Force)Card.getCardByCoordination(yImage,xImage));
+                }
             }
         });
     }
 
+    public static void showAllPossibleAttacks(Force force){
+        for(int i=0; i<9; i++){
+            for(int j=0; j<5; j++){
+                if(Card.getCardByCoordination(j,i)!=null) {
+                    if(!Card.thisCardIsYours(j,i)) {
+                        if (BattleController.checkRangeForAttack(force, (Force) Card.getCardByCoordination(j, i))) {
+                            try {
+                                Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board_attack.png")));
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     public CellType getCellType() {
         return cellType;
     }
