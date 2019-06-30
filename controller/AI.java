@@ -75,7 +75,7 @@ public class AI {
         Game.getInstance().getMap().setEnemyHero(AIPlayer.getMainDeck().getHeroInDeck());
         Map.getForcesView()[8][2].setImage(AIPlayer.getMainDeck().getHeroInDeck().getForceInField());
         Map.getForcesView()[8][2].setY(Map.getForcesView()[8][2].getY() - 25);
-        Map.getCellsView()[8][2].setDisable(true);
+//        Map.getCellsView()[8][2].setDisable(true);
         AI.setAllAICardsMovable();
     }
 
@@ -192,7 +192,7 @@ public class AI {
         }
     }
 
-    public static void moveTillPossible() throws CloneNotSupportedException {
+    public static void moveTillPossible(){
         Random random = new Random();
         int x;
         int y;
@@ -210,31 +210,25 @@ public class AI {
                 moveAI(minion, minionX, minionY);
             }
         }
-        try {
-            BattleController.endTurn();
-        } catch (FileNotFoundException e) {
-            e.getMessage();
-        }
     }
 
-    public static void attckTillPossible() throws Exception {
-        String cardName = Game.getInstance().getMap().getFriendHero().getName();
-        while (!Game.getInstance().getMap().getFriendHero().isHasAttackedInThisTurn()) {
-            int idToAttack = (int) Math.random() % 500;
-            if (Shop.checkValidId(idToAttack)) {
-                String[] parts = {"attack", Integer.toString(idToAttack)};
-//                BattleController.attack(parts,cardName);
-            }
+    public static void attackTillPossible() {
+        for (Minion minion:Game.getInstance().getMap().getFriendMinions()) {
+            BattleController.checkAllConditionsToAttack(Game.getInstance().getMap().getEnemyHero(),minion);
         }
-        for (Card card :
-                Game.getInstance().getMap().getFriendMinions()) {
-            while (!card.isHasAttackedInThisTurn()) {
-                int idToAttack = (int) Math.random() % 500;
-                if (Shop.checkValidId(idToAttack)) {
-                    String[] parts = {"attack", Integer.toString(idToAttack)};
-//                    BattleController.attack(parts,cardName);
-                }
+        BattleController.checkAllConditionsToAttack(Game.getInstance().getMap().getEnemyHero(),Game.getInstance().getMap().getFriendHero());
+        for(Minion attacker : Game.getInstance().getMap().getEnemyMinions()){
+            for (Minion target:Game.getInstance().getMap().getFriendMinions()) {
+                BattleController.checkAllConditionsToAttack(attacker,target);
             }
+            BattleController.checkAllConditionsToAttack(attacker,Game.getInstance().getMap().getFriendHero());
+        }
+        try {
+            BattleController.endTurn();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

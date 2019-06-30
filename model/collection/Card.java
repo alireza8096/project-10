@@ -298,7 +298,18 @@ public class Card implements Cloneable {
     public void killCard() {
         //Todo : implementing
     }
-
+    public boolean isEnemy(int x,int y){
+        for(Minion minion : Game.getInstance().getMap().getEnemyMinions()){
+            if(minion.getX() == x && minion.getY() == y){
+                return true;
+            }
+        }
+        if(Game.getInstance().getMap().getEnemyHero().getX() == x
+                && Game.getInstance().getMap().getEnemyHero().getY() == y){
+            return true;
+        }
+        return false;
+    }
     public static Card getCardByCoordination(int x, int y) {
         Map map = Game.getInstance().getMap();
         for (Card card : map.getFriendMinions()) {

@@ -29,8 +29,8 @@ public class Map {
                     cellsView[i][j]= MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png");
                     cellsView[i][j].setScaleX(0.55);
                     cellsView[i][j].setScaleY(0.55);
-                    cellsView[i][j].setX(410 + i*69);
-                    cellsView[i][j].setY(220+j*69);
+                    cellsView[i][j].setX(510 + i*69);
+                    cellsView[i][j].setY(320+j*69);
                     AllDatas.currentRoot.getChildren().add(cellsView[i][j]);
 
                     forcesStack[i][j] = new StackPane();
@@ -309,21 +309,5 @@ public class Map {
             return true;
         }
         return false;
-    }
-
-    public void changeCellTypesWhenTurnChanges() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (this.getCells()[i][j].getCellType().equals(CellType.selfHero)) {
-                    this.getCells()[i][j].setCellType(CellType.enemyHero);
-                } else if (this.getCells()[i][j].getCellType().equals(CellType.selfMinion)) {
-                    this.getCells()[i][j].setCellType(CellType.enemyMinion);
-                } else if (this.getCells()[i][j].getCellType().equals(CellType.enemyHero)) {
-                    this.getCells()[i][j].setCellType(CellType.selfHero);
-                } else if (this.getCells()[i][j].getCellType().equals(CellType.enemyMinion)) {
-                    this.getCells()[i][j].setCellType(CellType.selfMinion);
-                }
-            }
-        }
     }
 }
