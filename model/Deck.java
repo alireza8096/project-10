@@ -2,6 +2,7 @@ package model;
 
 import com.sun.management.GarbageCollectorMXBean;
 import controller.AI;
+import controller.CollectionController;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
 import view.GameView;
@@ -198,7 +199,12 @@ public class Deck implements Cloneable {
             GameView.printInvalidCommandWithThisContent("This card isn't available in collection");
             return false;
         } else {
-            if (ID / 100 != 1) {
+            if (ID / 100 == 2){
+                if (this.getItemsInDeck().size() == 1){
+                    GameView.printInvalidCommandWithThisContent("Deck already has an item!");
+                    return false;
+                }
+            }else if (ID / 100 != 1) {
                 if (!this.checkIfNumberOfCardsInDeckIsValid()) {
                     GameView.printInvalidCommandWithThisContent("Number of cards can't be more than 20!");
                     return false;
@@ -265,7 +271,7 @@ public class Deck implements Cloneable {
         return "";
     }
 
-    public static boolean validateDeck(String deckName) throws CloneNotSupportedException {
+    public boolean validateDeck() throws CloneNotSupportedException {
         Deck deck = Deck.findDeckByName(deckName);
         if (!deck.checkIfDeckHasHero()) {
             return false;
@@ -284,19 +290,19 @@ public class Deck implements Cloneable {
     }
 
     public static void selectDeck(String deckName) throws CloneNotSupportedException {
-        if(!validateDeck(deckName)){
-            System.out.println("Selected deck in not valid!");
-        } else {
-            Deck deck = findDeckByName(deckName);
-            setAllCardsMovable(deck);
-            Game.getInstance().getPlayer1().setMainDeck(deck);
-//            Map map = new Map();
-//            Game.getInstance().setMap(map);
-//            AI.createAIPlayer();
-//            Hero.insertHeroInMap();
-//            Hand.setHand();
-            deck.setDeckIsSelected(true);
-        }
+//        if(!validateDeck(deckName)){
+//            System.out.println("Selected deck in not valid!");
+//        } else {
+//            Deck deck = findDeckByName(deckName);
+//            setAllCardsMovable(deck);
+//            Game.getInstance().getPlayer1().setMainDeck(deck);
+////            Map map = new Map();
+////            Game.getInstance().setMap(map);
+////            AI.createAIPlayer();
+////            Hero.insertHeroInMap();
+////            Hand.setHand();
+//            deck.setDeckIsSelected(true);
+//        }
     }
 
     public Deck returnCopyOfDeck() throws CloneNotSupportedException {
@@ -321,6 +327,8 @@ public class Deck implements Cloneable {
                 assert deck != null;
                 deck.cardsInDeck.add(Card.findCardInCollectionByID(ID));
             }
+            GameView.printInfoMessageWithThisContent(card.getName() + " was added to "
+                    + this.getDeckName());
         }
     }
 
