@@ -211,7 +211,6 @@ public class MenusCommandController {
             try {
 
                 Controller.chooseSingleOrMultiPlayerWindow();
-//                Controller.enterBattle();
             } catch (IOException e) {
                 e.printStackTrace();
             }

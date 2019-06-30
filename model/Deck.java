@@ -232,8 +232,9 @@ public class Deck implements Cloneable {
         return false;
     }
 
-    public static boolean checkIfThisCardOrItemIsInCollection(int cardID) throws IOException, ParseException, CloneNotSupportedException {
+    public static boolean checkIfThisCardOrItemIsInCollection(int cardID) throws CloneNotSupportedException {
         String name = findNameOfCardByID(cardID);
+
         Player currentPlayer = Game.getInstance().getPlayer1();
         for (Card card : currentPlayer.getCardsInCollection()) {
             if (card.getName().equals(name))

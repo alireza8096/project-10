@@ -211,9 +211,11 @@ public class Hand {
                     cardsInHand[i] = nextCard;
                     try {
                         if (nextCard.getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
-                            scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
+                            scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
+                                    "view/Photos/battle/cardActivatedInHand.png")));
                         } else {
-                            scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                            scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
+                                    "view/Photos/battle/card_background_disabled@2x.png")));
                         }
                     }catch (Exception e){
                         System.out.println(e.getMessage());
@@ -241,7 +243,8 @@ public class Hand {
             for(int i=0; i<5; i++){
                 if(cardsInHand[i] != null) {
                     if (cardsInHand[i].getMana() > Game.getInstance().getPlayer1().getNumOfMana()) {
-                        scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                        scenesBehind[i].setImage(new Image(new FileInputStream(
+                                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                     }
                 }
             }
@@ -265,7 +268,8 @@ public class Hand {
             try {
                 Hand.cards[Hand.indexInHand].setOpacity(0);
                 Hand.manas[Hand.indexInHand].setOpacity(0);
-                Hand.scenesBehind[Hand.indexInHand].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+                Hand.scenesBehind[Hand.indexInHand].setImage(new Image(new FileInputStream(
+                        HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

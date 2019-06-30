@@ -533,7 +533,6 @@ public class MenuView {
         for (int i = (rowNumber - 1) * numOfCardsInEachRow; i < rowNumber * numOfCardsInEachRow; i++) {
             VBox cardVBox = new VBox();
 
-
             Card card = Card.returnNthCard(cardType, i);
 
             StackPane stackPane = new StackPane();
@@ -595,11 +594,13 @@ public class MenuView {
 
         try {
 
-            ImageView priceBack = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
+            ImageView priceBack = new ImageView(new Image(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
             priceBack.setFitWidth(200);
             priceBack.setFitHeight(50);
 
-            ImageView priceIcon = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_icon.png")));
+            ImageView priceIcon = new ImageView(new Image(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_icon.png")));
             priceIcon.setFitWidth(100);
             priceIcon.setFitHeight(110);
 
@@ -644,7 +645,6 @@ public class MenuView {
         StackPane.setMargin(image, new Insets(1, 1, 60, 1));
         StackPane.setMargin(cardType, new Insets(1, 1, 170, 1));
         StackPane.setMargin(desc, new Insets(150, 1, 1, 1));
-//        StackPane.setMargin(cardName, new Insets(60, 1, 1, 1));
     }
 
     private static void makeSceneBlur() {
@@ -1102,6 +1102,60 @@ public class MenuView {
         }
     }
 
+//    public static void setAppearanceOfCardsInShop(HBox hBox, int rowNumber, VBox vBox, String cardType, int numOfCardsInEachRow) {
+//        for (int i = (rowNumber - 1) * numOfCardsInEachRow; i < rowNumber * numOfCardsInEachRow; i++) {
+//            VBox cardVBox = new VBox();
+//
+//            Card card = Card.returnNthCard(cardType, i);
+//
+//            StackPane stackPane = new StackPane();
+//            stackPane.setAccessibleText(Integer.toString(i));
+//            stackPane.setPadding(new Insets(13));
+//
+//            try {
+//                setImageForCardInShop(card, stackPane);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//
+//            stackPane.setAlignment(Pos.CENTER);
+//            stackPane.setOnMouseClicked(event -> {
+//                if (stackPane.getEffect() == null) {
+//                    if (!Shop.isIsShowingSpecificCard()) {
+//                        try {
+//                            makeSceneBlur();
+//                            Shop.setIsShowingSpecificCard(true);
+//                            MenuView.showCardForBuying(card);
+//                        } catch (FileNotFoundException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            });
+//
+//            Text cardName = new Text(card.getName());
+//            Font font = null;
+//            try {
+//                font = Font.loadFont(new FileInputStream(
+//                        HandleFiles.BEFORE_RELATIVE + "view/Fonts/averta-extrabold-webfont.ttf"), 15);
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
+//            cardName.setFont(font);
+//            cardName.setFill(rgb(191, 222, 255));
+//
+//            cardVBox.getChildren().addAll(stackPane, cardName);
+//            cardVBox.setAlignment(Pos.CENTER);
+//
+//            setPriceForCardInShop(card, cardVBox);
+//            //   setManaForCardInShop(card, stackPane, onCardVBox);
+//
+//            hBox.getChildren().add(cardVBox);
+//        }
+//        hBox.setSpacing(20);
+//        vBox.getChildren().add(hBox);
+//    }
+
     public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
         Text manaText = new Text(Integer.toString(card.getMana()));
         ImageView manaIcon = null;
@@ -1117,9 +1171,12 @@ public class MenuView {
 
         StackPane manaPane = new StackPane(manaIcon, manaText);
 
-        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
-        cardImage.setFitWidth(150);
-        cardImage.setFitHeight(150);
+        StackPane cardStack = new StackPane();
+        try {
+            setImageForCardInShop(card, cardStack);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         DropShadow ds = new DropShadow();
         ds.setOffsetY(3.0f);
@@ -1128,20 +1185,25 @@ public class MenuView {
         Text cardName = new Text(card.getName());
         cardName.setFont(Font.font("Verdana", FontWeight.BOLD, 20));
         cardName.setEffect(ds);
-        VBox vBox = new VBox(cardImage, cardName, manaPane);
+
+        VBox vBox = new VBox(cardStack, cardName, manaPane);
         vBox.setAlignment(Pos.CENTER);
         vBox.setAccessibleText(Integer.toString(card.getId()));
 
-        if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling
+        if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling or completing a deck
             vBox.setOnMouseClicked(event -> {
+                System.out.println("clicked!");
                 try {
                     if (Controller.getPressedButton().getAccessibleText() != null) {
+                        System.out.println("HERE");
                         if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
+                            System.out.println("Adding card to deck");
                             Deck.getSelectedDeck().addCardToDeck(card);
                             GameView.printInfoMessageWithThisContent(card.getName() +
                                     " was added to " + Deck.getSelectedDeck().getDeckName());
                         }
                     }else if (!Shop.isIsShowingSpecificCard()) {
+                        System.out.println("Showing card for selling");
                         makeSceneBlur();
                         Shop.setIsShowingSpecificCard(true);
                         showCardForSelling(card, vBox, hBox);
@@ -1152,7 +1214,9 @@ public class MenuView {
             });
         }else{//is showing cards for creating new deck
             vBox.setOnMouseClicked(event -> {
+                System.out.println("clicked!!!");
                 if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
+                    System.out.println("creating new deck");
                     try {
                         CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
                     } catch (ParseException | CloneNotSupportedException | IOException e) {
@@ -1164,8 +1228,10 @@ public class MenuView {
             });
         }
 
-        setMargin(cardName, new Insets(1,1,1,60));
+//        setMargin(cardName, new Insets(1,1,1,60));
         cardName.setFill(Color.rgb(255, 225, 58));
+//        hBox.setAlignment(Pos.CENTER);
+        hBox.setPadding(new Insets(20));
 
         hBox.getChildren().add(vBox);
     }
