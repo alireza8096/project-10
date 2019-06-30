@@ -283,15 +283,10 @@ public class Hand {
             minion.setCanAttack(false);
             minion.setHasMovedInThisTurn(true);
             Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);
-            for(int i=0; i<5; i++){
-                if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i]!=null){
-                    System.out.println("num of mana of this card : " +
-                            Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana());
-                    System.out.println("id and name of this card : " + i + " , " +
-                            Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getName());
-                }
-                else {
-                    System.out.println("this card is null" + i);
+            for(int i=0; i<9; i++){
+                Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
+                if(i < Game.getInstance().getPlayer1().getNumOfMana()){
+                    Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
                 }
             }
             try {
