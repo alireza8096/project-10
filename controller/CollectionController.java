@@ -344,7 +344,17 @@ public class CollectionController {
             }
         });
 
-        mainDeckStack.setOnMouseClicked(event -> Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck()));
+        mainDeckStack.setOnMouseClicked(event -> {
+            try {
+                if (Deck.getSelectedDeck().validateDeck()){
+                    Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck());
+                }else{
+                    GameView.printInvalidCommandWithThisContent("Deck is not valid!");
+                }
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+        });
 
         importDeckStack.setOnMouseClicked(event -> {
             try {

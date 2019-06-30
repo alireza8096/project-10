@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import static model.collection.Account.*;
 
 public class HandleFiles {
-    public static final String BEFORE_RELATIVE = "/Users/hamilamailee/Documents/project-10/";
+    public static final String BEFORE_RELATIVE = "/Users/bahar/Desktop/DUELYST/";
     private static final String ADDRESS_HERO = "model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "model/collection/JSON-Spells";

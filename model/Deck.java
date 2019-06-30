@@ -271,7 +271,7 @@ public class Deck implements Cloneable {
         return "";
     }
 
-    public static boolean validateDeck(String deckName) throws CloneNotSupportedException {
+    public boolean validateDeck() throws CloneNotSupportedException {
         Deck deck = Deck.findDeckByName(deckName);
         if (!deck.checkIfDeckHasHero()) {
             return false;
@@ -290,19 +290,19 @@ public class Deck implements Cloneable {
     }
 
     public static void selectDeck(String deckName) throws CloneNotSupportedException {
-        if(!validateDeck(deckName)){
-            System.out.println("Selected deck in not valid!");
-        } else {
-            Deck deck = findDeckByName(deckName);
-            setAllCardsMovable(deck);
-            Game.getInstance().getPlayer1().setMainDeck(deck);
-//            Map map = new Map();
-//            Game.getInstance().setMap(map);
-//            AI.createAIPlayer();
-//            Hero.insertHeroInMap();
-//            Hand.setHand();
-            deck.setDeckIsSelected(true);
-        }
+//        if(!validateDeck(deckName)){
+//            System.out.println("Selected deck in not valid!");
+//        } else {
+//            Deck deck = findDeckByName(deckName);
+//            setAllCardsMovable(deck);
+//            Game.getInstance().getPlayer1().setMainDeck(deck);
+////            Map map = new Map();
+////            Game.getInstance().setMap(map);
+////            AI.createAIPlayer();
+////            Hero.insertHeroInMap();
+////            Hand.setHand();
+//            deck.setDeckIsSelected(true);
+//        }
     }
 
     public Deck returnCopyOfDeck() throws CloneNotSupportedException {
