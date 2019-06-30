@@ -249,8 +249,10 @@ public class Hero extends Force implements Cloneable{
         Game.getInstance().getMap().getCells()[2][0].setCellType(CellType.selfHero);
         Map.getForcesView()[0][2].setImage(hero.getForceInField());
         Map.getForcesView()[0][2].setY(Map.getForcesView()[0][2].getY()-25);
-        Map.getCellsView()[0][2].setDisable(true);
+//        Map.getCellsView()[0][2].setDisable(true);
         Game.getInstance().getMap().setFriendHero(hero);
+        Game.getInstance().getMap().getFriendHero().setHasAttackedInThisTurn(false);
+        Game.getInstance().getMap().getFriendHero().setHasMovedInThisTurn(false);
     }
 
     public static Hero getHeroByCoordination(int x, int y) {

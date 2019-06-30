@@ -271,6 +271,7 @@ public class Force extends Card{
             }
         }
     }
+    //TODO : erase this below
     public static boolean forceIsEnemyAndIsInMap(int id){
         for(Minion minion : Game.getInstance().getMap().getEnemyMinions()){
             if(minion.id == id)

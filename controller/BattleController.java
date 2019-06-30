@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -22,7 +23,6 @@ import java.util.Scanner;
 import java.util.Stack;
 
 public class BattleController {
-
 
 
     public static void endTurnCommand(String[] commands) {
@@ -95,25 +95,27 @@ public class BattleController {
                 imageView.setDisable(false);
             }
             for (int i = 0; i < 5; i++) {
-                if(Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i]!=null) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
                     if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
                         Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/cardActivatedInHand.png")));
                     } else {
                         Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                     }
-                }
-                else{
+                } else {
                     Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                 }
             }
-            for (int i = 0; i < 9; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (Game.getInstance().getMap().getCells()[j][i].getCellType() == CellType.empty) {
-                        Map.getCellsView()[i][j].setDisable(false);
-                    }
-                    else Map.getCellsView()[i][j].setDisable(true);
-                }
-            }
+            Cell.setaForceIsSelected(false);
+            Hand.setSelectedInHand(false);
+            MenuView.resetMap();
+//            for (int i = 0; i < 9; i++) {
+//                for (int j = 0; j < 5; j++) {
+//                    if (Game.getInstance().getMap().getCells()[j][i].getCellType() == CellType.empty) {
+//                        Map.getCellsView()[i][j].setDisable(false);
+//                    }
+//                    else Map.getCellsView()[i][j].setDisable(true);
+//                }
+//            }
             for (int i = 0; i < 9; i++) {
                 for (int j = 0; j < 5; j++) {
                     Map.getForcesView()[i][j].setDisable(false);
@@ -371,7 +373,7 @@ public class BattleController {
         }
     }
 
-    public static void showAllPossibilities(Force force){
+    public static void showAllPossibilities(Force force) {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 9; j++) {
                 if (Map.cardCanBeMovedToThisCell(force, i, j)) {
@@ -385,7 +387,7 @@ public class BattleController {
         }
     }
 
-    public static void move(Force force, int x, int y){
+    public static void move(Force force, int x, int y) {
         Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
         Map.getForcesView()[force.getY()][force.getX()].setImage(null);
         if (force.getCardType().matches("hero")) {
@@ -394,10 +396,10 @@ public class BattleController {
             Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
             Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
         }
-        Map.getCellsView()[force.getY()][force.getX()].setDisable(false);
+//        Map.getCellsView()[force.getY()][force.getX()].setDisable(false);
         force.setX(x);
         force.setY(y);
-        Map.getCellsView()[y][x].setDisable(true);
+//        Map.getCellsView()[y][x].setDisable(true);
         Map.getForcesView()[y][x].setImage(force.getForceInField());
         if (force.getCardType().matches("hero")) {
             Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
@@ -405,7 +407,7 @@ public class BattleController {
             Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
             Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
         }
-        Map.getForcesView()[y][x].setDisable(false);
+//        Map.getForcesView()[y][x].setDisable(false);
         force.setHasMovedInThisTurn(true);
         applyEffectsOfTargetCellOnCard(force, x, y);
     }
@@ -480,13 +482,17 @@ public class BattleController {
         switch (Game.getInstance().getMap().getCells()[force.getX()][force.getY()].getCellType()) {
             case selfHero:
                 if (force.getHealthPoint() == 0) {
-                    System.out.println("Enemy Won!");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setContentText("enemy won !");
+                    alert.show();
                     AllDatas.gameBoolean = false;
                 }
                 break;
             case enemyHero:
                 if (force.getHealthPoint() == 0) {
-                    System.out.println("You Won!");
+                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setContentText("you won !");
+                    alert.show();
                     AllDatas.gameBoolean = false;
                 }
                 break;
@@ -494,12 +500,18 @@ public class BattleController {
                 if (force.getHealthPoint() == 0) {
                     Shop.removeProcess(Game.getInstance().getMap().getFriendMinions(), (Minion) force);
                     Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
+                    Map.getForcesView()[force.getY()][force.getX()].setImage(null);
+                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
+                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
                 }
                 break;
             case enemyMinion:
                 if (force.getHealthPoint() == 0) {
                     Shop.removeProcess(Game.getInstance().getMap().getEnemyMinions(), (Minion) force);
                     Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
+                    Map.getForcesView()[force.getY()][force.getX()].setImage(null);
+                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
+                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
                 }
         }
     }
@@ -520,16 +532,25 @@ public class BattleController {
         attacker.setHasAttackedInThisTurn(true);
         checkKill(attacker);
         checkKill(opponent);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setContentText("attacker : " + attacker.getName()
+                + "\nopponent : " + opponent.getName()
+                + "\nattacker hp : " + attacker.getHealthPoint()
+                + "\nopponent hp : " + opponent.getHealthPoint());
+        alert.show();
     }
 
     public static void checkAllConditionsToAttack(Card attackerCard, Card opponentCard) {
+        System.out.println("check all conditions to attack");
         if (!attackerCard.isHasAttackedInThisTurn()) {
             if (checkRangeForAttack((Force) attackerCard, (Force) opponentCard)) {
                 attackAndCounterAttack((Force) attackerCard, (Force) opponentCard);
-                System.out.println("attacked");
-            } else {
-                System.out.println("has attacked in this turn");
             }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("has attacked in this turn");
+            alert.show();
+        }
 //        if (thisIdIsAvailableForOpponent(opponentId)) {
 //            if (Hero.thisCardIsHero(cardName)) {
 //        if (!attackerCard.isHasAttackedInThisTurn()) {
@@ -549,7 +570,6 @@ public class BattleController {
 //        }else{
 //            System.out.println("opponent minion is unavailable for attack");
 //        }
-        }
     }
 
 
@@ -746,7 +766,7 @@ public class BattleController {
     }
 
     public static void handleEventsOfChoosingMultiOrSingleMode(StackPane multiButton,
-                                                               StackPane singleButton, StackPane backButton){
+                                                               StackPane singleButton, StackPane backButton) {
         singleButton.setOnMouseClicked(event -> {
             try {
                 Controller.enterBattle();

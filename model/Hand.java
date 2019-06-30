@@ -12,6 +12,7 @@ import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Minion;
 import model.collection.Spell;
+import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -62,7 +63,6 @@ public class Hand {
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 5; j++) {
                 if (Spell.thisCardIsSpell(card.getName())) {
-//                    if(Map.che)
                 } else if (Minion.thisCardIsMinion(card.getName())) {
                     if (Map.checkIfMinionCardCanBeInsertedInThisCoordination(j, i)) {
                         try {
@@ -81,6 +81,7 @@ public class Hand {
             Hand.indexInHand = i;
             if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
                 if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
+                    MenuView.resetMap();
                     showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
                     selectedInHand = true;
                 }
@@ -118,7 +119,6 @@ public class Hand {
             handScenes.getChildren().add(scenesBehind[i]);
             cardsView.getChildren().add(cards[i]);
             manasView.getChildren().add(manas[i]);
-//            handleHand(scenesBehind[i]);
         }
         handScenes.setLayoutX(130);
         handScenes.setLayoutY(700);
@@ -194,10 +194,6 @@ public class Hand {
         return counter < 5;
     }
 
-//    public void deleteCardFromHand(Card card){
-//        this.getCardsInHand().remove(card);
-//    }
-
     public void addCardToHandFromDeck() {
         if (this.checkIfNumberOfCardsInHandIsValid()) {
             Deck mainDeck = Game.getInstance().getPlayer1().getMainDeck();
@@ -251,13 +247,14 @@ public class Hand {
             Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
             minion.setX(x);
             minion.setY(y);
-            Map.getCellsView()[y][x].setDisable(true);
+//            Map.getCellsView()[y][x].setDisable(true);
             Map.getForcesView()[y][x].setImage(minion.getForceInField());
             Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
             Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
-            minion.setCanMove(false);
-            minion.setCanAttack(false);
+//            minion.setCanMove(false);
+//            minion.setCanAttack(false);
             minion.setHasMovedInThisTurn(true);
+            minion.setHasAttackedInThisTurn(true);
             Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);
             for(int i=0; i<9; i++){
                 Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
@@ -275,24 +272,6 @@ public class Hand {
             }
             Game.getInstance().getMap().getFriendMinions().add(minion);
         }
-//        } else if (Spell.thisCardIsSpell(cardName)) {
-//            Spell spell = (Spell) returnCardInHand(cardName);
-//            spell.insertSpellInThisCoordination(x, y);
-//            Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(cardName);
-//        }
-
-    }
-
-    public Card returnCardInHand(String cardName) {
-        for(int i=0; i<5; i++){
-            if(cardsInHand[i]!=null){
-                if(cardsInHand[i].getName().equals(cardName)){
-                    System.out.println(i + "**********");
-                    return cardsInHand[i];
-                }
-            }
-        }
-        return null;
     }
 
     public void removeCardFromHand(int index) {

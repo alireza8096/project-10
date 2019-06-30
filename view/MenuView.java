@@ -346,6 +346,17 @@ public class MenuView {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
+    public static void resetMap(){
+        for(int i=0; i<9; i++){
+            for (int j=0;j<5; j++){
+                try {
+                    Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png")));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
@@ -354,11 +365,22 @@ public class MenuView {
                 HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
+        background.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
+            Hand.setSelectedInHand(false);
+            Cell.setaForceIsSelected(false);
+            resetMap();
+        });
 
         ImageView middleGround = MainView.getPhotoWithThisPath(
                 HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/midground@2x.png");
         middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
+        middleGround.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
+                    Hand.setSelectedInHand(false);
+                    Cell.setaForceIsSelected(false);
+                    resetMap();
+                }
+        );
 
         ImageView backButton = setBackButtonInBattle();
 

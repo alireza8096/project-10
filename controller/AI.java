@@ -75,7 +75,7 @@ public class AI {
         Game.getInstance().getMap().setEnemyHero(AIPlayer.getMainDeck().getHeroInDeck());
         Map.getForcesView()[8][2].setImage(AIPlayer.getMainDeck().getHeroInDeck().getForceInField());
         Map.getForcesView()[8][2].setY(Map.getForcesView()[8][2].getY() - 25);
-        Map.getCellsView()[8][2].setDisable(true);
+//        Map.getCellsView()[8][2].setDisable(true);
         AI.setAllAICardsMovable();
     }
 
