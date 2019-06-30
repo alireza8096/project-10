@@ -1,16 +1,20 @@
 package model;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import model.collection.*;
 import view.MainView;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Map {
     private Cell[][] cells = new Cell[5][9];
     private static ImageView[][] cellsView = new ImageView[9][5];
     private static ImageView[][] forcesView = new ImageView[9][5];
+
+    private static StackPane[][] forcesStack = new StackPane[9][5];
 
     private ArrayList<Minion> enemyMinions = new ArrayList<>();
     private ArrayList<Minion> friendMinions = new ArrayList<>();
@@ -25,18 +29,36 @@ public class Map {
                     cellsView[i][j]= MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png");
                     cellsView[i][j].setScaleX(0.55);
                     cellsView[i][j].setScaleY(0.55);
-                    cellsView[i][j].setX(510 + i*69);
-                    cellsView[i][j].setY(320+j*69);
+                    cellsView[i][j].setX(410 + i*69);
+                    cellsView[i][j].setY(220+j*69);
                     AllDatas.currentRoot.getChildren().add(cellsView[i][j]);
+
+                    forcesStack[i][j] = new StackPane();
+                    forcesStack[i][j].setPrefWidth(cellsView[i][j].getFitWidth());
+                    forcesStack[i][j].setPrefHeight(cellsView[i][j].getFitHeight());
+                    forcesStack[i][j].setLayoutX(cellsView[i][j].getX());
+                    forcesStack[i][j].setLayoutY(cellsView[i][j].getY());
+                    AllDatas.currentRoot.getChildren().add(forcesStack[i][j]);
+
                     forcesView[i][j] = new ImageView();
                     forcesView[i][j].setX(cellsView[i][j].getX());
                     forcesView[i][j].setY(cellsView[i][j].getY());
                     AllDatas.currentRoot.getChildren().add(forcesView[i][j]);
+
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
+
+    public static StackPane[][] getForcesStack() {
+        return forcesStack;
+    }
+
+    public static void setForcesStack(StackPane[][] forcesStack) {
+        Map.forcesStack = forcesStack;
     }
 
     public static ImageView[][] getForcesView() {

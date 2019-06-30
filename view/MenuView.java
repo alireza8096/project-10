@@ -1157,9 +1157,16 @@ public class MenuView {
 //    }
 
     public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
+        Font font = null;
+        try {
+            font = Font.loadFont(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Fonts/averta-extrabold-webfont.ttf"), 17);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Text manaText = new Text(Integer.toString(card.getMana()));
         ImageView manaIcon = null;
-        manaText.setFont(Font.font("verdana", 20));
+        manaText.setFont(font);
         manaText.setFill(Color.rgb(204, 249, 255));
 
         try {
@@ -1192,18 +1199,14 @@ public class MenuView {
 
         if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling or completing a deck
             vBox.setOnMouseClicked(event -> {
-                System.out.println("clicked!");
                 try {
                     if (Controller.getPressedButton().getAccessibleText() != null) {
-                        System.out.println("HERE");
                         if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
-                            System.out.println("Adding card to deck");
                             Deck.getSelectedDeck().addCardToDeck(card);
                             GameView.printInfoMessageWithThisContent(card.getName() +
                                     " was added to " + Deck.getSelectedDeck().getDeckName());
                         }
                     }else if (!Shop.isIsShowingSpecificCard()) {
-                        System.out.println("Showing card for selling");
                         makeSceneBlur();
                         Shop.setIsShowingSpecificCard(true);
                         showCardForSelling(card, vBox, hBox);
@@ -1214,33 +1217,30 @@ public class MenuView {
             });
         }else{//is showing cards for creating new deck
             vBox.setOnMouseClicked(event -> {
-                System.out.println("clicked!!!");
                 if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
-                    System.out.println("creating new deck");
                     try {
                         CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
                     } catch (ParseException | CloneNotSupportedException | IOException e) {
                         e.printStackTrace();
                     }
-                    GameView.printInfoMessageWithThisContent(card.getName() + " was added to "
-                            + CollectionController.getDeckIsBeingCreated().getDeckName());
                 }
             });
         }
 
-//        setMargin(cardName, new Insets(1,1,1,60));
-        cardName.setFill(Color.rgb(255, 225, 58));
-//        hBox.setAlignment(Pos.CENTER);
-        hBox.setPadding(new Insets(20));
+        cardName.setFill(rgb(210, 250, 247));
+        hBox.setPadding(new Insets(30));
 
         hBox.getChildren().add(vBox);
     }
 
-    public static void showCardForSelling(Card card, VBox cardVBox, HBox inRowCardsHBox) throws FileNotFoundException {
+    public static void showCardForSelling(Card card, VBox cardVBox,
+                                          HBox inRowCardsHBox) throws FileNotFoundException {
         HBox cardHBox = new HBox();
 
+        StackPane cardStack = new StackPane();
+        setImageForCardInShop(card, cardStack);
 
-        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
+//        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
 
         ImageView cancelButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
@@ -1256,10 +1256,10 @@ public class MenuView {
         sellStack.setAlignment(Pos.CENTER);
         sellLabel.setFont(font);
 
-        cardImage.setFitWidth(200);
-        cardImage.setFitHeight(300);
-        cardImage.setX(WINDOW_WIDTH / 2 + 80);
-        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
+//        cardImage.setFitWidth(200);
+//        cardImage.setFitHeight(300);
+//        cardImage.setX(WINDOW_WIDTH / 2 + 80);
+//        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
 
         sellButton.setFitWidth(200);
         sellButton.setFitHeight(70);
@@ -1278,7 +1278,7 @@ public class MenuView {
         cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
         cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
 
-        cardHBox.getChildren().addAll(cardImage, addPriceAndManaForShowingCard(card, cardHBox));
+        cardHBox.getChildren().addAll(cardStack, addPriceAndManaForShowingCard(card, cardHBox));
 
         CollectionController.handleEventsOfSellingCard(cardHBox, hBox, cancelButton, sellStack, card, cardVBox, inRowCardsHBox);
 

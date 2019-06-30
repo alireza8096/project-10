@@ -2,6 +2,7 @@ package model;
 
 import com.sun.management.GarbageCollectorMXBean;
 import controller.AI;
+import controller.CollectionController;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
 import view.GameView;
@@ -198,7 +199,12 @@ public class Deck implements Cloneable {
             GameView.printInvalidCommandWithThisContent("This card isn't available in collection");
             return false;
         } else {
-            if (ID / 100 != 1) {
+            if (ID / 100 == 2){
+                if (this.getItemsInDeck().size() == 1){
+                    GameView.printInvalidCommandWithThisContent("Deck already has an item!");
+                    return false;
+                }
+            }else if (ID / 100 != 1) {
                 if (!this.checkIfNumberOfCardsInDeckIsValid()) {
                     GameView.printInvalidCommandWithThisContent("Number of cards can't be more than 20!");
                     return false;
@@ -321,6 +327,8 @@ public class Deck implements Cloneable {
                 assert deck != null;
                 deck.cardsInDeck.add(Card.findCardInCollectionByID(ID));
             }
+            GameView.printInfoMessageWithThisContent(card.getName() + " was added to "
+                    + this.getDeckName());
         }
     }
 

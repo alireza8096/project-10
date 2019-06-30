@@ -1,18 +1,21 @@
 package model;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Minion;
 import model.collection.Spell;
 
+import java.awt.image.ImagingOpException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -236,6 +239,25 @@ public class Hand {
         return false;
     }
 
+    public static void setStackForForcesInMap(int x, int y, Minion minion) throws FileNotFoundException {
+
+        Map.getForcesView()[y][x].setImage(minion.getForceInField());
+//        Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
+//        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+        ImageView healthPointIcon = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/hp_icon_in_map.png")));
+        healthPointIcon.setFitWidth(25);
+        healthPointIcon.setFitHeight(25);
+        StackPane.setMargin(healthPointIcon, new Insets(20, 20,  1, 1));
+        StackPane.setMargin(Map.getForcesView()[y][x], new Insets(1, 1, 30, 1));
+
+        Map.getForcesStack()[y][x].getChildren().addAll( Map.getForcesView()[y][x], healthPointIcon);
+        Map.getForcesStack()[y][x].setLayoutX(Map.getForcesView()[y][x].getX() + 34);
+        Map.getForcesStack()[y][x].setLayoutY(Map.getForcesView()[y][x].getY() + 34);
+
+
+    }
+
     public void insertCardFromHandInMap(int index, int x, int y) throws FileNotFoundException {
         if (Minion.thisCardIsMinion(cardsInHand[index].getName())) {
             Minion minion = (Minion)cardsInHand[index];
@@ -252,6 +274,8 @@ public class Hand {
             minion.setX(x);
             minion.setY(y);
             Map.getCellsView()[y][x].setDisable(true);
+
+//            setStackForForcesInMap(x, y, minion);
             Map.getForcesView()[y][x].setImage(minion.getForceInField());
             Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
             Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
