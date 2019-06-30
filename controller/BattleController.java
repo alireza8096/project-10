@@ -66,15 +66,16 @@ public class BattleController {
             if (Game.getInstance().getNumOfRound() < 14) {
                 Game.getInstance().getPlayer2().setNumOfMana(2 + Game.getInstance().getNumOfRound() / 2);
             } else Game.getInstance().getPlayer2().setNumOfMana(9);
-            makeAllCardsActiveAI();
             for (ImageView card : Hand.getCards()) {
                 card.setDisable(true);
             }
             for (ImageView imageView : Hand.getScenesBehind()) {
                 imageView.setDisable(true);
             }
+            makeAllCardsActiveAI();
             AI.insertCardTillPossible();
             AI.moveTillPossible();
+            AI.attackTillPossible();
         } else {
             Game.getInstance().setPlayer1Turn(true);
             BattleView.showEndTurn();
@@ -541,7 +542,8 @@ public class BattleController {
     }
 
     public static void checkAllConditionsToAttack(Card attackerCard, Card opponentCard) {
-        System.out.println("check all conditions to attack");
+        System.out.println(attackerCard.getName());
+        System.out.println(attackerCard.isHasAttackedInThisTurn());
         if (!attackerCard.isHasAttackedInThisTurn()) {
             if (checkRangeForAttack((Force) attackerCard, (Force) opponentCard)) {
                 attackAndCounterAttack((Force) attackerCard, (Force) opponentCard);

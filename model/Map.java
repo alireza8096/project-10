@@ -310,20 +310,4 @@ public class Map {
         }
         return false;
     }
-
-    public void changeCellTypesWhenTurnChanges() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 9; j++) {
-                if (this.getCells()[i][j].getCellType().equals(CellType.selfHero)) {
-                    this.getCells()[i][j].setCellType(CellType.enemyHero);
-                } else if (this.getCells()[i][j].getCellType().equals(CellType.selfMinion)) {
-                    this.getCells()[i][j].setCellType(CellType.enemyMinion);
-                } else if (this.getCells()[i][j].getCellType().equals(CellType.enemyHero)) {
-                    this.getCells()[i][j].setCellType(CellType.selfHero);
-                } else if (this.getCells()[i][j].getCellType().equals(CellType.enemyMinion)) {
-                    this.getCells()[i][j].setCellType(CellType.selfMinion);
-                }
-            }
-        }
-    }
 }
