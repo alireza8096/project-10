@@ -9,6 +9,7 @@ import view.GameView;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -215,7 +216,64 @@ public class Item extends Card implements Cloneable {
         return false;
     }
 
+    public void applyUsableItem(int x, int y){
+        String user = this.user;
+        if (user.equals("null")){//item works like spell
+            applyItemWithNoUser();
+        }else{//item work like minion
+            applyItemWithUser(x, y);
+        }
+    }
 
+    public void applyItemWithNoUser(){//it is used jist for 3 items
+        Spell spell = this.spell;
+        for (Buff buff : spell.getBuffs()){
+            Game.getInstance().getMap().getFriendHero().getPositiveBuffs().add(buff);
+        }
+    }
+
+    public void applyItemWithUser(int x, int y){
+        if (checkIfTargetOfUsableItemIsCorrect(x, y)) {
+            String user = this.user;
+            String userForce = user.substring(0, user.indexOf('('));
+            String numOfUsers = user.substring(user.indexOf('(') + 1, user.indexOf(')'));
+
+            switch (userForce) {
+                case "minion":
+
+                    break;
+                case "hero":
+
+                    break;
+                case "minion/hero":
+
+                    break;
+            }
+        }else{
+            GameView.printInvalidCommandWithThisContent("Target is not valid!");
+        }
+    }
+
+    public boolean checkIfTargetOfUsableItemIsCorrect(int x, int y){
+        String user = this.user;
+        String userForce = user.substring(0, user.indexOf('('));
+
+        switch (userForce){
+            case "minion":
+                if (Game.getInstance().getMap().getCells()[x][y].getCellType() == CellType.selfMinion)
+                    return true;
+                break;
+            case "hero":
+                if (Game.getInstance().getMap().getCells()[x][y].getCellType() == CellType.selfHero)
+                    return true;
+                break;
+            case "minion/hero":
+                if (Card.thisCardIsYours(x, y))
+                    return true;
+                break;
+        }
+        return false;
+    }
 
 
 //    public static Item returnFlagByRandomCoordination(){

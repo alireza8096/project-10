@@ -1,6 +1,7 @@
 package model.collection;
 
 import model.*;
+import model.CustomCardsEnums.ActivationTime;
 import model.CustomCardsEnums.Targets;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -26,6 +27,9 @@ public class Spell extends Card implements Cloneable{
 //    private String locationOfTarget;
 
     //Todo : checking start
+    private ActivationTime activationTime;//it is for the spells that items give to minions
+
+
     private String specificationOfTargets;
 
     public String getSpecificationOfTargets() {
@@ -39,6 +43,18 @@ public class Spell extends Card implements Cloneable{
     private ArrayList<Force> forceTargets = new ArrayList<>();
     private ArrayList<Cell> cellTargets = new ArrayList<>();
     private Target spellTarget;
+
+    public ArrayList<String> getActionTypes() {
+        return actionTypes;
+    }
+
+    public void setActionTypes(ArrayList<String> actionTypes) {
+        this.actionTypes = actionTypes;
+    }
+
+    public void setActions(ArrayList<Buff> actions) {
+        this.actions = actions;
+    }
 
     public ArrayList<Force> getForceTargets() {
         return forceTargets;
@@ -57,6 +73,15 @@ public class Spell extends Card implements Cloneable{
     }
 
     //Todo : checking finish
+
+
+    public ActivationTime getActivationTime() {
+        return activationTime;
+    }
+
+    public void setActivationTime(ActivationTime activationTime) {
+        this.activationTime = activationTime;
+    }
 
     public static ArrayList<Spell> getSpells() {
         return spells;

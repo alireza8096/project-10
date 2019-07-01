@@ -37,6 +37,31 @@ public class Force extends Card {
     private boolean hasHolyBuff;
     private String specialPower;
 
+
+    //Todo : added recently from here
+
+    private Spell spell;
+
+    private Spell itemSpell;
+
+    public Spell getItemSpell() {
+        return itemSpell;
+    }
+
+    public void setItemSpell(Spell itemSpell) {
+        this.itemSpell = itemSpell;
+    }
+
+    public Spell getSpell() {
+        return spell;
+    }
+
+    public void setSpell(Spell spell) {
+        this.spell = spell;
+    }
+
+    //Todo : to here
+
     public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
         String[] splitter = toArray.split(",");

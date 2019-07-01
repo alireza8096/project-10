@@ -1,8 +1,10 @@
 package model.collection;
 
+import jdk.nashorn.api.tree.ForInLoopTree;
 import model.AttackType;
 import model.Cell;
 import model.CellType;
+import model.CustomCardsEnums.TargetType;
 import model.Game;
 
 public class Target {
@@ -63,6 +65,8 @@ public class Target {
             case "square3":
                 setSquareCellTargetsOfSpell(spell, x, y, 3);
                 break;
+            case "square1":
+                setSquareCellTargetsOfSpell(spell, x, y, 1);
         }
     }
 
@@ -111,15 +115,6 @@ public class Target {
     }
 
     public void setOneForceTarget(Spell spell, int x, int y){
-        String specification = spell.getSpecificationOfTargets();
-        if (specification == null){
-            spell.getForceTargets().add(((Force)Card.getCardByCoordination(x, y)));
-        }else if (specification.equals("melee")){
-
-        }else  if (specification.equals("ranged/hybrid")){
-
-        }
-
         spell.getForceTargets().add(((Force)Card.getCardByCoordination(x, y)));
     }
 
@@ -146,30 +141,94 @@ public class Target {
     }
 
     public void setAllFriendTargets(Spell spell, int x, int y, String locationOfTarget){
-        if (locationOfTarget.equals("null")) {
-            for (Minion minion : Game.getInstance().getMap().getFriendMinions()) {
-                spell.getForceTargets().add(minion);
-            }
-            spell.getForceTargets().add(Game.getInstance().getMap().getFriendHero());
-        }else if (locationOfTarget.equals("column")){
-            for (Cell cell : Game.getInstance().getMap().getCells()[x]){
-                if (cell.getCellType() == CellType.selfHero)
-                    spell.getForceTargets().add((Force)Card.getCardByCoordination(x, y));
-            }
+
+        switch (locationOfTarget){
+            case "null":
+                setAllForcesAsTarget(spell, TargetType.friend);
+                break;
+            case "column":
+                setColumnForcesAsTarget(spell, TargetType.friend, x);
+                break;
+            case "row":
+                setRowForcesAsTarget(spell, TargetType.friend, y);
+                break;
+            case "8round":
+
+                break;
+            case "distance2":
+                break;
+                //Todo : "closest" and "random8" and "8round" and "distance2" test case hasn't been handled
         }
     }
 
     public void setAllEnemyTargets(Spell spell, int x, int y, String locationOfTarget){
-        if (locationOfTarget.equals("null")) {
+        switch (locationOfTarget){
+            case "null":
+                setAllForcesAsTarget(spell, TargetType.enemy);
+                break;
+            case "column":
+                setColumnForcesAsTarget(spell, TargetType.enemy, x);
+                break;
+            case "row":
+                setRowForcesAsTarget(spell, TargetType.enemy, y);
+                break;
+            case "8round":
+
+                break;
+            case "distance2":
+                break;
+            //Todo : "closest" and "random8" and "8round" and "distance2" test case hasn't been handled
+        }
+    }
+
+    public void setAllEightRoundAsTarget(Spell spell, TargetType targetType, int x, int y){
+
+    }
+
+    public void setRowForcesAsTarget(Spell spell, TargetType targetType, int y){
+        if (targetType == TargetType.friend){
+            for (int i = 0; i < Game.getInstance().getMap().getCells()[y].length; i++) {
+                Cell cell;
+                cell = Game.getInstance().getMap().getCells()[i][y];
+                if (cell.getCellType() == CellType.selfHero || cell.getCellType() == CellType.selfMinion)
+                    spell.getForceTargets().add((Force) Card.getCardByCoordination(i, y));
+            }
+        }else{
+            for (int i = 0; i < Game.getInstance().getMap().getCells()[y].length; i++) {
+                Cell cell = Game.getInstance().getMap().getCells()[i][y];
+                if (cell.getCellType() == CellType.enemyHero || cell.getCellType() == CellType.enemyMinion)
+                    spell.getForceTargets().add((Force) Card.getCardByCoordination(i, y));
+            }
+        }
+    }
+
+    public void setColumnForcesAsTarget(Spell spell, TargetType targetType, int x){
+        if (targetType == TargetType.friend) {
+            for (int i = 0; i < Game.getInstance().getMap().getCells()[x].length; i++) {
+                Cell cell = Game.getInstance().getMap().getCells()[x][i];
+                if (cell.getCellType() == CellType.selfHero || cell.getCellType() == CellType.selfMinion)
+                    spell.getForceTargets().add((Force) Card.getCardByCoordination(x, i));
+            }
+        }else {
+            for (int i = 0; i < Game.getInstance().getMap().getCells()[x].length; i++) {
+                Cell cell = Game.getInstance().getMap().getCells()[x][i];
+                if (cell.getCellType() == CellType.enemyHero || cell.getCellType() == CellType.enemyMinion)
+                    spell.getForceTargets().add((Force) Card.getCardByCoordination(x, i));
+            }
+        }
+    }
+
+    public void setAllForcesAsTarget(Spell spell, TargetType targetType){
+        if (targetType == TargetType.friend){
+            for (Minion minion : Game.getInstance().getMap().getFriendMinions()) {
+                spell.getForceTargets().add(minion);
+            }
+            spell.getForceTargets().add(Game.getInstance().getMap().getFriendHero());
+        }else {
             for (Minion minion : Game.getInstance().getMap().getEnemyMinions()) {
                 spell.getForceTargets().add(minion);
             }
             spell.getForceTargets().add(Game.getInstance().getMap().getEnemyHero());
-        }else if (locationOfTarget.equals("column")){
-            for (Cell cell : Game.getInstance().getMap().getCells()[x]){
-                if (cell.getCellType() == CellType.enemyHero)
-                    spell.getForceTargets().add((Force)Card.getCardByCoordination(x, y));
-            }
         }
     }
 }
