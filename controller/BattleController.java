@@ -478,18 +478,33 @@ public class BattleController {
         switch (Game.getInstance().getMap().getCells()[force.getX()][force.getY()].getCellType()) {
             case selfHero:
                 if (force.getHealthPoint() == 0) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("enemy won !");
                     alert.show();
+                    try {
+                        Controller.enterMainMenu();
+                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                     AllDatas.gameBoolean = false;
                 }
                 break;
             case enemyHero:
                 if (force.getHealthPoint() == 0) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("you won !");
                     alert.show();
-                    AllDatas.gameBoolean = false;
+                    try {
+                        Controller.enterMainMenu();
+                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
                 }
                 break;
             case selfMinion:

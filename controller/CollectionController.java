@@ -32,7 +32,7 @@ import java.util.logging.SocketHandler;
 
 import static model.collection.Account.PLAYERS_FOLDER;
 
-public class CollectionController {
+public class CollectionController{
 
     private static boolean isChoosingForCreatingNewDeck = false;
     private static Deck deckIsBeingCreated;

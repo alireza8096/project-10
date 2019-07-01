@@ -161,7 +161,7 @@ public class Hand {
     public static void showHand() {
         for (Card card :
                 Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()) {
-            System.out.println(card.getName() + " : " + card.getCardType() + " " + card.getMana());
+//            System.out.println(card.getName() + " : " + card.getCardType() + " " + card.getMana());
         }
     }
 
