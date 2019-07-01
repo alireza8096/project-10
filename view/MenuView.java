@@ -367,7 +367,7 @@ public class MenuView {
         background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
         background.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
             Hand.setSelectedInHand(false);
-            Cell.setaForceIsSelected(false);
+            Cell.setAForceIsSelected(false);
             resetMap();
         });
 
@@ -377,7 +377,7 @@ public class MenuView {
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
         middleGround.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
                     Hand.setSelectedInHand(false);
-                    Cell.setaForceIsSelected(false);
+                    Cell.setAForceIsSelected(false);
                     resetMap();
                 }
         );
