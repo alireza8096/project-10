@@ -17,15 +17,25 @@ public class Spell extends Card implements Cloneable{
 //    public static ArrayList<String> spellNames = new ArrayList<>();
     private static ArrayList<Spell> spells = new ArrayList<>();
     private String desc;
-    private String target;
-    private String numOfTarget;
+//    private String target;
+//    private String numOfTarget;
     private ArrayList<String> actionTypes;
     private ArrayList<Buff> buffs = new ArrayList<>();
     private ArrayList<Buff> actions = new ArrayList<>();
-    private String friendOrEnemy;
-    private String locationOfTarget;
+//    private String friendOrEnemy;
+//    private String locationOfTarget;
 
     //Todo : checking start
+    private String specificationOfTargets;
+
+    public String getSpecificationOfTargets() {
+        return specificationOfTargets;
+    }
+
+    public void setSpecificationOfTargets(String specificationOfTargets) {
+        this.specificationOfTargets = specificationOfTargets;
+    }
+
     private ArrayList<Force> forceTargets = new ArrayList<>();
     private ArrayList<Cell> cellTargets = new ArrayList<>();
     private Target spellTarget;
@@ -52,6 +62,13 @@ public class Spell extends Card implements Cloneable{
         return spells;
     }
 
+    public Target getSpellTarget() {
+        return spellTarget;
+    }
+
+    public void setSpellTarget(Target spellTarget) {
+        this.spellTarget = spellTarget;
+    }
 
     public ArrayList<Buff> getBuffs() {
         return buffs;
@@ -71,18 +88,20 @@ public class Spell extends Card implements Cloneable{
                  String locationOfTarget,String imagePath,String inField) throws FileNotFoundException {
         super(mana, id, cardType, name, price, imagePath,inField);
         this.desc = desc;
-        this.target = target;
-        this.numOfTarget = numOfTarget;
+//        this.target = target;
+//        this.numOfTarget = numOfTarget;
         this.actionTypes = Force.returnArrayList(actionType);
-        this.friendOrEnemy = friendOrEnemy;
-        this.locationOfTarget = locationOfTarget;
+//        this.friendOrEnemy = friendOrEnemy;
+//        this.locationOfTarget = locationOfTarget;
+        this.spellTarget = new Target(target, numOfTarget, locationOfTarget, friendOrEnemy);
     }
     public Spell(String target,String numOfTarget,String actionType,String friendOrEnemy,String locationOfTarget){
-        this.target = target;
-        this.numOfTarget = numOfTarget;
+//        this.target = target;
+//        this.numOfTarget = numOfTarget;
         this.actionTypes = Force.returnArrayList(actionType);
-        this.friendOrEnemy = friendOrEnemy;
-        this.locationOfTarget = locationOfTarget;
+//        this.friendOrEnemy = friendOrEnemy;
+//        this.locationOfTarget = locationOfTarget;
+        this.spellTarget = new Target(target, numOfTarget, locationOfTarget, friendOrEnemy);
     }
 
     public String getDesc() {

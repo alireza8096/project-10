@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Item extends Card implements Cloneable {
 
@@ -21,7 +22,8 @@ public class Item extends Card implements Cloneable {
     private String user;
     private String activationTime;
 
-    public Item(Spell spell, String itemType, String price, String name, String id, String desc, String specification, String user, String activationTime, String imagePath, String inField) throws FileNotFoundException {
+    public Item(Spell spell, String itemType, String price, String name, String id,
+                String desc, String specification, String user, String activationTime, String imagePath, String inField) throws FileNotFoundException {
         super("0", id, "item", name, price, imagePath, inField);
         this.spell = spell;
         this.itemType = itemType;
@@ -30,6 +32,30 @@ public class Item extends Card implements Cloneable {
         this.user = user;
         this.activationTime = activationTime;
         this.cardType = "item";
+    }
+
+    public String getSpecification() {
+        return specification;
+    }
+
+    public void setSpecification(String specification) {
+        this.specification = specification;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getActivationTime() {
+        return activationTime;
+    }
+
+    public void setActivationTime(String activationTime) {
+        this.activationTime = activationTime;
     }
 
     public Spell getSpell() {
@@ -110,6 +136,86 @@ public class Item extends Card implements Cloneable {
         }
         return "";
     }
+
+    public void insertCollectibleItemInThisCoordination(int x, int y){
+        if (checkIfTargetIsValid(x, y)){
+            applyCollectibleItem(x, y);
+        }else{
+            GameView.printInvalidCommandWithThisContent("Target is not valid!");
+        }
+    }
+
+    public void applyCollectibleItem(int x, int y){
+        Target itemTarget = this.spell.getSpellTarget();
+        String numOfTargets = itemTarget.getNumOfTargets();
+
+        if (numOfTargets.equals("1")){
+            applyCollectibleItemOnOneForce(x, y);
+        }else{
+            applyCollectibleItemOnAllForces(x, y);
+        }
+    }
+
+    public void applyCollectibleItemOnOneForce(int x, int y){
+        //Todo : don't know if it works properly or not!?
+        this.spell.getSpellTarget().setTargetOfSpell(this.spell, x, y);
+        this.spell.applySpellOnItsTargets();
+    }
+
+    public void applyCollectibleItemOnAllForces(int x, int y){
+        //just for "shamshire chini"
+        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+            if (minion.getAttackType().equals("melee")){
+                this.spell.getForceTargets().add(minion);
+            }
+        }
+        if (Game.getInstance().getMap().getFriendHero().getAttackType().equals("melee"))
+            this.spell.getForceTargets().add(Game.getInstance().getMap().getFriendHero());
+    }
+
+    public boolean checkIfTargetIsValid(int x, int y){
+        Target itemTarget = this.spell.getSpellTarget();
+        String target = itemTarget.getTarget();
+
+        switch (target){
+            case "minion":
+                if (Game.getInstance().getMap().getCells()[x][y].minionIsOnCell() &&
+                        checkIfTargetSpecificationIsRight(x, y))
+                    return true;
+                break;
+            case "minion/hero":
+                if ((Game.getInstance().getMap().getCells()[x][y].minionIsOnCell() ||
+                Game.getInstance().getMap().getCells()[x][y].heroIsOnCell()) &&
+                        checkIfTargetSpecificationIsRight(x, y))
+                    return true;
+                break;
+            case "null":
+                return false;
+        }
+        return false;
+    }
+
+    public boolean checkIfTargetSpecificationIsRight(int x, int y){
+        String specification = this.specification;
+
+        switch (specification){
+            case "ranged/hybrid":
+                if (((Force) Objects.requireNonNull(Card.getCardByCoordination(x, y))).getAttackType().equals("ranged") ||
+                        ((Force) Objects.requireNonNull(Card.getCardByCoordination(x, y))).getAttackType().equals("hybrid")){
+                    return true;
+                }
+                break;
+            case "melee":
+                if (((Force) Objects.requireNonNull(Card.getCardByCoordination(x, y))).getAttackType().equals("melee"))
+                    return true;
+                break;
+            case "null":
+                return true;
+        }
+        return false;
+    }
+
+
 
 
 //    public static Item returnFlagByRandomCoordination(){
@@ -363,10 +469,6 @@ public class Item extends Card implements Cloneable {
 //                break;
 //        }
 //    }
-
-    public void applyUsableItemOnMinionOrHero() {
-
-    }
 
 }
 

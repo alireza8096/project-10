@@ -1,5 +1,6 @@
 package model.collection;
 
+import model.AttackType;
 import model.Cell;
 import model.CellType;
 import model.Game;
@@ -110,6 +111,15 @@ public class Target {
     }
 
     public void setOneForceTarget(Spell spell, int x, int y){
+        String specification = spell.getSpecificationOfTargets();
+        if (specification == null){
+            spell.getForceTargets().add(((Force)Card.getCardByCoordination(x, y)));
+        }else if (specification.equals("melee")){
+
+        }else  if (specification.equals("ranged/hybrid")){
+
+        }
+
         spell.getForceTargets().add(((Force)Card.getCardByCoordination(x, y)));
     }
 
