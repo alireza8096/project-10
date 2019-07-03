@@ -35,7 +35,7 @@ public class Force extends Card {
     private boolean canMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
-    private String specialPower;
+//    private String specialPower;
 
 
     //Todo : added recently from here
@@ -62,25 +62,24 @@ public class Force extends Card {
 
     //Todo : to here
 
-    public static ArrayList<String> returnArrayList(String toArray){
+    public static ArrayList<String> returnArrayList(String toArray) {
         ArrayList<String> returnString = new ArrayList<>();
         String[] splitter = toArray.split(",");
-        if(!splitter[0].equals("null")) Collections.addAll(returnString,splitter);
+        if (!splitter[0].equals("null")) Collections.addAll(returnString, splitter);
         return returnString;
     }
 
-    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets,String imagePath,String inField) throws FileNotFoundException {
-        super(mana, id, cardType, name, price,imagePath,inField);
+    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String imagePath, String inField) throws FileNotFoundException {
+        super(mana, id, cardType, name, price, imagePath, inField,specialPower);
         this.targets = returnArrayList(targets);
         this.numOfTargets = returnArrayList(numOfTargets);
         this.friendOrEnemy = returnArrayList(friendOrEnemy);
         this.healthPoint = Integer.parseInt(healthPoint);
         this.attackPower = Integer.parseInt(attackPower);
         this.attackType = attackType;
-        if(!attackRange.equals("null")) this.attackRange = Integer.parseInt(attackRange);
+        if (!attackRange.equals("null")) this.attackRange = Integer.parseInt(attackRange);
         else this.attackRange = 0;
         this.actionTypes = returnArrayList(actionTypes);
-        this.specialPower = specialPower;
         this.locationOfTargets = returnArrayList(locationOfTargets);
     }
 
@@ -236,53 +235,45 @@ public class Force extends Card {
         this.hasHolyBuff = hasHolyBuff;
     }
 
-    public String getSpecialPower() {
-        return specialPower;
-    }
-
-    public void setSpecialPower(String specialPower) {
-        this.specialPower = specialPower;
-    }
-
-    public static Force getRandomForce(){
+    public static Force getRandomForce() {
         Random random = new Random();
         int randomNumber = random.nextInt(2);
-        if (randomNumber == 0){
+        if (randomNumber == 0) {
             return getRandomEnemyForce();
-        }else{
+        } else {
             return getRandomFriendForce();
         }
     }
 
-    public static Force getRandomEnemyForce(){
+    public static Force getRandomEnemyForce() {
         Random random = new Random();
         int minionOrHero = random.nextInt(2);
-        if (minionOrHero == 0){//return a minion
+        if (minionOrHero == 0) {//return a minion
             int minionNumber = random.nextInt(Game.getInstance().getMap().getEnemyMinions().size());
             return Game.getInstance().getMap().getEnemyMinions().get(minionNumber);
-        }else{//return a hero
+        } else {//return a hero
             return Game.getInstance().getMap().getEnemyHero();
         }
     }
 
-    public static Force getRandomFriendForce(){
+    public static Force getRandomFriendForce() {
         Random random = new Random();
         int minionOrHero = random.nextInt(2);
-        if (minionOrHero == 0){//return a minion
+        if (minionOrHero == 0) {//return a minion
             int minionNumber = random.nextInt(Game.getInstance().getMap().getFriendMinions().size());
             return Game.getInstance().getMap().getFriendMinions().get(minionNumber);
-        }else{//return a hero
+        } else {//return a hero
             return Game.getInstance().getMap().getFriendHero();
         }
     }
 
-    public static Force getRandomFriendMinion(){
+    public static Force getRandomFriendMinion() {
         Random random = new Random();
         int minionIndex = random.nextInt(Game.getInstance().getMap().getFriendMinions().size());
         return Game.getInstance().getMap().getFriendMinions().get(minionIndex);
     }
 
-    public static Force getRandomEnemyMinion(){
+    public static Force getRandomEnemyMinion() {
         Random random = new Random();
         int minionIndex = random.nextInt(Game.getInstance().getMap().getEnemyMinions().size());
         return Game.getInstance().getMap().getEnemyMinions().get(minionIndex);
@@ -297,17 +288,19 @@ public class Force extends Card {
             }
         }
     }
+
     //TODO : erase this below
-    public static boolean forceIsEnemyAndIsInMap(int id){
-        for(Minion minion : Game.getInstance().getMap().getEnemyMinions()){
-            if(minion.id == id)
+    public static boolean forceIsEnemyAndIsInMap(int id) {
+        for (Minion minion : Game.getInstance().getMap().getEnemyMinions()) {
+            if (minion.id == id)
                 return true;
         }
-        if(Game.getInstance().getMap().getEnemyHero().id == id){
+        if (Game.getInstance().getMap().getEnemyHero().id == id) {
             return true;
         }
         return false;
     }
+
     public static Force returnEnemyCardByIDFromMap(int id) {
         for (Minion minion :
                 Game.getInstance().getMap().getEnemyMinions()) {
@@ -320,40 +313,41 @@ public class Force extends Card {
         }
         return null;
     }
-    public static Force returnCardByIDFromMap(int id){
-        for (Minion minion:
+
+    public static Force returnCardByIDFromMap(int id) {
+        for (Minion minion :
                 Game.getInstance().getMap().getFriendMinions()) {
-            if(minion.id == id){
+            if (minion.id == id) {
                 return minion;
             }
         }
-        if(Game.getInstance().getMap().getFriendHero().id == id){
+        if (Game.getInstance().getMap().getFriendHero().id == id) {
             return Game.getInstance().getMap().getFriendHero();
         }
         return null;
     }
 
-    public void applyAllBuffsOnForce(){
-        for (Buff buff : this.positiveBuffsOnItself){
+    public void applyAllBuffsOnForce() {
+        for (Buff buff : this.positiveBuffsOnItself) {
             if (!buff.isUsed())
                 buff.applyBuffOnForce(this);
         }
 
-        for (Buff buff : this.negativeBuffsOnItself){
+        for (Buff buff : this.negativeBuffsOnItself) {
             if (!buff.isUsed())
                 buff.applyBuffOnForce(this);
         }
 
-        for (Buff buff : this.actionBuffsOnItself){
+        for (Buff buff : this.actionBuffsOnItself) {
             if (!buff.isUsed())
                 buff.applyBuffOnForce(this);
         }
     }
 
-    public void dispelForcePositively(){
-        if (thisForceIsFriend()){
+    public void dispelForcePositively() {
+        if (thisForceIsFriend()) {
             this.positiveBuffsOnItself.clear();
-        }else{
+        } else {
             this.negativeBuffsOnItself.clear();
         }
     }
@@ -368,7 +362,7 @@ public class Force extends Card {
         return false;
     }
 
-    public boolean thisForceIsEnemy(){
+    public boolean thisForceIsEnemy() {
         for (Card card : Game.getInstance().getMap().getEnemyMinions()) {
             if (card.getName().equals(this.name))
                 return true;

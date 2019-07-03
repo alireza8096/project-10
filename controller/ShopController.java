@@ -28,7 +28,7 @@ public class ShopController {
         commands[1].compareToIgnoreCase("collection") == 0){
             showHeroesInCollection();
             showItemsInCollection();
-            showCardsInCollection();
+//            showCardsInCollection();
             AllDatas.hasEnteredShop = true;
         }
     }
@@ -140,15 +140,6 @@ public class ShopController {
             if(object == null){
                 array.remove(object);
             }
-        }
-    }
-    public static void showCardsInCollection(){
-        ArrayList<Card> cardsInCollection = new ArrayList<>(Game.getInstance().getPlayer1().getCardsInCollection());
-        omitNull(cardsInCollection);
-        System.out.println("Cards :");
-        for(int i=1; i<=cardsInCollection.size(); i++){
-            if (cardsInCollection.get(i - 1) != null)
-                System.out.println(i + " : " + GameView.showCard(cardsInCollection.get(i-1)));
         }
     }
 

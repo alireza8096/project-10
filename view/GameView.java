@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import model.Deck;
 import model.Game;
+import model.Player;
 import model.collection.*;
 import model.GraveYard;
 import org.json.simple.JSONObject;
@@ -56,7 +57,7 @@ public class GameView {
     public static String showMinion(Minion minion){
         return ("Type : Minion - Name : " +
                 minion.getName() + " – Class: " + minion.getAttackType() + " - AP : " + minion.getAttackPower() + " - HP : "
-                + minion.getHealthPoint() + " – MP : " + minion.getMana() + " - Special Power : " +minion.getSpecialPower() +" – Sell Cost : " + minion.getPrice());
+                + minion.getHealthPoint() + " – MP : " + minion.getMana() + " - Special Power : " +minion.getDesc() +" – Sell Cost : " + minion.getPrice());
     }
     public static String showSpell(Spell spell){
         return ("Type : Spell - Name : " +
@@ -65,7 +66,7 @@ public class GameView {
 
     public static String showHero(Hero hero){
         return ("Name : " + hero.getName() + " - AP : " + hero.getAttackPower() +
-                " – HP : " + hero.getHealthPoint() + " – Class : " + hero.getAttackType() +" - Special power : " + hero.getSpecialPower()
+                " – HP : " + hero.getHealthPoint() + " – Class : " + hero.getAttackType() +" - Special power : " + hero.getDesc()
          +". - Sell Cost : " + hero.getPrice());
     }
     public static void showDeck(String deckName) throws CloneNotSupportedException {
@@ -124,6 +125,47 @@ public class GameView {
 //            GameView.showCard(cardName);
 //        }
 //    }
+
+    public static void setAllImagesForCards(Player player){
+        try {
+            for (Card card : player.getCardsInCollection()) {
+                card.setImageViewOfCard(Card.findCardByName(card.getName()).getImageViewOfCard());
+                card.setForceInField(Card.findCardByName(card.getName()).getForceInField());
+            }
+            for (Hero hero: player.getHeroesInCollection()) {
+                hero.setImageViewOfCard(Hero.findHeroByName(hero.getName()).getImageViewOfCard());
+                hero.setForceInField(Hero.findHeroByName(hero.getName()).getForceInField());
+            }
+            for (Item item : player.getItemsInCollection()) {
+                item.setImageViewOfCard(Item.findItemByName(item.getName()).getImageViewOfCard());
+                item.setForceInField(Item.findItemByName(item.getName()).getForceInField());
+            }
+            for (Deck deck : player.getDecksOfPlayer()) {
+                setAllImagesForDecks(deck);
+            }
+            setAllImagesForDecks(player.getMainDeck());
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void setAllImagesForDecks(Deck deck){
+        try {
+            deck.getHeroInDeck().setImageViewOfCard(Hero.findHeroByName(deck.getHeroInDeck().getName()).getImageViewOfCard());
+            deck.getHeroInDeck().setForceInField(Hero.findHeroByName(deck.getHeroInDeck().getName()).getForceInField());
+            for (Card card : deck.getCardsInDeck()) {
+                card.setForceInField(Card.findCardByName(card.getName()).getForceInField());
+                card.setImageViewOfCard(Card.findCardByName(card.getName()).getImageViewOfCard());
+            }
+            for(Item item : deck.getItemsInDeck()){
+                item.setForceInField(Item.findItemByName(item.getName()).getForceInField());
+                item.setImageViewOfCard(Item.findItemByName(item.getName()).getImageViewOfCard());
+            }
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void printInvalidCommandWithThisContent(String content){
 

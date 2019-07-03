@@ -17,7 +17,6 @@ public class Spell extends Card implements Cloneable{
 
 //    public static ArrayList<String> spellNames = new ArrayList<>();
     private static ArrayList<Spell> spells = new ArrayList<>();
-    private String desc;
 //    private String target;
 //    private String numOfTarget;
     private ArrayList<String> actionTypes;
@@ -111,8 +110,7 @@ public class Spell extends Card implements Cloneable{
     public Spell(String mana, String id, String cardType, String name, String price, String desc,
                  String target, String numOfTarget, String actionType, String friendOrEnemy,
                  String locationOfTarget,String imagePath,String inField) throws FileNotFoundException {
-        super(mana, id, cardType, name, price, imagePath,inField);
-        this.desc = desc;
+        super(mana, id, cardType, name, price, imagePath,inField,desc);
 //        this.target = target;
 //        this.numOfTarget = numOfTarget;
         this.actionTypes = Force.returnArrayList(actionType);
@@ -127,14 +125,6 @@ public class Spell extends Card implements Cloneable{
 //        this.friendOrEnemy = friendOrEnemy;
 //        this.locationOfTarget = locationOfTarget;
         this.spellTarget = new Target(target, numOfTarget, locationOfTarget, friendOrEnemy);
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public static Spell findSpellByID(int id) throws CloneNotSupportedException {

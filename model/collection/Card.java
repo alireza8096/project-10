@@ -36,19 +36,31 @@ public class Card implements Cloneable {
     protected int x;
     protected int y;
     protected boolean inGame;
-    protected ImageView imageViewOfCard;
-    private Image forceInField;
-
+    protected transient ImageView imageViewOfCard;
+    private transient Image forceInField;
+    private String desc;
 
     public Card() {
 
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Image getForceInField() {
         return forceInField;
     }
 
-    public Card(String mana, String id, String cardType, String name, String price, String imagePath, String inField) throws FileNotFoundException {
+    public void setForceInField(Image forceInField) {
+        this.forceInField = forceInField;
+    }
+
+    public Card(String mana, String id, String cardType, String name, String price, String imagePath, String inField,String desc) throws FileNotFoundException {
         if (mana.equals("null")) this.mana = 0;
         else this.mana = Integer.parseInt(mana);
         this.id = Integer.parseInt(id);
@@ -58,6 +70,7 @@ public class Card implements Cloneable {
         else this.price = 0;
         this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
         this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
+        this.desc = desc;
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {
@@ -299,18 +312,19 @@ public class Card implements Cloneable {
         //Todo : implementing
     }
 
-    public boolean isEnemy(int x,int y){
-        for(Minion minion : Game.getInstance().getMap().getEnemyMinions()){
-            if(minion.getX() == x && minion.getY() == y){
+    public boolean isEnemy(int x, int y) {
+        for (Minion minion : Game.getInstance().getMap().getEnemyMinions()) {
+            if (minion.getX() == x && minion.getY() == y) {
                 return true;
             }
         }
-        if(Game.getInstance().getMap().getEnemyHero().getX() == x
-                && Game.getInstance().getMap().getEnemyHero().getY() == y){
+        if (Game.getInstance().getMap().getEnemyHero().getX() == x
+                && Game.getInstance().getMap().getEnemyHero().getY() == y) {
             return true;
         }
         return false;
     }
+
     public static Card getCardByCoordination(int x, int y) {
         Map map = Game.getInstance().getMap();
         for (Card card : map.getFriendMinions()) {
@@ -364,20 +378,6 @@ public class Card implements Cloneable {
         return null;
     }
 
-    public Text getTextForCard() {
-        switch (cardType) {
-            case "minion":
-                return new Text(((Minion) this).getSpecialPower());
-            case "spell":
-                return new Text(((Spell) this).getDesc());
-            case "item":
-                return new Text(((Item) this).getDesc());
-            case "hero":
-                return new Text(((Hero) this).getSpecialPower());
-        }
-        return null;
-    }
-
     public static Card findCardInCollectionByID(int cardID) {
         switch (cardID / 100) {
             case 1:
@@ -392,23 +392,23 @@ public class Card implements Cloneable {
         return null;
     }
 
-    public static Spell findSpellInCollection(int cardID){
+    public static Spell findSpellInCollection(int cardID) {
         Iterator<Card> iterator = Game.getInstance().getPlayer1().getCardsInCollection().iterator();
         while (iterator.hasNext()) {
             Card card = iterator.next();
             if (card.getId() == cardID)
-                return (Spell)card;
+                return (Spell) card;
         }
         return null;
     }
 
 
-    public static Minion findMinionInCollection(int cardID) {
+    public static Card findMinionInCollection(int cardID) {
         Iterator<Card> iterator = Game.getInstance().getPlayer1().getCardsInCollection().iterator();
         while (iterator.hasNext()) {
             Card card = iterator.next();
             if (card.getId() == cardID)
-                return (Minion)card;
+                return card;
         }
         return null;
     }
@@ -436,17 +436,7 @@ public class Card implements Cloneable {
     }
 
     public void setDescOfCard(Text text) throws FileNotFoundException {
-        String cardType = this.getCardType();
-        if (cardType.equals("spell")){
-            text.setText(((Spell)this).getDesc());
-        }else if (cardType.equals("item")){
-            text.setText(((Item)this).getDesc());
-        }else if (cardType.equals("minion")){
-            text.setText(((Minion)this).getSpecialPower());
-        }else{
-            text.setText(((Hero)this).getSpecialPower());
-        }
-
+        text.setText(this.desc);
         Font font = Font.loadFont(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Fonts/averta-regularitalic-webfont.ttf"), 10);
         text.setWrappingWidth(Shop.CARD_IN_SHOP_WIDTH - 30);

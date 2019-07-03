@@ -61,6 +61,7 @@ public class Message {
                     try {
                         Controller.enterMainMenu();
                         Game.setCurrentGame(createGame);
+                        GameView.setAllImagesForCards(player);
                         Game.getInstance().setPlayer1(player);
                         Game.getInstance().setPlayer1Turn(true);
                         AllDatas.account.setNowInThisMenu(false);

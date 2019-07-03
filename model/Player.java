@@ -6,22 +6,23 @@ import model.collection.*;
 
 import java.util.ArrayList;
 import java.lang.String;
-public class Player implements Cloneable{
 
-    private transient ArrayList<Deck> decksOfPlayer = new ArrayList<>();
-    private transient Deck mainDeck;
+public class Player implements Cloneable {
+
+    private ArrayList<Deck> decksOfPlayer = new ArrayList<>();
+    private Deck mainDeck;
     private String userName;
     private String password;
-    private transient IntegerProperty daricProperty = new SimpleIntegerProperty();
+//    private IntegerProperty daricProperty = new SimpleIntegerProperty();
     private int daric;
-    private transient Game lastGame;
+    private Game lastGame;
     private int numOfMana;
     private int numOfWins;
-    private  boolean addingManaBuffIsActive;//Todo maybe have problems when applying several buffs
-    private transient ArrayList<Card> cardsInCollection = new ArrayList<>();
-    private transient ArrayList<Item> itemsInCollection = new ArrayList<>();
-    private transient ArrayList<Hero> heroesInCollection = new ArrayList<>();
-    private  int numberOfTurnsThatPlayerHasFlag;
+    private boolean addingManaBuffIsActive;//Todo maybe have problems when applying several buffs
+    private ArrayList<Card> cardsInCollection = new ArrayList<>();
+    private ArrayList<Item> itemsInCollection = new ArrayList<>();
+    private ArrayList<Hero> heroesInCollection = new ArrayList<>();
+    private int numberOfTurnsThatPlayerHasFlag;
 
     public int getNumberOfTurnsThatPlayerHasFlag() {
         return numberOfTurnsThatPlayerHasFlag;
@@ -31,11 +32,11 @@ public class Player implements Cloneable{
         this.numberOfTurnsThatPlayerHasFlag = numberOfTurnsThatPlayerHasFlag;
     }
 
-    public Player(String name){
+    public Player(String name) {
         this.setUserName(name);
     }
 
-    public Player(String userName, String password){
+    public Player(String userName, String password) {
         this.setUserName(userName);
         this.setPassword(password);
     }
@@ -96,17 +97,17 @@ public class Player implements Cloneable{
         this.password = password;
     }
 
-    public int getDaricProperty() {
-        return daricProperty.get();
-    }
-
-    public IntegerProperty daricPropertyProperty() {
-        return daricProperty;
-    }
-
-    public void setDaricProperty(int daricProperty) {
-        this.daricProperty.set(daricProperty);
-    }
+//    public int getDaricProperty() {
+//        return daricProperty.get();
+//    }
+//
+//    public IntegerProperty daricPropertyProperty() {
+//        return daricProperty;
+//    }
+//
+//    public void setDaricProperty(int daricProperty) {
+//        this.daricProperty.set(daricProperty);
+//    }
 
     public int getDaric() {
         return daric;
@@ -164,9 +165,9 @@ public class Player implements Cloneable{
 //        this.coordinateY = coordinateY;
 //    }
 
-    public boolean thisCardOrItemIsAvailableInCollection(String name){
-        if(Minion.thisCardIsMinion(name) || Spell.thisCardIsSpell(name) ||
-        Hero.thisCardIsHero(name) || Item.thisCardIsItem(name)) {
+    public boolean thisCardOrItemIsAvailableInCollection(String name) {
+        if (Minion.thisCardIsMinion(name) || Spell.thisCardIsSpell(name) ||
+                Hero.thisCardIsHero(name) || Item.thisCardIsItem(name)) {
             for (Card card : this.getCardsInCollection()) {
                 if (card.getName().equals(name))
                     return true;
@@ -188,12 +189,12 @@ public class Player implements Cloneable{
         return false;
     }
 
-    public void handleManaAtTheFirstOfTurn(){
+    public void handleManaAtTheFirstOfTurn() {
         int turnNumber = Game.getInstance().getNumOfRound();
         int key = turnNumber / 2;
-        if (turnNumber <= 14){
+        if (turnNumber <= 14) {
             Game.getInstance().getPlayer1().setNumOfMana(2 + key);
-        }else{
+        } else {
             Game.getInstance().getPlayer1().setNumOfMana(9);
         }
     }

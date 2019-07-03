@@ -94,7 +94,7 @@ public class MenuView {
 
         setBackgroundOfMainMenu();
 
-        Font herculanum = Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"),25);
+        Font herculanum = Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 25);
         VBox vBox = new VBox();
 
         Hyperlink shopOption = new Hyperlink("Shop");
@@ -134,7 +134,7 @@ public class MenuView {
         setMargin(logoutOption, new Insets(7, 10, 10, 100));
         setMargin(saveOption, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption,saveOption);
+        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
         MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption);
@@ -264,16 +264,16 @@ public class MenuView {
     public static Hyperlink setHBoxForHyperlinksInShop(HBox hBox, String type) throws FileNotFoundException {
         String fileName;
         String text;
-        if (type.equals("minion")){
+        if (type.equals("minion")) {
             fileName = HandleFiles.BEFORE_RELATIVE + "view/Photos/minion.png";
             text = "Minions";
-        }else if (type.equals("spell")){
-            fileName =  HandleFiles.BEFORE_RELATIVE + "view/Photos/spell.png";
+        } else if (type.equals("spell")) {
+            fileName = HandleFiles.BEFORE_RELATIVE + "view/Photos/spell.png";
             text = "Spells";
-        }else if (type.equals("hero")){
+        } else if (type.equals("hero")) {
             fileName = HandleFiles.BEFORE_RELATIVE + "view/Photos/Heroes.png";
             text = "Heroes";
-        }else{
+        } else {
             fileName = HandleFiles.BEFORE_RELATIVE + "view/Photos/Item.png";
             text = "Items";
         }
@@ -297,13 +297,13 @@ public class MenuView {
         currentDaric.setTextFill(Color.rgb(45, 58, 58));
         currentDaric.setFont(Font.font(null, FontWeight.BOLD, 20));
 
-        currentDaric.textProperty().bind(Game.getInstance().getPlayer1().daricPropertyProperty().asString());
+//        currentDaric.textProperty().bind(Game.getInstance().getPlayer1().daricPropertyProperty().asString());
 
 
         return new StackPane(imageView, currentDaric);
     }
 
-    public static StackPane setBackButtonForShop(){
+    public static StackPane setBackButtonForShop() {
         ImageView backButton = null;
         try {
             backButton = new ImageView(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE
@@ -346,9 +346,9 @@ public class MenuView {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
-    public static void resetMap(){
-        for(int i=0; i<9; i++){
-            for (int j=0;j<5; j++){
+    public static void resetMap() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 5; j++) {
                 try {
                     Map.getCellsView()[i][j].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/tiles_board.png")));
                 } catch (FileNotFoundException e) {
@@ -357,25 +357,26 @@ public class MenuView {
             }
         }
     }
+
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
 
         ImageView background = MainView.getPhotoWithThisPath(
-                HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/background@2x.jpg");
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/background@2x.jpg");
         background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
-        background.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
+        background.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             Hand.setSelectedInHand(false);
             Cell.setAForceIsSelected(false);
             resetMap();
         });
 
         ImageView middleGround = MainView.getPhotoWithThisPath(
-                HandleFiles.BEFORE_RELATIVE +"view/Photos/battle/midground@2x.png");
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/midground@2x.png");
         middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
         middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
-        middleGround.addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
+        middleGround.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                     Hand.setSelectedInHand(false);
                     Cell.setAForceIsSelected(false);
                     resetMap();
@@ -390,7 +391,7 @@ public class MenuView {
         Game.getInstance().setMap(new Map());
         AI.createAIPlayer();
         Hero.insertHeroInMap();
-        Rectangle rectangle = new Rectangle(258,293);
+        Rectangle rectangle = new Rectangle(258, 293);
         rectangle.setX(100);
         rectangle.setY(100);
         ImageView yourProfile = new ImageView(Game.getInstance().getMap().getFriendHero().getImageViewOfCard().getImage());
@@ -400,7 +401,7 @@ public class MenuView {
         yourProfile.fitHeightProperty().bind(rectangle.heightProperty());
         AllDatas.currentRoot.getChildren().add(yourProfile);
 
-        AllDatas.currentRoot.getChildren().addAll(Game.getYourHbox(),Game.getEnemyHbox());
+        AllDatas.currentRoot.getChildren().addAll(Game.getYourHbox(), Game.getEnemyHbox());
         ImageView enemyProfile = new ImageView(Game.getInstance().getMap().getEnemyHero().getImageViewOfCard().getImage());
         enemyProfile.setX(1300);
         enemyProfile.setY(30);
@@ -409,13 +410,12 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(enemyProfile);
 
 
-
         Cell.handleCell();
         Cell.handleForce();
         Hand.createHand();
         Hand.setHand();
         Hand.handController();
-        BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE+"view/Photos/battle/button_end_turn_mine@2x.png"));
+        BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_end_turn_mine@2x.png"));
         AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
         BattleView.handleEndTurn();
     }
@@ -453,7 +453,7 @@ public class MenuView {
 //                showCollection();
                 break;
             case "Shop":
-                 showShop();
+                showShop();
                 break;
             case "Battle":
                 showBattle();
@@ -649,11 +649,7 @@ public class MenuView {
         image.setFitHeight(Shop.CARD_IMAGE_IN_SHOP_HEIGHT);
 
         Text desc = new Text();
-        try {
-            card.setDescOfCard(desc);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        card.setDescOfCard(desc);
 
         Label cardType = new Label(card.getCardType());
         cardType.setTextFill(rgb(172, 239, 250));
@@ -683,7 +679,7 @@ public class MenuView {
         }
     }
 
-    public static void showCardForBuying (Card card) throws FileNotFoundException {
+    public static void showCardForBuying(Card card) throws FileNotFoundException {
         StackPane stackPane = new StackPane();
         setImageForCardInShop(card, stackPane);
 
@@ -715,21 +711,21 @@ public class MenuView {
         GameView.makeImageGlowWhileMouseEnters(cancelButton);
         GameView.makeImageGlowWhileMouseEnters(buyCardButton);
 
-        generalVBox.setLayoutX(WINDOW_WIDTH/2 + 30);
-        generalVBox.setLayoutY(WINDOW_HEIGHT/2 - 200);
+        generalVBox.setLayoutX(WINDOW_WIDTH / 2 + 30);
+        generalVBox.setLayoutY(WINDOW_HEIGHT / 2 - 200);
 
         ShopController.handleEventsOfBuyingCard(generalVBox, cancelButton, buyCardButton, card);
     }
 
     public static VBox addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
         ImageView priceBack = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
         ImageView manaBack = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_back.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
         ImageView priceIcon = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/price_icon.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_icon.png")));
         ImageView manaIcon = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE+"view/Photos/shop/icon_mana.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/icon_mana.png")));
 
         priceBack.setFitWidth(200);
         priceBack.setFitHeight(70);
@@ -807,7 +803,7 @@ public class MenuView {
         backButton.setFitWidth(300);
         backButton.setFitHeight(120);
 
-        Text cardsText= new Text("Show Cards");
+        Text cardsText = new Text("Show Cards");
         cardsText.setFont(Font.font(25));
         cardsText.setFill(Color.rgb(178, 247, 255));
         Text decksText = new Text("Show Decks");
@@ -831,16 +827,16 @@ public class MenuView {
 
         stackPane.getChildren().add(buttonsVBox);
         stackPane.setAlignment(Pos.CENTER);
-        stackPane.setLayoutX(MenuView.WINDOW_WIDTH/2 - 150);
-        stackPane.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 120);
+        stackPane.setLayoutX(MenuView.WINDOW_WIDTH / 2 - 150);
+        stackPane.setLayoutY(MenuView.WINDOW_HEIGHT / 2 - 120);
 
         GameView.makeImageGlowWhileMouseEnters(cardsStackPane, decksStackPane, backStackPane);
 
         CollectionController.handleEventsOfCollectionOptions(cardsStackPane, decksStackPane, backStackPane);
     }
 
-    public static void showDecksInCollection(){
-        try{
+    public static void showDecksInCollection() {
+        try {
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
 
@@ -858,7 +854,7 @@ public class MenuView {
 
             showDecks(deckTabPane, decks);
 
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -921,8 +917,8 @@ public class MenuView {
         CollectionController.handleEventsOfCreatingNewDeck(cancelStack, createStack, deckName, createDeckVBox);
     }
 
-    private static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks){
-        for (Deck deck : decks){
+    private static void showDecks(TabPane decksTabPane, ArrayList<Deck> decks) {
+        for (Deck deck : decks) {
             Tab deckTab = new Tab(deck.getDeckName());
 
             deckTab.setOnSelectionChanged(event -> Deck.setSelectedDeck(deck));
@@ -933,7 +929,7 @@ public class MenuView {
             ArrayList<Hero> heroInDeck = new ArrayList<>();
             heroInDeck.add(deck.getHeroInDeck());
             if (!deck.getCardsInDeck().contains(null))
-                 addCardsToVBox(deck.getCardsInDeck(), eachDeckVBox);
+                addCardsToVBox(deck.getCardsInDeck(), eachDeckVBox);
             if (!deck.getItemsInDeck().contains(null))
                 addCardsToVBox(deck.getItemsInDeck(), eachDeckVBox);
             if (!heroInDeck.contains(null))
@@ -941,7 +937,7 @@ public class MenuView {
         }
     }
 
-    public static void showCards(VBox generalVBox){
+    public static void showCards(VBox generalVBox) {
         generalVBox.getChildren().clear();
 
         VBox cardsVBox = new VBox();
@@ -1058,7 +1054,7 @@ public class MenuView {
         return stackPane;
     }
 
-    public static void showCardsInCollection(){
+    public static void showCardsInCollection() {
         try {
             AllDatas.currentRoot.getChildren().clear();
             setBackGroundOfCollection();
@@ -1087,14 +1083,14 @@ public class MenuView {
             AllDatas.currentRoot.getChildren().addAll(buttonsVBox, generalVBox);
             showCards(generalVBox);
 
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    public static <T extends Card> void addCardsToVBox(ArrayList<T> cards, VBox vBox){
+    public static <T extends Card> void addCardsToVBox(ArrayList<T> cards, VBox vBox) {
         for (int i = 0; i < cards.size(); i++) {
-            if (i + 3 < cards.size()){
+            if (i + 3 < cards.size()) {
                 HBox hBox = new HBox();
                 setAppearanceOfCardsInCollection(hBox, cards.get(i));
                 setAppearanceOfCardsInCollection(hBox, cards.get(i + 1));
@@ -1102,20 +1098,20 @@ public class MenuView {
                 setAppearanceOfCardsInCollection(hBox, cards.get(i + 3));
                 vBox.getChildren().add(hBox);
                 i += 3;
-            }else if (i + 2 < cards.size()){
+            } else if (i + 2 < cards.size()) {
                 HBox hBox = new HBox();
                 setAppearanceOfCardsInCollection(hBox, cards.get(i));
                 setAppearanceOfCardsInCollection(hBox, cards.get(i + 1));
                 setAppearanceOfCardsInCollection(hBox, cards.get(i + 2));
                 vBox.getChildren().add(hBox);
                 i += 3;
-            }else if (i + 1 < cards.size()){
+            } else if (i + 1 < cards.size()) {
                 HBox hBox = new HBox();
                 setAppearanceOfCardsInCollection(hBox, cards.get(i));
                 setAppearanceOfCardsInCollection(hBox, cards.get(i + 1));
                 vBox.getChildren().add(hBox);
                 i += 3;
-            }else {
+            } else {
                 HBox hBox = new HBox();
                 setAppearanceOfCardsInCollection(hBox, cards.get(i));
                 vBox.getChildren().add(hBox);
@@ -1178,7 +1174,7 @@ public class MenuView {
 //        vBox.getChildren().add(hBox);
 //    }
 
-    public static void setAppearanceOfCardsInCollection(HBox hBox, Card card){
+    public static void setAppearanceOfCardsInCollection(HBox hBox, Card card) {
         Font font = null;
         try {
             font = Font.loadFont(new FileInputStream(
@@ -1219,16 +1215,20 @@ public class MenuView {
         vBox.setAlignment(Pos.CENTER);
         vBox.setAccessibleText(Integer.toString(card.getId()));
 
-        if (!CollectionController.isIsChoosingForCreatingNewDeck()) {//is showing cards for selling or completing a deck
-            vBox.setOnMouseClicked(event -> {
+        //is showing cards for selling or completing a deck
+        System.out.println("***selling cards");
+        vBox.setOnMouseClicked(event -> {
+            if (!CollectionController.isIsChoosingForCreatingNewDeck()) {
                 try {
                     if (Controller.getPressedButton().getAccessibleText() != null) {
+                        System.out.println("HERE");
                         if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
                             Deck.getSelectedDeck().addCardToDeck(card);
                             GameView.printInfoMessageWithThisContent(card.getName() +
                                     " was added to " + Deck.getSelectedDeck().getDeckName());
                         }
-                    }else if (!Shop.isIsShowingSpecificCard()) {
+                    } else if (!Shop.isIsShowingSpecificCard()) {
+                        System.out.println("THERE");
                         makeSceneBlur();
                         Shop.setIsShowingSpecificCard(true);
                         showCardForSelling(card, vBox, hBox);
@@ -1236,9 +1236,9 @@ public class MenuView {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            });
-        }else{//is showing cards for creating new deck
-            vBox.setOnMouseClicked(event -> {
+            }
+            else{
+                System.out.println("***createing new deck");
                 if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
                     try {
                         CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
@@ -1246,13 +1246,14 @@ public class MenuView {
                         e.printStackTrace();
                     }
                 }
-            });
-        }
+            }
+        });//is showing cards for creating new deck
+
 
         cardName.setFill(rgb(210, 250, 247));
         hBox.setPadding(new Insets(30));
-
         hBox.getChildren().add(vBox);
+
     }
 
     public static void showCardForSelling(Card card, VBox cardVBox,
@@ -1297,8 +1298,8 @@ public class MenuView {
 
         GameView.makeImageGlowWhileMouseEnters(cancelButton, sellStack);
 
-        cardHBox.setLayoutX(WINDOW_WIDTH/2 + 50);
-        cardHBox.setLayoutY(WINDOW_HEIGHT/2 - 250);
+        cardHBox.setLayoutX(WINDOW_WIDTH / 2 + 50);
+        cardHBox.setLayoutY(WINDOW_HEIGHT / 2 - 250);
 
         cardHBox.getChildren().addAll(cardStack, addPriceAndManaForShowingCard(card, cardHBox));
 

@@ -1,5 +1,6 @@
 package network;
 
+import controller.Controller;
 import model.collection.HandleFiles;
 
 import java.io.PrintStream;
@@ -37,6 +38,7 @@ public class Server {
 
     public Server() throws Exception {
         HandleFiles.createStringOfPlayers();
+        Controller.createAllDataFromJSON();
         serverSocket = new ServerSocket(7766);
         while (true) {
             Socket client = serverSocket.accept();
