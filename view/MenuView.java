@@ -1377,5 +1377,72 @@ public class MenuView {
         CollectionController.handleEventsOfImportingDeck(textField, backStack, importStack);
     }
 
+    public static void showChoosingModeWindow() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
 
+        setBackGroundOfCollection();
+        setButtonsForChoosingGameMode();
+        setBackButtonForChoosingGameModeWindow();
+
+    }
+
+    public static void setBackButtonForChoosingGameModeWindow() throws FileNotFoundException {
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/battle_back_button.png")));
+        GameView.makeImageGlowWhileMouseEnters(backButton);
+
+        AllDatas.currentRoot.getChildren().add(backButton);
+
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    Controller.chooseSingleOrMultiPlayerWindow();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public static void setButtonsForChoosingGameMode() throws FileNotFoundException {
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
+        ImageView mode1Button = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        mode1Button.setFitWidth(300);
+        mode1Button.setFitHeight(80);
+        Label mode1Text = new Label("1. Killing Hero");
+        mode1Text.setFont(font);
+        mode1Text.setTextFill(rgb(189, 255, 254));
+        StackPane mode1 = new StackPane(mode1Button, mode1Text);
+
+        ImageView mode2Button = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        mode2Button.setFitWidth(300);
+        mode2Button.setFitHeight(80);
+        Label mode2Text = new Label("2. Holding Flag");
+        mode2Text.setFont(font);
+        mode2Text.setTextFill(rgb(189, 255, 254));
+        StackPane mode2 = new StackPane(mode2Button, mode2Text);
+
+        ImageView mode3Button = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        mode3Button.setFitWidth(300);
+        mode3Button.setFitHeight(80);
+        Label mode3Text = new Label("3. Collecting Flags");
+        mode3Text.setFont(font);
+        mode3Text.setTextFill(rgb(189, 255, 254));
+        StackPane mode3 = new StackPane(mode3Button, mode3Text);
+
+        GameView.makeImageGlowWhileMouseEnters(mode1, mode2, mode3);
+
+        HBox hBox = new HBox(mode1, mode2, mode3);
+        hBox.setLayoutX(320);
+        hBox.setLayoutY(320);
+
+        AllDatas.currentRoot.getChildren().add(hBox);
+
+        BattleController.handleEventsOfChoosingGameMode(mode1, mode2, mode3);
+    }
 }

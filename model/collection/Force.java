@@ -279,6 +279,16 @@ public class Force extends Card {
         return Game.getInstance().getMap().getEnemyMinions().get(minionIndex);
     }
 
+    public static Force getRandomMinion(){
+        Random random = new Random();
+        int number = random.nextInt(2);
+        if (number == 0){
+            return getRandomEnemyMinion();
+        }else{
+            return getRandomFriendMinion();
+        }
+    }
+
     public void dispelPositiveActions() {
         ArrayList<Buff> actionBuffsCopy = actionBuffsOnItself;
 

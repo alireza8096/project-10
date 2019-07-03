@@ -158,92 +158,92 @@ public class Minion extends Force implements Cloneable{
         }
     }
 
-    public void applyOnAttackBuffs()
-    {
-        for(Buff buff: this.getNegativeBuffs())
-        {
-            if(buff.getActivationTime().equals("On Attack"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-        for(Buff buff: this.getPositiveBuffs())
-        {
-            if(buff.getActivationTime().equals("On Attack"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-    }
-    public void applyOnSpawnBuffs()
-    {
-        for(Buff buff: this.getNegativeBuffs())
-        {
-            if(buff.getActivationTime().equals("On Spawn"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-        for(Buff buff: this.getPositiveBuffs())
-        {
-            if(buff.getActivationTime().equals("On Spawn"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-    }
-    public void applyOnDeathBuffs()
-    {
-        for(Buff buff: this.getNegativeBuffs())
-        {
-            if(buff.getActivationTime().equals("On Death"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-        for(Buff buff: this.getPositiveBuffs())
-        {
-            if(buff.getActivationTime().equals("On Death"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-    }
-    public void applyPassiveBuffs()
-    {
-        for(Buff buff: this.getNegativeBuffs())
-        {
-            if(buff.getActivationTime().equals("Passvive"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-        for(Buff buff: this.getPositiveBuffs())
-        {
-            if(buff.getActivationTime().equals("Passive"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-    }
-
-    public void applyOnDefendBuffs()
-    {
-        for(Buff buff: this.getNegativeBuffs())
-        {
-            if(buff.getActivationTime().equals("On Defend"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-        for(Buff buff: this.getPositiveBuffs())
-        {
-            if(buff.getActivationTime().equals("On Defend"))
-            {
-                this.applyBuffOnMinionForOneTurn(buff);
-            }
-        }
-    }
+//    public void applyOnAttackBuffs()
+//    {
+//        for(Buff buff: this.getNegativeBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Attack"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//        for(Buff buff: this.getPositiveBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Attack"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//    }
+//    public void applyOnSpawnBuffs()
+//    {
+//        for(Buff buff: this.getNegativeBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Spawn"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//        for(Buff buff: this.getPositiveBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Spawn"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//    }
+//    public void applyOnDeathBuffs()
+//    {
+//        for(Buff buff: this.getNegativeBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Death"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//        for(Buff buff: this.getPositiveBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Death"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//    }
+//    public void applyPassiveBuffs()
+//    {
+//        for(Buff buff: this.getNegativeBuffs())
+//        {
+//            if(buff.getActivationTime().equals("Passvive"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//        for(Buff buff: this.getPositiveBuffs())
+//        {
+//            if(buff.getActivationTime().equals("Passive"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//    }
+//
+//    public void applyOnDefendBuffs()
+//    {
+//        for(Buff buff: this.getNegativeBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Defend"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//        for(Buff buff: this.getPositiveBuffs())
+//        {
+//            if(buff.getActivationTime().equals("On Defend"))
+//            {
+//                this.applyBuffOnMinionForOneTurn(buff);
+//            }
+//        }
+//    }
 
     public void removeBuffFromMinion(Buff buff){
         String buffName = buff.getName();
@@ -659,6 +659,67 @@ public class Minion extends Force implements Cloneable{
 //        int attackPowerOfAttacker = this.getAttackPower();
 //        Minion.getMinionInThisCoordination(x, y).setHealthPoint(currentHealthPoint - attackPowerOfAttacker);
 //    }
+
+    //*************************************** : new way of applying special power of minion
+    //Todo : check if these methods work properly
+    public void applyMinionOnAttack(int x, int y, Spell spell){
+        spell.insertSpellInThisCoordination(x, y);
+    }
+
+    public void applyMinionOnSpawn(Spell spell){
+        ArrayList<String> locationOfTargets = this.getLocationOfTargets();
+        ArrayList<String> targets = this.getTargets();
+        ArrayList<String> friendOrEnemies = this.getFriendOrEnemy();
+
+        for (int i = 0; i < locationOfTargets.size(); i++) {
+            String location = locationOfTargets.get(i);
+            String target = targets.get(i);
+            String friendOrEnemy = friendOrEnemies.get(i);
+            if (location.equals("random")){
+                Force force = null;
+                switch (target){
+                    case "minion":
+                        if (friendOrEnemy.equals("friend")){
+                            force = Force.getRandomFriendMinion();
+                        }else if (friendOrEnemy.equals("enemy")){
+                            force = Force.getRandomEnemyMinion();
+                        }else{
+                            force = Force.getRandomMinion();
+                        }
+                        break;
+                    case "minion/hero":
+                        if (friendOrEnemy.equals("friend")){
+                            force = Force.getRandomFriendForce();
+                        }else if (friendOrEnemy.equals("enemy")){
+                            force = Force.getRandomEnemyForce();
+                        }else{
+                            force = Force.getRandomForce();
+                        }
+                        break;
+                }
+                assert force != null;
+                spell.insertSpellInThisCoordination(force.getX(), force.getY());
+            }else{//gives force coordination as entry for setting target of spell
+                spell.insertSpellInThisCoordination(this.x, this.y);
+            }
+        }
+
+    }
+
+    public void applyMinionPassive(){
+        ArrayList<String> targets = this.getTargets();
+
+        for (int i = 0; i < targets.size(); i++) {
+            String target = targets.get(i);
+            switch (target){
+                case "itself":
+                    break;
+                case "minion":
+                    break;
+
+            }
+        }
+    }
 
 
 
