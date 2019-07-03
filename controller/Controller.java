@@ -47,7 +47,6 @@ public class Controller {
         HandleFiles.createItems();
         HandleFiles.createMinions();
         HandleFiles.createSpells();
-        HandleFiles.createStringOfPlayers();
     }
 
 

@@ -3,6 +3,7 @@ package controller;
 import model.AllDatas;
 import model.LinkedListMenus;
 import model.collection.Account;
+import network.Server;
 import org.json.simple.JSONObject;
 
 import java.io.ObjectOutputStream;
@@ -33,10 +34,10 @@ public class AccountController{
                  && commands[1].compareToIgnoreCase("leaderboard") == 0) {
              AllDatas.leaderboard.setNowInThisMenu(true);
              AllDatas.leaderboard.getParent().setNowInThisMenu(false);
-             if (Account.getPlayers().size() != 0) {
+             if (Server.getPlayers().size() != 0) {
                  HashMap<String,Integer> leaderBoard = new HashMap<>();
-                 for (int i = 1; i <= Account.getPlayers().size(); i++) {
-                     String name = Account.getPlayers().get(i-1);
+                 for (int i = 1; i <= Server.getPlayers().size(); i++) {
+                     String name = Server.getPlayers().get(i-1);
                      JSONObject json =(JSONObject) Account.readPlayerFromFile(Account.PLAYERS_FOLDER+name+".json");
                      leaderBoard.put(name,Integer.parseInt(json.get("numOfWins").toString()));
                  }

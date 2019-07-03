@@ -1,6 +1,13 @@
 package model.collection;
 
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import model.Deck;
+import model.Player;
+import model.Hand;
+import model.Shop;
+import network.Server;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -8,11 +15,12 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import static model.collection.Account.*;
 
 public class HandleFiles {
-    public static final String BEFORE_RELATIVE = "/Users/bahar/Desktop/DUELYST/";
+    public static final String BEFORE_RELATIVE = "/Users/hamilamailee/Documents/project-10/";
     private static final String ADDRESS_HERO = "model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "model/collection/JSON-Spells";
@@ -22,7 +30,7 @@ public class HandleFiles {
         File folder = new File(BEFORE_RELATIVE + "model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
-            Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
+            Server.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
         }
     }
 
