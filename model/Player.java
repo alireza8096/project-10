@@ -7,22 +7,21 @@ import model.collection.*;
 import java.util.ArrayList;
 import java.lang.String;
 public class Player implements Cloneable{
-    private static ArrayList<Player> players = new ArrayList<>();
 
-    private ArrayList<Deck> decksOfPlayer = new ArrayList<>();
-    private Deck mainDeck;
+    private transient ArrayList<Deck> decksOfPlayer = new ArrayList<>();
+    private transient Deck mainDeck;
     private String userName;
     private String password;
-    private IntegerProperty daricProperty = new SimpleIntegerProperty();
+    private transient IntegerProperty daricProperty = new SimpleIntegerProperty();
     private int daric;
-    private Game lastGame;
+    private transient Game lastGame;
     private int numOfMana;
     private int numOfWins;
-    private boolean addingManaBuffIsActive;//Todo maybe have problems when applying several buffs
-    private ArrayList<Card> cardsInCollection = new ArrayList<>();
-    private ArrayList<Item> itemsInCollection = new ArrayList<>();
-    private ArrayList<Hero> heroesInCollection = new ArrayList<>();
-    private int numberOfTurnsThatPlayerHasFlag;
+    private  boolean addingManaBuffIsActive;//Todo maybe have problems when applying several buffs
+    private transient ArrayList<Card> cardsInCollection = new ArrayList<>();
+    private transient ArrayList<Item> itemsInCollection = new ArrayList<>();
+    private transient ArrayList<Hero> heroesInCollection = new ArrayList<>();
+    private  int numberOfTurnsThatPlayerHasFlag;
 
     public int getNumberOfTurnsThatPlayerHasFlag() {
         return numberOfTurnsThatPlayerHasFlag;
@@ -97,14 +96,6 @@ public class Player implements Cloneable{
         this.password = password;
     }
 
-    public static ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    public static void setPlayers(ArrayList<Player> players) {
-        Player.players = players;
-    }
-
     public int getDaricProperty() {
         return daricProperty.get();
     }
@@ -172,15 +163,6 @@ public class Player implements Cloneable{
 //    public void setCoordinateY(int coordinateY) {
 //        this.coordinateY = coordinateY;
 //    }
-
-    public Player findPlayerByName(String playerName) throws CloneNotSupportedException {
-        for (Player player : players) {
-            if (player.getUserName().equals(playerName)) {
-                return (Player)player.clone();
-            }
-        }
-        return null;
-    }
 
     public boolean thisCardOrItemIsAvailableInCollection(String name){
         if(Minion.thisCardIsMinion(name) || Spell.thisCardIsSpell(name) ||

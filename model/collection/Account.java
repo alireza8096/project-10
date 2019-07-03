@@ -1,7 +1,9 @@
 package model.collection;
 
+import com.google.gson.Gson;
 import controller.AI;
 import controller.Controller;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.CornerRadii;
 import model.AllDatas;
@@ -9,6 +11,8 @@ import model.Deck;
 import model.Game;
 import model.Map;
 import model.Player;
+import network.Message;
+import network.Server;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -17,8 +21,10 @@ import view.GameView;
 import javax.print.DocFlavor;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.Inet4Address;
+import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -26,36 +32,55 @@ import java.util.*;
 public class Account {
     public static final String PLAYERS_FOLDER = "model/collection/players";
     public static final String DECKS_FOLDER = "model/collection/decks";
-    private static ArrayList<String> players = new ArrayList<>();
-    public static ArrayList<String> getPlayers() {
-        return players;
-    }
 
-    public static void createAccount(String name, String password) throws Exception {
+
+    public static void createAccount(String name, String password,PrintStream dos) throws Exception {
         if (usernameAlreadyExists(name)) {
-            GameView.printInvalidCommandWithThisContent("Invalid Username!");
+            Gson gson = new Gson();
+            String alert = "username already exists";
+            String str = gson.toJson(alert);
+            Message message = new Message(str,"String","printAlert");
+            dos.println(message.messageToString());
+            dos.flush();
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("Account created successfully");
-            alert.show();
+            Gson gson = new Gson();
+            String alert = "Account created successfully";
+            String str = gson.toJson(alert);
+            Message message = new Message(str,"String","printAlert");
+            dos.println(message.messageToString());
+            dos.flush();
             writePlayerToFile(name, password);
 //            writeJustCreatedPlayerToFile(name,password,"true");
 //            Controller.enterMainMenu();
-            players.add(name);
+            Server.getPlayers().add(name);
         }
     }
 
-    public static void login(String name, String password) throws Exception {
-        if (!usernameAlreadyExists(name)) {
-            GameView.printInvalidCommandWithThisContent("Invalid username");
-        } else {
+    public static void login(String name, String password, PrintStream dos) throws Exception {
+        System.out.println("entered login");
+        if (usernameAlreadyExists(name)) {
             if (checkCorrectPassword(name, password)) {
-                setPlayer(name);
+                setPlayer(name,dos);
 //                AllDatas.account.setNowInThisMenu(false);
 //                AllDatas.commandLine.setNowInThisMenu(true);
-                Controller.enterMainMenu();
-            } else
-                GameView.printInvalidCommandWithThisContent("Password is not correct!");
+//                Controller.enterMainMenu();
+            }
+            else {
+                Gson gson = new Gson();
+                String alert = "password is not correct";
+                String str = gson.toJson(alert);
+                Message message = new Message(str,"String","printAlert");
+                dos.println(message.messageToString());
+                dos.flush();
+            }
+        }
+        else{
+            Gson gson = new Gson();
+            String alert = "this username does not exist";
+            String str = gson.toJson(alert);
+            Message message = new Message(str,"String","printAlert");
+            dos.println(message.messageToString());
+            dos.flush();
         }
     }
 
@@ -73,6 +98,7 @@ public class Account {
         tempPlayer.put("numOfWins", 0);
         tempPlayer.put("numOfAllDecks", 0);
         tempPlayer.put("collection", "");
+        Server.getPlayers().add(name);
         Files.write((Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + name + ".json")), tempPlayer.toJSONString().getBytes());
     }
 
@@ -103,7 +129,7 @@ public class Account {
 //        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/"+name+".json"),tempPlayer.toJSONString().getBytes());
 //
     public static boolean usernameAlreadyExists(String checkName) {
-        for (String name : players) {
+        for (String name : Server.getPlayers()) {
             if (name.matches(checkName))
                 return true;
         }
@@ -198,7 +224,7 @@ public class Account {
         return list;
     }
 
-    public static void setPlayer(String name) throws Exception {
+    public static void setPlayer(String name, PrintStream dos) throws Exception {
         JSONObject jsonObject = (JSONObject) readPlayerFromFile(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + name + ".json");
         Player player;
         player = new Player(
@@ -220,10 +246,15 @@ public class Account {
             player.setMainDeck(findMainDeckByName(player,(String) jsonObject.get("mainDeck")));
         }
         createCollectionFromString(player, (String) jsonObject.get("collection"));
-        Game createGame = new Game();
-        Game.setCurrentGame(createGame);
-        Game.getInstance().setPlayer1(player);
-        Game.getInstance().setPlayer1Turn(true);
+        Gson gson = new Gson();
+        String str = gson.toJson(player, Player.class);
+//        System.out.println(new Message(str,"Player","setPlayer").messageToString());
+        dos.println(new Message(str,"Player","setPlayer").messageToString());
+        dos.flush();
+//        Game createGame = new Game();
+//        Game.setCurrentGame(createGame);
+//        Game.getInstance().setPlayer1(player);
+//        Game.getInstance().setPlayer1Turn(true);
     }
 
 //    public static void setPlayerThatHasPlayedBefore(String name) throws Exception {

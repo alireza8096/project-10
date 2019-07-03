@@ -7,6 +7,7 @@ import model.Deck;
 import model.Player;
 import model.Hand;
 import model.Shop;
+import network.Server;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -29,7 +30,7 @@ public class HandleFiles {
         File folder = new File(BEFORE_RELATIVE + "model/collection/players");
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
-            Account.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
+            Server.getPlayers().add(listOfFiles[i].getName().split("\\.")[0]);
         }
     }
 

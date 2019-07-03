@@ -126,6 +126,7 @@ public class GameView {
 //    }
 
     public static void printInvalidCommandWithThisContent(String content){
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setContentText(content);
         alert.show();

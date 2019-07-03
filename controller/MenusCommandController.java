@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -8,9 +9,12 @@ import javafx.scene.input.MouseEvent;
 import model.AllDatas;
 import model.Game;
 import model.LinkedListMenus;
+import model.Player;
 import model.collection.Account;
+import network.Message;
 import org.json.simple.parser.ParseException;
 import view.BattleView;
+import view.MainView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -161,29 +165,46 @@ public class MenusCommandController {
     }
 
     public static void loginMenuEventHandler(Button loginButton, Button createAccountButton, TextField username, TextField password){
-        loginButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+        loginButton.setOnMouseClicked(event -> {
+            try {
+                String name = username.getText();
+                String passWord = password.getText();
+                Player player = new Player(name,passWord);
+                System.out.println(player.getDaric());
                 try {
-                    String name = username.getText();
-                    String passWord = password.getText();
-                    Account.login(name, passWord);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    Gson gson = new Gson();
+                    String str = gson.toJson(player, Player.class);
+                    Message loginMessage = new Message(str,"Player","login");
+                    System.out.println(loginMessage.messageToString());
+                    MainView.getClient().getDos().println(loginMessage.messageToString());
+                    MainView.getClient().getDos().flush();
                 }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
 
-        createAccountButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+        createAccountButton.setOnMouseClicked(event -> {
+            try {
+                String name = username.getText();
+                String passWord = password.getText();
+                Player player = new Player(name, passWord);
+                System.out.println(player.getDaric());
                 try {
-                    String name = username.getText();
-                    String passWord = password.getText();
-                    Account.createAccount(name, passWord);
+                    Gson gson = new Gson();
+                    String str = gson.toJson(player, Player.class);
+                    Message loginMessage = new Message(str, "Player", "createAccount");
+                    System.out.println(loginMessage.messageToString());
+                    MainView.getClient().getDos().println(loginMessage.messageToString());
+                    MainView.getClient().getDos().flush();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    System.out.println(e.getMessage());
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         });
     }

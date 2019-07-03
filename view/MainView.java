@@ -11,6 +11,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import model.AllDatas;
 import model.Shop;
+import network.Client;
 import org.json.simple.parser.ParseException;
 
 import java.awt.*;
@@ -23,7 +24,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class MainView extends Application {
+    private static Client client;
     public static Stage primaryStage;
+
+    public static Client getClient() {
+        return client;
+    }
 
     @Override
     public void start(Stage stage) throws IOException, CloneNotSupportedException, ParseException {
@@ -45,11 +51,8 @@ public class MainView extends Application {
     }
     public static void main(String[] args) throws Exception {
         Controller.createAll();
+        client = new Client();
         launch(args);
-        Scanner scanner = new Scanner(System.in);
-        while (AllDatas.gameBoolean){
-            Controller.handleCommands(scanner);
-        }
     }
 
     public static ImageView getPhotoWithThisPath(String path) throws FileNotFoundException {

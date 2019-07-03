@@ -488,7 +488,7 @@ public class BattleController {
                     alert.show();
                     try {
                         Controller.enterMainMenu();
-                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
+//                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName(),dos);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
@@ -504,7 +504,7 @@ public class BattleController {
                     alert.show();
                     try {
                         Controller.enterMainMenu();
-                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
+//                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     } catch (Exception e) {
