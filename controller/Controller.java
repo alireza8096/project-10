@@ -1,11 +1,8 @@
 package controller;
 
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -13,18 +10,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
 import model.collection.HandleFiles;
-import model.collection.Hero;
 import org.json.simple.parser.ParseException;
 import view.GameView;
 import view.MenuView;
 
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-
-import static javafx.application.Application.launch;
 
 public class Controller {
 

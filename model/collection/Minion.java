@@ -12,7 +12,6 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Minion extends Force implements Cloneable{
-    private static final String ADDRESS_OF_JSON_FILES = "/Users/shabnamkhodabakhshian/Desktop/project-10-master/src/model/collection/";
 
     private static ArrayList<Minion> minions = new ArrayList<>();
 

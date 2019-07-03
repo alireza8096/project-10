@@ -32,7 +32,7 @@ public class MainView extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws IOException, CloneNotSupportedException, ParseException {
+    public void start(Stage stage) throws IOException {
         Shop.setRightVBox(new VBox());
         Shop.setLeftVBox(new VBox());
         Shop.getRightVBox().setLayoutX(300);
