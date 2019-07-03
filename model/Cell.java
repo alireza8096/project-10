@@ -6,6 +6,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import model.collection.Buff;
 import model.collection.Card;
 import model.collection.Force;
 import model.collection.HandleFiles;
@@ -13,6 +14,7 @@ import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
@@ -20,14 +22,49 @@ public class Cell {
     //    private int coordinateX;
 //    private int coordinateY;
     private CellType cellType;
-    //    private ArrayList<Buff> actionBuffs = new ArrayList<>();
+//
+//        private ArrayList<Buff> actionBuffs = new ArrayList<>();
 //    private ArrayList<Buff> buffs = new ArrayList<>();
 //    private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
+
     private static CellItemType cellItemType;
     private static boolean aForceIsSelected;
     private static int selectedXImage;
     private static int selectedYImage;
 
+    private ArrayList<Buff> cellBuffs = new ArrayList<>();
+
+    public ArrayList<Buff> getCellBuffs() {
+        return cellBuffs;
+    }
+
+    public void setCellBuffs(ArrayList<Buff> cellBuffs) {
+        this.cellBuffs = cellBuffs;
+    }
+
+//    public ArrayList<Buff> getActionBuffs() {
+//        return actionBuffs;
+//    }
+//
+//    public void setActionBuffs(ArrayList<Buff> actionBuffs) {
+//        this.actionBuffs = actionBuffs;
+//    }
+//
+//    public ArrayList<Buff> getBuffs() {
+//        return buffs;
+//    }
+//
+//    public void setBuffs(ArrayList<Buff> buffs) {
+//        this.buffs = buffs;
+//    }
+//
+//    public ArrayList<CellImpactType> getImpactTypes() {
+//        return impactTypes;
+//    }
+//
+//    public void setImpactTypes(ArrayList<CellImpactType> impactTypes) {
+//        this.impactTypes = impactTypes;
+//    }
 
     public static boolean isaForceIsSelected() {
         return aForceIsSelected;
@@ -41,7 +78,7 @@ public class Cell {
         Cell.cellItemType = cellItemType;
     }
 
-    public static void setaForceIsSelected(boolean aForceIsSelected) {
+    public static void setAForceIsSelected(boolean aForceIsSelected) {
         Cell.aForceIsSelected = aForceIsSelected;
     }
 
@@ -75,7 +112,7 @@ public class Cell {
         cell.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             MenuView.resetMap();
             if (aForceIsSelected) {
-                setaForceIsSelected(false);
+                setAForceIsSelected(false);
                 if(Card.getCardByCoordination(yImage,xImage)!=null) {
                     System.out.println("attackkkk konnnnn babaaa");
                     BattleController.checkAllConditionsToAttack(Card.getCardByCoordination(selectedYImage, selectedXImage), Card.getCardByCoordination(yImage, xImage));
@@ -121,14 +158,14 @@ public class Cell {
                 if (!Objects.requireNonNull(Card.getCardByCoordination(yImage, xImage)).isHasMovedInThisTurn()) {
 //                    force.setDisable(true);
                     BattleController.showAllPossibilities((Force) Card.getCardByCoordination(yImage, xImage));
-                    Cell.setaForceIsSelected(true);
+                    Cell.setAForceIsSelected(true);
                     Cell.selectedXImage = xImage;
                     Cell.selectedYImage = yImage;
                 }
                 if (!Card.getCardByCoordination(yImage, xImage).isHasAttackedInThisTurn()) {
 //                    force.setDisable(true);
                     showAllPossibleAttacks((Force) Card.getCardByCoordination(yImage, xImage));
-                    Cell.setaForceIsSelected(true);
+                    Cell.setAForceIsSelected(true);
                     Cell.selectedXImage = xImage;
                     Cell.selectedYImage = yImage;
                 }
@@ -176,6 +213,20 @@ public class Cell {
     public static int returnRandomNumberForCoordinationInThisRange(int i1, int i2) {
         Random randomGenerator = new Random();
         return randomGenerator.nextInt(i2) + i1;
+    }
+
+    public boolean heroIsOnCell(){
+        if (this.cellType == CellType.selfHero || this.cellType == CellType.enemyHero){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean minionIsOnCell(){
+        if (this.cellType == CellType.selfMinion || this.cellType == CellType.enemyMinion){
+            return true;
+        }
+        return false;
     }
 
 

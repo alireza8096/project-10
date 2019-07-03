@@ -24,8 +24,14 @@ public class Minion extends Force implements Cloneable{
     private boolean isHeadOfCombo;
     private int numOfAttacksBefore;
 
+    //Todo : added recently
 
-    public Minion(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String doesNotGetAttack, String activationTime,String imagePath,String inField) throws FileNotFoundException {
+
+
+    //Todo : _____
+
+
+    public Minion(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String doesNotGetAttack, String activationTime, String imagePath, String inField) throws FileNotFoundException {
         super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets,imagePath,inField);
         if(!doesNotGetAttack.matches("null")) this.doesNotGetAttack = doesNotGetAttack;
         if(!activationTime.matches("null")) this.activationTime = activationTime;
@@ -239,6 +245,7 @@ public class Minion extends Force implements Cloneable{
             }
         }
     }
+
     public void removeBuffFromMinion(Buff buff){
         String buffName = buff.getName();
         if(buffName.equals("attackPowerWeaknessBuff"))
@@ -368,304 +375,293 @@ public class Minion extends Force implements Cloneable{
         }
     }
 
-    public void applyMinionSpecialPowerOnSpawn(){
-        //target : minion
-        for (String numOfTarget : this.getNumOfTargets()){
-            if (numOfTarget.equals("all")){
-
-                //in this minion location of target is 8 round
-                applyMinionOnAllMinionsIn8RoundCells();
-            }else{
-                String locationOfTarget = this.getLocationOfTargets().get(0);
-                if (locationOfTarget.equals("distance2")){
-                    applyMinionOnMinionsWithMax2CellDistance();
-                }else if (locationOfTarget.equals("random")){
-                    applyMinionOnARandomMinion();
-                }
-            }
-        }
-
-    }
-
-    public void applyMinionOnARandomMinion(){
-        Buff buff = this.getBuffActions().get(0);
-
-        Force.getRandomEnemyMinion().getActionBuffsOnItself().add(buff);
-    }
-
-    public void applyMinionOnMinionsWithMax2CellDistance(){
-        Buff antiHolyBuff = this.getBuffActions().get(0);
-
-        for (Minion enemyMinion : Game.getInstance().getMap().getEnemyMinions()){
-            //Todo : check if contains works correctly here!
-            if (Map.distance(this.x, this.y, enemyMinion.x, enemyMinion.y) <= 2){
-                if (!enemyMinion.getActionBuffsOnItself().contains(antiHolyBuff)){
-                    enemyMinion.getActionBuffsOnItself().add(antiHolyBuff);
-                }
-            }
-        }
-    }
-
-    public void applyMinionOnAllMinionsIn8RoundCells(){
-        //Todo : check if coordination are implemented right
-        int minionX  = this.x;
-        int minionY = this.y;
-
-        for (Buff buff : this.getNegativeBuffs()) {
-            if (Game.getInstance().getMap().getCells()[minionX - 1][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX - 1, minionY - 1).getNegativeBuffsOnItself().add(buff);
-            } else if (Game.getInstance().getMap().getCells()[minionX - 1][minionY].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX - 1, minionY).getNegativeBuffsOnItself().add(buff);
-            } else if (Game.getInstance().getMap().getCells()[minionX - 1][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX - 1, minionY + 1).getNegativeBuffsOnItself().add(buff);
-            } else if (Game.getInstance().getMap().getCells()[minionX][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX, minionY - 1).getNegativeBuffsOnItself().add(buff);
-            } else if (Game.getInstance().getMap().getCells()[minionX][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX, minionY + 1).getNegativeBuffsOnItself().add(buff);
-            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX +  1, minionY - 1).getNegativeBuffsOnItself().add(buff);
-            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX + 1, minionY).getNegativeBuffsOnItself().add(buff);
-            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
-                Minion.getMinionInThisCoordination(minionX + 1, minionY + 1).getNegativeBuffsOnItself().add(buff);
-            }
-        }
-    }
-
-    public void applyMinionSpecialPowerOnAttack(int x, int y){
-        ArrayList<String> targets = this.getTargets();
-
-        for (String target : targets){
-            switch (target){
-                case "itself":
-                    applyMinionSpecialPowerOnItself();
-                    break;
-                case "minion":
-                    applyMinionSpecialPowerOnMinionOnAttack(x, y);
-                    break;
-                case "minion/hero":
-                    applyMinionSpecialPowerOnMinionOrHeroOnAttack(x, y);
-                    break;
-                case "null":
-                    applyMinionWithNullTarget();
-                    break;
-            }
-        }
-    }
-
-    public void applyMinionSpecialPowerOnMinionOrHeroOnAttack(int x, int y){
-        ArrayList<String> actionTypes = this.getActionTypes();
-
-        for (String actionType : actionTypes){
-            switch (actionType){
-                case "dispelAll":
-                    ((Force)Card.getCardByCoordination(x, y)).dispelPositiveActions();
-                    break;
-                case "addBuff":
-                    minionAddsBuffToThisForce(x, y);
-                    break;
-                case "addAction":
-                    minionAddActionToThisForce(x, y);
-                    break;
-            }
-        }
-    }
-
-    public void minionAddActionToThisForce(int x, int y){
-        for (Buff buff : this.getBuffActions()){
-            ((Force) Card.getCardByCoordination(x, y)).getActionBuffsOnItself().add(buff);
-        }
-    }
-
-    public void minionAddsBuffToThisForce(int x, int y){
-        for (Buff buff : this.getPositiveBuffs()){
-            ((Force) Card.getCardByCoordination(x, y)).getPositiveBuffsOnItself().add(buff);
-        }
-
-        for (Buff buff : this.getNegativeBuffs()){
-            ((Force) Card.getCardByCoordination(x, y)).getNegativeBuffsOnItself().add(buff);
-        }
-    }
-
-    public void applyMinionSpecialPowerOnMinionOnAttack(int x, int y){
-        ArrayList<String> numOfTargets = this.getNumOfTargets();
-
-        for (String numOfTarget : numOfTargets){
-            if (numOfTarget.equals("1")){
-                for (Buff buff : this.getBuffActions()){
-                    Minion.getMinionInThisCoordination(x, y).getActionBuffsOnItself().add(buff);
-                }
-            }
-        }
-
-
-    }
-
-    public void applyMinionWithNullTarget(){
-        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
-    }
-
-    public void applyMinionSpecialPowerOnItself(){
-
-        for (Buff buff : this.getPositiveBuffs()){
-            this.getPositiveBuffsOnItself().add(buff);
-        }
-
-        for (Buff buff : this.getNegativeBuffs()){
-            this.getNegativeBuffsOnItself().add(buff);
-        }
-
-        for (Buff buff : this.getBuffActions()){
-            this.getActionBuffsOnItself().add(buff);
-        }
-    }
-
-    public void applyMinionSpecialPowerPassive(){
-        ArrayList<String> targets = this.getTargets();
-
-        for (String target : targets){
-            switch (target){
-                case "itself":
-                    applyMinionSpecialPowerOnItself();
-                    break;
-                case "minion":
-                    applyMinionSpecialPowerOnMinionPassive();
-                    break;
-            }
-        }
-    }
-
-    public void applyMinionSpecialPowerOnMinionPassive(){
-
-        //Todo : check if coordination are implemented right
-        //all have location of target 8around
-        int minionX  = this.x;
-        int minionY = this.y;
-
-        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
-            if (Map.thisCellsAreAdjusting(minionX, minionY, minion.x, minion.y)){
-                for (Buff buff : this.getPositiveBuffs()){
-                    minion.getPositiveBuffsOnItself().add(buff);
-                }
-
-                for (Buff buff : this.getNegativeBuffs()){
-                    minion.getNegativeBuffsOnItself().add(buff);
-                }
-            }
-        }
-    }
-
-    public void applyMinionSpecialPowerCombo(int x, int y, int... otherComboCardsID){
-
-        for (Buff buff : this.getNegativeBuffs()){
-            Minion.getMinionInThisCoordination(x, y).getNegativeBuffs().add(buff);
-        }
-
-        for (int minionID : otherComboCardsID){
-            Minion minion = getFriendMinionByID(minionID);
-            if (minion.thisMinionIsCombo()){
-                for (Buff buff : minion.getNegativeBuffs()){
-                    Minion.getMinionInThisCoordination(x, y).getNegativeBuffsOnItself().add(buff);
-                }
-            }else{
-                GameView.printInvalidCommandWithThisContent("Minion is not combo!");
-                return;
-            }
-        }
-    }
-
-    public boolean thisMinionIsCombo(){
-        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
-            if (minion.getName().equals(this.name)){
-                return minion.getActivationTime().equals("Combo");
-            }
-        }
-        return false;
-    }
-
-    public static Minion getFriendMinionByID(int minionID){
-        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
-            if (minion.id == minionID){
-                return minion;
-            }
-        }
-        return null;
-    }
-
     public void applyMinionSpecialPowerOnDeath(){
-        ArrayList<String> targets = this.getTargets();
-        for (String target : targets){
-            switch (target){
-                case "minion":
-                    applyMinionSpecialPowerOnMinionOnDeath();
-                    break;
-                case "hero":
-                    applyMinionSpecialPowerOnHeroOnDeath();
-                    break;
-            }
-        }
+
     }
 
-    public void applyMinionSpecialPowerOnMinionOnDeath(){
-        for (Minion enemyMinion : Game.getInstance().getMap().getEnemyMinions()){
-            if (Map.thisCellsAreAdjusting(x, y, enemyMinion.x, enemyMinion.y)){
-                for (Buff buff : this.getNegativeBuffs()){
-                    enemyMinion.getNegativeBuffsOnItself().add(buff);
-                }
-            }
-        }
-    }
+    public void applyMinionSpecialPowerOnAttck(int x, int y){
 
-    public void applyMinionSpecialPowerOnHeroOnDeath(){
-        for (Buff buff : this.getNegativeBuffs())
-            Game.getInstance().getMap().getEnemyHero().getNegativeBuffsOnItself().add(buff);
-    }
-
-    public void applyMinionSpecialPowerOnDefend(){
-        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
-    }
-
-    public void applyMinionSpecialPowerInTurn(){
-        for (Buff buff : this.getPositiveBuffs()){
-            for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
-                minion.getPositiveBuffsOnItself().add(buff);
-            }
-        }
-    }
-
-    public void minionAttacksNormally(int x, int y){
-        int currentHealthPoint = Minion.getMinionInThisCoordination(x, y).getHealthPoint();
-        int attackPowerOfAttacker = this.getAttackPower();
-        Minion.getMinionInThisCoordination(x, y).setHealthPoint(currentHealthPoint - attackPowerOfAttacker);
     }
 
 
 
-//    public void applyMinionSpecialPower(){
-//        ArrayList<String> targets = this.targets;
+
+
+
+
+
+//    public void applyMinionSpecialPowerOnSpawn(){
+//        //target : minion
+//        for (String numOfTarget : this.getNumOfTargets()){
+//            if (numOfTarget.equals("all")){
 //
-//        for (String target : targets){
-//            switch (target){
-//                case "null":
-//                    applyMinionWithNullTarget();
-//                    break;
-//                case "itself":
-//                    applyMinionOnItself();
-//                    break;
+//                //in this minion location of target is 8 round
+//                applyMinionOnAllMinionsIn8RoundCells();
+//            }else{
+//                String locationOfTarget = this.getLocationOfTargets().get(0);
+//                if (locationOfTarget.equals("distance2")){
+//                    applyMinionOnMinionsWithMax2CellDistance();
+//                }else if (locationOfTarget.equals("random")){
+//                    applyMinionOnARandomMinion();
+//                }
+//            }
+//        }
 //
+//    }
+
+//    public void applyMinionOnARandomMinion(){
+//        Buff buff = this.getBuffActions().get(0);
+//
+//        Force.getRandomEnemyMinion().getActionBuffsOnItself().add(buff);
+//    }
+//
+//    public void applyMinionOnMinionsWithMax2CellDistance(){
+//        Buff antiHolyBuff = this.getBuffActions().get(0);
+//
+//        for (Minion enemyMinion : Game.getInstance().getMap().getEnemyMinions()){
+//            //Todo : check if contains works correctly here!
+//            if (Map.distance(this.x, this.y, enemyMinion.x, enemyMinion.y) <= 2){
+//                if (!enemyMinion.getActionBuffsOnItself().contains(antiHolyBuff)){
+//                    enemyMinion.getActionBuffsOnItself().add(antiHolyBuff);
+//                }
 //            }
 //        }
 //    }
-
 //
-
+//    public void applyMinionOnAllMinionsIn8RoundCells(){
+//        //Todo : check if coordination are implemented right
+//        int minionX  = this.x;
+//        int minionY = this.y;
 //
-//    public void minionComboAttack(){
-//        this.isHeadOfCombo = true;
-//        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
-//
+//        for (Buff buff : this.getNegativeBuffs()) {
+//            if (Game.getInstance().getMap().getCells()[minionX - 1][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX - 1, minionY - 1).getNegativeBuffsOnItself().add(buff);
+//            } else if (Game.getInstance().getMap().getCells()[minionX - 1][minionY].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX - 1, minionY).getNegativeBuffsOnItself().add(buff);
+//            } else if (Game.getInstance().getMap().getCells()[minionX - 1][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX - 1, minionY + 1).getNegativeBuffsOnItself().add(buff);
+//            } else if (Game.getInstance().getMap().getCells()[minionX][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX, minionY - 1).getNegativeBuffsOnItself().add(buff);
+//            } else if (Game.getInstance().getMap().getCells()[minionX][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX, minionY + 1).getNegativeBuffsOnItself().add(buff);
+//            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY - 1].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX +  1, minionY - 1).getNegativeBuffsOnItself().add(buff);
+//            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX + 1, minionY).getNegativeBuffsOnItself().add(buff);
+//            } else if (Game.getInstance().getMap().getCells()[minionX + 1][minionY + 1].getCellType().equals(CellType.enemyMinion)) {
+//                Minion.getMinionInThisCoordination(minionX + 1, minionY + 1).getNegativeBuffsOnItself().add(buff);
+//            }
 //        }
 //    }
+//
+//    public void applyMinionSpecialPowerOnAttack(int x, int y){
+//        ArrayList<String> targets = this.getTargets();
+//
+//        for (String target : targets){
+//            switch (target){
+//                case "itself":
+//                    applyMinionSpecialPowerOnItself();
+//                    break;
+//                case "minion":
+//                    applyMinionSpecialPowerOnMinionOnAttack(x, y);
+//                    break;
+//                case "minion/hero":
+//                    applyMinionSpecialPowerOnMinionOrHeroOnAttack(x, y);
+//                    break;
+//                case "null":
+//                    applyMinionWithNullTarget();
+//                    break;
+//            }
+//        }
+//    }
+//
+//    public void applyMinionSpecialPowerOnMinionOrHeroOnAttack(int x, int y){
+//        ArrayList<String> actionTypes = this.getActionTypes();
+//
+//        for (String actionType : actionTypes){
+//            switch (actionType){
+//                case "dispelAll":
+//                    ((Force)Card.getCardByCoordination(x, y)).dispelPositiveActions();
+//                    break;
+//                case "addBuff":
+//                    minionAddsBuffToThisForce(x, y);
+//                    break;
+//                case "addAction":
+//                    minionAddActionToThisForce(x, y);
+//                    break;
+//            }
+//        }
+//    }
+//
+//    public void minionAddActionToThisForce(int x, int y){
+//        for (Buff buff : this.getBuffActions()){
+//            ((Force) Card.getCardByCoordination(x, y)).getActionBuffsOnItself().add(buff);
+//        }
+//    }
+//
+//    public void minionAddsBuffToThisForce(int x, int y){
+//        for (Buff buff : this.getPositiveBuffs()){
+//            ((Force) Card.getCardByCoordination(x, y)).getPositiveBuffsOnItself().add(buff);
+//        }
+//
+//        for (Buff buff : this.getNegativeBuffs()){
+//            ((Force) Card.getCardByCoordination(x, y)).getNegativeBuffsOnItself().add(buff);
+//        }
+//    }
+//
+//    public void applyMinionSpecialPowerOnMinionOnAttack(int x, int y){
+//        ArrayList<String> numOfTargets = this.getNumOfTargets();
+//
+//        for (String numOfTarget : numOfTargets){
+//            if (numOfTarget.equals("1")){
+//                for (Buff buff : this.getBuffActions()){
+//                    Minion.getMinionInThisCoordination(x, y).getActionBuffsOnItself().add(buff);
+//                }
+//            }
+//        }
+//
+//
+//    }
+//
+//    public void applyMinionWithNullTarget(){
+//        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
+//    }
+//
+//    public void applyMinionSpecialPowerOnItself(){
+//
+//        for (Buff buff : this.getPositiveBuffs()){
+//            this.getPositiveBuffsOnItself().add(buff);
+//        }
+//
+//        for (Buff buff : this.getNegativeBuffs()){
+//            this.getNegativeBuffsOnItself().add(buff);
+//        }
+//
+//        for (Buff buff : this.getBuffActions()){
+//            this.getActionBuffsOnItself().add(buff);
+//        }
+//    }
+//
+//    public void applyMinionSpecialPowerPassive(){
+//        ArrayList<String> targets = this.getTargets();
+//
+//        for (String target : targets){
+//            switch (target){
+//                case "itself":
+//                    applyMinionSpecialPowerOnItself();
+//                    break;
+//                case "minion":
+//                    applyMinionSpecialPowerOnMinionPassive();
+//                    break;
+//            }
+//        }
+//    }
+//
+//    public void applyMinionSpecialPowerOnMinionPassive(){
+//
+//        //Todo : check if coordination are implemented right
+//        //all have location of target 8around
+//        int minionX  = this.x;
+//        int minionY = this.y;
+//
+//        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+//            if (Map.thisCellsAreAdjusting(minionX, minionY, minion.x, minion.y)){
+//                for (Buff buff : this.getPositiveBuffs()){
+//                    minion.getPositiveBuffsOnItself().add(buff);
+//                }
+//
+//                for (Buff buff : this.getNegativeBuffs()){
+//                    minion.getNegativeBuffsOnItself().add(buff);
+//                }
+//            }
+//        }
+//    }
+//
+//    public void applyMinionSpecialPowerCombo(int x, int y, int... otherComboCardsID){
+//
+//        for (Buff buff : this.getNegativeBuffs()){
+//            Minion.getMinionInThisCoordination(x, y).getNegativeBuffs().add(buff);
+//        }
+//
+//        for (int minionID : otherComboCardsID){
+//            Minion minion = getFriendMinionByID(minionID);
+//            if (minion.thisMinionIsCombo()){
+//                for (Buff buff : minion.getNegativeBuffs()){
+//                    Minion.getMinionInThisCoordination(x, y).getNegativeBuffsOnItself().add(buff);
+//                }
+//            }else{
+//                GameView.printInvalidCommandWithThisContent("Minion is not combo!");
+//                return;
+//            }
+//        }
+//    }
+//
+//    public boolean thisMinionIsCombo(){
+//        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+//            if (minion.getName().equals(this.name)){
+//                return minion.getActivationTime().equals("Combo");
+//            }
+//        }
+//        return false;
+//    }
+//
+//    public static Minion getFriendMinionByID(int minionID){
+//        for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+//            if (minion.id == minionID){
+//                return minion;
+//            }
+//        }
+//        return null;
+//    }
+//
+//    public void applyMinionSpecialPowerOnDeath(){
+//        ArrayList<String> targets = this.getTargets();
+//        for (String target : targets){
+//            switch (target){
+//                case "minion":
+//                    applyMinionSpecialPowerOnMinionOnDeath();
+//                    break;
+//                case "hero":
+//                    applyMinionSpecialPowerOnHeroOnDeath();
+//                    break;
+//            }
+//        }
+//    }
+//
+//    public void applyMinionSpecialPowerOnMinionOnDeath(){
+//        for (Minion enemyMinion : Game.getInstance().getMap().getEnemyMinions()){
+//            if (Map.thisCellsAreAdjusting(x, y, enemyMinion.x, enemyMinion.y)){
+//                for (Buff buff : this.getNegativeBuffs()){
+//                    enemyMinion.getNegativeBuffsOnItself().add(buff);
+//                }
+//            }
+//        }
+//    }
+//
+//    public void applyMinionSpecialPowerOnHeroOnDeath(){
+//        for (Buff buff : this.getNegativeBuffs())
+//            Game.getInstance().getMap().getEnemyHero().getNegativeBuffsOnItself().add(buff);
+//    }
+//
+//    public void applyMinionSpecialPowerOnDefend(){
+//        this.doesNotGetAttackBuffs.add(this.doesNotGetAttack);
+//    }
+//
+//    public void applyMinionSpecialPowerInTurn(){
+//        for (Buff buff : this.getPositiveBuffs()){
+//            for (Minion minion : Game.getInstance().getMap().getFriendMinions()){
+//                minion.getPositiveBuffsOnItself().add(buff);
+//            }
+//        }
+//    }
+//
+//    public void minionAttacksNormally(int x, int y){
+//        int currentHealthPoint = Minion.getMinionInThisCoordination(x, y).getHealthPoint();
+//        int attackPowerOfAttacker = this.getAttackPower();
+//        Minion.getMinionInThisCoordination(x, y).setHealthPoint(currentHealthPoint - attackPowerOfAttacker);
+//    }
+
+
 
 
 

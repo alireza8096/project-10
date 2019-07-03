@@ -298,6 +298,7 @@ public class Card implements Cloneable {
     public void killCard() {
         //Todo : implementing
     }
+
     public boolean isEnemy(int x,int y){
         for(Minion minion : Game.getInstance().getMap().getEnemyMinions()){
             if(minion.getX() == x && minion.getY() == y){
@@ -347,16 +348,6 @@ public class Card implements Cloneable {
         }
     }
 
-    //TODO : erase below
-    public boolean thisCardIsFriend() {
-        for (Card card : Game.getInstance().getMap().getFriendMinions()) {
-            if (card.getName().equals(this.name))
-                return true;
-        }
-        if (this.name.equals(Game.getInstance().getMap().getFriendHero().name))
-            return true;
-        return false;
-    }
 
     public static Card returnNthCard(String cardType, int index) {
         switch (cardType) {

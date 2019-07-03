@@ -1,5 +1,6 @@
 package model.collection;
 
+import model.Game;
 import model.Player;
 import org.json.simple.JSONObject;
 
@@ -17,7 +18,7 @@ public class Buff {
     private String activationTime;
 
     public Buff(String forHowManyTurns, String name, String delay, String howMuchImpact,String activationTime) {
-        this.forHowManyTurns = forHowManyTurns;
+//        this.forHowManyTurns = forHowManyTurns;
         this.name = name;
         if(!delay.equals("null")) this.delay = Integer.parseInt(delay);
         else this.delay = 0;
@@ -126,13 +127,6 @@ public class Buff {
         isUsed = used;
     }
 
-    public String getForHowManyTurns() {
-        return forHowManyTurns;
-    }
-
-    public void setForHowManyTurns(String forHowManyTurns) {
-        this.forHowManyTurns = forHowManyTurns;
-    }
 
     public String getName() {
         return name;
@@ -167,7 +161,7 @@ public class Buff {
     }
 
     public static boolean checkIfBuffIsActive(Buff buff){
-        String num = buff.getForHowManyTurns();
+        String num = buff.forHowManyTurns;
         if(!num.matches("null")){
             if(num.matches("[\\d]+")){
                 if(Integer.parseInt(num) <=0 ){
@@ -187,9 +181,11 @@ public class Buff {
             player.setNumOfMana(currentPlayerMana + numberOfAddingMana);
             if(buff.forHowManyTurns.matches("[\\d]+")) {
                 int num = Integer.parseInt(buff.forHowManyTurns);
-                buff.setForHowManyTurns(Integer.toString(num-1));
+                buff.forHowManyTurns = Integer.toString(num-1);
             }
         }else{
+
+            //Todo : what is the usage of this?
             player.setAddingManaBuffIsActive(false);
         }
 
@@ -222,6 +218,9 @@ public class Buff {
                 break;
             case "stunBuff":
                 applyStunBuff(force);
+                break;
+            case "addingManaBuff":
+                applyAddingManaBuff(Game.getInstance().getPlayer1(), this);
                 break;
         }
     }
@@ -272,6 +271,14 @@ public class Buff {
     public void applyStunBuff(Force force){
         force.setCanAttack(false);
         force.setCanMove(false);
+    }
+
+    public void handleBuffNumberOfTurnsAfterApplying(){
+        String forHowManyTurns = this.forHowManyTurns;
+        if (forHowManyTurns.matches("[\\d]+")){
+            int currentNumber = Integer.parseInt(forHowManyTurns);
+            this.forHowManyTurns = Integer.toString(currentNumber - 1);
+        }
     }
 
 }

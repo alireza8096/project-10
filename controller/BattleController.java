@@ -1,26 +1,20 @@
 package controller;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.*;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
 import view.BattleView;
-import view.MainView;
 import view.MenuView;
 
-import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class BattleController {
 
@@ -75,7 +69,8 @@ public class BattleController {
             makeAllCardsActiveAI();
             AI.insertCardTillPossible();
             AI.moveTillPossible();
-            AI.attackTillPossible();
+            BattleController.endTurn();
+//            AI.attackTillPossible();
         } else {
             Game.getInstance().setPlayer1Turn(true);
             BattleView.showEndTurn();
@@ -106,7 +101,7 @@ public class BattleController {
                     Hand.getScenesBehind()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                 }
             }
-            Cell.setaForceIsSelected(false);
+            Cell.setAForceIsSelected(false);
             Hand.setSelectedInHand(false);
             MenuView.resetMap();
 //            for (int i = 0; i < 9; i++) {

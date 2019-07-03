@@ -2,6 +2,7 @@ package model.collection;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.CustomCardsEnums.Targets;
 import model.Game;
 import view.MainView;
 
@@ -9,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class Force extends Card{
+public class Force extends Card {
 
     //buffs that effect on the force itself
     private ArrayList<Buff> positiveBuffsOnItself = new ArrayList<>();
@@ -35,6 +36,31 @@ public class Force extends Card{
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
     private String specialPower;
+
+
+    //Todo : added recently from here
+
+    private Spell spell;
+
+    private Spell itemSpell;
+
+    public Spell getItemSpell() {
+        return itemSpell;
+    }
+
+    public void setItemSpell(Spell itemSpell) {
+        this.itemSpell = itemSpell;
+    }
+
+    public Spell getSpell() {
+        return spell;
+    }
+
+    public void setSpell(Spell spell) {
+        this.spell = spell;
+    }
+
+    //Todo : to here
 
     public static ArrayList<String> returnArrayList(String toArray){
         ArrayList<String> returnString = new ArrayList<>();
@@ -323,6 +349,35 @@ public class Force extends Card{
                 buff.applyBuffOnForce(this);
         }
     }
+
+    public void dispelForcePositively(){
+        if (thisForceIsFriend()){
+            this.positiveBuffsOnItself.clear();
+        }else{
+            this.negativeBuffsOnItself.clear();
+        }
+    }
+
+    public boolean thisForceIsFriend() {
+        for (Card card : Game.getInstance().getMap().getFriendMinions()) {
+            if (card.getName().equals(this.name))
+                return true;
+        }
+        if (this.name.equals(Game.getInstance().getMap().getFriendHero().name))
+            return true;
+        return false;
+    }
+
+    public boolean thisForceIsEnemy(){
+        for (Card card : Game.getInstance().getMap().getEnemyMinions()) {
+            if (card.getName().equals(this.name))
+                return true;
+        }
+        if (this.name.equals(Game.getInstance().getMap().getEnemyHero().name))
+            return true;
+        return false;
+    }
+
 
 }
 

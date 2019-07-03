@@ -347,7 +347,8 @@ public class CollectionController{
         mainDeckStack.setOnMouseClicked(event -> {
             try {
                 if (Deck.getSelectedDeck().validateDeck()){
-                    Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck().returnCopyOfDeck());
+                    Game.getInstance().getPlayer1().setMainDeck(Deck.getSelectedDeck());
+                    GameView.printInfoMessageWithThisContent(Deck.getSelectedDeck().getDeckName() + " is selected as main deck!");
                 }else{
                     GameView.printInvalidCommandWithThisContent("Deck is not valid!");
                 }
