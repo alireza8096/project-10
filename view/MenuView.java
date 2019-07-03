@@ -1216,12 +1216,13 @@ public class MenuView {
         vBox.setAccessibleText(Integer.toString(card.getId()));
 
         //is showing cards for selling or completing a deck
-        System.out.println("***selling cards");
         vBox.setOnMouseClicked(event -> {
             if (!CollectionController.isIsChoosingForCreatingNewDeck()) {
                 try {
+                    System.out.println("HERE");
+                    System.out.println("button text : " + Controller.getPressedButton().getAccessibleText());
+                    System.out.println("showing card : " + Shop.isIsShowingSpecificCard());
                     if (Controller.getPressedButton().getAccessibleText() != null) {
-                        System.out.println("HERE");
                         if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
                             Deck.getSelectedDeck().addCardToDeck(card);
                             GameView.printInfoMessageWithThisContent(card.getName() +
@@ -1238,8 +1239,9 @@ public class MenuView {
                 }
             }
             else{
-                System.out.println("***createing new deck");
+                System.out.println("^&^&^&^");
                 if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
+                    System.out.println("HEREEHERE");
                     try {
                         CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
                     } catch (ParseException | CloneNotSupportedException | IOException e) {

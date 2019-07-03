@@ -418,7 +418,6 @@ public class Card implements Cloneable {
         while (heroIterator.hasNext()) {
             Hero hero = heroIterator.next();
             if (hero.getId() == cardID) {
-                System.out.println(hero.getName());
                 return hero;
             }
         }

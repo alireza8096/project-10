@@ -379,14 +379,14 @@ public class CollectionController{
     public static void handleEventsOfSellingCard(HBox cardHBox, HBox buttonsHBox,
                                                  ImageView cancelButton, StackPane sellButton, Card card, VBox cardVBox, HBox inRowHBox){
         cancelButton.setOnMouseClicked(event -> {
-            Controller.getPressedButton().setAccessibleText("Cancel");
+//            Controller.getPressedButton().setAccessibleText("Cancel");
             AllDatas.currentRoot.getChildren().removeAll(cardHBox, buttonsHBox);
             MenuView.removeBlurEffectOfWindow();
             Shop.setIsShowingSpecificCard(false);
         });
 
         sellButton.setOnMouseClicked(event -> {
-            Controller.getPressedButton().setAccessibleText("Sell");
+//            Controller.getPressedButton().setAccessibleText("Sell");
             inRowHBox.getChildren().remove(cardVBox);
             try {
                 Shop.sellCardAndRemoveFromCollection(card.getId());
