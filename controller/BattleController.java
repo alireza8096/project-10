@@ -1,8 +1,10 @@
 package controller;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.*;
 import model.collection.*;
@@ -781,10 +783,19 @@ public class BattleController {
 
     public static void handleEventsOfChoosingMultiOrSingleMode(StackPane multiButton,
                                                                StackPane singleButton, StackPane backButton) {
+
+        multiButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                //Todo : handle server and client
+            }
+        });
+
         singleButton.setOnMouseClicked(event -> {
             try {
-                Controller.enterBattle();
-            } catch (IOException | CloneNotSupportedException | ParseException e) {
+                MenuView.showChoosingModeWindow();
+//                Controller.enterBattle();
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
@@ -794,6 +805,29 @@ public class BattleController {
                 Controller.enterMainMenu();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+            }
+        });
+    }
+
+    public static void handleEventsOfChoosingGameMode(StackPane mode1, StackPane mode2, StackPane mode3){
+        mode1.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
+
+        mode2.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
+
+        mode3.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
             }
         });
     }

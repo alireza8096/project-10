@@ -231,4 +231,8 @@ public class Target {
             spell.getForceTargets().add(Game.getInstance().getMap().getEnemyHero());
         }
     }
+
+
+    //______________________ : these methods are for setting target of spells which the coordination is for the owner
+
 }

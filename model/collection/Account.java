@@ -199,7 +199,8 @@ public class Account {
     }
 
     public static void setPlayer(String name) throws Exception {
-        JSONObject jsonObject = (JSONObject) readPlayerFromFile(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + name + ".json");
+        JSONObject jsonObject = (JSONObject) readPlayerFromFile(
+                HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + name + ".json");
         Player player;
         player = new Player(
                 (String) jsonObject.get("username"),

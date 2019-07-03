@@ -180,6 +180,8 @@ public class Spell extends Card implements Cloneable{
         }
     }
 
+
+
     public void insertSpellInThisCoordination(int x, int y){
        if ( this.spellTarget.checkIfTargetHasBeenChosenCorrectly(this, x, y)){
            this.spellTarget.setTargetOfSpell(this, x, y);
