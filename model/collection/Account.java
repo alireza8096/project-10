@@ -232,7 +232,7 @@ public class Account {
                 (String) jsonObject.get("password")
         );
         player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
-        player.setDaricProperty(player.getDaric());
+//        player.setDaricProperty(player.getDaric());
         player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
         player.setNumOfMana(2);
         int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());
@@ -248,6 +248,7 @@ public class Account {
         createCollectionFromString(player, (String) jsonObject.get("collection"));
         Gson gson = new Gson();
         String str = gson.toJson(player, Player.class);
+        System.out.println(str + "**********");
 //        System.out.println(new Message(str,"Player","setPlayer").messageToString());
         dos.println(new Message(str,"Player","setPlayer").messageToString());
         dos.flush();

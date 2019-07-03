@@ -119,27 +119,27 @@ public class Shop{
     }
 
     public static void buyCardAndAddToCollection(String cardName) throws CloneNotSupportedException {
-        IntegerProperty daricValue = Game.getInstance().getPlayer1().daricPropertyProperty();
+//        IntegerProperty daricValue = Game.getInstance().getPlayer1().daricPropertyProperty();
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (returnCardTypeByName(cardName)) {
             case "hero":
                 daric -= Hero.findHeroByName(cardName).getPrice();
-                daricValue.set(daric);
+//                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getHeroesInCollection().add(Hero.findHeroByName(cardName));
                 break;
             case "item":
                 daric -= Item.findItemByName(cardName).getPrice();
-                daricValue.set(daric);
+//                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getItemsInCollection().add(Item.findItemByName(cardName));
                 break;
             case "minion":
                 daric -= Minion.findMinionByName(cardName).getPrice();
-                daricValue.set(daric);
+//                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
             case "spell":
                 daric -= Spell.findCardByName(cardName).getPrice();
-                daricValue.set(daric);
+//                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
         }
@@ -225,7 +225,7 @@ public class Shop{
 
     public static void sellCardAndRemoveFromCollection(int cardID) throws Exception {
         //Todo : delete sold card from decks
-        IntegerProperty daricValue = Game.getInstance().getPlayer1().daricPropertyProperty();
+//        IntegerProperty daricValue = Game.getInstance().getPlayer1().daricPropertyProperty();
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (cardID / 100) {
             case 1:
@@ -233,7 +233,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
                 assert hero != null;
                 daric += hero.getPrice();
-                daricValue.set(daric);
+//                daricValue.set(daric);
                 System.out.println(hero.getName() + " was sold successfully");
                 break;
             case 2:
@@ -242,7 +242,7 @@ public class Shop{
                 if (item.getItemType().matches("usable")) {
                     removeProcess(Game.getInstance().getPlayer1().getItemsInCollection(), item);
                     daric += item.getPrice();
-                    daricValue.set(daric);
+//                    daricValue.set(daric);
                     System.out.println(item.getName() + " was sold successfully");
                 } else
                     System.out.println("This item can not be sold");
@@ -252,7 +252,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), minion);
                 assert minion != null;
                 daric += minion.getPrice();
-                daricValue.set(daric);
+//                daricValue.set(daric);
                 System.out.println(minion.getName() + " was sold successfully");
                 break;
             case 4:
@@ -262,7 +262,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), spell);
                 assert spell != null;
                 daric += spell.getPrice();
-                daricValue.set(daric);
+//                daricValue.set(daric);
                 System.out.println(spell.getName() + " was sold successfully");
                 break;
         }

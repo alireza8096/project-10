@@ -182,7 +182,7 @@ public class BattleView {
         System.out.println("Range : " + minion.getAttackRange());
         System.out.println("Combo-ability : ");
         System.out.println("Cost : " + minion.getPrice());
-        System.out.println("Desc : " + minion.getSpecialPower());
+        System.out.println("Desc : " + minion.getDesc());
     }
 
     //    public static void showSpellInGame(String cardName){

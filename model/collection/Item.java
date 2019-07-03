@@ -18,17 +18,15 @@ public class Item extends Card implements Cloneable {
     private static ArrayList<Item> items = new ArrayList<>();
     private Spell spell;
     private String itemType;
-    private String desc;
     private String specification;
     private String user;
     private String activationTime;
 
     public Item(Spell spell, String itemType, String price, String name, String id,
                 String desc, String specification, String user, String activationTime, String imagePath, String inField) throws FileNotFoundException {
-        super("0", id, "item", name, price, imagePath, inField);
+        super("0", id, "item", name, price, imagePath, inField,desc);
         this.spell = spell;
         this.itemType = itemType;
-        this.desc = desc;
         this.specification = specification;
         this.user = user;
         this.activationTime = activationTime;
@@ -65,14 +63,6 @@ public class Item extends Card implements Cloneable {
 
     public void setSpell(Spell spell) {
         this.spell = spell;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
-
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     public static ArrayList<Item> getItems() {

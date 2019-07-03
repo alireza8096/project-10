@@ -305,7 +305,7 @@ public class BattleController {
 
     public static void checkConditionsToApplyHeroSpecialPower(Card heroCard, int x, int y) throws IOException, ParseException {
         //       if(Hero.thisCardIsHero(cardName)){
-        if (!((Hero) heroCard).getSpecialPower().matches("Does not have special power")) {
+        if (!((Hero) heroCard).getDesc().matches("Does not have special power")) {
             if (Game.getInstance().getPlayer1().getNumOfMana() >= heroCard.getMana()) {
                 //apply special power
             } else {
