@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Ghool Bozorg/GhoolBozorg.png"
+  "imagePath" : "view/Photos/Minions/Ghool Bozorg/GhoolBozorg.png",
+  "numInShop" : "5"
 }

@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "minion(all)",
   "activationTime" : "onSpawn",
-  "imagePath" : "view/Photos/Items/Ghosl Tameed/GhoslTameed.png"
+  "imagePath" : "view/Photos/Items/Ghosl Tameed/GhoslTameed.png",
+  "numInShop" : "5"
 }

@@ -13,5 +13,6 @@
   "last" :"1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Power Up/Power Up.png"
+  "imagePath" : "view/Photos/Spells/Power Up/Power Up.png",
+  "numInShop" : "5"
 }

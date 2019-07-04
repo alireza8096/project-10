@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "poisonBuff",
-  "imagePath" : "view/Photos/Minions/Piran/Piran.png"
+  "imagePath" : "view/Photos/Minions/Piran/Piran.png",
+  "numInShop" : "5"
 }

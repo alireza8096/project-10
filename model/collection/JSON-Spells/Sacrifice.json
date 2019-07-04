@@ -13,5 +13,6 @@
   "last" :"1,1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Sacrifice/Sacrifice.png"
+  "imagePath" : "view/Photos/Spells/Sacrifice/Sacrifice.png",
+  "numInShop" : "5"
 }

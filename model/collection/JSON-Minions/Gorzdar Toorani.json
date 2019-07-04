@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Gorzdar Toorani/GorzdarToorani.png"
+  "imagePath" : "view/Photos/Minions/Gorzdar Toorani/GorzdarToorani.png",
+  "numInShop" : "5"
 }

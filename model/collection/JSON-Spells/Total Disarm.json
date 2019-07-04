@@ -13,5 +13,6 @@
   "last" :"permanent",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Total Disarm/Total Disarm.png"
+  "imagePath" : "view/Photos/Spells/Total Disarm/Total Disarm.png",
+  "numInShop" : "5"
 }

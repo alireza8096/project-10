@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Asbsavar Fars/AsbsavarFars.png"
+  "imagePath" : "view/Photos/Minions/Asbsavar Fars/AsbsavarFars.png",
+  "numInShop" : "5"
 }

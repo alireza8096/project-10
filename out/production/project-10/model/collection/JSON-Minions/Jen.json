@@ -19,5 +19,6 @@
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Jen/Jen.png"
+  "imagePath" : "view/Photos/Minions/Jen/Jen.png",
+  "numInShop" : "5"
 }

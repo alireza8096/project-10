@@ -9,6 +9,7 @@ import model.AttackType;
 import model.Game;
 import model.Map;
 import model.Shop;
+import network.Server;
 import org.json.simple.parser.ParseException;
 import view.MainView;
 
@@ -39,9 +40,17 @@ public class Card implements Cloneable {
     protected transient ImageView imageViewOfCard;
     private transient Image forceInField;
     private String desc;
-
+    private int numInShop;
     public Card() {
 
+    }
+
+    public int getNumInShop() {
+        return numInShop;
+    }
+
+    public void setNumInShop(int numInShop) {
+        this.numInShop = numInShop;
     }
 
     public String getDesc() {
@@ -60,7 +69,7 @@ public class Card implements Cloneable {
         this.forceInField = forceInField;
     }
 
-    public Card(String mana, String id, String cardType, String name, String price, String imagePath, String inField,String desc) throws FileNotFoundException {
+    public Card(String mana, String id, String cardType, String name, String price, String imagePath, String inField,String desc,String numInShop) throws FileNotFoundException {
         if (mana.equals("null")) this.mana = 0;
         else this.mana = Integer.parseInt(mana);
         this.id = Integer.parseInt(id);
@@ -71,6 +80,7 @@ public class Card implements Cloneable {
         this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
         this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
         this.desc = desc;
+        this.numInShop = Integer.parseInt(numInShop);
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {
@@ -85,6 +95,15 @@ public class Card implements Cloneable {
         return null;
     }
 
+    public static Card findCardByNameInServer(String name) throws CloneNotSupportedException {
+        for (Card card:
+                Server.getCards()) {
+            if(card.name.matches(name)){
+                return (Card)card.clone();
+            }
+        }
+        return null;
+    }
     public static Card findCardByName(String cardName) throws CloneNotSupportedException {
         for (Hero hero : Hero.getHeroes()) {
             if (hero.getName().compareToIgnoreCase(cardName) == 0) {

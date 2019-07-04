@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "null",
   "activationTime" : "null",
-  "imagePath" : "view/Photos/Items/Exir/Exir.png"
+  "imagePath" : "view/Photos/Items/Exir/Exir.png",
+  "numInShop" : "5"
 }

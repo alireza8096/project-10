@@ -19,5 +19,6 @@
   "friendOrEnemy" : "friend,friend",
   "locationOfTarget" : "null,8around",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Jadoogar/Jadoogar.png"
+  "imagePath" : "view/Photos/Minions/Jadoogar/Jadoogar.png",
+  "numInShop" : "5"
 }

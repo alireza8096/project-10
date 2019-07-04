@@ -28,25 +28,26 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+
 //testing
-public class Account {
+public class Account implements Cloneable {
     public static final String PLAYERS_FOLDER = "model/collection/players";
     public static final String DECKS_FOLDER = "model/collection/decks";
 
 
-    public static void createAccount(String name, String password,PrintStream dos) throws Exception {
+    public static void createAccount(String name, String password, PrintStream dos) throws Exception {
         if (usernameAlreadyExists(name)) {
             Gson gson = new Gson();
             String alert = "username already exists";
             String str = gson.toJson(alert);
-            Message message = new Message(str,"String","printAlert");
+            Message message = new Message(str, "String", "printAlert");
             dos.println(message.messageToString());
             dos.flush();
         } else {
             Gson gson = new Gson();
             String alert = "Account created successfully";
             String str = gson.toJson(alert);
-            Message message = new Message(str,"String","printAlert");
+            Message message = new Message(str, "String", "printAlert");
             dos.println(message.messageToString());
             dos.flush();
             writePlayerToFile(name, password);
@@ -60,25 +61,23 @@ public class Account {
         System.out.println("entered login");
         if (usernameAlreadyExists(name)) {
             if (checkCorrectPassword(name, password)) {
-                setPlayer(name,dos);
+                setPlayer(name, dos);
 //                AllDatas.account.setNowInThisMenu(false);
 //                AllDatas.commandLine.setNowInThisMenu(true);
 //                Controller.enterMainMenu();
-            }
-            else {
+            } else {
                 Gson gson = new Gson();
                 String alert = "password is not correct";
                 String str = gson.toJson(alert);
-                Message message = new Message(str,"String","printAlert");
+                Message message = new Message(str, "String", "printAlert");
                 dos.println(message.messageToString());
                 dos.flush();
             }
-        }
-        else{
+        } else {
             Gson gson = new Gson();
             String alert = "this username does not exist";
             String str = gson.toJson(alert);
-            Message message = new Message(str,"String","printAlert");
+            Message message = new Message(str, "String", "printAlert");
             dos.println(message.messageToString());
             dos.flush();
         }
@@ -112,7 +111,7 @@ public class Account {
         for (int i = 0; i < player.getDecksOfPlayer().size(); i++) {
             jsonObject.put("deck" + i, returnStringOfDeck(player.getDecksOfPlayer().get(i)));
         }
-        if(Game.getInstance().getPlayer1().getMainDeck()!=null) {
+        if (Game.getInstance().getPlayer1().getMainDeck() != null) {
             jsonObject.put("mainDeck", Game.getInstance().getPlayer1().getMainDeck().getDeckName());
         }
         jsonObject.put("collection", returnStringOfCollection(player));
@@ -144,43 +143,44 @@ public class Account {
     public static String returnStringOfDeck(Deck deck) {
         System.out.println(deck.getDeckName());
         String list = deck.getDeckName();
-        if(deck.getHeroInDeck()!=null) {
+        if (deck.getHeroInDeck() != null) {
             System.out.println(deck.getHeroInDeck().name);
             list = list + "," + deck.getHeroInDeck().name;
         }
         for (Item item :
                 deck.getItemsInDeck()) {
             System.out.println(item.getName());
-            list =list + "," + item.getName();
+            list = list + "," + item.getName();
         }
         for (Card card : deck.getCardsInDeck()) {
             System.out.println(card.getName());
-            list = list +"," + card.name;
+            list = list + "," + card.name;
         }
         System.out.println(list);
         return list;
     }
 
-    public static Deck findMainDeckByName(Player player,String deckName){
-        for (Deck deck:
-             player.getDecksOfPlayer()) {
-            if(deck.getDeckName().matches(deckName)){
+    public static Deck findMainDeckByName(Player player, String deckName) {
+        for (Deck deck :
+                player.getDecksOfPlayer()) {
+            if (deck.getDeckName().matches(deckName)) {
                 return deck;
             }
         }
         return null;
     }
+
     public static Deck createDeckFromString(String deckString) throws CloneNotSupportedException {
         if (!deckString.matches("")) {
             String[] parts = deckString.split(",");
             Deck deck = new Deck(parts[0]);
             if (parts.length > 1) {
-                deck.setHeroInDeck(Hero.findHeroByName(parts[1]));
+                deck.setHeroInDeck((Hero)Card.findCardByNameInServer(parts[1]));
                 for (int i = 2; i < parts.length; i++) {
                     if (Item.thisCardIsItem(parts[i])) {
-                        deck.getItemsInDeck().add(Item.findItemByName(parts[i]));
+                        deck.getItemsInDeck().add((Item)Card.findCardByNameInServer(parts[i]));
                     } else {
-                        deck.getCardsInDeck().add(Card.findCardByName(parts[i]));
+                        deck.getCardsInDeck().add(Card.findCardByNameInServer(parts[i]));
                     }
                 }
             }
@@ -189,17 +189,22 @@ public class Account {
         return null;
     }
 
+
     public static void createCollectionFromString(Player player, String collection) throws CloneNotSupportedException {
         System.out.println(collection);
         if (!collection.matches("")) {
             String[] parts = collection.split(",");
             for (int i = 0; i < parts.length; i++) {
-                if (Hero.thisCardIsHero(parts[i])) {
-                    player.getHeroesInCollection().add(Hero.findHeroByName(parts[i]));
-                } else if (Item.thisCardIsItem(parts[i])) {
-                    player.getItemsInCollection().add(Item.findItemByName(parts[i]));
-                } else {
-                    player.getCardsInCollection().add(Card.findCardByName(parts[i]));
+                switch (Card.findCardByNameInServer(parts[i]).getCardType()) {
+                    case "hero":
+                        player.getHeroesInCollection().add((Hero) Card.findCardByNameInServer(parts[i]));
+                        break;
+                    case "item":
+                        player.getItemsInCollection().add((Item) Card.findCardByNameInServer(parts[i]));
+                        break;
+                    default:
+                        player.getCardsInCollection().add(Card.findCardByNameInServer(parts[i]));
+                        break;
                 }
             }
         }
@@ -243,14 +248,14 @@ public class Account {
             }
         }
         if (jsonObject.get("mainDeck") != null) {
-            player.setMainDeck(findMainDeckByName(player,(String) jsonObject.get("mainDeck")));
+            player.setMainDeck(findMainDeckByName(player, (String) jsonObject.get("mainDeck")));
         }
         createCollectionFromString(player, (String) jsonObject.get("collection"));
         Gson gson = new Gson();
         String str = gson.toJson(player, Player.class);
         System.out.println(str + "**********");
 //        System.out.println(new Message(str,"Player","setPlayer").messageToString());
-        dos.println(new Message(str,"Player","setPlayer").messageToString());
+        dos.println(new Message(str, "Player", "setPlayer").messageToString());
         dos.flush();
 //        Game createGame = new Game();
 //        Game.setCurrentGame(createGame);

@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "minion/hero(all)",
   "activationTime" : "onEntrance",
-  "imagePath" : "view/Photos/Items/Assassination Dagger/AssassinationDagger.png"
+  "imagePath" : "view/Photos/Items/Assassination Dagger/AssassinationDagger.png",
+  "numInShop" : "5"
 }

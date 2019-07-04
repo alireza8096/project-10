@@ -13,5 +13,6 @@
   "last" :"4",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/All Poison/AllPoison.png"
+  "imagePath" : "view/Photos/Spells/All Poison/AllPoison.png",
+  "numInShop" : "5"
 }

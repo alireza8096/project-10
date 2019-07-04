@@ -1,3 +1,4 @@
+
 {"healthPoint":"6",
   "attackRange":"3",
   "attackPower":"20",
@@ -19,5 +20,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Iraj/Iraj.png"
+  "imagePath" : "view/Photos/Minions/Iraj/Iraj.png",
+  "numInShop" : "5"
 }

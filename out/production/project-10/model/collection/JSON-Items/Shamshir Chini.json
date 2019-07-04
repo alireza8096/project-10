@@ -16,5 +16,6 @@
   "specification" : "melee",
   "user" : "null",
   "activationTime" : "null",
-  "imagePath" : "view/Photos/Items/Shamshir Chini/ShamshirChini.png"
+  "imagePath" : "view/Photos/Items/Shamshir Chini/ShamshirChini.png",
+  "numInShop" : "5"
 }

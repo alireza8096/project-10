@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import com.sun.java.accessibility.util.EventQueueMonitor;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -16,9 +17,11 @@ import model.Game;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Hero;
+import network.Message;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 import view.GameView;
+import view.MainView;
 import view.MenuView;
 
 import javax.swing.text.DefaultEditorKit;
@@ -389,7 +392,12 @@ public class CollectionController{
 //            Controller.getPressedButton().setAccessibleText("Sell");
             inRowHBox.getChildren().remove(cardVBox);
             try {
-                Shop.sellCardAndRemoveFromCollection(card.getId());
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(card, Card.class);
+                Message message = new Message(jsonString, "Card", "sellCard");
+                MainView.getClient().getDos().println(message.messageToString());
+                MainView.getClient().getDos().flush();
+//                Shop.sellCardAndRemoveFromCollection(card.getId());
             } catch (Exception e) {
                 e.printStackTrace();
             }

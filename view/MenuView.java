@@ -568,6 +568,7 @@ public class MenuView {
             }
 
             stackPane.setAlignment(Pos.CENTER);
+
             stackPane.setOnMouseClicked(event -> {
                 if (stackPane.getEffect() == null) {
                     if (!Shop.isIsShowingSpecificCard()) {

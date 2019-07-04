@@ -13,5 +13,6 @@
   "last" :"1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/All Power/AllPower.png"
+  "imagePath" : "view/Photos/Spells/All Power/AllPower.png",
+  "numInShop" : "5"
 }

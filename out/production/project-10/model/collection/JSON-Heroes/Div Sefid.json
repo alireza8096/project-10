@@ -19,5 +19,6 @@
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
   "imagePath" : "view/Photos/Heros/Div Sefid/boss_boreal_juggernaut_portrait_image_hex@2x.png",
-  "forceInField" : "view/Photos/Heros/Div Sefid/boss_borealjuggernaut_breathing.gif"
+  "forceInField" : "view/Photos/Heros/Div Sefid/boss_borealjuggernaut_breathing.gif",
+  "numInShop" : "5"
 }

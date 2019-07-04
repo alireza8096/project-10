@@ -6,7 +6,10 @@ import javafx.application.Platform;
 import model.AllDatas;
 import model.Game;
 import model.Player;
+import model.Shop;
 import model.collection.Account;
+import model.collection.Card;
+import model.collection.HandleFiles;
 import view.GameView;
 
 import java.io.FileNotFoundException;
@@ -25,14 +28,19 @@ public class Message {
     }
 
     public void handleMessageReceivedByServer(PrintStream dos) {
+        Gson gson = new Gson();
         switch (jsonType){
             case "Player" :
-                Gson gson = new Gson();
                 Player player = gson.fromJson(jsonString,Player.class);
                 functionsOfPlayerForServer(player,dos);
                 break;
+            case "Card":
+                Card card = gson.fromJson(jsonString, Card.class);
+                functionsOfCardForServer(card, dos);
+                break;
         }
     }
+
     public void handleMessageReceivedByClient(){
         Gson gson = new Gson();
         switch (jsonType){
@@ -49,6 +57,29 @@ public class Message {
             case "Player" :
                 Player player = gson.fromJson(jsonString,Player.class);
                 functionsOfPlayerForClient(player);
+                break;
+            case "Card":
+                Card card = gson.fromJson(jsonString, Card.class);
+                functionsOfCardForClient(card);
+                break;
+        }
+    }
+
+    public void functionsOfCardForClient(Card card){
+        switch (functionName){
+            case "buyCard":
+                try {
+                    Shop.buyCardAndAddToCollection(card.getName());
+                } catch (CloneNotSupportedException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+            case "sellCard":
+                try {
+                    Shop.sellCardAndRemoveFromCollection(card.getId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
         }
     }
@@ -88,6 +119,45 @@ public class Message {
                     System.out.println(e.getMessage());
                 }
                 break;
+        }
+    }
+
+    public void functionsOfCardForServer(Card card, PrintStream dos){
+        Gson gson = new Gson();
+        switch (functionName){
+            case "checkBuy":
+                for (Card card1 : Server.getCards()){
+                    if (card1.getName().equals(card.getName())){
+                        if (card1.getNumInShop() > 0){
+                            card1.setNumInShop(card1.getNumInShop() - 1);
+                            HandleFiles.writeChangesToJson(card1);
+                            String jsonString = gson.toJson(card, Card.class);
+                            Message message = new Message(jsonString, "Card", "buyCard");
+                            dos.println(message.messageToString());
+                            dos.flush();
+                        }
+                        else{
+                            String jsonString = gson.toJson("Shop does not have this card!", String.class);
+                            Message message = new Message(jsonString, "String", "printAlert");
+                            dos.println(message.messageToString());
+                            dos.flush();
+                        }
+                    }
+                }
+                break;
+            case "sellCard":
+                for (Card card1 : Server.getCards()){
+                    if (card1.getName().equals(card.getName())){
+                        card1.setNumInShop(card1.getNumInShop() + 1);
+                        HandleFiles.writeChangesToJson(card1);
+                        String jsonString = gson.toJson(card, Card.class);
+                        Message message = new Message(jsonString, "Card", "buyCard");
+                        dos.println(message.messageToString());
+                        dos.flush();
+                    }
+                }
+                break;
+
         }
     }
 

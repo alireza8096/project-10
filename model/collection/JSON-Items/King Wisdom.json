@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "null",
   "activationTime" : "null",
-  "imagePath" : "view/Photos/Items/King Wisdom/KingWisdom.png"
+  "imagePath" : "view/Photos/Items/King Wisdom/KingWisdom.png",
+  "numInShop" : "5"
 }

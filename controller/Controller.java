@@ -33,15 +33,14 @@ public class Controller {
 
     public static void createAll() throws Exception{
         createAllMenus();
-        createAllDataFromJSON();
+        createAllDataFromJSON("client");
     }
-    public static void createAllDataFromJSON() throws Exception{
-        HandleFiles.createHeroes();
-        HandleFiles.createItems();
-        HandleFiles.createMinions();
-        HandleFiles.createSpells();
+    public static void createAllDataFromJSON(String thread) throws Exception{
+        HandleFiles.createHeroes(thread);
+        HandleFiles.createItems(thread);
+        HandleFiles.createMinions(thread);
+        HandleFiles.createSpells(thread);
     }
-
 
 
     public static void createAllMenus() {

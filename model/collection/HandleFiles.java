@@ -30,12 +30,12 @@ public class HandleFiles {
         }
     }
 
-    public static void createSpells() throws IOException, ParseException {
-        File folder = new File(BEFORE_RELATIVE+ADDRESS_SPELL);
+    public static void createSpells(String thread) throws IOException, ParseException {
+        File folder = new File(BEFORE_RELATIVE + ADDRESS_SPELL);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_SPELL + "/" + listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE + ADDRESS_SPELL + "/" + listOfFiles[i].getName());
                 String mana = jsonObject.get("mana").toString();
                 String price = jsonObject.get("price").toString();
                 String name = jsonObject.get("name").toString();
@@ -51,19 +51,25 @@ public class HandleFiles {
                 String friendOrEnemy = jsonObject.get("friendOrEnemy").toString();
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 String imagePath = jsonObject.get("imagePath").toString();
-                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action, friendOrEnemy, locationOfTarget,imagePath, imagePath);
+                String numInShop = jsonObject.get("numInShop").toString();
+                Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action,
+                        friendOrEnemy, locationOfTarget, imagePath, imagePath, numInShop);
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
-                Spell.getSpells().add(spell);
+                if (thread.matches("client")) {
+                    Spell.getSpells().add(spell);
+                } else {
+                    Server.getCards().add(spell);
+                }
             }
         }
     }
 
-    public static void createItems() throws IOException, ParseException {
-        File folder = new File(BEFORE_RELATIVE+ADDRESS_ITEM);
+    public static void createItems(String thread) throws IOException, ParseException {
+        File folder = new File(BEFORE_RELATIVE + ADDRESS_ITEM);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_ITEM+"/"+listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE + ADDRESS_ITEM + "/" + listOfFiles[i].getName());
                 String itemType = jsonObject.get("itemType").toString();
                 String price = jsonObject.get("price").toString();
                 String name = jsonObject.get("name").toString();
@@ -83,18 +89,24 @@ public class HandleFiles {
                 String activationTime = jsonObject.get("activationTime").toString();
                 String imagePath = jsonObject.get("imagePath").toString();
                 Spell spell = new Spell(target, numOfTarget, action, friendOrEnemy, locationOfTarget);
+                String numInShop = jsonObject.get("numInShop").toString();
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
-                Item item = new Item(spell,itemType,price,name,id,desc,specification,user,activationTime,imagePath,imagePath);
-                Item.getItems().add(item);
+                Item item = new Item(spell, itemType, price, name, id, desc, specification, user, activationTime, imagePath, imagePath, numInShop);
+                if (thread.matches("client")) {
+                    Item.getItems().add(item);
+                } else {
+                    Server.getCards().add(item);
+                }
             }
         }
     }
-    public static void createMinions() throws IOException, ParseException {
-        File folder = new File(BEFORE_RELATIVE+ADDRESS_MINION);
+
+    public static void createMinions(String thread) throws IOException, ParseException {
+        File folder = new File(BEFORE_RELATIVE + ADDRESS_MINION);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_MINION + "/" + listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE + ADDRESS_MINION + "/" + listOfFiles[i].getName());
                 String healthPoint = jsonObject.get("healthPoint").toString();
                 String attackRange = jsonObject.get("attackRange").toString();
                 String attackPower = jsonObject.get("attackPower").toString();
@@ -116,20 +128,26 @@ public class HandleFiles {
                 String locationOfTarget = jsonObject.get("locationOfTarget").toString();
                 String doesNotGetAttack = jsonObject.get("doesNotGetAttack").toString();
                 String imagePath = jsonObject.get("imagePath").toString();
+                String numInShop = jsonObject.get("numInShop").toString();
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
-                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime,imagePath,imagePath);
+                        , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime, imagePath, imagePath, numInShop);
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
-                Minion.getMinions().add(minion);
+                if (thread.matches("client")) {
+                    Minion.getMinions().add(minion);
+                } else {
+                    Server.getCards().add(minion);
+                }
+
             }
         }
     }
 
-    public static void createHeroes() throws IOException, ParseException {
-        File folder = new File(BEFORE_RELATIVE+ADDRESS_HERO);
+    public static void createHeroes(String thread) throws IOException, ParseException {
+        File folder = new File(BEFORE_RELATIVE + ADDRESS_HERO);
         File[] listOfFiles = folder.listFiles();
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].getName().matches("[\\D]+" + ".json")) {
-                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE+ADDRESS_HERO + "/" + listOfFiles[i].getName());
+                JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(BEFORE_RELATIVE + ADDRESS_HERO + "/" + listOfFiles[i].getName());
                 String healthPoint = jsonObject.get("healthPoint").toString();
                 String attackRange = jsonObject.get("attackRange").toString();
                 String attackPower = jsonObject.get("attackPower").toString();
@@ -151,10 +169,15 @@ public class HandleFiles {
                 String locationOfTarget = jsonObject.get("healthPoint").toString();
                 String imagePath = jsonObject.get("imagePath").toString();
                 String forceInField = jsonObject.get("forceInField").toString();
+                String numInShop = jsonObject.get("numInShop").toString();
                 Hero hero = new Hero(mana, id, "hero", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType, attackRange,
-                        specialPower, action, locationOfTarget, coolDown, imagePath,forceInField);
+                        specialPower, action, locationOfTarget, coolDown, imagePath, forceInField, numInShop);
                 Buff.createBuffsForHero(hero, action, buffs, effectValue, delay, last);
-                Hero.getHeroes().add(hero);
+                if (thread.matches("client")) {
+                    Hero.getHeroes().add(hero);
+                } else {
+                    Server.getCards().add(hero);
+                }
             }
         }
     }
@@ -186,14 +209,15 @@ public class HandleFiles {
 
     public static void exportDeck(Deck deck) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("deck0",returnStringOfDeck(deck));
+        jsonObject.put("deck0", returnStringOfDeck(deck));
         Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + DECKS_FOLDER + "/"
                 + deck.getDeckName() + ".json"), jsonObject.toJSONString().getBytes());
     }
+
     public static Deck importDeck(String deckName) throws IOException, ParseException,
             CloneNotSupportedException {
-        JSONObject jsonObject = (JSONObject)HandleFiles.readJsonFiles(
-                HandleFiles.BEFORE_RELATIVE+DECKS_FOLDER+"/" + deckName + ".json");
+        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(
+                HandleFiles.BEFORE_RELATIVE + DECKS_FOLDER + "/" + deckName + ".json");
         return createDeckFromString(jsonObject.get("deck" + 0).toString());
     }
 
@@ -205,4 +229,54 @@ public class HandleFiles {
 //        }
 //        return null;
 //    }
+
+    public static void writeChangesToJson(Card card) {
+        System.out.println("write changes to JSON");
+        JSONObject jsonObject = null;
+        try {
+            switch (card.getCardType()) {
+                case "hero":
+                    System.out.println("case hero");
+                    jsonObject = (JSONObject) HandleFiles.readJsonFiles(
+                            BEFORE_RELATIVE + ADDRESS_HERO + "/" + card.getName() + ".json");
+                    jsonObject.remove("numInShop");
+                    jsonObject.put("numInShop", Integer.toString(card.getNumInShop()));
+                    System.out.println("put & remove");
+                    Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + ADDRESS_HERO + "/"
+                            + card.getName() + ".json"), jsonObject.toJSONString().getBytes());
+                    System.out.println("write");
+                    break;
+                case "minion":
+                    jsonObject = (JSONObject) HandleFiles.readJsonFiles(
+                            BEFORE_RELATIVE + ADDRESS_MINION + "/" + card.getName() + ".json");
+                    jsonObject.remove("numInShop");
+                    jsonObject.put("numInShop", Integer.toString(card.getNumInShop()));
+                    Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + ADDRESS_MINION + "/"
+                            + card.getName() + ".json"), jsonObject.toJSONString().getBytes());
+                    break;
+                case "spell":
+                    jsonObject = (JSONObject) HandleFiles.readJsonFiles(
+                            BEFORE_RELATIVE + ADDRESS_SPELL + "/" + card.getName() + ".json");
+                    jsonObject.remove("numInShop");
+                    jsonObject.put("numInShop", Integer.toString(card.getNumInShop()));
+                    Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + ADDRESS_SPELL + "/"
+                            + card.getName() + ".json"), jsonObject.toJSONString().getBytes());
+                    break;
+                case "item":
+                    jsonObject = (JSONObject) HandleFiles.readJsonFiles(
+                            BEFORE_RELATIVE + ADDRESS_ITEM + "/" + card.getName() + ".json");
+                    jsonObject.remove("numInShop");
+                    jsonObject.put("numInShop", Integer.toString(card.getNumInShop()));
+                    Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + ADDRESS_ITEM + "/"
+                            + card.getName()+ ".json"), jsonObject.toJSONString().getBytes());
+                    break;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+
+
+
+    }
 }

@@ -13,5 +13,6 @@
   "last" :"2",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Shock/Shock.png"
+  "imagePath" : "view/Photos/Spells/Shock/Shock.png",
+  "numInShop" : "5"
 }

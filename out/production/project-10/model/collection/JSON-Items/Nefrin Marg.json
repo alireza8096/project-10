@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "minion(random)",
   "activationTime" : "onDeath",
-  "imagePath" : "view/Photos/Items/Nefrin Marg/NefrinMarg.png"
+  "imagePath" : "view/Photos/Items/Nefrin Marg/NefrinMarg.png",
+  "numInShop" : "5"
 }
