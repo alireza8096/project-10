@@ -35,7 +35,9 @@ public class Server {
             new Thread(() -> {
                 while(true) {
                     if (dis.hasNext()) {
-                        Message.stringToMessage(dis.nextLine()).handleMessageReceivedByServer(dos);
+                        String instruction = dis.nextLine();
+//                        System.out.println("instruction : " + instruction);
+                        Message.stringToMessage(instruction).handleMessageReceivedByServer(dos);
                     }
                 }
             }).start();

@@ -74,6 +74,13 @@ public class Message {
                     System.out.println(e.getMessage());
                 }
                 break;
+            case "sellCard":
+                try {
+                    Shop.sellCardAndRemoveFromCollection(card.getId());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
@@ -135,7 +142,18 @@ public class Message {
                             dos.println(message.messageToString());
                             dos.flush();
                         }
-
+                    }
+                }
+                break;
+            case "sellCard":
+                for (Card card1 : Server.getCards()){
+                    if (card1.getName().equals(card.getName())){
+                        card1.setNumInShop(card1.getNumInShop() + 1);
+                        HandleFiles.writeChangesToJson(card1);
+                        String jsonString = gson.toJson(card, Card.class);
+                        Message message = new Message(jsonString, "Card", "buyCard");
+                        dos.println(message.messageToString());
+                        dos.flush();
                     }
                 }
                 break;
