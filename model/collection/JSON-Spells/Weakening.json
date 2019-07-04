@@ -1,18 +1,1 @@
-{"mana":"1",
-  "price":"1000",
-  "name":"Weakening",
-  "id":"417",
-  "type":"spell",
-  "desc":"applies a weakness buff with decrease of 4AP to the selected card",
-  "target" : "minion",
-  "numOfTarget" : "1",
-  "action" : "addBuff",
-  "buffs" : "attackPowerWeaknessBuff",
-  "effectValue" : "4",
-  "delay" : "null",
-  "last" :"1",
-  "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Weakening/Weakening.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"1","imagePath":"view\/Photos\/Spells\/Weakening\/Weakening.png","type":"spell","friendOrEnemy":"enemy","target":"minion","delay":"null","mana":"1","price":"1000","name":"Weakening","action":"addBuff","numOfTarget":"1","id":"417","buffs":"attackPowerWeaknessBuff","effectValue":"4","numInShop":"5","desc":"applies a weakness buff with decrease of 4AP to the selected card"}

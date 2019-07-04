@@ -1,18 +1,1 @@
-{"mana":"2",
-  "price":"2500",
-  "name":"Power Up",
-  "id":"414",
-  "type":"spell",
-  "desc":"applies a power buff with 6AP increase",
-  "target" : "minion",
-  "numOfTarget" : "1",
-  "action" : "addBuff",
-  "buffs" : "attackPowerBuff",
-  "effectValue" : "6",
-  "delay" : "null",
-  "last" :"1",
-  "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Power Up/Power Up.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"1","imagePath":"view\/Photos\/Spells\/Power Up\/Power Up.png","type":"spell","friendOrEnemy":"friend","target":"minion","delay":"null","mana":"2","price":"2500","name":"Power Up","action":"addBuff","numOfTarget":"1","id":"414","buffs":"attackPowerBuff","effectValue":"6","numInShop":"5","desc":"applies a power buff with 6AP increase"}

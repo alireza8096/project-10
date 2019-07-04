@@ -11,6 +11,7 @@ import model.Game;
 import model.LinkedListMenus;
 import model.Player;
 import model.collection.Account;
+import network.Client;
 import network.Message;
 import org.json.simple.parser.ParseException;
 import view.BattleView;
@@ -246,6 +247,8 @@ public class MenusCommandController {
         logout.setOnAction(event -> {
             try {
                 assert LinkedListMenus.whichMenuNow() != null;
+                MainView.getClient().getClientThread().stop();
+                MainView.setClient(new Client());
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
             } catch (ParseException | IOException | CloneNotSupportedException e) {
                 e.printStackTrace();

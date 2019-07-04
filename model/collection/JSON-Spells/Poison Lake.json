@@ -1,18 +1,1 @@
-{"mana":"5",
-  "price":"900",
-  "name":"Poison Lake",
-  "id":"408",
-  "type":"spell",
-  "desc":"performs poison cell effect in the selected cell of the map for 1 turn",
-  "target" : "cell",
-  "numOfTarget" : "square3",
-  "action" : "addAction",
-  "buffs" : "poison",
-  "effectValue" : "null",
-  "delay" : "null",
-  "last" :"1",
-  "friendOrEnemy" : "cell",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Poison Lake/Poison Lake.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"1","imagePath":"view\/Photos\/Spells\/Poison Lake\/Poison Lake.png","type":"spell","friendOrEnemy":"cell","target":"cell","delay":"null","mana":"5","price":"900","name":"Poison Lake","action":"addAction","numOfTarget":"square3","id":"408","buffs":"poison","effectValue":"null","numInShop":"5","desc":"performs poison cell effect in the selected cell of the map for 1 turn"}

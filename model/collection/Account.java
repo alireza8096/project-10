@@ -113,7 +113,7 @@ public class Account implements Cloneable {
             for (int i = 0; i < player.getDecksOfPlayer().size(); i++) {
                 jsonObject.put("deck" + i, returnStringOfDeck(player.getDecksOfPlayer().get(i)));
             }
-            if (Game.getInstance().getPlayer1().getMainDeck() != null) {
+            if (player.getMainDeck() != null) {
                 jsonObject.put("mainDeck", Game.getInstance().getPlayer1().getMainDeck().getDeckName());
             }
             jsonObject.put("collection", returnStringOfCollection(player));
@@ -126,6 +126,7 @@ public class Account implements Cloneable {
             dos.flush();
         }
         catch (Exception e){
+            e.printStackTrace();
             String message = gson.toJson("Problems saving account. Please try again later");
             dos.println(new Message(message,"String","printAlert").messageToString());
             dos.flush();
@@ -205,7 +206,7 @@ public class Account implements Cloneable {
 
 
     public static void createCollectionFromString(Player player, String collection) throws CloneNotSupportedException {
-        System.out.println(collection);
+        System.out.println(collection + "******");
         if (!collection.matches("")) {
             String[] parts = collection.split(",");
             for (int i = 0; i < parts.length; i++) {
@@ -225,21 +226,29 @@ public class Account implements Cloneable {
     }
 
     public static String returnStringOfCollection(Player player) {
+        ArrayList<String> names = new ArrayList<>();
         String list = "";
-        if (player.getHeroesInCollection().size() != 0) {
-            list = player.getHeroesInCollection().get(0).name;
-            for (int i = 1; i < player.getHeroesInCollection().size(); i++) {
-                list = list + "," + player.getHeroesInCollection().get(i).name;
+        for (Hero hero:
+             player.getHeroesInCollection()) {
+            names.add(hero.name);
+            System.out.println(hero.name + "JJ");
+        }
+        for(Item item : player.getItemsInCollection()){
+            names.add(item.name);
+            System.out.println(item.getName() + "II");
+        }
+        for(Card card : player.getCardsInCollection()) {
+            names.add(card.name);
+            System.out.println(card.getName() + "Cc");
+        }
+        if(names.size() > 0){
+            list = list + names.get(0);
+            System.out.println(list + "&&&");
+            for(int i=1; i<names.size(); i++){
+                list = list + "," + names.get(i);
             }
         }
-        for (Item item :
-                player.getItemsInCollection()) {
-            list = list + "," + item.getName();
-        }
-        for (Card card :
-                player.getCardsInCollection()) {
-            list = list + "," + card.name;
-        }
+        System.out.println("list : " + list);
         return list;
     }
 

@@ -1,18 +1,1 @@
-{"mana":"9",
-  "price":"1750",
-  "name":"Kings Guard",
-  "id":"419",
-  "type":"spell",
-  "desc":"kills a random enemy",
-  "target" : "minion",
-  "numOfTarget" : "1",
-  "action" : "kill",
-  "buffs" : "null",
-  "effectValue" : "null",
-  "delay" : "null",
-  "last" :"null",
-  "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "random8",
-  "imagePath" : "view/Photos/Spells/Kings Guard/Kings Guard.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"random8","last":"null","imagePath":"view\/Photos\/Spells\/Kings Guard\/Kings Guard.png","type":"spell","friendOrEnemy":"enemy","target":"minion","delay":"null","mana":"9","price":"1750","name":"Kings Guard","action":"kill","numOfTarget":"1","id":"419","buffs":"null","effectValue":"null","numInShop":"5","desc":"kills a random enemy"}

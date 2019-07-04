@@ -13,10 +13,16 @@ public class Client {
     private Socket socket;
     private Scanner dis;
     private PrintStream dos;
+    private Thread clientThread;
 
 //    public MainView getMainView() {
 //        return mainView;
 //    }
+
+
+    public Thread getClientThread() {
+        return clientThread;
+    }
 
     public PrintStream getDos() {
         return dos;
@@ -33,7 +39,7 @@ public class Client {
     public Client() throws IOException {
         this.socket = new Socket("localhost",8888);
 //        mainView = new MainView();
-        new Thread(new Runnable() {
+        clientThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -49,7 +55,8 @@ public class Client {
                 }
 
             }
-        }).start();
+        });
+        clientThread.start();
     }
 
 }

@@ -1,18 +1,1 @@
-{"mana":"2",
-  "price":"1500",
-  "name":"Area Dispel",
-  "id":"402",
-  "type":"spell",
-  "desc":"destroys positive buffs of enemy and negative buffs of self forces",
-  "target" : "minion/hero",
-  "numOfTarget" : "all",
-  "action" : "dispel",
-  "buffs" : "null",
-  "effectValue" : "null",
-  "delay" : "null",
-  "last" :"null",
-  "friendOrEnemy" : "friend/enemy",
-  "locationOfTarget" : "square2",
-  "imagePath" : "view/Photos/Spells/Area Dispel/AreaDispel.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"square2","last":"null","imagePath":"view\/Photos\/Spells\/Area Dispel\/AreaDispel.png","type":"spell","friendOrEnemy":"friend\/enemy","target":"minion\/hero","delay":"null","mana":"2","price":"1500","name":"Area Dispel","action":"dispel","numOfTarget":"all","id":"402","buffs":"null","effectValue":"null","numInShop":"5","desc":"destroys positive buffs of enemy and negative buffs of self forces"}

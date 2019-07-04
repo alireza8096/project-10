@@ -1,18 +1,1 @@
-{"mana":"2",
-  "price":"1250",
-  "name":"Lighting Bolt",
-  "id":"407",
-  "type":"spell",
-  "desc":"attacks 8Ap to the hero of enemy",
-  "target" : "hero",
-  "numOfTarget" : "1",
-  "action" : "addAction",
-  "buffs" : "healthPointWeaknessBuff",
-  "effectValue" : "8",
-  "delay" : "null",
-  "last" :"1",
-  "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Lighting Bolt/Lighting Bolt.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"1","imagePath":"view\/Photos\/Spells\/Lighting Bolt\/Lighting Bolt.png","type":"spell","friendOrEnemy":"enemy","target":"hero","delay":"null","mana":"2","price":"1250","name":"Lighting Bolt","action":"addAction","numOfTarget":"1","id":"407","buffs":"healthPointWeaknessBuff","effectValue":"8","numInShop":"5","desc":"attacks 8Ap to the hero of enemy"}
