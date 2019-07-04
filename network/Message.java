@@ -119,6 +119,9 @@ public class Message {
                     System.out.println(e.getMessage());
                 }
                 break;
+
+            case "save" :
+                Account.savePlayer(player,dos);
         }
     }
 

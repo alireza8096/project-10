@@ -101,21 +101,35 @@ public class Account implements Cloneable {
         Files.write((Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + name + ".json")), tempPlayer.toJSONString().getBytes());
     }
 
-    public static void savePlayer(Player player) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("username", player.getUserName());
-        jsonObject.put("password", player.getPassword());
-        jsonObject.put("daric", player.getDaric());
-        jsonObject.put("numOfWins", player.getNumOfWins());
-        jsonObject.put("numOfAllDecks", player.getDecksOfPlayer().size());
-        for (int i = 0; i < player.getDecksOfPlayer().size(); i++) {
-            jsonObject.put("deck" + i, returnStringOfDeck(player.getDecksOfPlayer().get(i)));
+    public static void savePlayer(Player player,PrintStream dos){
+        Gson gson = new Gson();
+        try {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("username", player.getUserName());
+            jsonObject.put("password", player.getPassword());
+            jsonObject.put("daric", player.getDaric());
+            jsonObject.put("numOfWins", player.getNumOfWins());
+            jsonObject.put("numOfAllDecks", player.getDecksOfPlayer().size());
+            for (int i = 0; i < player.getDecksOfPlayer().size(); i++) {
+                jsonObject.put("deck" + i, returnStringOfDeck(player.getDecksOfPlayer().get(i)));
+            }
+            if (Game.getInstance().getPlayer1().getMainDeck() != null) {
+                jsonObject.put("mainDeck", Game.getInstance().getPlayer1().getMainDeck().getDeckName());
+            }
+            jsonObject.put("collection", returnStringOfCollection(player));
+            for (Card card : Server.getCards()) {
+                HandleFiles.writeChangesToJson(card);
+            }
+            Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + player.getUserName() + ".json"), jsonObject.toJSONString().getBytes());
+            String message = gson.toJson("Data was saved successfully");
+            dos.println(new Message(message,"String","printAlert").messageToString());
+            dos.flush();
         }
-        if (Game.getInstance().getPlayer1().getMainDeck() != null) {
-            jsonObject.put("mainDeck", Game.getInstance().getPlayer1().getMainDeck().getDeckName());
+        catch (Exception e){
+            String message = gson.toJson("Problems saving account. Please try again later");
+            dos.println(new Message(message,"String","printAlert").messageToString());
+            dos.flush();
         }
-        jsonObject.put("collection", returnStringOfCollection(player));
-        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + player.getUserName() + ".json"), jsonObject.toJSONString().getBytes());
     }
 
     //    public static void writeJustCreatedPlayerToFile(String name,String password,String justCreated) throws IOException {

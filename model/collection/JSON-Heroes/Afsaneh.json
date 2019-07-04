@@ -1,1 +1,25 @@
-{"healthPoint":"40","attackRange":"3","attackPower":"3","locationOfTarget":"null","last":"null","specialPower":"dispel one enemy hero\/minion","imagePath":"view\/Photos\/Heros\/Afsaneh\/general_portrait_image_hex_f2-alt@2x.png","type":"hero","friendOrEnemy":"enemy","coolDown":"2","target":"minion\/hero","forceInField":"view\/Photos\/Heros\/Afsaneh\/f2_altgeneraltier2_breathing.gif","delay":"null","attackType":"ranged","mana":"1","price":"11000","name":"Afsaneh","action":"dispel","numOfTarget":"1","id":"108","buffs":"null","effectValue":"null","numInShop":"4"}
+{
+  "healthPoint": "40",
+  "attackRange": "3",
+  "attackPower": "3",
+  "locationOfTarget": "null",
+  "last": "null",
+  "specialPower": "dispel one enemy hero\/minion",
+  "imagePath": "view\/Photos\/Heros\/Afsaneh\/general_portrait_image_hex_f2-alt@2x.png",
+  "type": "hero",
+  "friendOrEnemy": "enemy",
+  "coolDown": "2",
+  "target": "minion\/hero",
+  "forceInField": "view\/Photos\/Heros\/Afsaneh\/f2_altgeneraltier2_breathing.gif",
+  "delay": "null",
+  "attackType": "ranged",
+  "mana": "1",
+  "price": "11000",
+  "name": "Afsaneh",
+  "action": "dispel",
+  "numOfTarget": "1",
+  "id": "108",
+  "buffs": "null",
+  "effectValue": "null",
+  "numInShop": "5"
+}
