@@ -133,15 +133,6 @@ public class Account implements Cloneable {
         }
     }
 
-    //    public static void writeJustCreatedPlayerToFile(String name,String password,String justCreated) throws IOException {
-//        JSONObject tempPlayer = new JSONObject();
-//        tempPlayer.put("username",name);
-//        tempPlayer.put("password",password);
-//        tempPlayer.put("daric",150000000);
-//        tempPlayer.put("numOfWins",0);
-//        tempPlayer.put("justCreated",justCreated);
-//        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/"+name+".json"),tempPlayer.toJSONString().getBytes());
-//
     public static boolean usernameAlreadyExists(String checkName) {
         for (String name : Server.getPlayers()) {
             if (name.matches(checkName))
