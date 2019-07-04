@@ -39,7 +39,7 @@ public class Server {
     public Server() throws Exception {
         HandleFiles.createStringOfPlayers();
         Controller.createAllDataFromJSON();
-        serverSocket = new ServerSocket(7766);
+        serverSocket = new ServerSocket(8888);
         while (true) {
             Socket client = serverSocket.accept();
             System.out.println("client accepted");
