@@ -253,11 +253,11 @@ public class MenusCommandController {
         });
 
         save.setOnAction(event -> {
-            try {
-                Account.savePlayer(Game.getInstance().getPlayer1());
-            } catch (IOException e) {
-                e.getMessage();
-            }
+            Gson gson = new Gson();
+            String jsonObject = gson.toJson(Game.getInstance().getPlayer1());
+            MainView.getClient().getDos().println(new Message(jsonObject,"Player","save").messageToString());
+            MainView.getClient().getDos().flush();
+//                Account.savePlayer(Game.getInstance().getPlayer1());
         });
     }
 
