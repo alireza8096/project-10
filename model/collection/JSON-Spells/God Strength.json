@@ -13,5 +13,6 @@
   "last" :"1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/God Strength/God Strength.png"
+  "imagePath" : "view/Photos/Spells/God Strength/God Strength.png",
+  "numInShop" : "5"
 }

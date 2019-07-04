@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "negative",
-  "imagePath" : "view/Photos/Minions/Giv/Giv.png"
+  "imagePath" : "view/Photos/Minions/Giv/Giv.png",
+  "numInShop" : "5"
 }

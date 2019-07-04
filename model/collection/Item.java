@@ -23,8 +23,9 @@ public class Item extends Card implements Cloneable {
     private String activationTime;
 
     public Item(Spell spell, String itemType, String price, String name, String id,
-                String desc, String specification, String user, String activationTime, String imagePath, String inField) throws FileNotFoundException {
-        super("0", id, "item", name, price, imagePath, inField,desc);
+                String desc, String specification, String user, String activationTime,
+                String imagePath, String inField, String numInShop) throws FileNotFoundException {
+        super("0", id, "item", name, price, imagePath, inField,desc, numInShop);
         this.spell = spell;
         this.itemType = itemType;
         this.specification = specification;

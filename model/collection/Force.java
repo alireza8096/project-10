@@ -69,8 +69,12 @@ public class Force extends Card {
         return returnString;
     }
 
-    public Force(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String imagePath, String inField) throws FileNotFoundException {
-        super(mana, id, cardType, name, price, imagePath, inField,specialPower);
+    public Force(String mana, String id, String cardType, String name, String price, String targets,
+                 String numOfTargets, String friendOrEnemy, String healthPoint,
+                 String attackPower, String attackType, String attackRange, String specialPower,
+                 String actionTypes, String locationOfTargets, String imagePath, String inField, String numInShop)
+            throws FileNotFoundException {
+        super(mana, id, cardType, name, price, imagePath, inField,specialPower, numInShop);
         this.targets = returnArrayList(targets);
         this.numOfTargets = returnArrayList(numOfTargets);
         this.friendOrEnemy = returnArrayList(friendOrEnemy);

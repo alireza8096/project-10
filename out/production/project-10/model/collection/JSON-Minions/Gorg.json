@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Gorg/Gorg.png"
+  "imagePath" : "view/Photos/Minions/Gorg/Gorg.png",
+  "numInShop" : "5"
 }

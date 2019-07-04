@@ -13,5 +13,6 @@
   "last" :"1",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/All Disarm/AllDisarm.png"
+  "imagePath" : "view/Photos/Spells/All Disarm/AllDisarm.png",
+  "numInShop" : "5"
 }

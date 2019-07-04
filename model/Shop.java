@@ -4,6 +4,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.collection.*;
+import network.Message;
+import network.Server;
 
 import java.util.ArrayList;
 
@@ -309,6 +311,10 @@ public class Shop{
             }
         }
     }
+
+//    public static Message checkBuyingConditionServer(Card card){
+//        for (Card card : Serve)
+//    }
 
 }
 

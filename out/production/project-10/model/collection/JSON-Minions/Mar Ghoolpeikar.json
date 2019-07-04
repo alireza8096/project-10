@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "distance2",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Mar Ghoolpeikar/MarGhoolpeikar.png"
+  "imagePath" : "view/Photos/Minions/Mar Ghoolpeikar/MarGhoolpeikar.png",
+  "numInShop" : "5"
 }

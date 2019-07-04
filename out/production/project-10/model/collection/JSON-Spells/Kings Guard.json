@@ -13,5 +13,6 @@
   "last" :"null",
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "random8",
-  "imagePath" : "view/Photos/Spells/Kings Guard/Kings Guard.png"
+  "imagePath" : "view/Photos/Spells/Kings Guard/Kings Guard.png",
+  "numInShop" : "5"
 }

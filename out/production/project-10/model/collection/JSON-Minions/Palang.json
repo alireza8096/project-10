@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Palang/Palang.png"
+  "imagePath" : "view/Photos/Minions/Palang/Palang.png",
+  "numInShop" : "5"
 }

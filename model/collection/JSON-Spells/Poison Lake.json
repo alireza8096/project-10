@@ -13,5 +13,6 @@
   "last" :"1",
   "friendOrEnemy" : "cell",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Poison Lake/Poison Lake.png"
+  "imagePath" : "view/Photos/Spells/Poison Lake/Poison Lake.png",
+  "numInShop" : "5"
 }

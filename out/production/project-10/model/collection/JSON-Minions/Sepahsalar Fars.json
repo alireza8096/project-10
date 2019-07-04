@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Sepahsalar Fars/SepahsalarFars.png"
+  "imagePath" : "view/Photos/Minions/Sepahsalar Fars/SepahsalarFars.png",
+  "numInShop" : "5"
 }

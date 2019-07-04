@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "random",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Bahman/Bahman.png"
+  "imagePath" : "view/Photos/Minions/Bahman/Bahman.png",
+  "numInShop" : "5"
 }

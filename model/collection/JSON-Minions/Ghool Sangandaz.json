@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Ghool Sangandaz/GhoolSangandaz.png"
+  "imagePath" : "view/Photos/Minions/Ghool Sangandaz/GhoolSangandaz.png",
+  "numInShop" : "5"
 }

@@ -13,5 +13,6 @@
   "last" :"2",
   "friendOrEnemy" : "cell",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Hell Fire/Hell Fire.png"
+  "imagePath" : "view/Photos/Spells/Hell Fire/Hell Fire.png",
+  "numInShop" : "5"
 }

@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Gorg Sefid/GorgSefid.png"
+  "imagePath" : "view/Photos/Minions/Gorg Sefid/GorgSefid.png",
+  "numInShop" : "5"
 }

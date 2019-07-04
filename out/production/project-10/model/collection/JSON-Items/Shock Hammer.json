@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "hero",
   "activationTime" : "onAttack",
-  "imagePath" : "view/Photos/Items/Shock Hammer/ShockHammer.png"
+  "imagePath" : "view/Photos/Items/Shock Hammer/ShockHammer.png",
+  "numInShop" : "5"
 }

@@ -19,6 +19,7 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "imagePath" : "view/Photos/Heros/Simorgh/general_portrait_image_hex_f4-alt@2x.png",
-  "forceInField" : "view/Photos/Heros/Simorgh/f4_altgeneraltier2_breathing.gif"
+  "forceInField" : "view/Photos/Heros/Simorgh/f4_altgeneraltier2_breathing.gif",
+  "numInShop" : "0"
 
 }

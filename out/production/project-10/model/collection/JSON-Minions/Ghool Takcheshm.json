@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "8around",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Ghool Takcheshm/GhoolTakcheshm.png"
+  "imagePath" : "view/Photos/Minions/Ghool Takcheshm/GhoolTakcheshm.png",
+  "numInShop" : "5"
 }

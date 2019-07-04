@@ -16,5 +16,6 @@
   "specification" : "ranged/hybrid",
   "user" : "null",
   "activationTime" : "null",
-  "imagePath" : "view/Photos/Items/Tir Doshakh/TirDoshakh.png"
+  "imagePath" : "view/Photos/Items/Tir Doshakh/TirDoshakh.png",
+  "numInShop" : "5"
 }

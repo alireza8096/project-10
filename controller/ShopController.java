@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -12,9 +13,12 @@ import javafx.scene.layout.VBox;
 import model.*;
 import model.collection.*;
 import model.Game;
+import network.Client;
+import network.Message;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.events.EventException;
 import view.GameView;
+import view.MainView;
 import view.MenuView;
 
 import java.io.FileNotFoundException;
@@ -150,7 +154,7 @@ public class ShopController {
         heroes.setOnAction(event -> MenuView.showHeroesInShop());
     }
 
-    public static void handleEventsOfBuyingCard(VBox generalVBox , ImageView cancelButton, ImageView buyButton, Card card/*Card card, ImageView cardImage, ImageView cancelButton, ImageView buyButton, HBox hBox*/){
+    public static void handleEventsOfBuyingCard(VBox generalVBox , ImageView cancelButton, ImageView buyButton, Card card){
         cancelButton.setOnMouseClicked(event -> {
            AllDatas.currentRoot.getChildren().removeAll(generalVBox);
            MenuView.removeBlurEffectOfWindow();
@@ -160,7 +164,15 @@ public class ShopController {
         buyButton.setOnMouseClicked(event -> {
             try {
                 if (!Deck.checkIfThisCardOrItemIsInCollection(card.getId())) {
-                    Shop.buyCardAndAddToCollection(card.getName());
+                    if (Shop.checkIfMoneyIsEnough(card.getName())) {
+                        Gson gson = new Gson();
+                        String cardString = gson.toJson(card, Card.class);
+                        Message message = new Message(cardString, "Card", "checkBuy");
+                        MainView.getClient().getDos().println(message.messageToString());
+                        MainView.getClient().getDos().flush();
+                    }else{
+                        GameView.printInvalidCommandWithThisContent("You don not have enough money");
+                    }
                 }else{
                     GameView.printInvalidCommandWithThisContent("This card is already available in collection!");
                 }

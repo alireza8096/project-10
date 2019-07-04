@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "minion/hero(random)",
   "activationTime" : "onAttack",
-  "imagePath" : "view/Photos/Items/Poisonous Dagger/PoisonousDagger.png"
+  "imagePath" : "view/Photos/Items/Poisonous Dagger/PoisonousDagger.png",
+  "numInShop" : "5"
 }

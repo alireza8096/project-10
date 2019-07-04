@@ -19,5 +19,6 @@
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Foolad Zereh/FooladZereh.png"
+  "imagePath" : "view/Photos/Minions/Foolad Zereh/FooladZereh.png",
+  "numInShop" : "5"
 }

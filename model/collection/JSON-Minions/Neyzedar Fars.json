@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Neyzedar Fars/NeyzedarFars.png"
+  "imagePath" : "view/Photos/Minions/Neyzedar Fars/NeyzedarFars.png",
+  "numInShop" : "5"
 }

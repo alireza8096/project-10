@@ -13,5 +13,6 @@
   "last" :"1,3",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Health With Profit/HealthWithProfit.png"
+  "imagePath" : "view/Photos/Spells/Health With Profit/HealthWithProfit.png",
+  "numInShop" : "5"
 }

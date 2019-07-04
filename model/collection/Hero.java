@@ -26,8 +26,15 @@ public class Hero extends Force implements Cloneable{
         return heroes;
     }
 
-    public Hero(String mana, String id, String cardType, String name, String price, String targets, String numOfTargets, String friendOrEnemy, String healthPoint, String attackPower, String attackType, String attackRange, String specialPower, String actionTypes, String locationOfTargets, String coolDown,String imagePath,String forceInField) throws FileNotFoundException {
-        super(mana, id, cardType, name, price, targets, numOfTargets, friendOrEnemy, healthPoint, attackPower, attackType, attackRange, specialPower, actionTypes, locationOfTargets,imagePath,forceInField);
+    public Hero(String mana, String id, String cardType, String name,
+                String price, String targets, String numOfTargets,
+                String friendOrEnemy, String healthPoint, String attackPower,
+                String attackType, String attackRange, String specialPower,
+                String actionTypes, String locationOfTargets, String coolDown,
+                String imagePath,String forceInField, String numInShop) throws FileNotFoundException {
+        super(mana, id, cardType, name, price, targets, numOfTargets,
+                friendOrEnemy, healthPoint, attackPower, attackType,
+                attackRange, specialPower, actionTypes, locationOfTargets,imagePath,forceInField, numInShop);
         if (!coolDown.equals("null")) this.coolDown = Integer.parseInt(coolDown);
         else this.coolDown = 0;
     }
@@ -280,10 +287,10 @@ public class Hero extends Force implements Cloneable{
         }
     }
 
-    public static Hero findHeroByName(String heroName) {
+    public static Hero findHeroByName(String heroName) throws CloneNotSupportedException {
         for (Hero check : heroes) {
             if (check.name.matches(heroName)) {
-                return check;
+                return (Hero)check.clone();
             }
         }
         return null;

@@ -41,7 +41,6 @@ public class Client {
                     dos = new PrintStream(socket.getOutputStream());
                     while (true){
                         if (dis.hasNext()){
-//                            System.out.println(dis.nextLine());
                             Message.stringToMessage(dis.nextLine()).handleMessageReceivedByClient();
                         }
                     }

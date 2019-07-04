@@ -19,5 +19,6 @@
   "friendOrEnemy" : "null",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Div Gorazsavar/DivGorazsavar.png"
+  "imagePath" : "view/Photos/Minions/Div Gorazsavar/DivGorazsavar.png",
+  "numInShop" : "5"
 }

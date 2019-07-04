@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Jasoos Toorani/JasoosToorani.png"
+  "imagePath" : "view/Photos/Minions/Jasoos Toorani/JasoosToorani.png",
+  "numInShop" : "5"
 }

@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Shahzade Toorani/ShahzadeToorani.png"
+  "imagePath" : "view/Photos/Minions/Shahzade Toorani/ShahzadeToorani.png",
+  "numInShop" : "5"
 }

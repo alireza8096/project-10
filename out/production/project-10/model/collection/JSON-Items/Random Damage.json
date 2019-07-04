@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "null",
   "activationTime" : "null",
-  "imagePath" : "view/Photos/Items/Random Damage/RandomDamage.png"
+  "imagePath" : "view/Photos/Items/Random Damage/RandomDamage.png",
+  "numInShop" : "5"
 }

@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "minion/hero(all)",
   "activationTime" : "onDeath",
-  "imagePath" : "view/Photos/Items/Soul Eater/SoulEater.png"
+  "imagePath" : "view/Photos/Items/Soul Eater/SoulEater.png",
+  "numInShop" : "5"
 }

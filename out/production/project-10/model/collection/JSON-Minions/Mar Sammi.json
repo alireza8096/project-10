@@ -19,5 +19,6 @@
   "friendOrEnemy" : "enemy",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Mar Sammi/MarSammi.png"
+  "imagePath" : "view/Photos/Minions/Mar Sammi/MarSammi.png",
+  "numInShop" : "5"
 }

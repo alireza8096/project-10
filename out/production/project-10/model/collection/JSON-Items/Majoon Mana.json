@@ -16,5 +16,6 @@
   "specification" : "null",
   "user" : "null",
   "activationTime" : "null",
-  "imagePath" : "view/Photos/Items/Majoon Mana/MajoonMana.png"
+  "imagePath" : "view/Photos/Items/Majoon Mana/MajoonMana.png",
+  "numInShop" : "5"
 }

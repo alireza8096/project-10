@@ -13,5 +13,6 @@
   "last" :"1",
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Empower/Empower.png"
+  "imagePath" : "view/Photos/Spells/Empower/Empower.png",
+  "numInShop" : "5"
 }

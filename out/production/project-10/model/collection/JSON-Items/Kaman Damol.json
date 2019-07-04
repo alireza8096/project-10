@@ -16,5 +16,6 @@
   "specification" : "ranged/hybrid",
   "user" : "hero",
   "activationTime" : "onAttack",
-  "imagePath" : "view/Photos/Items/Kaman Damol/KamanDamol.png"
+  "imagePath" : "view/Photos/Items/Kaman Damol/KamanDamol.png",
+  "numInShop" : "5"
 }

@@ -13,5 +13,6 @@
   "last" :"null",
   "friendOrEnemy" : "friend/enemy",
   "locationOfTarget" : "square2",
-  "imagePath" : "view/Photos/Spells/Area Dispel/AreaDispel.png"
+  "imagePath" : "view/Photos/Spells/Area Dispel/AreaDispel.png",
+  "numInShop" : "5"
 }

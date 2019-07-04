@@ -19,5 +19,6 @@
   "friendOrEnemy" : "friend",
   "locationOfTarget" : "null",
   "doesNotGetAttack" : "null",
-  "imagePath" : "view/Photos/Minions/Oghab/Oghab.png"
+  "imagePath" : "view/Photos/Minions/Oghab/Oghab.png",
+  "numInShop" : "5"
 }

@@ -13,5 +13,6 @@
   "last" :"null",
   "friendOrEnemy" : "friend/enemy",
   "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Dispel/Dispel.png"
+  "imagePath" : "view/Photos/Spells/Dispel/Dispel.png",
+  "numInShop" : "5"
 }
