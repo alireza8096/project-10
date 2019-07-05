@@ -238,10 +238,6 @@ public class MenusCommandController {
             }
         });
 
-        help.setOnAction(event -> {
-            //Todo : handle help in each menu
-        });
-
         exit.setOnAction(event -> System.exit(0));
 
         logout.setOnAction(event -> {

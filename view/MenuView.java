@@ -50,7 +50,7 @@ public class MenuView {
 
     public static void showLoginMenu() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
-        MainView.primaryStage.setMaximized(true);
+//        MainView.primaryStage.setMaximized(true);
 
         setBackgroundOfMainMenu();
 
@@ -122,7 +122,7 @@ public class MenuView {
         logoutOption.setFont(herculanum);
         logoutOption.setTextFill(Color.WHITE);
 
-        Hyperlink helpOption = new Hyperlink("Help");
+        Hyperlink helpOption = new Hyperlink("Chat Room");
         helpOption.setFont(herculanum);
         helpOption.setTextFill(Color.WHITE);
 
@@ -655,12 +655,12 @@ public class MenuView {
         int price = card.getPrice();
         Text priceText = new Text(Integer.toString(price));
         priceText.setFont(Font.font(20));
-        priceText.setFill(rgb(192, 200, 214));
+        priceText.setFill(rgb(227, 252, 255));
 
         try {
 
             ImageView priceBack = new ImageView(new Image(new FileInputStream(
-                    HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/server/price_back.png")));
             priceBack.setFitWidth(200);
             priceBack.setFitHeight(50);
 
@@ -762,9 +762,9 @@ public class MenuView {
 
     public static VBox addPriceAndManaForShowingCard(Card card, HBox cardHBox) throws FileNotFoundException {
         ImageView priceBack = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/server/price_back.png")));
         ImageView manaBack = new ImageView(new Image(new FileInputStream(
-                HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_back.png")));
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/server/price_back.png")));
         ImageView priceIcon = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_icon.png")));
         ImageView manaIcon = new ImageView(new Image(new FileInputStream(
@@ -1262,9 +1262,6 @@ public class MenuView {
         vBox.setOnMouseClicked(event -> {
             if (!CollectionController.isIsChoosingForCreatingNewDeck()) {
                 try {
-                    System.out.println("HERE");
-                    System.out.println("button text : " + Controller.getPressedButton().getAccessibleText());
-                    System.out.println("showing card : " + Shop.isIsShowingSpecificCard());
                     if (Controller.getPressedButton().getAccessibleText() != null) {
                         if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
                             Deck.getSelectedDeck().addCardToDeck(card);
@@ -1272,7 +1269,6 @@ public class MenuView {
                                     " was added to " + Deck.getSelectedDeck().getDeckName());
                         }
                     } else if (!Shop.isIsShowingSpecificCard()) {
-                        System.out.println("THERE");
                         makeSceneBlur();
                         Shop.setIsShowingSpecificCard(true);
                         showCardForSelling(card, vBox, hBox);
@@ -1282,9 +1278,7 @@ public class MenuView {
                 }
             }
             else{
-                System.out.println("^&^&^&^");
                 if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
-                    System.out.println("HEREEHERE");
                     try {
                         CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
                     } catch (ParseException | CloneNotSupportedException | IOException e) {
@@ -1308,8 +1302,6 @@ public class MenuView {
         StackPane cardStack = new StackPane();
         setImageForCardInShop(card, cardStack);
 
-//        ImageView cardImage = new ImageView(card.getImageViewOfCard().getImage());
-
         ImageView cancelButton = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/button_cancel@2x.png")));
 
@@ -1322,12 +1314,6 @@ public class MenuView {
 
         StackPane sellStack = new StackPane(sellButton, sellLabel);
         sellStack.setAlignment(Pos.CENTER);
-        sellLabel.setFont(font);
-
-//        cardImage.setFitWidth(200);
-//        cardImage.setFitHeight(300);
-//        cardImage.setX(WINDOW_WIDTH / 2 + 80);
-//        cardImage.setY(WINDOW_HEIGHT / 2 - 250);
 
         sellButton.setFitWidth(200);
         sellButton.setFitHeight(70);
