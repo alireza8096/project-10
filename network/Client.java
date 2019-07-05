@@ -37,7 +37,7 @@ public class Client {
     }
 
     public Client() throws IOException {
-        this.socket = new Socket("46.209.82.162",7766);
+        this.socket = new Socket("localhost",8888);
 //        mainView = new MainView();
         clientThread = new Thread(new Runnable() {
             @Override
@@ -45,7 +45,7 @@ public class Client {
                 try {
                     dis = new Scanner(socket.getInputStream());
                     dos = new PrintStream(socket.getOutputStream());
-                    while (true){
+                    while (!Thread.currentThread().isInterrupted()){
                         if (dis.hasNext()){
                             Message.stringToMessage(dis.nextLine()).handleMessageReceivedByClient();
                         }
