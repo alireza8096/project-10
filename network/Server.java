@@ -27,7 +27,6 @@ public class Server {
 
     public Server() throws Exception {
         HandleFiles.createStringOfPlayers();
-        Controller.createAllDataFromJSON("server");
         serverSocket = new ServerSocket(7766);
         System.out.println("main server created");
         while (true) {
@@ -46,17 +45,5 @@ public class Server {
                 }
             }).start();
         }
-    }
-
-
-    public static void main(String[] args) throws Exception {
-        new Thread(() -> {
-            try {
-                new ChatServer();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }).start();
-        new Server();
     }
 }

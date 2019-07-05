@@ -33,13 +33,6 @@ public class Map {
                     cellsView[i][j].setY(320+j*69);
                     AllDatas.currentRoot.getChildren().add(cellsView[i][j]);
 
-                    forcesStack[i][j] = new StackPane();
-                    forcesStack[i][j].setPrefWidth(cellsView[i][j].getFitWidth());
-                    forcesStack[i][j].setPrefHeight(cellsView[i][j].getFitHeight());
-                    forcesStack[i][j].setLayoutX(cellsView[i][j].getX());
-                    forcesStack[i][j].setLayoutY(cellsView[i][j].getY());
-                    AllDatas.currentRoot.getChildren().add(forcesStack[i][j]);
-
                     forcesView[i][j] = new ImageView();
                     forcesView[i][j].setX(cellsView[i][j].getX());
                     forcesView[i][j].setY(cellsView[i][j].getY());

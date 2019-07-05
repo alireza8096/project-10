@@ -211,7 +211,7 @@ public class MenusCommandController {
     }
 
     public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
-                                              Hyperlink help, Hyperlink exit, Hyperlink logout,Hyperlink save,Hyperlink chatroom){
+                                             Hyperlink exit, Hyperlink logout,Hyperlink save,Hyperlink chatroom){
 
         shop.setOnAction(event -> {
             try {

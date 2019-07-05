@@ -17,16 +17,6 @@ public class ChatServer {
     private ServerSocket serverSocket;
     private static ArrayList<Socket> clients = new ArrayList<>();
 
-    public static void removeSocket(Socket socket) {
-        ArrayList<Socket> copy = new ArrayList<>(clients);
-        for (Socket check :
-                copy) {
-            if (socket.equals(check)) {
-                clients.remove(socket);
-            }
-        }
-    }
-
     public ChatServer() throws IOException {
         serverSocket = new ServerSocket(8888);
         System.out.println("chat server created");

@@ -1,4 +1,4 @@
-package view.Photos;
+package view;
 
 import controller.Controller;
 import javafx.application.Application;
@@ -28,11 +28,13 @@ import model.Shop;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import network.Server;
+import network.chatroom.ChatServer;
 import view.GameView;
 import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static javafx.scene.paint.Color.rgb;
@@ -78,6 +80,13 @@ public class ServerView extends Application {
                             e.printStackTrace();
                         }
                     });
+                    new Thread(() -> {
+                        try {
+                            new ChatServer();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
                     new Server();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -93,11 +102,6 @@ public class ServerView extends Application {
         primaryStage.setHeight(primaryScreenBounds.getHeight());
         primaryStage.setScene(currentScene);
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-
     }
 
     public static void showCardsInServer() throws FileNotFoundException {
@@ -212,5 +216,9 @@ public class ServerView extends Application {
 
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

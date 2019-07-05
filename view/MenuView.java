@@ -122,10 +122,6 @@ public class MenuView {
         logoutOption.setFont(herculanum);
         logoutOption.setTextFill(Color.WHITE);
 
-        Hyperlink helpOption = new Hyperlink("Chat Room");
-        helpOption.setFont(herculanum);
-        helpOption.setTextFill(Color.WHITE);
-
         Hyperlink saveOption = new Hyperlink("Save");
         saveOption.setFont(herculanum);
         saveOption.setTextFill(Color.WHITE);
@@ -138,16 +134,15 @@ public class MenuView {
         setMargin(shopOption, new Insets(40, 10, 10, 100));
         setMargin(collectionOption, new Insets(7, 10, 10, 100));
         setMargin(battleOption, new Insets(7, 10, 10, 100));
-        setMargin(helpOption, new Insets(7, 10, 10, 100));
         setMargin(exitOption, new Insets(7, 10, 10, 100));
         setMargin(logoutOption, new Insets(7, 10, 10, 100));
         setMargin(saveOption, new Insets(7, 10, 10, 100));
         setMargin(chatRoom, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom,helpOption, saveOption, logoutOption, exitOption);
+        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom, saveOption, logoutOption, exitOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
-        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption,chatRoom);
+        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption,exitOption, logoutOption, saveOption,chatRoom);
 
     }
 
@@ -378,27 +373,25 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().addAll(background);
 
         TextField message = new TextField();
-        message.setLayoutX(300);
-        message.setLayoutY(500);
+        message.setPrefWidth(500);
+        message.setPrefHeight(60);
+        message.setLayoutX(AllDatas.currentScene.getWidth()/2 - 250);
+        message.setLayoutY(800);
 
-        Button button = new Button("send");
-        button.setLayoutX(500);
-        button.setLayoutY(500);
+        ImageView imageView = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/chatroom/button_icon_right_glow@2x.png");
+        imageView.setScaleY(0.7);
+        imageView.setX(AllDatas.currentScene.getWidth()/2 + 270);
+        imageView.setY(775);
 
-        VBox textScenes = new VBox();
-        textScenes.setSpacing(7);
-        textScenes.setLayoutX(400);
-        textScenes.setLayoutY(200);
-
-        Button back = new Button("back");
-        back.setLayoutX(50);
-        back.setLayoutY(50);
+        ImageView back =MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/chatroom/button_back_corner@2x.png");
+        back.setFitWidth(100);
+        back.setFitHeight(100);
 
 
 
-        AllDatas.currentRoot.getChildren().addAll(textScenes,message,button,back);
+        AllDatas.currentRoot.getChildren().addAll(message,imageView,back);
 
-        new ChatClient(Game.getInstance().getPlayer1(),button,message,textScenes,back);
+        new ChatClient(Game.getInstance().getPlayer1(),imageView,message,back);
     }
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
