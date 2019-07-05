@@ -211,7 +211,7 @@ public class MenusCommandController {
     }
 
     public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
-                                              Hyperlink help, Hyperlink exit, Hyperlink logout,Hyperlink save){
+                                              Hyperlink help, Hyperlink exit, Hyperlink logout,Hyperlink save,Hyperlink chatroom){
 
         shop.setOnAction(event -> {
             try {
@@ -247,7 +247,8 @@ public class MenusCommandController {
         logout.setOnAction(event -> {
             try {
                 assert LinkedListMenus.whichMenuNow() != null;
-                MainView.getClient().getClientThread().stop();
+//                MainView.getClient().getClientThread().stop();
+                Thread.currentThread().interrupt();
                 MainView.setClient(new Client());
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
             } catch (ParseException | IOException | CloneNotSupportedException e) {
@@ -261,6 +262,13 @@ public class MenusCommandController {
             MainView.getClient().getDos().println(new Message(jsonObject,"Player","save").messageToString());
             MainView.getClient().getDos().flush();
 //                Account.savePlayer(Game.getInstance().getPlayer1());
+        });
+
+        chatroom.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Controller.enterChatroom();
+            }
         });
     }
 

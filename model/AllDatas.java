@@ -16,6 +16,7 @@ public class AllDatas {
     public static LinkedListMenus shop;
     public static LinkedListMenus battle;
     public static LinkedListMenus help;
+    public static LinkedListMenus chatroom;
 
 //    public static LinkedListMenus cardsInCollection;
 //    public static LinkedListMenus decksInCollection;

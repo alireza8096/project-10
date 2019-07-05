@@ -37,15 +37,14 @@ public class Client {
     }
 
     public Client() throws IOException {
-        this.socket = new Socket("46.209.82.162",7766);
-//        mainView = new MainView();
+        this.socket = new Socket("localhost",7766);
         clientThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     dis = new Scanner(socket.getInputStream());
                     dos = new PrintStream(socket.getOutputStream());
-                    while (true){
+                    while (!Thread.currentThread().isInterrupted()){
                         if (dis.hasNext()){
                             Message.stringToMessage(dis.nextLine()).handleMessageReceivedByClient();
                         }

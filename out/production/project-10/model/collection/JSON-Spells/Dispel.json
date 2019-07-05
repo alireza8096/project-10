@@ -1,18 +1,1 @@
-{"mana":"0",
-  "price":"2100",
-  "name":"Dispel",
-  "id":"412",
-  "type":"spell",
-  "desc":"destroys positive buffs of enemy and negative buffs of self forces",
-  "target" : "minion/hero",
-  "numOfTarget" : "1",
-  "action" : "dispel",
-  "buffs" : "null",
-  "effectValue" : "null",
-  "delay" : "null",
-  "last" :"null",
-  "friendOrEnemy" : "friend/enemy",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Dispel/Dispel.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"null","imagePath":"view\/Photos\/Spells\/Dispel\/Dispel.png","type":"spell","friendOrEnemy":"friend\/enemy","target":"minion\/hero","delay":"null","mana":"0","price":"2100","name":"Dispel","action":"dispel","numOfTarget":"1","id":"412","buffs":"null","effectValue":"null","numInShop":"5","desc":"destroys positive buffs of enemy and negative buffs of self forces"}

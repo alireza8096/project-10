@@ -1,18 +1,1 @@
-{"mana":"1",
-  "price":"1200",
-  "name":"Shock",
-  "id":"420",
-  "type":"spell",
-  "desc":"becomes stun for 2 turns",
-  "target" : "minion/hero",
-  "numOfTarget" : "1",
-  "action" : "addBuff",
-  "buffs" : "stunBuff",
-  "effectValue" : "null",
-  "delay" : "null",
-  "last" :"2",
-  "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Shock/Shock.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"2","imagePath":"view\/Photos\/Spells\/Shock\/Shock.png","type":"spell","friendOrEnemy":"enemy","target":"minion\/hero","delay":"null","mana":"1","price":"1200","name":"Shock","action":"addBuff","numOfTarget":"1","id":"420","buffs":"stunBuff","effectValue":"null","numInShop":"5","desc":"becomes stun for 2 turns"}

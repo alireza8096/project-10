@@ -1,18 +1,1 @@
-{"mana":"2",
-  "price":"1600",
-  "name":"Sacrifice",
-  "id":"418",
-  "type":"spell",
-  "desc":"applies an weakness buff with decrease of 6HP and a power buff with increase of 8AP",
-  "target" : "minion",
-  "numOfTarget" : "1",
-  "action" : "addBuff,addBuff",
-  "buffs" : "healthPointWeaknessBuff,attackPowerBuff",
-  "effectValue" : "6,8",
-  "delay" : "null,null",
-  "last" :"1,1",
-  "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/Sacrifice/Sacrifice.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"1,1","imagePath":"view\/Photos\/Spells\/Sacrifice\/Sacrifice.png","type":"spell","friendOrEnemy":"friend","target":"minion","delay":"null,null","mana":"2","price":"1600","name":"Sacrifice","action":"addBuff,addBuff","numOfTarget":"1","id":"418","buffs":"healthPointWeaknessBuff,attackPowerBuff","effectValue":"6,8","numInShop":"5","desc":"applies an weakness buff with decrease of 6HP and a power buff with increase of 8AP"}

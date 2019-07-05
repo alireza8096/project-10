@@ -1,18 +1,1 @@
-{"mana":"2",
-  "price":"450",
-  "name":"God Strength",
-  "id":"405",
-  "type":"spell",
-  "desc":"adds 4AP to the AP of hero",
-  "target" : "hero",
-  "numOfTarget" : "1",
-  "action" : "addAction",
-  "buffs" : "attackPowerBuff",
-  "effectValue" : "4",
-  "delay" : "null",
-  "last" :"1",
-  "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/God Strength/God Strength.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"1","imagePath":"view\/Photos\/Spells\/God Strength\/God Strength.png","type":"spell","friendOrEnemy":"friend","target":"hero","delay":"null","mana":"2","price":"450","name":"God Strength","action":"addAction","numOfTarget":"1","id":"405","buffs":"attackPowerBuff","effectValue":"4","numInShop":"5","desc":"adds 4AP to the AP of hero"}

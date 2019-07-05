@@ -1,18 +1,1 @@
-{"mana":"4",
-  "price":"2000",
-  "name":"All Power",
-  "id":"415",
-  "type":"spell",
-  "desc":"adds a power buff with 2AP to all self forces permanently",
-  "target" : "minion/hero",
-  "numOfTarget" : "all",
-  "action" : "addBuff",
-  "buffs" : "attackPowerBuff",
-  "effectValue" : "2",
-  "delay" : "null",
-  "last" :"1",
-  "friendOrEnemy" : "friend",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/All Power/AllPower.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"1","imagePath":"view\/Photos\/Spells\/All Power\/AllPower.png","type":"spell","friendOrEnemy":"friend","target":"minion\/hero","delay":"null","mana":"4","price":"2000","name":"All Power","action":"addBuff","numOfTarget":"all","id":"415","buffs":"attackPowerBuff","effectValue":"2","numInShop":"5","desc":"adds a power buff with 2AP to all self forces permanently"}

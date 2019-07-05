@@ -3,7 +3,9 @@ package network;
 import controller.Controller;
 import model.collection.Card;
 import model.collection.HandleFiles;
+import network.chatroom.ChatServer;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -27,8 +29,10 @@ public class Server {
         HandleFiles.createStringOfPlayers();
         Controller.createAllDataFromJSON("server");
         serverSocket = new ServerSocket(7766);
+        System.out.println("main server created");
         while (true) {
             Socket client = serverSocket.accept();
+            clients.add(client);
             System.out.println("client accepted");
             Scanner dis = new Scanner(client.getInputStream());
             PrintStream dos = new PrintStream(client.getOutputStream());
@@ -46,6 +50,13 @@ public class Server {
 
 
     public static void main(String[] args) throws Exception {
+        new Thread(() -> {
+            try {
+                new ChatServer();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
         new Server();
     }
 }

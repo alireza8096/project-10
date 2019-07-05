@@ -1,18 +1,1 @@
-{"mana":"8",
-  "price":"1500",
-  "name":"All Poison",
-  "id":"411",
-  "type":"spell",
-  "desc":"all forces become poisonous for 4 turns",
-  "target" : "minion/hero",
-  "numOfTarget" : "all",
-  "action" : "addAction",
-  "buffs" : "poisonBuff",
-  "effectValue" : "3",
-  "delay" : "null",
-  "last" :"4",
-  "friendOrEnemy" : "enemy",
-  "locationOfTarget" : "null",
-  "imagePath" : "view/Photos/Spells/All Poison/AllPoison.png",
-  "numInShop" : "5"
-}
+{"locationOfTarget":"null","last":"4","imagePath":"view\/Photos\/Spells\/All Poison\/AllPoison.png","type":"spell","friendOrEnemy":"enemy","target":"minion\/hero","delay":"null","mana":"8","price":"1500","name":"All Poison","action":"addAction","numOfTarget":"all","id":"411","buffs":"poisonBuff","effectValue":"3","numInShop":"4","desc":"all forces become poisonous for 4 turns"}

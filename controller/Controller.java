@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
 import model.collection.HandleFiles;
+import network.chatroom.ChatClient;
 import org.json.simple.parser.ParseException;
 import view.GameView;
 import view.MenuView;
@@ -51,13 +52,16 @@ public class Controller {
         AllDatas.shop = new LinkedListMenus("Shop",false);
         AllDatas.battle = new LinkedListMenus("Battle",false);
         AllDatas.help = new LinkedListMenus("Help",false);
+        AllDatas.chatroom = new LinkedListMenus("Chatroom",false);
         AllDatas.account.getChilds().add(AllDatas.commandLine);
-        AllDatas.leaderboard.setParent(AllDatas.account);
-        AllDatas.commandLine.setParent(AllDatas.account);
         AllDatas.commandLine.getChilds().add(AllDatas.collection);
         AllDatas.commandLine.getChilds().add(AllDatas.shop);
         AllDatas.commandLine.getChilds().add(AllDatas.battle);
+        AllDatas.commandLine.getChilds().add(AllDatas.chatroom);
+        AllDatas.chatroom.setParent(AllDatas.commandLine);
         AllDatas.collection.setParent(AllDatas.commandLine);
+        AllDatas.leaderboard.setParent(AllDatas.account);
+        AllDatas.commandLine.setParent(AllDatas.account);
         AllDatas.shop.setParent(AllDatas.commandLine);
         AllDatas.battle.setParent(AllDatas.commandLine);
 
@@ -83,6 +87,7 @@ public class Controller {
         LinkedListMenus.allMenus.add(AllDatas.shop);
         LinkedListMenus.allMenus.add(AllDatas.battle);
         LinkedListMenus.allMenus.add(AllDatas.help);
+        LinkedListMenus.allMenus.add(AllDatas.chatroom);
 //        LinkedListMenus.allMenus.add(AllDatas.cardsInCollection);
 //        LinkedListMenus.allMenus.add(AllDatas.decksInCollection);
 
@@ -167,6 +172,22 @@ public class Controller {
         AllDatas.commandLine.setNowInThisMenu(false);
 
         MenuView.showCollection();
+    }
+
+
+    public static void enterChatroom(){
+        AllDatas.currentRoot = AllDatas.chatroom.getRoot();
+        AllDatas.currentScene = AllDatas.chatroom.getScene();
+
+        AllDatas.chatroom.setNowInThisMenu(true);
+        AllDatas.commandLine.setNowInThisMenu(false);
+
+
+        try {
+            MenuView.showChatroom();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void enterBattle() throws IOException, CloneNotSupportedException, ParseException {

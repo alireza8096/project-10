@@ -197,7 +197,6 @@ public class Account implements Cloneable {
 
 
     public static void createCollectionFromString(Player player, String collection) throws CloneNotSupportedException {
-        System.out.println(collection + "******");
         if (!collection.matches("")) {
             String[] parts = collection.split(",");
             for (int i = 0; i < parts.length; i++) {
@@ -222,24 +221,19 @@ public class Account implements Cloneable {
         for (Hero hero:
              player.getHeroesInCollection()) {
             names.add(hero.name);
-            System.out.println(hero.name + "JJ");
         }
         for(Item item : player.getItemsInCollection()){
             names.add(item.name);
-            System.out.println(item.getName() + "II");
         }
         for(Card card : player.getCardsInCollection()) {
             names.add(card.name);
-            System.out.println(card.getName() + "Cc");
         }
         if(names.size() > 0){
             list = list + names.get(0);
-            System.out.println(list + "&&&");
             for(int i=1; i<names.size(); i++){
                 list = list + "," + names.get(i);
             }
         }
-        System.out.println("list : " + list);
         return list;
     }
 

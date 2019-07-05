@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.tools.javac.Main;
 import controller.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -27,6 +28,9 @@ import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import model.collection.Item;
+import network.Server;
+import network.chatroom.ChatClient;
+import network.chatroom.ChatServer;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileInputStream;
@@ -34,6 +38,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static controller.Controller.enterMainMenu;
 import static controller.Controller.sampleGame;
 import static javafx.scene.layout.VBox.setMargin;
 import static javafx.scene.paint.Color.*;
@@ -125,6 +130,10 @@ public class MenuView {
         saveOption.setFont(herculanum);
         saveOption.setTextFill(Color.WHITE);
 
+        Hyperlink chatRoom = new Hyperlink("Chat Room");
+        chatRoom.setFont(herculanum);
+        chatRoom.setTextFill(Color.WHITE);
+
         vBox.setSpacing(15);
         setMargin(shopOption, new Insets(40, 10, 10, 100));
         setMargin(collectionOption, new Insets(7, 10, 10, 100));
@@ -133,11 +142,12 @@ public class MenuView {
         setMargin(exitOption, new Insets(7, 10, 10, 100));
         setMargin(logoutOption, new Insets(7, 10, 10, 100));
         setMargin(saveOption, new Insets(7, 10, 10, 100));
+        setMargin(chatRoom, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption);
+        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom,helpOption, saveOption, logoutOption, exitOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
-        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption);
+        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, helpOption, exitOption, logoutOption, saveOption,chatRoom);
 
     }
 
@@ -358,6 +368,38 @@ public class MenuView {
         }
     }
 
+    public static void showChatroom() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+
+        ImageView background = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/chatroom/chapter16_background@2x.png");
+        background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
+        background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
+        AllDatas.currentRoot.getChildren().addAll(background);
+
+        TextField message = new TextField();
+        message.setLayoutX(300);
+        message.setLayoutY(500);
+
+        Button button = new Button("send");
+        button.setLayoutX(500);
+        button.setLayoutY(500);
+
+        VBox textScenes = new VBox();
+        textScenes.setSpacing(7);
+        textScenes.setLayoutX(400);
+        textScenes.setLayoutY(200);
+
+        Button back = new Button("back");
+        back.setLayoutX(50);
+        back.setLayoutY(50);
+
+
+
+        AllDatas.currentRoot.getChildren().addAll(textScenes,message,button,back);
+
+        new ChatClient(Game.getInstance().getPlayer1(),button,message,textScenes,back);
+    }
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
