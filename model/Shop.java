@@ -125,22 +125,34 @@ public class Shop{
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (returnCardTypeByName(cardName)) {
             case "hero":
+                Hero hero = Hero.findHeroByName(cardName);
                 daric -= Hero.findHeroByName(cardName).getPrice();
+                System.out.println("HERERERERERERERRERE*******");
+                Server.changeCardNumInShop(cardName, -1);
 //                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getHeroesInCollection().add(Hero.findHeroByName(cardName));
                 break;
             case "item":
+                Item item = Item.findItemByName(cardName);
                 daric -= Item.findItemByName(cardName).getPrice();
+                Server.changeCardNumInShop(cardName, -1);
+//                item.setNumInShopProperty(item.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getItemsInCollection().add(Item.findItemByName(cardName));
                 break;
             case "minion":
+                Minion minion = Minion.findMinionByName(cardName);
                 daric -= Minion.findMinionByName(cardName).getPrice();
+                Server.changeCardNumInShop(cardName, -1);
+//                minion.setNumInShopProperty(minion.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
             case "spell":
+                Spell spell = Spell.findSpellByName(cardName);
                 daric -= Spell.findCardByName(cardName).getPrice();
+                Server.changeCardNumInShop(cardName, -1);
+//                spell.setNumInShopProperty(spell.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
@@ -235,6 +247,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
                 assert hero != null;
                 daric += hero.getPrice();
+                hero.setNumInShopProperty(hero.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
                 System.out.println(hero.getName() + " was sold successfully");
                 break;
@@ -244,6 +257,7 @@ public class Shop{
                 if (item.getItemType().matches("usable")) {
                     removeProcess(Game.getInstance().getPlayer1().getItemsInCollection(), item);
                     daric += item.getPrice();
+                    item.setNumInShopProperty(item.getNumInShopProperty() + 1);
 //                    daricValue.set(daric);
                     System.out.println(item.getName() + " was sold successfully");
                 } else
@@ -254,6 +268,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), minion);
                 assert minion != null;
                 daric += minion.getPrice();
+                minion.setNumInShopProperty(minion.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
                 System.out.println(minion.getName() + " was sold successfully");
                 break;
@@ -264,6 +279,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), spell);
                 assert spell != null;
                 daric += spell.getPrice();
+                spell.setNumInShopProperty(spell.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
                 System.out.println(spell.getName() + " was sold successfully");
                 break;

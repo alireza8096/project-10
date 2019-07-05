@@ -27,7 +27,6 @@ public class Server {
 
     public Server() throws Exception {
         HandleFiles.createStringOfPlayers();
-        Controller.createAllDataFromJSON("server");
         serverSocket = new ServerSocket(7766);
         System.out.println("main server created");
         while (true) {
@@ -48,15 +47,16 @@ public class Server {
         }
     }
 
-
-    public static void main(String[] args) throws Exception {
-        new Thread(() -> {
-            try {
-                new ChatServer();
-            } catch (IOException e) {
-                e.printStackTrace();
+    public static void changeCardNumInShop(String cardName, int changeValue){
+        System.out.println("Even HERE???????");
+        for (Card card : cards){
+            System.out.println("### card name : " + card.getName() + " ,  this card : " + cardName);
+            if (card.getName().equals(cardName)){
+                card.setNumInShopProperty(card.getNumInShopProperty() + changeValue);
+                card.setNumInShop(card.getNumInShop() + changeValue);
+                System.out.println("____________ card name : " + card.getNumInShopProperty());
             }
-        }).start();
-        new Server();
+        }
     }
+
 }

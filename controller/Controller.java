@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
 import model.collection.HandleFiles;
-import network.chatroom.ChatClient;
 import org.json.simple.parser.ParseException;
 import view.GameView;
 import view.MenuView;

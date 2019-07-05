@@ -130,9 +130,15 @@ public class Message {
         switch (functionName){
             case "checkBuy":
                 for (Card card1 : Server.getCards()){
+                    System.out.println("!@!@!@!@ : " + card1.getName());
                     if (card1.getName().equals(card.getName())){
                         if (card1.getNumInShop() > 0){
-                            card1.setNumInShop(card1.getNumInShop() - 1);
+//                            Server.changeCardNumInShop(card1.getName(), -1);
+
+//                            card1.setNumInShopProperty(card1.getNumInShopProperty() - 1);
+//                            card1.setNumInShop(card1.getNumInShop() - 1);
+
+//                            card1.setNumInShop(card1.getNumInShop() - 1);
                             HandleFiles.writeChangesToJson(card1);
                             String jsonString = gson.toJson(card, Card.class);
                             Message message = new Message(jsonString, "Card", "buyCard");
@@ -145,13 +151,19 @@ public class Message {
                             dos.println(message.messageToString());
                             dos.flush();
                         }
+                        break;
                     }
                 }
                 break;
             case "sellCard":
                 for (Card card1 : Server.getCards()){
                     if (card1.getName().equals(card.getName())){
-                        card1.setNumInShop(card1.getNumInShop() + 1);
+//                        Server.changeCardNumInShop(card1.getName(), -1);
+
+//                        card1.setNumInShop(card1.getNumInShop() + 1);
+//                        card1.setNumInShopProperty(card1.getNumInShopProperty() + 1);
+
+//                        card1.setNumInShop(card.getNumInShop() + 1);
                         HandleFiles.writeChangesToJson(card1);
                         String jsonString = gson.toJson(card, Card.class);
                         Message message = new Message(jsonString, "Card", "buyCard");

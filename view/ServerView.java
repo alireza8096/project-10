@@ -1,10 +1,8 @@
-package view.Photos;
+package view;
 
 import controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -23,16 +21,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.AllDatas;
-import model.Shop;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import network.Server;
-import view.GameView;
-import view.MenuView;
+import network.chatroom.ChatServer;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static javafx.scene.paint.Color.rgb;
@@ -78,7 +74,15 @@ public class ServerView extends Application {
                             e.printStackTrace();
                         }
                     });
+                    new Thread(() -> {
+                        try {
+                            new ChatServer();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
                     new Server();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -191,12 +195,10 @@ public class ServerView extends Application {
         icon.setFitWidth(70);
         icon.setFitHeight(70);
 
-
         Label label = new Label(numOfCard);
         label.setTextFill(rgb(227, 252, 255));
         label.setFont(new Font(20));
-
-
+        label.textProperty().bind(card.numInShopPropertyProperty().asString());
 
         StackPane stackPane = new StackPane(back, icon, label);
         StackPane.setAlignment(icon, Pos.CENTER_LEFT);
