@@ -46,4 +46,16 @@ public class Server {
             }).start();
         }
     }
+
+    public static void changeCardNumInShop(String cardName, int changeValue){
+        System.out.println("Even HERE???????");
+        for (Card card : cards){
+            System.out.println("### card name : " + card.getName() + " ,  this card : " + cardName);
+            if (card.getName().equals(cardName)){
+                card.setNumInShopProperty(card.getNumInShopProperty() + changeValue);
+                card.setNumInShop(card.getNumInShop() + changeValue);
+                System.out.println("____________ card name : " + card.getNumInShopProperty());
+            }
+        }
+    }
 }

@@ -1,5 +1,8 @@
 package model.collection;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -41,6 +44,21 @@ public class Card implements Cloneable {
     private transient Image forceInField;
     private String desc;
     private int numInShop;
+
+    private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
+
+    public int getNumInShopProperty() {
+        return numInShopProperty.get();
+    }
+
+    public IntegerProperty numInShopPropertyProperty() {
+        return numInShopProperty;
+    }
+
+    public void setNumInShopProperty(int numInShopProperty) {
+        this.numInShopProperty.set(numInShopProperty);
+    }
+
     public Card() {
 
     }
@@ -81,6 +99,7 @@ public class Card implements Cloneable {
         this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
         this.desc = desc;
         this.numInShop = Integer.parseInt(numInShop);
+        this.setNumInShopProperty(Integer.parseInt(numInShop));
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {

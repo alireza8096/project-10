@@ -1,4 +1,4 @@
-package view;
+package view.Photos;
 
 import controller.Controller;
 import javafx.application.Application;
@@ -88,6 +88,7 @@ public class ServerView extends Application {
                         }
                     }).start();
                     new Server();
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -195,12 +196,10 @@ public class ServerView extends Application {
         icon.setFitWidth(70);
         icon.setFitHeight(70);
 
-
         Label label = new Label(numOfCard);
         label.setTextFill(rgb(227, 252, 255));
         label.setFont(new Font(20));
-
-
+        label.textProperty().bind(card.numInShopPropertyProperty().asString());
 
         StackPane stackPane = new StackPane(back, icon, label);
         StackPane.setAlignment(icon, Pos.CENTER_LEFT);

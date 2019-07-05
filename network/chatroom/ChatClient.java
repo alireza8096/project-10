@@ -82,7 +82,7 @@ public class ChatClient {
         this.message = message;
         this.send = send;
         try {
-            this.socket = new Socket("localhost", 8888);
+            this.socket = new Socket("46.209.82.52", 8888);
             this.dis = new Scanner(socket.getInputStream());
             this.dos = new PrintStream(socket.getOutputStream());
             back.setOnMouseClicked(event -> {
