@@ -1,8 +1,10 @@
-package view;
+package view.Photos;
 
 import controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -21,10 +23,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.AllDatas;
+import model.Shop;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import network.Server;
 import network.chatroom.ChatServer;
+import view.GameView;
+import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -97,11 +103,6 @@ public class ServerView extends Application {
         primaryStage.setHeight(primaryScreenBounds.getHeight());
         primaryStage.setScene(currentScene);
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-
     }
 
     public static void showCardsInServer() throws FileNotFoundException {
@@ -214,5 +215,9 @@ public class ServerView extends Application {
 
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
