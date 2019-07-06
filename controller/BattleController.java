@@ -413,7 +413,7 @@ public class BattleController {
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y) {
         applyCellType(card, x, y);
 //        applyCellImpactTypeOnCard(card, x, y);
-//        applyCellItemTypeOnCard(card, x, y);
+        applyCellItemTypeOnCard(card, x, y);
     }
 
     public static void applyCellType(Card card, int x, int y) {
