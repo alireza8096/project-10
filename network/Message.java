@@ -11,8 +11,10 @@ import model.collection.Account;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import view.GameView;
+import view.MainView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
 
@@ -29,33 +31,35 @@ public class Message {
 
     public void handleMessageReceivedByServer(PrintStream dos) {
         Gson gson = new Gson();
-        switch (jsonType){
-            case "Player" :
-                Player player = gson.fromJson(jsonString,Player.class);
-                functionsOfPlayerForServer(player,dos);
+        switch (jsonType) {
+            case "Player":
+                Player player = gson.fromJson(jsonString, Player.class);
+                functionsOfPlayerForServer(player, dos);
                 break;
             case "Card":
                 Card card = gson.fromJson(jsonString, Card.class);
                 functionsOfCardForServer(card, dos);
                 break;
+            case "String":
+                String message = gson.fromJson(jsonString, String.class);
+                try {
+                    functionsOfStringForServer(message);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
-    public void handleMessageReceivedByClient(){
+    public void handleMessageReceivedByClient() {
         Gson gson = new Gson();
-        switch (jsonType){
-            case "String" :
-                String str = gson.fromJson(jsonString,String.class);
-                System.out.println(str);
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        GameView.printInvalidCommandWithThisContent(str);
-                    }
-                });
+        switch (jsonType) {
+            case "String":
+                String str = gson.fromJson(jsonString, String.class);
+                functionsOfStringForClient(str);
                 break;
-            case "Player" :
-                Player player = gson.fromJson(jsonString,Player.class);
+            case "Player":
+                Player player = gson.fromJson(jsonString, Player.class);
                 functionsOfPlayerForClient(player);
                 break;
             case "Card":
@@ -65,8 +69,21 @@ public class Message {
         }
     }
 
-    public void functionsOfCardForClient(Card card){
-        switch (functionName){
+    public void functionsOfStringForClient(String str) {
+        switch (functionName) {
+            case "printAlert":
+                Platform.runLater(() -> GameView.printInvalidCommandWithThisContent(str));
+                break;
+            case "sendToAll":
+                if (MainView.getClient().isInChat()) {
+                    MainView.getClient().getChatClient().handleMessagesReceived(str);
+                }
+                break;
+        }
+    }
+
+    public void functionsOfCardForClient(Card card) {
+        switch (functionName) {
             case "buyCard":
                 try {
                     Shop.buyCardAndAddToCollection(card.getName());
@@ -84,9 +101,9 @@ public class Message {
         }
     }
 
-    public void functionsOfPlayerForClient(Player player){
-        switch (functionName){
-            case "setPlayer" :
+    public void functionsOfPlayerForClient(Player player) {
+        switch (functionName) {
+            case "setPlayer":
                 Game createGame = new Game();
                 Platform.runLater(() -> {
                     try {
@@ -101,38 +118,55 @@ public class Message {
                         e.printStackTrace();
                     }
                 });
+                break;
         }
     }
-    public void functionsOfPlayerForServer(Player player,PrintStream dos){
-        switch (functionName){
-            case "login" :
+
+    public void functionsOfPlayerForServer(Player player, PrintStream dos) {
+        switch (functionName) {
+            case "login":
                 try {
-                    Account.login(player.getUserName(),player.getPassword(),dos);
+                    Account.login(player.getUserName(), player.getPassword(), dos);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
                 break;
-            case "createAccount" :
+            case "createAccount":
                 try {
-                    Account.createAccount(player.getUserName(),player.getPassword(),dos);
+                    Account.createAccount(player.getUserName(), player.getPassword(), dos);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
                 break;
 
-            case "save" :
-                Account.savePlayer(player,dos);
+            case "save":
+                Account.savePlayer(player, dos);
+                break;
         }
     }
 
-    public void functionsOfCardForServer(Card card, PrintStream dos){
+    public void functionsOfStringForServer(String str) throws IOException {
         Gson gson = new Gson();
-        switch (functionName){
+        switch (functionName) {
+            case "sendToChatroom":
+                for (Socket socket : Server.getClients()) {
+                    String sendToAll = gson.toJson(str, String.class);
+                    PrintStream dos = new PrintStream(socket.getOutputStream());
+                    dos.println(new Message(sendToAll, "String", "sendToAll").messageToString());
+                    dos.flush();
+                }
+                break;
+        }
+    }
+
+    public void functionsOfCardForServer(Card card, PrintStream dos) {
+        Gson gson = new Gson();
+        switch (functionName) {
             case "checkBuy":
-                for (Card card1 : Server.getCards()){
+                for (Card card1 : Server.getCards()) {
                     System.out.println("!@!@!@!@ : " + card1.getName());
-                    if (card1.getName().equals(card.getName())){
-                        if (card1.getNumInShop() > 0){
+                    if (card1.getName().equals(card.getName())) {
+                        if (card1.getNumInShop() > 0) {
 //                            Server.changeCardNumInShop(card1.getName(), -1);
 
 //                            card1.setNumInShopProperty(card1.getNumInShopProperty() - 1);
@@ -144,8 +178,7 @@ public class Message {
                             Message message = new Message(jsonString, "Card", "buyCard");
                             dos.println(message.messageToString());
                             dos.flush();
-                        }
-                        else{
+                        } else {
                             String jsonString = gson.toJson("Shop does not have this card!", String.class);
                             Message message = new Message(jsonString, "String", "printAlert");
                             dos.println(message.messageToString());
@@ -156,8 +189,8 @@ public class Message {
                 }
                 break;
             case "sellCard":
-                for (Card card1 : Server.getCards()){
-                    if (card1.getName().equals(card.getName())){
+                for (Card card1 : Server.getCards()) {
+                    if (card1.getName().equals(card.getName())) {
 //                        Server.changeCardNumInShop(card1.getName(), -1);
 
 //                        card1.setNumInShop(card1.getNumInShop() + 1);
@@ -178,10 +211,11 @@ public class Message {
 
     public static Message stringToMessage(String toConvert) {
         String[] parts = toConvert.split("@");
+        System.out.println(toConvert);
         System.out.println(parts[0]);
         System.out.println(parts[1]);
         System.out.println(parts[2]);
-        return new Message(parts[0], parts[1],parts[2]);
+        return new Message(parts[0], parts[1], parts[2]);
     }
 
     public String messageToString() {

@@ -1,11 +1,8 @@
 package network;
 
-import controller.Controller;
 import model.collection.Card;
 import model.collection.HandleFiles;
-import network.chatroom.ChatServer;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -23,6 +20,10 @@ public class Server {
 
     public static ArrayList<Card> getCards() {
         return cards;
+    }
+
+    public static ArrayList<Socket> getClients() {
+        return clients;
     }
 
     public Server() throws Exception {

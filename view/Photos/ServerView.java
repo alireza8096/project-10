@@ -3,8 +3,6 @@ package view.Photos;
 import controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.property.IntegerProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -23,12 +21,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.AllDatas;
-import model.Shop;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import network.Server;
-import network.chatroom.ChatServer;
 import view.GameView;
 import view.MenuView;
 
@@ -80,13 +75,6 @@ public class ServerView extends Application {
                             e.printStackTrace();
                         }
                     });
-                    new Thread(() -> {
-                        try {
-                            new ChatServer();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }).start();
                     new Server();
 
                 } catch (Exception e) {
