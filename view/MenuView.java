@@ -126,6 +126,10 @@ public class MenuView {
         chatRoom.setFont(herculanum);
         chatRoom.setTextFill(Color.WHITE);
 
+        Hyperlink onlines = new Hyperlink("Online Users");
+        onlines.setFont(herculanum);
+        onlines.setTextFill(Color.WHITE);
+
         vBox.setSpacing(15);
         setMargin(shopOption, new Insets(40, 10, 10, 100));
         setMargin(collectionOption, new Insets(7, 10, 10, 100));
@@ -134,11 +138,12 @@ public class MenuView {
         setMargin(logoutOption, new Insets(7, 10, 10, 100));
         setMargin(saveOption, new Insets(7, 10, 10, 100));
         setMargin(chatRoom, new Insets(7, 10, 10, 100));
+        setMargin(onlines, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom, saveOption, logoutOption, exitOption);
+        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom, saveOption, logoutOption, exitOption,onlines);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
-        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption,exitOption, logoutOption, saveOption,chatRoom);
+        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption,exitOption, logoutOption, saveOption,chatRoom,onlines);
 
     }
 

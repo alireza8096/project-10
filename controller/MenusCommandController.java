@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.sun.tools.javac.Main;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -38,7 +39,7 @@ public class MenusCommandController {
         AllDatas.hasEnteredAccount = false;
     }
 
-    public static void leaderboardController(Scanner scanner){
+    public static void leaderboardController(Scanner scanner) {
         String command = scanner.nextLine();
         if (command.compareToIgnoreCase("exit") == 0) {
             AllDatas.leaderboard.setNowInThisMenu(false);
@@ -48,7 +49,7 @@ public class MenusCommandController {
         }
     }
 
-    public static void helpController(Scanner scanner){
+    public static void helpController(Scanner scanner) {
         System.out.println("Type \"exit\" to return");
         String command = scanner.nextLine();
         if (command.compareToIgnoreCase("exit") == 0) {
@@ -60,7 +61,7 @@ public class MenusCommandController {
     }
 
     public static void commandLineController(Scanner scanner) {
-        for (String command: AllDatas.commandLine.getCommandsForHelp()) {
+        for (String command : AllDatas.commandLine.getCommandsForHelp()) {
             System.out.println(command);
         }
         String command = scanner.nextLine();
@@ -71,11 +72,9 @@ public class MenusCommandController {
             AllDatas.gameBoolean = false;
         } else if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("help") == 0) {
             CommandLineController.help();
-        }
-        else if(commandsSplitted.length ==1 && commandsSplitted[0].compareToIgnoreCase("logout") == 0){
+        } else if (commandsSplitted.length == 1 && commandsSplitted[0].compareToIgnoreCase("logout") == 0) {
             CommandLineController.logout(commandsSplitted);
-        }
-        else {
+        } else {
             System.out.println("Command is not supported in this menu");
         }
     }
@@ -127,10 +126,10 @@ public class MenusCommandController {
         AllDatas.hasEnteredShop = false;
     }
 
-    public static void battleController(Scanner scanner) throws Exception{
+    public static void battleController(Scanner scanner) throws Exception {
         String command = scanner.nextLine();
         String[] commandsSplitted = command.split(" ");
-        if(Game.getInstance().isPlayer1Turn()) {
+        if (Game.getInstance().isPlayer1Turn()) {
             BattleView.showGameInfo(commandsSplitted);
             BattleView.showMyMinions(commandsSplitted);
             BattleView.showOpponentMinions(commandsSplitted);
@@ -153,7 +152,7 @@ public class MenusCommandController {
             if (!AllDatas.hasEnteredBattle) {
                 System.out.println("Command is not supported in this menu");
             }
-            AllDatas.hasEnteredBattle= false;
+            AllDatas.hasEnteredBattle = false;
 
         }
 //        else{
@@ -162,25 +161,24 @@ public class MenusCommandController {
 ////            AI.attckTillPossible();
 ////            BattleController.changeTurn();
 //        }
-        
+
     }
 
-    public static void loginMenuEventHandler(Button loginButton, Button createAccountButton, TextField username, TextField password){
+    public static void loginMenuEventHandler(Button loginButton, Button createAccountButton, TextField username, TextField password) {
         loginButton.setOnMouseClicked(event -> {
             try {
                 String name = username.getText();
                 String passWord = password.getText();
-                Player player = new Player(name,passWord);
+                Player player = new Player(name, passWord);
                 System.out.println(player.getDaric());
                 try {
                     Gson gson = new Gson();
                     String str = gson.toJson(player, Player.class);
-                    Message loginMessage = new Message(str,"Player","login");
+                    Message loginMessage = new Message(str, "Player", "login");
                     System.out.println(loginMessage.messageToString());
                     MainView.getClient().getDos().println(loginMessage.messageToString());
                     MainView.getClient().getDos().flush();
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e.getMessage());
                 }
             } catch (Exception e) {
@@ -211,7 +209,8 @@ public class MenusCommandController {
     }
 
     public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
-                                             Hyperlink exit, Hyperlink logout,Hyperlink save,Hyperlink chatroom){
+                                              Hyperlink exit, Hyperlink logout, Hyperlink save, Hyperlink chatroom
+            , Hyperlink onlineClients) {
 
         shop.setOnAction(event -> {
             try {
@@ -243,7 +242,10 @@ public class MenusCommandController {
         logout.setOnAction(event -> {
             try {
                 assert LinkedListMenus.whichMenuNow() != null;
-//                MainView.getClient().getClientThread().stop();
+                Gson gson = new Gson();
+                String logoutUser = gson.toJson(Game.getInstance().getPlayer1().getUserName(),String.class);
+                MainView.getClient().getDos().println(new Message(logoutUser,"String","logout").messageToString());
+                MainView.getClient().getDos().flush();
                 Thread.currentThread().interrupt();
                 MainView.setClient(new Client());
                 LinkedListMenus.whichMenuNow().backFromThisMenu();
@@ -255,15 +257,20 @@ public class MenusCommandController {
         save.setOnAction(event -> {
             Gson gson = new Gson();
             String jsonObject = gson.toJson(Game.getInstance().getPlayer1());
-            MainView.getClient().getDos().println(new Message(jsonObject,"Player","save").messageToString());
+            MainView.getClient().getDos().println(new Message(jsonObject, "Player", "save").messageToString());
             MainView.getClient().getDos().flush();
 //                Account.savePlayer(Game.getInstance().getPlayer1());
         });
 
-        chatroom.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+        chatroom.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> Controller.enterChatroom());
+
+        onlineClients.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Controller.enterChatroom();
+                Gson gson = new Gson();
+                String command = gson.toJson("showOnlines",String.class);
+                MainView.getClient().getDos().println(new Message(command,"String","showOnlines").messageToString());
+                MainView.getClient().getDos().flush();
             }
         });
     }
@@ -271,7 +278,7 @@ public class MenusCommandController {
     public static void enterThisMenu(LinkedListMenus menu) throws IOException, CloneNotSupportedException, ParseException {
         String menuName = menu.getMenuName();
 
-        switch (menuName){
+        switch (menuName) {
             case "Account":
                 Controller.enterLoginMenu();
                 break;

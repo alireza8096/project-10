@@ -13,7 +13,13 @@ public class Server {
     private static ArrayList<String> players = new ArrayList<>();
     private static ArrayList<Card> cards = new ArrayList<>();
     private static ArrayList<Socket> clients = new ArrayList<>();
+    private static ArrayList<String> onlinePlayers = new ArrayList<>();
     private ServerSocket serverSocket;
+
+    public static ArrayList<String> getOnlinePlayers() {
+        return onlinePlayers;
+    }
+
     public static ArrayList<String> getPlayers() {
         return players;
     }

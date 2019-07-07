@@ -40,7 +40,6 @@ public class ChatClient {
             textScenes[i].setFill(null);
             texts[i].setX(705);
             texts[i].setY(115 + 40 * i);
-            texts[i].setFont(Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 15));
             textScenes[i].setScaleX(1.7);
             textScenes[i].setScaleY(1.7);
             texts[i].setScaleX(1.5);
