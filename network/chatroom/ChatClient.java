@@ -49,7 +49,7 @@ public class ChatClient {
             textScenes[i].setFill(null);
             texts[i].setX(705);
             texts[i].setY(115 + 40 * i);
-            texts[i].setFont(Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 15));
+//            texts[i].setFont(Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 15));
             textScenes[i].setScaleX(1.7);
             textScenes[i].setScaleY(1.7);
             texts[i].setScaleX(1.5);
@@ -82,7 +82,7 @@ public class ChatClient {
         this.message = message;
         this.send = send;
         try {
-            this.socket = new Socket("46.209.82.52", 8888);
+            this.socket = new Socket("46.209.82.145", 8888);
             this.dis = new Scanner(socket.getInputStream());
             this.dos = new PrintStream(socket.getOutputStream());
             back.setOnMouseClicked(event -> {

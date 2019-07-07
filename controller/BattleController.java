@@ -7,11 +7,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.*;
+import model.Audio.AudioPlayer;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
 import view.BattleView;
 import view.MenuView;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -386,6 +389,12 @@ public class BattleController {
     }
 
     public static void move(Force force, int x, int y) {
+        try {
+            AudioPlayer.playThisAudio(
+                    HandleFiles.BEFORE_RELATIVE + "model/Audio/sounds/sfx_division_crest_reveal.wav");
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
         Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
         Map.getForcesView()[force.getY()][force.getX()].setImage(null);
         if (force.getCardType().matches("hero")) {
@@ -413,7 +422,7 @@ public class BattleController {
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y) {
         applyCellType(card, x, y);
 //        applyCellImpactTypeOnCard(card, x, y);
-        applyCellItemTypeOnCard(card, x, y);
+//        applyCellItemTypeOnCard(card, x, y);
     }
 
     public static void applyCellType(Card card, int x, int y) {
