@@ -10,10 +10,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Server {
+    private static ArrayList<String> clientNames = new ArrayList<>();
     private static ArrayList<String> players = new ArrayList<>();
     private static ArrayList<Card> cards = new ArrayList<>();
     private static ArrayList<Socket> clients = new ArrayList<>();
     private ServerSocket serverSocket;
+
+    public static ArrayList<String> getClientNames() {
+        return clientNames;
+    }
+
     public static ArrayList<String> getPlayers() {
         return players;
     }
@@ -40,14 +46,12 @@ public class Server {
                 while(true) {
                     if (dis.hasNext()) {
                         String instruction = dis.nextLine();
-//                        System.out.println("instruction : " + instruction);
                         Message.stringToMessage(instruction).handleMessageReceivedByServer(dos);
                     }
                 }
             }).start();
         }
     }
-
     public static void changeCardNumInShop(String cardName, int changeValue){
         System.out.println("Even HERE???????");
         for (Card card : cards){

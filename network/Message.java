@@ -79,7 +79,18 @@ public class Message {
                     MainView.getClient().getChatClient().handleMessagesReceived(str);
                 }
                 break;
+            case "getName":
+                sendClientNameToServer();
+                break;
         }
+    }
+
+    public void sendClientNameToServer(){
+        String name = Game.getInstance().getPlayer1().getUserName();
+
+        Message message = new Message(name, "String", "showNameInServer");
+        MainView.getClient().getDos().println(message.messageToString());
+        MainView.getClient().getDos().flush();
     }
 
     public void functionsOfCardForClient(Card card) {
@@ -155,6 +166,10 @@ public class Message {
                     dos.println(new Message(sendToAll, "String", "sendToAll").messageToString());
                     dos.flush();
                 }
+                break;
+            case "showNameInServer":
+                String name = str;
+                Server.getClientNames().add(name);
                 break;
         }
     }
