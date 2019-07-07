@@ -89,13 +89,13 @@ public class Message {
 //                    Rectangle backImage = new Rectangle(names.getWidth(), names.getHeight(),Color.RED);
                     System.out.println(names.getMaxWidth());
                     System.out.println(names.getMaxHeight());
-                    Rectangle backImage = new Rectangle(names.getMaxWidth(), names.getMaxHeight(),Color.RED);
+                    Rectangle backImage = new Rectangle(names.getMaxWidth(), names.getMaxHeight(), Color.RED);
 
                     backImage.setArcWidth(30);
                     backImage.setArcHeight(30);
                     StackPane stack = new StackPane(backImage, names);
-                    stack.setLayoutX(AllDatas.currentScene.getWidth()/2 - stack.getWidth()/2);
-                    stack.setLayoutY(AllDatas.currentScene.getHeight()/2 - stack.getHeight()/2);
+                    stack.setLayoutX(AllDatas.currentScene.getWidth() / 2 - stack.getWidth() / 2);
+                    stack.setLayoutY(AllDatas.currentScene.getHeight() / 2 - stack.getHeight() / 2);
                     stack.setOnMouseClicked(event -> stack.setOpacity(0));
                     AllDatas.currentRoot.getChildren().add(stack);
                 });
@@ -113,7 +113,18 @@ public class Message {
                     MainView.getClient().getChatClient().handleMessagesReceived(str);
                 }
                 break;
+            case "getName":
+                sendClientNameToServer();
+                break;
         }
+    }
+
+    public void sendClientNameToServer() {
+        String name = Game.getInstance().getPlayer1().getUserName();
+
+        Message message = new Message(name, "String", "showNameInServer");
+        MainView.getClient().getDos().println(message.messageToString());
+        MainView.getClient().getDos().flush();
     }
 
     public void functionsOfCardForClient(Card card) {

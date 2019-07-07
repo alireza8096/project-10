@@ -14,6 +14,7 @@ import model.Player;
 import model.collection.Account;
 import network.Client;
 import network.Message;
+import network.Server;
 import org.json.simple.parser.ParseException;
 import view.BattleView;
 import view.MainView;
@@ -237,11 +238,20 @@ public class MenusCommandController {
             }
         });
 
-        exit.setOnAction(event -> System.exit(0));
+        exit.setOnAction(event -> {
+            String name = Game.getInstance().getPlayer1().getUserName();
+            Server.getClientNames().remove(name);
+            System.exit(0);
+        });
 
         logout.setOnAction(event -> {
             try {
                 assert LinkedListMenus.whichMenuNow() != null;
+//                MainView.getClient().getClientThread().stop();
+                System.out.println(Game.getInstance().getPlayer1().getUserName() + " ____");
+                System.out.println("1. "+Server.getClientNames());
+                Server.getClientNames().remove(Game.getInstance().getPlayer1().getUserName());
+                System.out.println("2. "+Server.getClientNames());
                 Gson gson = new Gson();
                 String logoutUser = gson.toJson(Game.getInstance().getPlayer1().getUserName(),String.class);
                 MainView.getClient().getDos().println(new Message(logoutUser,"String","logout").messageToString());

@@ -61,6 +61,7 @@ public class Account implements Cloneable {
         System.out.println("entered login");
         if (usernameAlreadyExists(name)) {
             if (checkCorrectPassword(name, password)) {
+                Server.getClientNames().add(name);
                 setPlayer(name, dos);
             } else {
                 Gson gson = new Gson();
