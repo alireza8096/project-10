@@ -1,6 +1,5 @@
 package view;
 
-import com.sun.tools.javac.Main;
 import controller.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -28,9 +27,7 @@ import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Hero;
 import model.collection.Item;
-import network.Server;
 import network.chatroom.ChatClient;
-import network.chatroom.ChatServer;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileInputStream;
@@ -38,7 +35,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import static controller.Controller.enterMainMenu;
 import static controller.Controller.sampleGame;
 import static javafx.scene.layout.VBox.setMargin;
 import static javafx.scene.paint.Color.*;
@@ -388,10 +384,11 @@ public class MenuView {
         back.setFitHeight(100);
 
 
-
+        MainView.getClient().setChatClient(new ChatClient(Game.getInstance().getPlayer1(),imageView,message,back));
+        MainView.getClient().setInChat(true);
         AllDatas.currentRoot.getChildren().addAll(message,imageView,back);
 
-        new ChatClient(Game.getInstance().getPlayer1(),imageView,message,back);
+
     }
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();

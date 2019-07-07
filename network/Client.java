@@ -1,5 +1,6 @@
 package network;
 
+import network.chatroom.ChatClient;
 import view.MainView;
 
 import java.io.IOException;
@@ -14,11 +15,25 @@ public class Client {
     private Scanner dis;
     private PrintStream dos;
     private Thread clientThread;
+    private ChatClient chatClient;
+    private boolean inChat;
 
-//    public MainView getMainView() {
-//        return mainView;
-//    }
 
+    public boolean isInChat() {
+        return inChat;
+    }
+
+    public void setInChat(boolean inChat) {
+        this.inChat = inChat;
+    }
+
+    public void setChatClient(ChatClient chatClient) {
+        this.chatClient = chatClient;
+    }
+
+    public ChatClient getChatClient() {
+        return chatClient;
+    }
 
     public Thread getClientThread() {
         return clientThread;
