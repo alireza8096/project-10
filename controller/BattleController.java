@@ -1,6 +1,8 @@
 package controller;
 
 import Audio.AudioPlayer;
+import com.google.gson.Gson;
+import com.sun.tools.javac.Main;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -10,8 +12,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.*;
 import model.collection.*;
+import network.Message;
 import org.json.simple.parser.ParseException;
 import view.BattleView;
+import view.MainView;
 import view.MenuView;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -939,7 +943,12 @@ public class BattleController {
         multiButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //Todo : handle server and client
+                System.out.println("multiPlayer game");
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(Game.getInstance().getPlayer1(), Player.class);
+                Message message = new Message(jsonString, "Player", "enterBattle");
+                MainView.getClient().getDos().println(message.messageToString());
+                MainView.getClient().getDos().flush();
             }
         });
 

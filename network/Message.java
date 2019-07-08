@@ -17,6 +17,8 @@ import model.Shop;
 import model.collection.Account;
 import model.collection.Card;
 import model.collection.HandleFiles;
+import network.battle.BattleThread;
+import network.battle.ClientForBattle;
 import view.GameView;
 import view.MainView;
 
@@ -187,6 +189,19 @@ public class Message {
             case "save":
                 Account.savePlayer(player, dos);
                 break;
+            case "enterBattle":
+                handleEnterBattleCommandFromClient(player, dos);
+                break;
+        }
+    }
+
+    public void handleEnterBattleCommandFromClient(Player player, PrintStream dos){
+        if (BattleThread.getBattleThreads()[0] == null){
+            BattleThread.getBattleThreads()[0] = new ClientForBattle(player, dos);
+        }else{
+            new BattleThread(BattleThread.getBattleThreads()[0], new ClientForBattle(player, dos)).;
+            BattleThread.getBattleThreads()[0] = null;
+            BattleThread.getBattleThreads()[1] = null;
         }
     }
 

@@ -1,5 +1,6 @@
 package view;
 
+import Audio.AudioPlayer;
 import controller.Controller;
 import javafx.application.Application;
 
@@ -49,6 +50,7 @@ public class MainView extends Application {
         primaryStage.setWidth(primaryScreenBounds.getWidth());
         primaryStage.setHeight(primaryScreenBounds.getHeight());
 
+        AudioPlayer.getMenuAudio().play();
         Controller.enterLoginMenu();
         MenuView.showLoginMenu();
         stage.show();
