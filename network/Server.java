@@ -2,6 +2,7 @@ package network;
 
 import model.collection.Card;
 import model.collection.HandleFiles;
+import network.battle.BattleThread;
 import view.ServerView;
 
 import java.io.PrintStream;
@@ -16,7 +17,15 @@ public class Server {
     private static ArrayList<Socket> clients = new ArrayList<>();
     private static ArrayList<String> onlinePlayers = new ArrayList<>();
     private ServerSocket serverSocket;
+    private static BattleThread currentBattleThread;
 
+    public static BattleThread getCurrentBattleThread() {
+        return currentBattleThread;
+    }
+
+    public static void setCurrentBattleThread(BattleThread currentBattleThread) {
+        Server.currentBattleThread = currentBattleThread;
+    }
 
     public static ArrayList<String> getOnlinePlayers() {
         return onlinePlayers;
@@ -36,9 +45,9 @@ public class Server {
 
     public Server() throws Exception {
         HandleFiles.createStringOfPlayers();
-//        System.out.println(ServerView.properties.getProperty("ip") + " : ip");
-//        serverSocket = new ServerSocket(Integer.parseInt(ServerView.properties.getProperty("port")));
-        serverSocket = new ServerSocket(7766);
+
+        serverSocket = new ServerSocket(Integer.parseInt(ServerView.properties.getProperty("port")));
+
         System.out.println("main server created");
         while (true) {
             Socket client = serverSocket.accept();

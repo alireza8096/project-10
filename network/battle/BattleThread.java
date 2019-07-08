@@ -1,5 +1,11 @@
 package network.battle;
 
+import controller.Controller;
+import network.Server;
+import org.json.simple.parser.ParseException;
+
+import java.io.IOException;
+
 public class BattleThread {
     private static ClientForBattle[] battleThreads = new ClientForBattle[2];
 
@@ -33,12 +39,10 @@ public class BattleThread {
     public BattleThread(ClientForBattle client1, ClientForBattle client2){
         this.client1 = client1;
         this.client2 = client2;
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();
+        try {
+            Controller.enterBattle();
+        } catch (IOException | CloneNotSupportedException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
