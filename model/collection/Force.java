@@ -35,6 +35,7 @@ public class Force extends Card {
     private boolean canMove;
     private boolean canCounterAttack;
     private boolean hasHolyBuff;
+
 //    private String specialPower;
 
 

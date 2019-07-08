@@ -2,11 +2,15 @@ package view;
 
 import controller.BattleController;
 import controller.Controller;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import model.AllDatas;
 import model.Game;
 import model.Hand;
@@ -219,5 +223,20 @@ public class BattleView {
             }
             AllDatas.hasEnteredBattle = true;
         }
+    }
+
+    public static void moveForcesWithAnimation(double x2, double y2, ImageView imageView){
+        System.out.println("moving with graphic");
+        System.out.println("imageX : " + imageView.xProperty());
+        System.out.println("imageY : " + imageView.yProperty());
+        System.out.println("x2 : " + x2);
+        System.out.println("y2 : " + y2);
+        KeyValue xValue = new KeyValue(imageView.xProperty(), x2);
+        KeyValue yValue = new KeyValue(imageView.yProperty(), y2);
+
+        KeyFrame keyFrame = new KeyFrame(new Duration(2000), xValue, yValue);
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.play();
     }
 }

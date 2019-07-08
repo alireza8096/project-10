@@ -4,6 +4,7 @@ import controller.*;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import model.*;
 import model.Cell;
 import model.collection.Card;
@@ -40,6 +42,7 @@ import static javafx.scene.layout.VBox.setMargin;
 import static javafx.scene.paint.Color.*;
 
 public class MenuView {
+    public static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
     public static final int WINDOW_WIDTH = 1024;
     public static final int WINDOW_HEIGHT = 768;
@@ -1470,5 +1473,76 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(hBox);
 
         BattleController.handleEventsOfChoosingGameMode(mode1, mode2, mode3);
+    }
+
+    public static void showOptionsForCustomOrStoryGame() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+
+        setBackGroundOfCollection();
+
+        Font font = Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
+
+        StackPane storyStack = setButton(font, "Story");
+
+        StackPane customStack = setButton(font, "Custom");
+
+        GameView.makeImageGlowWhileMouseEnters(storyStack, customStack);
+
+        HBox optionHBox = new HBox(storyStack, customStack);
+
+        optionHBox.setLayoutX(primaryScreenBounds.getWidth()/2 - 300);
+        optionHBox.setLayoutY(primaryScreenBounds.getHeight()/2 - 150);
+
+        AllDatas.currentRoot.getChildren().add(optionHBox);
+
+        BattleController.handleEventsOfChoosingGameType(storyStack, customStack);
+    }
+
+    private static StackPane setButton(Font font, String type) throws FileNotFoundException {
+        ImageView button = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_primary_middle_glow@2x.png")));
+        button.setFitWidth(300);
+        button.setFitHeight(100);
+        Text text = new Text(type);
+        text.setFont(font);
+        text.setFill(rgb(227, 252, 255));
+        return new StackPane(button, text);
+    }
+
+    public static void showWindowForChoosingNumberOfFlagsOrTurns() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+        setBackGroundOfCollection();
+
+        String message;
+        if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags){
+            message = "Enter number of flags :";
+        }else{
+            message = "Enter number of turns :";
+        }
+
+        Font font = Font.loadFont(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
+
+        Text text = new Text(message);
+        text.setFont(font);
+        text.setFill(rgb(227, 252, 255));
+
+        TextField textField = new TextField();
+        StackPane battleStack = setButton(font, "Enter Battle");
+        StackPane backStack = setButton(font, "Back");
+
+        GameView.makeImageGlowWhileMouseEnters(backStack, battleStack);
+
+        HBox optionsHBox = new HBox(battleStack, backStack);
+
+        VBox generalVBox = new VBox(text, textField, optionsHBox);
+        generalVBox.setAlignment(Pos.CENTER);
+        generalVBox.setLayoutX(primaryScreenBounds.getWidth()/2 - 300);
+        generalVBox.setLayoutY(primaryScreenBounds.getHeight()/2 - 200);
+        setMargin(text, new Insets(30));
+
+        AllDatas.currentRoot.getChildren().add(generalVBox);
+
+        BattleController.chooseNumberOfFlags(textField, backStack, battleStack);
     }
 }

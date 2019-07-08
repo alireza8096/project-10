@@ -34,6 +34,25 @@ public class Game {
     private static HBox yourHbox = new HBox();
     private static HBox enemyHbox = new HBox();
 
+    private int numOfTurnsNeededToHoldFlag;
+    private int numOfFlagsInGame;
+
+    public int getNumOfTurnsNeededToHoldFlag() {
+        return numOfTurnsNeededToHoldFlag;
+    }
+
+    public void setNumOfTurnsNeededToHoldFlag(int numOfTurnsNeededToHoldFlag) {
+        this.numOfTurnsNeededToHoldFlag = numOfTurnsNeededToHoldFlag;
+    }
+
+    public int getNumOfFlagsInGame() {
+        return numOfFlagsInGame;
+    }
+
+    public void setNumOfFlagsInGame(int numOfFlagsInGame) {
+        this.numOfFlagsInGame = numOfFlagsInGame;
+    }
+
     {
         for (int i = 0; i < 9 ; i++) {
             try {
