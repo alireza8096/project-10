@@ -54,7 +54,7 @@ public class ServerView extends Application {
         InputStream inputStream = new FileInputStream(configFileName);
         properties.load(inputStream);
 
-        System.out.println(properties.getProperty("port"));
+        System.out.println("port : " + properties.getProperty("port"));
 
         currentRoot = new Pane();
         currentScene = new Scene(currentRoot, MenuView.WINDOW_WIDTH, MenuView.WINDOW_HEIGHT);

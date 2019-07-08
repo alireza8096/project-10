@@ -3,7 +3,9 @@ package network;
 import network.chatroom.ChatClient;
 import view.MainView;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -52,7 +54,14 @@ public class Client {
     }
 
     public Client() throws IOException {
-        this.socket = new Socket("localhost", 7766);
+        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
+        InputStream inputStream = new FileInputStream(configFileName);
+        MainView.properties.load(inputStream);
+
+        String ip = MainView.properties.getProperty("ip");
+        int port = Integer.parseInt(MainView.properties.getProperty("port"));
+        this.socket = new Socket(ip, port);
+//        this.socket = new Socket("localhost", 7766);
         clientThread = new Thread(new Runnable() {
             @Override
             public void run() {
