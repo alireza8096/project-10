@@ -1,4 +1,4 @@
-package view;
+package view.Photos;
 
 import controller.Controller;
 import javafx.application.Application;

@@ -1,6 +1,8 @@
 package view;
 
+import animation.SpriteAnimation;
 import controller.*;
+import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -21,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import model.*;
 import model.Cell;
 import model.collection.Card;
@@ -138,7 +141,7 @@ public class MenuView {
         vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom, saveOption, logoutOption, exitOption);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
-        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption,exitOption, logoutOption, saveOption,chatRoom);
+        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption, exitOption, logoutOption, saveOption, chatRoom);
 
     }
 
@@ -371,25 +374,26 @@ public class MenuView {
         TextField message = new TextField();
         message.setPrefWidth(500);
         message.setPrefHeight(60);
-        message.setLayoutX(AllDatas.currentScene.getWidth()/2 - 250);
+        message.setLayoutX(AllDatas.currentScene.getWidth() / 2 - 250);
         message.setLayoutY(800);
 
         ImageView imageView = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/chatroom/button_icon_right_glow@2x.png");
         imageView.setScaleY(0.7);
-        imageView.setX(AllDatas.currentScene.getWidth()/2 + 270);
+        imageView.setX(AllDatas.currentScene.getWidth() / 2 + 270);
         imageView.setY(775);
 
-        ImageView back =MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/chatroom/button_back_corner@2x.png");
+        ImageView back = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/chatroom/button_back_corner@2x.png");
         back.setFitWidth(100);
         back.setFitHeight(100);
 
 
-        MainView.getClient().setChatClient(new ChatClient(Game.getInstance().getPlayer1(),imageView,message,back));
+        MainView.getClient().setChatClient(new ChatClient(Game.getInstance().getPlayer1(), imageView, message, back));
         MainView.getClient().setInChat(true);
-        AllDatas.currentRoot.getChildren().addAll(message,imageView,back);
+        AllDatas.currentRoot.getChildren().addAll(message, imageView, back);
 
 
     }
+
     public static void showBattle() throws IOException, CloneNotSupportedException, ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
@@ -680,6 +684,16 @@ public class MenuView {
         ImageView image = new ImageView(card.getImageViewOfCard().getImage());
         image.setFitWidth(Shop.CARD_IMAGE_IN_SHOP_WIDTH);
         image.setFitHeight(Shop.CARD_IMAGE_IN_SHOP_HEIGHT);
+
+        final Animation animation = new SpriteAnimation(
+                card,
+                "breathing",
+                image,
+                Duration.millis(1000),
+                0, 0
+        );
+        animation.setCycleCount(Animation.INDEFINITE);
+        animation.play();
 
         Text desc = new Text();
         card.setDescOfCard(desc);
@@ -1266,8 +1280,7 @@ public class MenuView {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else{
+            } else {
                 if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
                     try {
                         CollectionController.getDeckIsBeingCreated().addCardToDeck(card);

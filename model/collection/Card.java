@@ -1,5 +1,6 @@
 package model.collection;
 
+import animation.GetImage;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
@@ -44,6 +45,15 @@ public class Card implements Cloneable {
     private transient Image forceInField;
     private String desc;
     private int numInShop;
+    private GetImage getImage;
+
+    public GetImage getGetImage() {
+        return getImage;
+    }
+
+    public void setGetImage(GetImage getImage) {
+        this.getImage = getImage;
+    }
 
     private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
 
@@ -95,8 +105,17 @@ public class Card implements Cloneable {
         this.name = name;
         if (!price.equals("null")) this.price = Integer.parseInt(price);
         else this.price = 0;
-        this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + imagePath);
-        this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
+        if(cardType.matches("hero")){
+            this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Heros/" + name + "/" + name + ".png");
+        }
+        else if(cardType.matches("item")){
+            this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Items/" + name + "/" + name + ".png");
+        }
+        else if(cardType.matches("spell")){
+            this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Spells/" + name + "/" + name + ".png");
+        }
+        else
+            this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Minions/" + name + "/" + name + ".png");
         this.desc = desc;
         this.numInShop = Integer.parseInt(numInShop);
         this.setNumInShopProperty(Integer.parseInt(numInShop));

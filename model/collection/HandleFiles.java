@@ -1,6 +1,7 @@
 package model.collection;
 
 
+import animation.GetImage;
 import model.Deck;
 import network.Server;
 import org.json.simple.JSONObject;
@@ -16,7 +17,7 @@ import java.nio.file.Paths;
 import static model.collection.Account.*;
 
 public class HandleFiles {
-    public static final String BEFORE_RELATIVE = "/Users/bahar/Desktop/DUELYST/";
+    public static final String BEFORE_RELATIVE = "/Users/hamilamailee/Documents/project-10/";
     private static final String ADDRESS_HERO = "model/collection/JSON-Heroes";
     private static final String ADDRESS_MINION = "model/collection/JSON-Minions";
     private static final String ADDRESS_SPELL = "model/collection/JSON-Spells";
@@ -55,6 +56,7 @@ public class HandleFiles {
                 Spell spell = new Spell(mana, id, "spell", name, price, desc, target, numOfTarget, action,
                         friendOrEnemy, locationOfTarget, imagePath, imagePath, numInShop);
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
+                spell.setGetImage(new GetImage(spell));
                 if (thread.matches("client")) {
                     Spell.getSpells().add(spell);
                 } else {
@@ -92,6 +94,7 @@ public class HandleFiles {
                 String numInShop = jsonObject.get("numInShop").toString();
                 Buff.createBuffsForSpell(spell, action, buffs, effectValue, delay, last);
                 Item item = new Item(spell, itemType, price, name, id, desc, specification, user, activationTime, imagePath, imagePath, numInShop);
+                item.setGetImage(new GetImage(item));
                 if (thread.matches("client")) {
                     Item.getItems().add(item);
                 } else {
@@ -132,6 +135,8 @@ public class HandleFiles {
                 Minion minion = new Minion(mana, id, "minion", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType
                         , attackRange, specialPower, action, locationOfTarget, doesNotGetAttack, activationTime, imagePath, imagePath, numInShop);
                 Buff.createBuffsForMinion(minion, action, buffs, effectValue, delay, last, activationTime);
+//                System.out.println(name);
+                minion.setGetImage(new GetImage(minion));
                 if (thread.matches("client")) {
                     Minion.getMinions().add(minion);
                 } else {
@@ -172,6 +177,7 @@ public class HandleFiles {
                 String numInShop = jsonObject.get("numInShop").toString();
                 Hero hero = new Hero(mana, id, "hero", name, price, target, numOfTarget, friendOrEnemy, healthPoint, attackPower, attackType, attackRange,
                         specialPower, action, locationOfTarget, coolDown, imagePath, forceInField, numInShop);
+                hero.setGetImage(new GetImage(hero));
                 Buff.createBuffsForHero(hero, action, buffs, effectValue, delay, last);
                 if (thread.matches("client")) {
                     Hero.getHeroes().add(hero);
