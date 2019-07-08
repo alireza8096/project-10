@@ -1,5 +1,6 @@
 package model.collection;
 
+import animation.GetImage;
 import model.CellType;
 import model.Game;
 import model.Map;
@@ -26,12 +27,13 @@ public class Hero extends Force implements Cloneable{
         return heroes;
     }
 
+
     public Hero(String mana, String id, String cardType, String name,
                 String price, String targets, String numOfTargets,
                 String friendOrEnemy, String healthPoint, String attackPower,
                 String attackType, String attackRange, String specialPower,
                 String actionTypes, String locationOfTargets, String coolDown,
-                String imagePath,String forceInField, String numInShop) throws FileNotFoundException {
+                String imagePath, String forceInField, String numInShop) throws FileNotFoundException {
         super(mana, id, cardType, name, price, targets, numOfTargets,
                 friendOrEnemy, healthPoint, attackPower, attackType,
                 attackRange, specialPower, actionTypes, locationOfTargets,imagePath,forceInField, numInShop);
