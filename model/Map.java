@@ -1,18 +1,22 @@
 package model;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import model.collection.*;
 import view.MainView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Stack;
 
 public class Map {
     private Cell[][] cells = new Cell[5][9];
     private static ImageView[][] cellsView = new ImageView[9][5];
     private static ImageView[][] forcesView = new ImageView[9][5];
+    private static ImageView[][] itemsView = new ImageView[9][5];
 
     private static StackPane[][] forcesStack = new StackPane[9][5];
 
@@ -21,6 +25,20 @@ public class Map {
     private Hero enemyHero;
     private Hero friendHero;
 
+    public static ImageView[][] getItemsView() {
+        return itemsView;
+    }
+
+    public static void setItemsView(ImageView[][] itemsView) {
+        Map.itemsView = itemsView;
+    }
+
+    public static void insertFlagInThisCell(int x, int y) throws FileNotFoundException {
+        Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.flag);
+        itemsView[y][x].setImage(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/temp_flag.png")));
+
+    }
 
     {
         for(int i=0; i<9; i++){
@@ -33,6 +51,13 @@ public class Map {
                     cellsView[i][j].setY(320+j*69);
                     AllDatas.currentRoot.getChildren().add(cellsView[i][j]);
 
+                    itemsView[i][j] = new ImageView();
+                    itemsView[i][j].setScaleX(0.45);
+                    itemsView[i][j].setScaleY(0.45);
+                    itemsView[i][j].setX(cellsView[i][j].getX() - 50);
+                    itemsView[i][j].setY(cellsView[i][j].getY() - 50);
+                    AllDatas.currentRoot.getChildren().add(itemsView[i][j]);
+
                     forcesView[i][j] = new ImageView();
                     forcesView[i][j].setX(cellsView[i][j].getX());
                     forcesView[i][j].setY(cellsView[i][j].getY());
@@ -43,6 +68,46 @@ public class Map {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public void placeFlagsOnMap(){
+        for (int i = 0; i < Game.getInstance().getNumOfFlagsInGame(); i++) {
+            placeOneFlagOnMap();
+        }
+    }
+
+    public boolean coordinationOfFlagIsRightAtFirst(int x, int y){
+        if (cells[x][y].getCellItemType() != CellItemType.flag) {
+            if (x == 2 && y == 0) {
+                return false;
+            } else if (x == 2 && y == 8) {
+                return false;
+            } else {
+                return true;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public void placeOneFlagOnMap() {
+        Random random = new Random();
+        int flagX = random.nextInt(5);
+        int flagY = random.nextInt(9);
+        while (!coordinationOfFlagIsRightAtFirst(flagX, flagY)){
+            flagX = random.nextInt(5);
+            flagY = random.nextInt(9);
+        }
+        try {
+            itemsView[flagY][flagX].setImage(new Image(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/temp_flag.png")));
+            itemsView[flagY][flagX].setFitWidth(cellsView[flagY][flagX].getFitWidth() - 100);
+            itemsView[flagY][flagX].setFitHeight(cellsView[flagY][flagX].getFitHeight() - 100);
+            cells[flagX][flagY].setCellItemType(CellItemType.flag);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

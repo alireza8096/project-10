@@ -16,8 +16,9 @@ import model.*;
 import model.collection.Account;
 import model.collection.Card;
 import model.collection.HandleFiles;
+import network.battle.BattleThread;
+import network.battle.ClientForBattle;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 import view.GameView;
 import view.MainView;
 
@@ -29,10 +30,12 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.Key;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static model.collection.Account.*;
+import static model.collection.Account.DECKS_FOLDER;
+import static model.collection.Account.createDeckFromStringClient;
 
 public class Message {
     private String jsonString;
@@ -231,6 +234,19 @@ public class Message {
             case "save":
                 Account.savePlayer(player, dos);
                 break;
+            case "enterBattle":
+                handleEnterBattleCommandFromClient(player, dos);
+                break;
+        }
+    }
+
+    public void handleEnterBattleCommandFromClient(Player player, PrintStream dos){
+        if (BattleThread.getBattleThreads()[0] == null){
+            BattleThread.getBattleThreads()[0] = new ClientForBattle(player, dos);
+        }else{
+            new BattleThread(BattleThread.getBattleThreads()[0], new ClientForBattle(player, dos));
+            BattleThread.getBattleThreads()[0] = null;
+            BattleThread.getBattleThreads()[1] = null;
         }
     }
 
@@ -285,10 +301,8 @@ public class Message {
                     String importedDeck = gson.toJson(deckString.get("deck0").toString(),String.class);
                     dos.println(new Message(importedDeck,"String","deckToImport").messageToString());
                     dos.flush();
-                } catch (ParseException e) {
-                    String printAlert = gson.toJson("Problems importing deck, please try again later",String.class);
-                    dos.println(new Message(printAlert,"String","printAlert").messageToString());
-                    dos.flush();
+                } catch (org.json.simple.parser.ParseException e) {
+                    e.printStackTrace();
                 }
                 break;
         }

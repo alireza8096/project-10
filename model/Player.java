@@ -23,6 +23,24 @@ public class Player implements Cloneable {
     private ArrayList<Item> itemsInCollection = new ArrayList<>();
     private ArrayList<Hero> heroesInCollection = new ArrayList<>();
     private int numberOfTurnsThatPlayerHasFlag;
+    private int numberOfFlags;
+    private boolean hasFlag;
+
+    public int getNumberOfFlags() {
+        return numberOfFlags;
+    }
+
+    public void setNumberOfFlags(int numberOfFlags) {
+        this.numberOfFlags = numberOfFlags;
+    }
+
+    public boolean isHasFlag() {
+        return hasFlag;
+    }
+
+    public void setHasFlag(boolean hasFlag) {
+        this.hasFlag = hasFlag;
+    }
 
     public int getNumberOfTurnsThatPlayerHasFlag() {
         return numberOfTurnsThatPlayerHasFlag;

@@ -55,6 +55,16 @@ public class Card implements Cloneable {
         this.getImage = getImage;
     }
 
+    private boolean hasFlag;
+
+    public boolean isHasFlag() {
+        return hasFlag;
+    }
+
+    public void setHasFlag(boolean hasFlag) {
+        this.hasFlag = hasFlag;
+    }
+
     private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
 
     public int getNumInShopProperty() {

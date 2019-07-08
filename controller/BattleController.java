@@ -1,16 +1,21 @@
 package controller;
 
+import Audio.AudioPlayer;
+import com.google.gson.Gson;
+import com.sun.tools.javac.Main;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import model.*;
-import model.Audio.AudioPlayer;
 import model.collection.*;
+import network.Message;
 import org.json.simple.parser.ParseException;
 import view.BattleView;
+import view.MainView;
 import view.MenuView;
 
 import javax.sound.sampled.LineUnavailableException;
@@ -389,10 +394,16 @@ public class BattleController {
     }
 
     public static void move(Force force, int x, int y) {
+        double initialX = Map.getForcesView()[force.getY()][force.getX()].getX();
+        double initialY = Map.getForcesView()[force.getY()][force.getX()].getY();
+
+        BattleView.moveForcesWithAnimation(Map.getForcesView()[y][x].getX(),
+                Map.getForcesView()[y][x].getY(), Map.getForcesView()[force.getY()][force.getX()]);
+
         try {
-            AudioPlayer.playThisAudio(
-                    HandleFiles.BEFORE_RELATIVE + "model/Audio/sounds/sfx_division_crest_reveal.wav");
-        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            Audio.AudioPlayer.playThisAudio(
+                    HandleFiles.BEFORE_RELATIVE + "Audio/sounds/move_sound.wav", AudioPlayer.Duration.oneTime);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
         Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
@@ -404,6 +415,8 @@ public class BattleController {
             Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
         }
 //        Map.getCellsView()[force.getY()][force.getX()].setDisable(false);
+
+
         force.setX(x);
         force.setY(y);
 //        Map.getCellsView()[y][x].setDisable(true);
@@ -421,8 +434,10 @@ public class BattleController {
 
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y) {
         applyCellType(card, x, y);
+        applyCellItemTypeOnCard(card, x, y);
+
+
 //        applyCellImpactTypeOnCard(card, x, y);
-//        applyCellItemTypeOnCard(card, x, y);
     }
 
     public static void applyCellType(Card card, int x, int y) {
@@ -451,18 +466,49 @@ public class BattleController {
 //        }
 //    }
 
-//    public static void applyCellItemTypeOnCard(Card card, int x, int y){
-//        CellItemType cellItemType = Game.getInstance().getMap().getCells()[x][y].getCellItemType();
-//        switch (cellItemType){
-//            case flag:
-//                Game.getInstance().setPlayer1NumberOfFlags(Game.getInstance().getPlayer1NumberOfFlags() + 1);
-//                Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
-//                break;
-//            case collectibleItem:
-//
-//                break;
-//        }
-//    }
+    public static void applyCellItemTypeOnCard(Card card, int x, int y) {
+        CellItemType cellItemType = Game.getInstance().getMap().getCells()[x][y].getCellItemType();
+        switch (cellItemType) {
+            case flag://collecting flag
+                if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags) {
+                    Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
+                    card.setHasFlag(true);
+                    Map.getItemsView()[y][x].setImage(null);
+                    if (((Force) card).thisForceIsFriend()) {
+                        Game.getInstance().getPlayer1().setHasFlag(true);
+                    } else {
+                        Game.getInstance().getPlayer2().setHasFlag(true);
+                    }
+
+                } else if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags) {
+                    Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
+                    card.setHasFlag(true);
+                    Game.getInstance().getPlayer1().setNumberOfFlags(Game.getInstance().getPlayer1().getNumberOfFlags() + 1);
+                    Map.getItemsView()[y][x].setImage(null);
+                }
+                break;//collecting an item on the map
+            case collectibleItem:
+
+                break;
+        }
+    }
+
+    public static void handleCollectingFlag(Card card, int x, int y) {
+        if (((Force) card).thisForceIsFriend()) {
+            if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags) {
+                Game.getInstance().getPlayer1().setNumberOfFlags(Game.getInstance().getPlayer1().getNumberOfFlags() + 1);
+            } else if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags) {
+                Game.getInstance().getPlayer1().setHasFlag(true);
+            }
+
+        } else {
+            if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags) {
+                Game.getInstance().getPlayer2().setNumberOfFlags(Game.getInstance().getPlayer2().getNumberOfFlags() + 1);
+            } else if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags) {
+                Game.getInstance().getPlayer2().setHasFlag(true);
+            }
+        }
+    }
 
     public static boolean checkRangeForAttack(Force attacker, Force opponent) {
         switch (attacker.getAttackType()) {
@@ -485,60 +531,161 @@ public class BattleController {
         return false;
     }
 
+    public static void checkIfGameIsFinished() {
+        switch (Game.getInstance().getGameMode()) {
+            case collectingHalfOfTheFlags:
+                if (checkIfGameIsFinishedInCollectingMode()) {
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+                }
+                break;
+            case collectingAndKeepingFlags:
+                if (checkIfGameIsFinishedInKeepingMode()) {
+                    System.out.println("++++++++++++++++++++++++++++++++++++++++++++");
+                }
+        }
+    }
+
+    public static boolean checkIfGameIsFinishedInCollectingMode() {//in mode that it collects half of the flags
+        int numOfNeededFlags = Game.getInstance().getNumOfFlagsInGame() / 2;
+        if (Game.getInstance().getPlayer1().getNumberOfFlags() == numOfNeededFlags) {
+            System.out.println(Game.getInstance().getPlayer1().getNumberOfFlags() + " : ");
+            System.out.println("--------------------- : player1 won");
+            return true;
+        } else if (Game.getInstance().getPlayer2().getNumberOfFlags() == numOfNeededFlags) {
+            System.out.println("--------------------- : player2 won");
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean checkIfGameIsFinishedInKeepingMode() {//in mode that it holds a flag for 6 several turns
+        System.out.println("");
+        if (Game.getInstance().getPlayer1().getNumberOfTurnsThatPlayerHasFlag()
+                == Game.getInstance().getNumOfTurnsNeededToHoldFlag()) {
+            System.out.println("--------------------- : player1 won");
+            return true;
+        } else if (Game.getInstance().getPlayer2().getNumberOfTurnsThatPlayerHasFlag() ==
+                Game.getInstance().getNumOfTurnsNeededToHoldFlag()) {
+            System.out.println("--------------------- : player2 won");
+            return true;
+        }
+        return false;
+    }
+
     public static void checkKill(Force force) {
         switch (Game.getInstance().getMap().getCells()[force.getX()][force.getY()].getCellType()) {
             case selfHero:
                 if (force.getHealthPoint() == 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("enemy won !");
-                    alert.show();
-                    try {
-                        Controller.enterMainMenu();
-//                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName(),dos);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    if (Game.getInstance().getGameMode() == GameMode.killingHeroOfEnemy) {
+                        AudioPlayer.playDeathSound();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText("enemy won !");
+                        alert.show();
+                        try {
+                            Controller.enterMainMenu();
+//                            Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                        AllDatas.gameBoolean = false;
+                    } else {
+                        if (force.isHasFlag()) {
+                            handleKillingForceThatHasFlag(force);
+                        }
                     }
-                    AllDatas.gameBoolean = false;
+
                 }
+
                 break;
             case enemyHero:
                 if (force.getHealthPoint() == 0) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setContentText("you won !");
-                    alert.show();
-                    try {
-                        Controller.enterMainMenu();
-//                        Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                    if (Game.getInstance().getGameMode() == GameMode.killingHeroOfEnemy) {
+                        AudioPlayer.playDeathSound();
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setContentText("you won !");
+                        alert.show();
+                        try {
+                            Controller.enterMainMenu();
+//                            Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage());
+                        }
+                    } else {
+
+                        if (force.isHasFlag()) {
+                            handleKillingForceThatHasFlag(force);
+                        }
                     }
                 }
                 break;
             case selfMinion:
                 if (force.getHealthPoint() == 0) {
+                    AudioPlayer.playDeathSound();
                     Shop.removeProcess(Game.getInstance().getMap().getFriendMinions(), (Minion) force);
                     Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
                     Map.getForcesView()[force.getY()][force.getX()].setImage(null);
                     Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
                     Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
+                    if (force.isHasFlag()) {
+                        Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellItemType(CellItemType.flag);
+                    }
+                    if (Game.getInstance().getGameMode() != GameMode.killingHeroOfEnemy) {
+                        if (force.isHasFlag()) {
+                            handleKillingForceThatHasFlag(force);
+                        }
+                    }
                 }
                 break;
             case enemyMinion:
                 if (force.getHealthPoint() == 0) {
+                    AudioPlayer.playDeathSound();
                     Shop.removeProcess(Game.getInstance().getMap().getEnemyMinions(), (Minion) force);
                     Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
                     Map.getForcesView()[force.getY()][force.getX()].setImage(null);
                     Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
                     Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
+                    if (force.isHasFlag()) {
+                        Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellItemType(CellItemType.flag);
+                    }
+                    if (Game.getInstance().getGameMode() != GameMode.killingHeroOfEnemy) {
+                        if (force.isHasFlag()) {
+                            handleKillingForceThatHasFlag(force);
+                        }
+                    }
                 }
         }
     }
 
+    public static void handleKillingForceThatHasFlag(Force force) {
+        if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags) {
+            if (force.thisForceIsFriend()) {
+                Game.getInstance().getPlayer1().setHasFlag(false);
+            } else {
+                Game.getInstance().getPlayer2().setHasFlag(false);
+            }
+        } else if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags) {
+            if (force.thisForceIsFriend()) {
+                Game.getInstance().getPlayer1().setNumberOfFlags(Game.getInstance().getPlayer1().getNumberOfFlags() - 1);
+            } else {
+                Game.getInstance().getPlayer2().setNumberOfFlags(Game.getInstance().getPlayer2().getNumberOfFlags() - 1);
+            }
+        }try {
+            Map.insertFlagInThisCell(force.getX(), force.getY());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void attackAndCounterAttack(Force attacker, Force opponent) {
+        try {
+            AudioPlayer.playThisAudio(HandleFiles.BEFORE_RELATIVE + "Audio/sounds/attack_sound.wav", AudioPlayer.Duration.oneTime);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
         if (opponent.getHealthPoint() <= attacker.getAttackPower()) {
             opponent.setHealthPoint(0);
         } else {
@@ -796,7 +943,12 @@ public class BattleController {
         multiButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                //Todo : handle server and client
+                System.out.println("multiPlayer game");
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(Game.getInstance().getPlayer1(), Player.class);
+                Message message = new Message(jsonString, "Player", "enterBattle");
+                MainView.getClient().getDos().println(message.messageToString());
+                MainView.getClient().getDos().flush();
             }
         });
 
@@ -818,27 +970,80 @@ public class BattleController {
         });
     }
 
-    public static void handleEventsOfChoosingGameMode(StackPane mode1, StackPane mode2, StackPane mode3){
+    public static void handleEventsOfChoosingGameMode(StackPane mode1, StackPane mode2, StackPane mode3) {
         mode1.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
+                Game.getInstance().setGameMode(GameMode.killingHeroOfEnemy);
             }
         });
 
-        mode2.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
+        mode2.setOnMouseClicked(event -> {
+            Game.getInstance().setGameMode(GameMode.collectingAndKeepingFlags);
+            try {
+                MenuView.showWindowForChoosingNumberOfFlagsOrTurns();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
 
-        mode3.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
+        mode3.setOnMouseClicked(event -> {
+            Game.getInstance().setGameMode(GameMode.collectingHalfOfTheFlags);
+            try {
+                MenuView.showWindowForChoosingNumberOfFlagsOrTurns();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
+    }
+
+    public static void chooseNumberOfFlags(TextField textField, StackPane backButton, StackPane battleButton) {
+        backButton.setOnMouseClicked(event -> {
+            try {
+                MenuView.showChoosingModeWindow();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        battleButton.setOnMouseClicked(event -> {
+            try {
+                if (!textField.getText().trim().isEmpty()) {
+                    int number = Integer.parseInt(textField.getText());
+
+                    if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags) {
+                        Game.getInstance().setNumOfTurnsNeededToHoldFlag(number);
+                    } else if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags) {
+                        Game.getInstance().setNumOfFlagsInGame(number);
+                    }
+                }
+
+
+                Controller.enterBattle();
+            } catch (IOException | CloneNotSupportedException | ParseException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void handleEventsOfChoosingGameType(StackPane storyButton, StackPane customButton) {
+        storyButton.setOnMouseClicked(event -> enterStoryGame());
+
+        customButton.setOnMouseClicked(event -> {
+            try {
+                enterCustomGame();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public static void enterStoryGame() {
+
+    }
+
+    public static void enterCustomGame() throws FileNotFoundException {
+        MenuView.showChoosingModeWindow();
     }
 
 }

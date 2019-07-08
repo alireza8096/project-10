@@ -1,5 +1,6 @@
 package controller;
 
+import Audio.AudioPlayer;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,8 @@ import view.GameView;
 import view.MainView;
 import view.MenuView;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -192,6 +195,13 @@ public class Controller {
     }
 
     public static void enterBattle() throws IOException, CloneNotSupportedException, ParseException {
+        AudioPlayer.getBattleAudio().play();
+        try {
+            AudioPlayer.getMenuAudio().stop();
+        } catch (UnsupportedAudioFileException | LineUnavailableException e) {
+            e.printStackTrace();
+        }
+
         AllDatas.currentRoot = AllDatas.battle.getRoot();
         AllDatas.currentScene = AllDatas.battle.getScene();
         AllDatas.battle.setNowInThisMenu(true);
