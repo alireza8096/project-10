@@ -1,11 +1,14 @@
 package model;
 
+import com.google.gson.Gson;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.collection.*;
 import network.Message;
 import network.Server;
+import view.MainView;
 
 import java.util.ArrayList;
 
@@ -127,39 +130,58 @@ public class Shop{
             case "hero":
                 Hero hero = Hero.findHeroByName(cardName);
                 daric -= Hero.findHeroByName(cardName).getPrice();
-                System.out.println("HERERERERERERERRERE*******");
-                Server.changeCardNumInShop(cardName, -1);
-//                daricValue.set(daric);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendDecreaseNumOfCardsInServerCommand(hero);
+                    }
+                });
                 Game.getInstance().getPlayer1().getHeroesInCollection().add(Hero.findHeroByName(cardName));
                 break;
             case "item":
                 Item item = Item.findItemByName(cardName);
                 daric -= Item.findItemByName(cardName).getPrice();
-                Server.changeCardNumInShop(cardName, -1);
-//                item.setNumInShopProperty(item.getNumInShopProperty() + 1);
-//                daricValue.set(daric);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendDecreaseNumOfCardsInServerCommand(item);
+                    }
+                });
                 Game.getInstance().getPlayer1().getItemsInCollection().add(Item.findItemByName(cardName));
                 break;
             case "minion":
                 Minion minion = Minion.findMinionByName(cardName);
                 daric -= Minion.findMinionByName(cardName).getPrice();
-                Server.changeCardNumInShop(cardName, -1);
-//                minion.setNumInShopProperty(minion.getNumInShopProperty() + 1);
-//                daricValue.set(daric);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendDecreaseNumOfCardsInServerCommand(minion);
+                    }
+                });
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
             case "spell":
                 Spell spell = Spell.findSpellByName(cardName);
                 daric -= Spell.findCardByName(cardName).getPrice();
-                Server.changeCardNumInShop(cardName, -1);
-//                spell.setNumInShopProperty(spell.getNumInShopProperty() + 1);
-//                daricValue.set(daric);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendDecreaseNumOfCardsInServerCommand(spell);
+                    }
+                });
                 Game.getInstance().getPlayer1().getCardsInCollection().add(Card.findCardByName(cardName));
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
         System.out.println(cardName + " was added to your collection successfully");
-//        System.out.println("Remained daric : " + Game.getInstance().getPlayer1().getDaric());
+    }
+
+    public static void sendDecreaseNumOfCardsInServerCommand(Card card){
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(card, Card.class);
+        Message message = new Message(jsonString, "Card", "decreaseNumOfCard");
+        MainView.getClient().getDos().println(message.messageToString());
+        MainView.getClient().getDos().flush();
     }
 
     public static boolean checkIfCardWithThisNameIsValid(String cardName) {
@@ -238,8 +260,6 @@ public class Shop{
     }
 
     public static void sellCardAndRemoveFromCollection(int cardID) throws Exception {
-        //Todo : delete sold card from decks
-//        IntegerProperty daricValue = Game.getInstance().getPlayer1().daricPropertyProperty();
         int daric = Game.getInstance().getPlayer1().getDaric();
         switch (cardID / 100) {
             case 1:
@@ -247,8 +267,13 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
                 assert hero != null;
                 daric += hero.getPrice();
-                hero.setNumInShopProperty(hero.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendIncreaseNumOfCardInServer(hero);
+                    }
+                });
                 System.out.println(hero.getName() + " was sold successfully");
                 break;
             case 2:
@@ -257,8 +282,13 @@ public class Shop{
                 if (item.getItemType().matches("usable")) {
                     removeProcess(Game.getInstance().getPlayer1().getItemsInCollection(), item);
                     daric += item.getPrice();
-                    item.setNumInShopProperty(item.getNumInShopProperty() + 1);
 //                    daricValue.set(daric);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            sendIncreaseNumOfCardInServer(item);
+                        }
+                    });
                     System.out.println(item.getName() + " was sold successfully");
                 } else
                     System.out.println("This item can not be sold");
@@ -268,8 +298,13 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), minion);
                 assert minion != null;
                 daric += minion.getPrice();
-                minion.setNumInShopProperty(minion.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendIncreaseNumOfCardInServer(minion);
+                    }
+                });
                 System.out.println(minion.getName() + " was sold successfully");
                 break;
             case 4:
@@ -279,13 +314,26 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getCardsInCollection(), spell);
                 assert spell != null;
                 daric += spell.getPrice();
-                spell.setNumInShopProperty(spell.getNumInShopProperty() + 1);
 //                daricValue.set(daric);
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        sendIncreaseNumOfCardInServer(spell);
+                    }
+                });
                 System.out.println(spell.getName() + " was sold successfully");
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
         System.out.println("Your daric now : " + daric);
+    }
+
+    public static void sendIncreaseNumOfCardInServer(Card card){
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(card, Card.class);
+        Message message = new Message(jsonString, "Card", "increaseCardNumber");
+        MainView.getClient().getDos().print(message.messageToString());
+        MainView.getClient().getDos().flush();
     }
 
     public static boolean checkValidId(int id) {

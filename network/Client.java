@@ -52,7 +52,7 @@ public class Client {
     }
 
     public Client() throws IOException {
-        this.socket = new Socket("localhost",7766);
+        this.socket = new Socket("localhost", 7766);
         clientThread = new Thread(new Runnable() {
             @Override
             public void run() {

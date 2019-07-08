@@ -1,8 +1,9 @@
-package view.Photos;
+package view;
 
 import controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -13,6 +14,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -22,19 +24,19 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.AllDatas;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import network.Message;
 import network.Server;
+import org.w3c.dom.events.EventException;
 import view.GameView;
 import view.MenuView;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Properties;
 
 import static javafx.scene.paint.Color.rgb;
 
@@ -44,8 +46,16 @@ public class ServerView extends Application {
     private static Scene currentScene;
     private static Rectangle2D primaryScreenBounds;
 
+    public static Properties properties = new Properties();
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
+        InputStream inputStream = new FileInputStream(configFileName);
+        properties.load(inputStream);
+
+        System.out.println(properties.getProperty("port"));
+
         currentRoot = new Pane();
         currentScene = new Scene(currentRoot, MenuView.WINDOW_WIDTH, MenuView.WINDOW_HEIGHT);
         primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -144,21 +154,38 @@ public class ServerView extends Application {
 
         StackPane showSockets = new StackPane(showSocketsBtn, socketsBtn);
         currentRoot.getChildren().add(showSockets);
-        GameView.makeImageGlowWhileMouseEnters(showSockets);
+
+        ImageView refreshButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/server/gray_button.png")));
+        refreshButton.setFitWidth(400);
+        refreshButton.setFitHeight(130);
+        Label refreshLabel = new Label("Refresh");
+        refreshLabel.setFont(font);
+        refreshLabel.setTextFill(rgb(227, 252, 255));
+        StackPane refreshStack = new StackPane(refreshButton, refreshLabel);
+
+        GameView.makeImageGlowWhileMouseEnters(showSockets, refreshStack);
 
         showSockets.setOnMouseClicked(event -> {
             try {
-//                for (Socket socket : Server.getClients()){
-//                    PrintStream dos= new PrintStream(socket.getOutputStream());
-//                    dos.println(messageString);
-//                }
                 showClientsWindow();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
 
-        vBox.getChildren().add(showSockets);
+        refreshStack.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    showCardsInServer();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        vBox.getChildren().addAll(showSockets, refreshStack);
     }
 
     private static void addCardsInServerToVBox(VBox generalVBox, ArrayList<Card> cards) throws FileNotFoundException {
