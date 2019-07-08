@@ -41,9 +41,9 @@ public class MainView extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
-        InputStream inputStream = new FileInputStream(configFileName);
-        properties.load(inputStream);
+//        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
+//        InputStream inputStream = new FileInputStream(configFileName);
+//        properties.load(inputStream);
 
         Shop.setRightVBox(new VBox());
         Shop.setLeftVBox(new VBox());

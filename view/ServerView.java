@@ -50,9 +50,9 @@ public class ServerView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
-        InputStream inputStream = new FileInputStream(configFileName);
-        properties.load(inputStream);
+//        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
+//        InputStream inputStream = new FileInputStream(configFileName);
+//        properties.load(inputStream);
 
         System.out.println(properties.getProperty("port"));
 

@@ -289,8 +289,9 @@ public class Hand {
                     Duration.millis(1000),0,0);
             animation.setCycleCount(Animation.INDEFINITE);
             animation.play();
-            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
-            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+            Map.getForcesView()[0][2].setY(Map.getForcesView()[y][x].getY()-70);
+//            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
+//            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
 //            minion.setCanMove(false);
 //            minion.setCanAttack(false);
             card.setHasMovedInThisTurn(true);

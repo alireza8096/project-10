@@ -37,14 +37,13 @@ public class AI {
 
     public static void createDeckOfAI(Player player) throws CloneNotSupportedException {
         Random random = new Random();
-        int heroId = 5;//random.nextInt(10) + 1;
+        int heroId = random.nextInt(10) + 1;
         int[] idsOfItems = new int[3];
         int[] idsOfMinions = new int[12];
         int[] idsOfSpells = new int[5];
         setRandomIdsItems(idsOfItems);
         setRandomIdsSpells(idsOfSpells);
         setRandomIdsMinions(idsOfMinions);
-//        Game.getInstance().getMap().setEnemyHero(Hero.findHeroByName(BattleController.returnNameById(heroId+100)));
         Deck deckOfAI = new Deck("AIDeck");
         deckOfAI.setHeroInDeck(Hero.findHeroByID(heroId + 100));
         for (int i = 0; i < idsOfItems.length; i++) {
@@ -175,12 +174,12 @@ public class AI {
             if (cardCanBeMovedToThisCellAI(force, x, y)) {
                 Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
                 Map.getForcesView()[force.getY()][force.getX()].setImage(null);
-                if (force.getCardType().matches("hero")) {
+//                if (force.getCardType().matches("hero")) {
                     Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() + 25);
-                } else {
-                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
-                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
-                }
+//                } else {
+//                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
+//                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
+//                }
                 force.setX(x);
                 force.setY(y);
                 Map.getForcesView()[y][x].setImage(force.getImageViewOfCard().getImage());
@@ -188,12 +187,12 @@ public class AI {
                 ,Duration.millis(1000),0,0);
                 animation.setCycleCount(Animation.INDEFINITE);
                 animation.play();
-                if (force.getCardType().matches("hero")) {
+//                if (force.getCardType().matches("hero")) {
                     Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
-                } else {
-                    Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
-                    Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
-                }
+//                } else {
+//                    Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
+//                    Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+//                }
                 force.setHasMovedInThisTurn(true);
                 applyCellTypeAI(force, x, y);
                 System.out.println("moooooooveeeeeee");
@@ -214,7 +213,7 @@ public class AI {
         int minionX;
         int minionY;
         for (Minion minion : Game.getInstance().getMap().getEnemyMinions()) {
-            while (!minion.isHasMovedInThisTurn()) {
+            if (!minion.isHasMovedInThisTurn()) {
                 minionX = random.nextInt(5);
                 minionY = random.nextInt(9);
                 moveAI(minion, minionX, minionY);
@@ -222,6 +221,19 @@ public class AI {
         }
     }
 
+    public static void attackHeroAI(){
+        BattleController.checkAllConditionsToAttack(Game.getInstance().getMap().getEnemyHero(), Game.getInstance().getMap().getFriendHero());
+        for (Minion attacker : Game.getInstance().getMap().getEnemyMinions()) {
+            BattleController.checkAllConditionsToAttack(attacker, Game.getInstance().getMap().getFriendHero());
+        }
+        try {
+            BattleController.endTurn();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
     public static void attackTillPossible() {
         try {
             ArrayList<Minion> friendMinionCopy = Game.getInstance().getMap().getFriendMinions();
@@ -307,8 +319,9 @@ public class AI {
                 Duration.millis(1000),0,0);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
-        Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
-        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+//        Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
+//        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 25);
         minion.setX(x);
         minion.setY(y);
         minion.setHasMovedInThisTurn(true);

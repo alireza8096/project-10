@@ -81,8 +81,12 @@ public class BattleController {
             }
             makeAllCardsActiveAI();
             AI.insertCardTillPossible();
+            System.out.println("inserted finished");
             AI.moveTillPossible();
-            BattleController.endTurn();
+            System.out.println("move finished");
+            AI.attackHeroAI();
+            System.out.println("attack finished");
+//            BattleController.endTurn();
         } else {
             Game.getInstance().setPlayer1Turn(true);
             BattleView.showEndTurn();
@@ -410,12 +414,13 @@ public class BattleController {
         }
         Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
         Map.getForcesView()[force.getY()][force.getX()].setImage(null);
-        if (force.getCardType().matches("hero")) {
+//        if (force.getCardType().matches("hero")) {
             Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() + 25);
-        } else {
-            Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
-            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
-        }
+        System.out.println("commented here");
+//        } else {
+//            Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
+//            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
+//        }
 //        Map.getCellsView()[force.getY()][force.getX()].setDisable(false);
 
 
@@ -427,12 +432,13 @@ public class BattleController {
         , Duration.millis(1000),0,0);
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
-        if (force.getCardType().matches("hero")) {
+//        if (force.getCardType().matches("hero")) {
             Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
-        } else {
-            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
-            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
-        }
+        System.out.println("also commented here");
+//        } else {
+//            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
+//            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+//        }
 //        Map.getForcesView()[y][x].setDisable(false);
         force.setHasMovedInThisTurn(true);
         applyEffectsOfTargetCellOnCard(force, x, y);
