@@ -51,12 +51,9 @@ public class MenuView {
     public static final int WINDOW_WIDTH = 1024;
     public static final int WINDOW_HEIGHT = 768;
 
-    public static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
     public static Rectangle2D getPrimaryScreenBounds() {
         return primaryScreenBounds;
     }
-
 
     public static void showLoginMenu() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
@@ -450,7 +447,8 @@ public class MenuView {
         Rectangle rectangle = new Rectangle(258, 293);
         rectangle.setX(100);
         rectangle.setY(100);
-        ImageView yourProfile = new ImageView(Game.getInstance().getMap().getFriendHero().getImageViewOfCard().getImage());
+        ImageView yourProfile = new ImageView(Game.getInstance().getMap().getFriendHero().getForceInField());
+        System.out.println(Game.getInstance().getMap().getFriendHero().getForceInField() + " force in field");
         yourProfile.setX(100);
         yourProfile.setY(30);
         yourProfile.fitWidthProperty().bind(rectangle.widthProperty());
@@ -458,7 +456,7 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().add(yourProfile);
 
         AllDatas.currentRoot.getChildren().addAll(Game.getYourHbox(), Game.getEnemyHbox());
-        ImageView enemyProfile = new ImageView(Game.getInstance().getMap().getEnemyHero().getImageViewOfCard().getImage());
+        ImageView enemyProfile = new ImageView(Game.getInstance().getMap().getEnemyHero().getForceInField());
         enemyProfile.setX(1300);
         enemyProfile.setY(30);
         enemyProfile.fitHeightProperty().bind(rectangle.heightProperty());

@@ -10,6 +10,9 @@ import java.lang.String;
 public class Player implements Cloneable {
 
     private ArrayList<Deck> decksOfPlayer = new ArrayList<>();
+    private ArrayList<String> decksToCreate = new ArrayList<>();
+    private String collectionToCreate;
+    private String mainDeckName;
     private Deck mainDeck;
     private String userName;
     private String password;
@@ -25,6 +28,26 @@ public class Player implements Cloneable {
     private int numberOfTurnsThatPlayerHasFlag;
     private int numberOfFlags;
     private boolean hasFlag;
+
+    public ArrayList<String> getDecksToCreate() {
+        return decksToCreate;
+    }
+
+    public void setMainDeckName(String mainDeckName) {
+        this.mainDeckName = mainDeckName;
+    }
+
+    public String getMainDeckName() {
+        return mainDeckName;
+    }
+
+    public void setCollectionToCreate(String collectionToCreate) {
+        this.collectionToCreate = collectionToCreate;
+    }
+
+    public String getCollectionToCreate() {
+        return collectionToCreate;
+    }
 
     public int getNumberOfFlags() {
         return numberOfFlags;

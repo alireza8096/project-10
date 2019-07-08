@@ -1,8 +1,11 @@
 package model;
 
+import animation.SpriteAnimation;
+import javafx.animation.Animation;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import model.collection.*;
 import view.MainView;
 
@@ -41,6 +44,7 @@ public class Map {
     }
 
     {
+        Rectangle rectangle = new Rectangle(130,130);
         for(int i=0; i<9; i++){
             for(int j=0; j<5; j++){
                 try {
@@ -59,10 +63,11 @@ public class Map {
                     AllDatas.currentRoot.getChildren().add(itemsView[i][j]);
 
                     forcesView[i][j] = new ImageView();
+                    forcesView[i][j].fitHeightProperty().bind(rectangle.heightProperty());
+                    forcesView[i][j].fitWidthProperty().bind(rectangle.widthProperty());
                     forcesView[i][j].setX(cellsView[i][j].getX());
                     forcesView[i][j].setY(cellsView[i][j].getY());
                     AllDatas.currentRoot.getChildren().add(forcesView[i][j]);
-
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();

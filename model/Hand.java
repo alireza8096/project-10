@@ -1,5 +1,7 @@
 package model;
 
+import animation.SpriteAnimation;
+import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -10,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Minion;
@@ -110,11 +114,16 @@ public class Hand {
     }
 
     public static void createHand() {
+        Rectangle rectangle = new Rectangle(65,65);
         HBox handScenes = new HBox();
         HBox cardsView = new HBox();
         HBox manasView = new HBox();
         for (int i = 0; i < 5; i++) {
             cards[i] = new ImageView();
+            cards[i].fitWidthProperty().bind(rectangle.widthProperty());
+            cards[i].fitHeightProperty().bind(rectangle.heightProperty());
+            cards[i].setScaleX(1.3);
+            cards[i].setScaleY(1.3);
             scenesBehind[i] = new ImageView();
             manas[i] = new Label();
             manas[i].setTextFill(Color.WHITE);
@@ -128,11 +137,11 @@ public class Hand {
         handScenes.setScaleX(0.6);
         handScenes.setScaleY(0.6);
         AllDatas.currentRoot.getChildren().add(handScenes);
-        cardsView.setScaleX(1.3);
-        cardsView.setScaleY(1.3);
-        cardsView.setSpacing(65);
-        cardsView.setLayoutX(540);
-        cardsView.setLayoutY(800);
+        cardsView.setScaleX(2);
+        cardsView.setScaleY(2);
+        cardsView.setSpacing(20);
+        cardsView.setLayoutX(640);
+        cardsView.setLayoutY(780);
         AllDatas.currentRoot.getChildren().add(cardsView);
         manasView.setLayoutX(607);
         manasView.setLayoutY(890);
@@ -179,7 +188,10 @@ public class Hand {
                 Hand.scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
                         "view/Photos/battle/card_background_disabled@2x.png")));
             }
-            Hand.cards[i].setImage(card.getForceInField());
+            Hand.cards[i].setImage(card.getImageViewOfCard().getImage());
+            final Animation animation = new SpriteAnimation(card,"breathing",Hand.cards[i], Duration.millis(1000),0,0);
+            animation.setCycleCount(Animation.INDEFINITE);
+            animation.play();
             Hand.manas[i].setText(Integer.toString(card.getMana()));
             Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck().remove(card);
         }
@@ -218,7 +230,11 @@ public class Hand {
                     }catch (Exception e){
                         System.out.println(e.getMessage());
                     }
-                    cards[i].setImage(nextCard.getForceInField());
+                    cards[i].setImage(nextCard.getImageViewOfCard().getImage());
+                    final Animation animation = new SpriteAnimation(nextCard,"breathing",cards[i]
+                    ,Duration.millis(1000),0,0);
+                    animation.setCycleCount(Animation.INDEFINITE);
+                    animation.play();
                     manas[i].setText(Integer.toString(nextCard.getMana()));
                     return;
                 }
@@ -236,7 +252,7 @@ public class Hand {
 
     public static void setStackForForcesInMap(int x, int y, Minion minion) throws FileNotFoundException {
 
-        Map.getForcesView()[y][x].setImage(minion.getForceInField());
+//        Map.getForcesView()[y][x].setImage(minion.getForceInField());
 //        Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
 //        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
         ImageView healthPointIcon = new ImageView(new Image(new FileInputStream(
@@ -254,9 +270,8 @@ public class Hand {
     }
 
     public void insertCardFromHandInMap(int index, int x, int y) throws FileNotFoundException {
-        if (Minion.thisCardIsMinion(cardsInHand[index].getName())) {
-            Minion minion = (Minion)cardsInHand[index];
-            Game.getInstance().getPlayer1().setNumOfMana(Game.getInstance().getPlayer1().getNumOfMana() - minion.getMana());
+            Card card = cardsInHand[index];
+            Game.getInstance().getPlayer1().setNumOfMana(Game.getInstance().getPlayer1().getNumOfMana() - card.getMana());
             for(int i=0; i<5; i++){
                 if(cardsInHand[i] != null) {
                     if (cardsInHand[i].getMana() > Game.getInstance().getPlayer1().getNumOfMana()) {
@@ -266,16 +281,20 @@ public class Hand {
                 }
             }
             Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
-            minion.setX(x);
-            minion.setY(y);
+            card.setX(x);
+            card.setY(y);
 //            Map.getCellsView()[y][x].setDisable(true);
-            Map.getForcesView()[y][x].setImage(minion.getForceInField());
+            Map.getForcesView()[y][x].setImage(card.getImageViewOfCard().getImage());
+            final Animation animation = new SpriteAnimation(card,"breathing",Map.getForcesView()[y][x],
+                    Duration.millis(1000),0,0);
+            animation.setCycleCount(Animation.INDEFINITE);
+            animation.play();
             Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
             Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
 //            minion.setCanMove(false);
 //            minion.setCanAttack(false);
-            minion.setHasMovedInThisTurn(true);
-            minion.setHasAttackedInThisTurn(true);
+            card.setHasMovedInThisTurn(true);
+            card.setHasAttackedInThisTurn(true);
             Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);
             for(int i=0; i<9; i++){
                 Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
@@ -291,8 +310,9 @@ public class Hand {
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
-            Game.getInstance().getMap().getFriendMinions().add(minion);
-        }
+            if(card.getCardType().matches("minion")) {
+                Game.getInstance().getMap().getFriendMinions().add((Minion) card);
+            }
     }
 
     public void removeCardFromHand(int index) {
