@@ -126,6 +126,9 @@ public class Card implements Cloneable {
         }
         else
             this.imageViewOfCard = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/Minions/" + name + "/" + name + ".png");
+        if(cardType.matches("hero")){
+            this.forceInField = new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + inField));
+        }
         this.desc = desc;
         this.numInShop = Integer.parseInt(numInShop);
         this.setNumInShopProperty(Integer.parseInt(numInShop));
@@ -396,22 +399,29 @@ public class Card implements Cloneable {
         Map map = Game.getInstance().getMap();
         for (Card card : map.getFriendMinions()) {
             if (card.getX() == x && card.getY() == y) {
+                System.out.println("return friend minion");
                 return card;
             }
         }
 
         for (Card card : map.getEnemyMinions())
-            if (card.getX() == x && card.getY() == y)
+            if (card.getX() == x && card.getY() == y) {
+                System.out.println("return enemy minion");
                 return card;
+            }
 
 
         if (map.getFriendHero().getX() == x && map.getFriendHero().getY() == y) {
+            System.out.println("return friend hero");
             return map.getFriendHero();
         }
 
-        if (map.getEnemyHero().getX() == x && map.getEnemyHero().getY() == y)
+        if (map.getEnemyHero().getX() == x && map.getEnemyHero().getY() == y) {
+            System.out.println("return enemy hero");
             return map.getEnemyHero();
+        }
 
+        System.out.println("null");
         return null;
     }
 

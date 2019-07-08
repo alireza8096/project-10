@@ -213,20 +213,6 @@ public class HandleFiles {
         return jsonParser.parse(fileReader);
     }
 
-    public static void exportDeck(Deck deck) throws IOException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("deck0", returnStringOfDeck(deck));
-        Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + DECKS_FOLDER + "/"
-                + deck.getDeckName() + ".json"), jsonObject.toJSONString().getBytes());
-    }
-
-    public static Deck importDeck(String deckName) throws IOException, ParseException,
-            CloneNotSupportedException {
-        JSONObject jsonObject = (JSONObject) HandleFiles.readJsonFiles(
-                HandleFiles.BEFORE_RELATIVE + DECKS_FOLDER + "/" + deckName + ".json");
-        return createDeckFromString(jsonObject.get("deck" + 0).toString());
-    }
-
 //    public static JSONObject returnJsonObjectByItsAddress(String fileName) throws IOException, ParseException {
 //        File folder = new File(ADDRESS_OF_JSON_FILES + "JSON-Items");
 //        File[] listOfFiles = folder.listFiles();

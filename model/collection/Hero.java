@@ -1,6 +1,9 @@
 package model.collection;
 
 import animation.GetImage;
+import animation.SpriteAnimation;
+import javafx.animation.Animation;
+import javafx.util.Duration;
 import model.CellType;
 import model.Game;
 import model.Map;
@@ -256,9 +259,12 @@ public class Hero extends Force implements Cloneable{
         hero.setX(2);
         hero.setY(0);
         Game.getInstance().getMap().getCells()[2][0].setCellType(CellType.selfHero);
-        Map.getForcesView()[0][2].setImage(hero.getForceInField());
+        Map.getForcesView()[0][2].setImage(hero.getImageViewOfCard().getImage());
+        final Animation animation = new SpriteAnimation(hero,"breathing",Map.getForcesView()[0][2]
+        , Duration.millis(1000),0,0);
+        animation.setCycleCount(Animation.INDEFINITE);
+        animation.play();
         Map.getForcesView()[0][2].setY(Map.getForcesView()[0][2].getY()-25);
-//        Map.getCellsView()[0][2].setDisable(true);
         Game.getInstance().getMap().setFriendHero(hero);
         Game.getInstance().getMap().getFriendHero().setHasAttackedInThisTurn(false);
         Game.getInstance().getMap().getFriendHero().setHasMovedInThisTurn(false);

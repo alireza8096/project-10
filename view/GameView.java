@@ -130,15 +130,15 @@ public class GameView {
         try {
             for (Card card : player.getCardsInCollection()) {
                 card.setImageViewOfCard(Card.findCardByName(card.getName()).getImageViewOfCard());
-                card.setForceInField(Card.findCardByName(card.getName()).getForceInField());
+//                card.setForceInField(Card.findCardByName(card.getName()).getForceInField());
             }
             for (Hero hero: player.getHeroesInCollection()) {
                 hero.setImageViewOfCard(Hero.findHeroByName(hero.getName()).getImageViewOfCard());
-                hero.setForceInField(Hero.findHeroByName(hero.getName()).getForceInField());
+//                hero.setForceInField(Hero.findHeroByName(hero.getName()).getForceInField());
             }
             for (Item item : player.getItemsInCollection()) {
                 item.setImageViewOfCard(Item.findItemByName(item.getName()).getImageViewOfCard());
-                item.setForceInField(Item.findItemByName(item.getName()).getForceInField());
+//                item.setForceInField(Item.findItemByName(item.getName()).getForceInField());
             }
             for (Deck deck : player.getDecksOfPlayer()) {
                 setAllImagesForDecks(deck);
@@ -152,13 +152,13 @@ public class GameView {
     public static void setAllImagesForDecks(Deck deck){
         try {
             deck.getHeroInDeck().setImageViewOfCard(Hero.findHeroByName(deck.getHeroInDeck().getName()).getImageViewOfCard());
-            deck.getHeroInDeck().setForceInField(Hero.findHeroByName(deck.getHeroInDeck().getName()).getForceInField());
+//            deck.getHeroInDeck().setForceInField(Hero.findHeroByName(deck.getHeroInDeck().getName()).getForceInField());
             for (Card card : deck.getCardsInDeck()) {
-                card.setForceInField(Card.findCardByName(card.getName()).getForceInField());
+//                card.setForceInField(Card.findCardByName(card.getName()).getForceInField());
                 card.setImageViewOfCard(Card.findCardByName(card.getName()).getImageViewOfCard());
             }
             for(Item item : deck.getItemsInDeck()){
-                item.setForceInField(Item.findItemByName(item.getName()).getForceInField());
+//                item.setForceInField(Item.findItemByName(item.getName()).getForceInField());
                 item.setImageViewOfCard(Item.findItemByName(item.getName()).getImageViewOfCard());
             }
         }

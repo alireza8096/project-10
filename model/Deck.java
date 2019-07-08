@@ -22,7 +22,12 @@ public class Deck implements Cloneable {
     private static Deck selectedDeck;
 
     public static Deck getSelectedDeck() {
-        return selectedDeck;
+        try {
+            return (Deck)selectedDeck.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void setSelectedDeck(Deck selectedDeck) {

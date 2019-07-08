@@ -51,8 +51,6 @@ public class Account implements Cloneable {
             dos.println(message.messageToString());
             dos.flush();
             writePlayerToFile(name, password);
-//            writeJustCreatedPlayerToFile(name,password,"true");
-//            Controller.enterMainMenu();
             Server.getPlayers().add(name);
         }
     }
@@ -61,9 +59,6 @@ public class Account implements Cloneable {
         System.out.println("entered login");
         if (usernameAlreadyExists(name)) {
             if (checkCorrectPassword(name, password)) {
-//                System.out.println(Server.getClientNames().size() + "sizeLogin");
-//                Server.getClientNames().add(name);
-//                System.out.println(Server.getClientNames().size()+ "sizeAfterLogin");
                 setPlayer(name, dos);
             } else {
                 Gson gson = new Gson();
@@ -113,7 +108,7 @@ public class Account implements Cloneable {
                 jsonObject.put("deck" + i, returnStringOfDeck(player.getDecksOfPlayer().get(i)));
             }
             if (player.getMainDeck() != null) {
-                jsonObject.put("mainDeck", Game.getInstance().getPlayer1().getMainDeck().getDeckName());
+                jsonObject.put("mainDeck", player.getMainDeck().getDeckName());
             }
             jsonObject.put("collection", returnStringOfCollection(player));
             for (Card card : Server.getCards()) {
@@ -193,39 +188,21 @@ public class Account implements Cloneable {
         }
         return null;
     }
-    public static Deck createDeckFromString(String deckString) throws CloneNotSupportedException {
-        if (!deckString.matches("")) {
-            String[] parts = deckString.split(",");
-            Deck deck = new Deck(parts[0]);
-            if (parts.length > 1) {
-                deck.setHeroInDeck((Hero)Card.findCardByNameInServer(parts[1]));
-                for (int i = 2; i < parts.length; i++) {
-                    if (Item.thisCardIsItem(parts[i])) {
-                        deck.getItemsInDeck().add((Item)Card.findCardByNameInServer(parts[i]));
-                    } else {
-                        deck.getCardsInDeck().add(Card.findCardByNameInServer(parts[i]));
-                    }
-                }
-            }
-            return deck;
-        }
-        return null;
-    }
 
 
     public static void createCollectionFromString(Player player, String collection) throws CloneNotSupportedException {
         if (!collection.matches("")) {
             String[] parts = collection.split(",");
             for (int i = 0; i < parts.length; i++) {
-                switch (Card.findCardByNameInServer(parts[i]).getCardType()) {
+                switch (Card.findCardByName(parts[i]).getCardType()) {
                     case "hero":
-                        player.getHeroesInCollection().add((Hero) Card.findCardByNameInServer(parts[i]));
+                        player.getHeroesInCollection().add((Hero) Card.findCardByName(parts[i]));
                         break;
                     case "item":
-                        player.getItemsInCollection().add((Item) Card.findCardByNameInServer(parts[i]));
+                        player.getItemsInCollection().add((Item) Card.findCardByName(parts[i]));
                         break;
                     default:
-                        player.getCardsInCollection().add(Card.findCardByNameInServer(parts[i]));
+                        player.getCardsInCollection().add(Card.findCardByName(parts[i]));
                         break;
                 }
             }
@@ -262,30 +239,24 @@ public class Account implements Cloneable {
                 (String) jsonObject.get("password")
         );
         player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
-//        player.setDaricProperty(player.getDaric());
         player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
         player.setNumOfMana(2);
         int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());
         for (int i = 0; i < numOfDecks; i++) {
-            Deck addDeck = createDeckFromString(jsonObject.get("deck" + i).toString());
+            String addDeck = jsonObject.get("deck" + i).toString();
             if (addDeck != null) {
-                player.getDecksOfPlayer().add(addDeck);
+                player.getDecksToCreate().add(addDeck);
             }
         }
         if (jsonObject.get("mainDeck") != null) {
-            player.setMainDeck(findMainDeckByName(player, (String) jsonObject.get("mainDeck")));
+            player.setMainDeckName(jsonObject.get("mainDeck").toString());
         }
-        createCollectionFromString(player, (String) jsonObject.get("collection"));
+        player.setCollectionToCreate(jsonObject.get("collection").toString());
         Gson gson = new Gson();
         String str = gson.toJson(player, Player.class);
         Server.getOnlinePlayers().add(player.getUserName());
-//        System.out.println(new Message(str,"Player","setPlayer").messageToString());
         dos.println(new Message(str, "Player", "setPlayer").messageToString());
         dos.flush();
-//        Game createGame = new Game();
-//        Game.setCurrentGame(createGame);
-//        Game.getInstance().setPlayer1(player);
-//        Game.getInstance().setPlayer1Turn(true);
     }
 
 //    public static void setPlayerThatHasPlayedBefore(String name) throws Exception {

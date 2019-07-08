@@ -29,8 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import static model.collection.Account.DECKS_FOLDER;
-import static model.collection.Account.createDeckFromStringClient;
+import static model.collection.Account.*;
 
 public class Message {
     private String jsonString;
@@ -226,12 +225,18 @@ public class Message {
                     try {
                         Controller.enterMainMenu();
                         Game.setCurrentGame(createGame);
-                        GameView.setAllImagesForCards(player);
                         Game.getInstance().setPlayer1(player);
                         Game.getInstance().setPlayer1Turn(true);
+                        for(String deck : player.getDecksToCreate()){
+                            player.getDecksOfPlayer().add(createDeckFromStringClient(deck));
+                        }
+                        player.setMainDeck(Deck.findDeckByName(player.getMainDeckName()));
+                        createCollectionFromString(player,player.getCollectionToCreate());
                         AllDatas.account.setNowInThisMenu(false);
                         AllDatas.commandLine.setNowInThisMenu(true);
                     } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (CloneNotSupportedException e) {
                         e.printStackTrace();
                     }
                 });
