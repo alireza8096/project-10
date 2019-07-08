@@ -18,19 +18,18 @@ import org.json.simple.parser.ParseException;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class MainView extends Application {
     private static Client client;
     public static Stage primaryStage;
 
-//    public static Stage getPrimaryStage() {
-//        return primaryStage;
-//    }
+    public static Properties properties = new Properties();
+
+    public MainView() throws FileNotFoundException {
+    }
 
     public static void setClient(Client client) {
         MainView.client = client;
@@ -42,6 +41,10 @@ public class MainView extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
+        InputStream inputStream = new FileInputStream(configFileName);
+        properties.load(inputStream);
+
         Shop.setRightVBox(new VBox());
         Shop.setLeftVBox(new VBox());
         Shop.getRightVBox().setLayoutX(300);

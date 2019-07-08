@@ -51,8 +51,6 @@ public class MenuView {
     public static final int WINDOW_WIDTH = 1024;
     public static final int WINDOW_HEIGHT = 768;
 
-    public static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
     public static Rectangle2D getPrimaryScreenBounds() {
         return primaryScreenBounds;
     }
