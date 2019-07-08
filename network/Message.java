@@ -5,11 +5,9 @@ import controller.AccountController;
 import controller.Controller;
 import javafx.application.Platform;
 import javafx.scene.effect.Glow;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import model.*;
@@ -29,10 +27,7 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.Key;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static model.collection.Account.DECKS_FOLDER;
 import static model.collection.Account.createDeckFromStringClient;
@@ -67,6 +62,10 @@ public class Message {
                     e.printStackTrace();
                 }
                 break;
+            case "Map":
+                Map map = gson.fromJson(jsonString, Map.class);
+                functionsOfMapForServer(map);
+                break;
         }
     }
 
@@ -88,6 +87,32 @@ public class Message {
             case "ArrayList":
                 ArrayList<String> users = gson.fromJson(jsonString, ArrayList.class);
                 functionsOfArrayListForClient(users);
+                break;
+            case "Map":
+                Map map = gson.fromJson(jsonString, Map.class);
+                functionsOfMapForClient(map);
+                break;
+        }
+    }
+
+    public void functionsOfMapForClient(Map map){
+        switch (functionName){
+            case "receiveMap":
+                Game.getInstance().setMap(map);
+                break;
+        }
+    }
+
+    public void functionsOfMapForServer(Map map){
+        Gson gson = new Gson();
+        switch (functionName){
+            case "endTurn":
+                String jsonString = gson.toJson(map, Map.class);
+                Message message = new Message(jsonString, "Map", "receiveMap");
+                Server.getCurrentBattleThread().getClient1().getDos().println(message.messageToString());
+                Server.getCurrentBattleThread().getClient2().getDos().println(message.messageToString());
+                Server.getCurrentBattleThread().getClient1().getDos().flush();
+                Server.getCurrentBattleThread().getClient2().getDos().flush();
                 break;
         }
     }
@@ -235,16 +260,18 @@ public class Message {
                 Account.savePlayer(player, dos);
                 break;
             case "enterBattle":
-                handleEnterBattleCommandFromClient(player, dos);
+                handleEnterBattleCommandFromClientToServer(player, dos);
                 break;
         }
     }
 
-    public void handleEnterBattleCommandFromClient(Player player, PrintStream dos){
+    public void handleEnterBattleCommandFromClientToServer(Player player, PrintStream dos){
         if (BattleThread.getBattleThreads()[0] == null){
-            BattleThread.getBattleThreads()[0] = new ClientForBattle(player, dos);
+            BattleThread.getBattleThreads()[0] = new ClientForBattle(player, MainView.getClient().getSocket(), dos);
         }else{
-            new BattleThread(BattleThread.getBattleThreads()[0], new ClientForBattle(player, dos));
+            BattleThread battleThread = new BattleThread(BattleThread.getBattleThreads()[0], new ClientForBattle(
+                    player, MainView.getClient().getSocket(), dos));
+            Server.setCurrentBattleThread(battleThread);
             BattleThread.getBattleThreads()[0] = null;
             BattleThread.getBattleThreads()[1] = null;
         }
