@@ -18,10 +18,6 @@ public class AllDatas {
     public static LinkedListMenus help;
     public static LinkedListMenus chatroom;
 
-//    public static LinkedListMenus cardsInCollection;
-//    public static LinkedListMenus decksInCollection;
-
-
     public static boolean hasEnteredAccount = false;
     public static boolean hasEnteredCollection = false;
     public static boolean hasEnteredShop = false;

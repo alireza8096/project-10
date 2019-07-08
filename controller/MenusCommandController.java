@@ -21,6 +21,7 @@ import view.MainView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MenusCommandController {
@@ -211,7 +212,7 @@ public class MenusCommandController {
 
     public static void handleEventsOfMainMenu(Hyperlink shop, Hyperlink collection, Hyperlink battle,
                                               Hyperlink exit, Hyperlink logout, Hyperlink save, Hyperlink chatroom
-            , Hyperlink onlineClients) {
+            , Hyperlink onlineClients, Hyperlink leaderboard) {
 
         shop.setOnAction(event -> {
             try {
@@ -238,20 +239,24 @@ public class MenusCommandController {
             }
         });
 
-        exit.setOnAction(event -> {
-            String name = Game.getInstance().getPlayer1().getUserName();
-            Server.getClientNames().remove(name);
-            System.exit(0);
+        leaderboard.setOnAction(event -> {
+            Controller.enterLeaderBoard();
         });
+
+//        exit.setOnAction(event -> {
+//            String name = Game.getInstance().getPlayer1().getUserName();
+//            ArrayList<String> copyOnline = new ArrayList<>(Server.getOnlinePlayers());
+//            for (String check: copyOnline) {
+//                if(check.matches(name)){
+//                    Server.getOnlinePlayers().remove(name);
+//                }
+//            }
+//            System.exit(0);
+//        });
 
         logout.setOnAction(event -> {
             try {
                 assert LinkedListMenus.whichMenuNow() != null;
-//                MainView.getClient().getClientThread().stop();
-                System.out.println(Game.getInstance().getPlayer1().getUserName() + " ____");
-                System.out.println("1. "+Server.getClientNames());
-                Server.getClientNames().remove(Game.getInstance().getPlayer1().getUserName());
-                System.out.println("2. "+Server.getClientNames());
                 Gson gson = new Gson();
                 String logoutUser = gson.toJson(Game.getInstance().getPlayer1().getUserName(),String.class);
                 MainView.getClient().getDos().println(new Message(logoutUser,"String","logout").messageToString());

@@ -3,7 +3,6 @@ package view.Photos;
 import controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -14,7 +13,6 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -24,7 +22,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import model.AllDatas;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import network.Message;
@@ -105,7 +102,7 @@ public class ServerView extends Application {
         launch(args);
     }
 
-    public static void setBackGroundPfServer() throws FileNotFoundException {
+    private static void setBackGroundPfServer() throws FileNotFoundException {
         ImageView background = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/server/server_background.jpg")));
         background.fitWidthProperty().bind(currentRoot.widthProperty());
@@ -118,7 +115,7 @@ public class ServerView extends Application {
         currentRoot.getChildren().add(background);
     }
 
-    public static void showCardsInServer() throws FileNotFoundException {
+    private static void showCardsInServer() throws FileNotFoundException {
         currentRoot.getChildren().clear();
         setScrollBarForServer();
 
@@ -133,7 +130,7 @@ public class ServerView extends Application {
         currentRoot.getChildren().addAll(generalVBox, buttonsVBox);
     }
 
-    public static  void setButtonsForServer(VBox vBox) throws FileNotFoundException {
+    private static void setButtonsForServer(VBox vBox) throws FileNotFoundException {
         Font font = Font.loadFont(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
 
@@ -151,13 +148,10 @@ public class ServerView extends Application {
 
         showSockets.setOnMouseClicked(event -> {
             try {
-                Server.getClientNames().clear();
-                Message message = new Message("getName", "String", "getName");
-                String messageString = message.messageToString();
-                for (Socket socket : Server.getClients()){
-                    PrintStream dos= new PrintStream(socket.getOutputStream());
-                    dos.println(messageString);
-                }
+//                for (Socket socket : Server.getClients()){
+//                    PrintStream dos= new PrintStream(socket.getOutputStream());
+//                    dos.println(messageString);
+//                }
                 showClientsWindow();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -167,7 +161,7 @@ public class ServerView extends Application {
         vBox.getChildren().add(showSockets);
     }
 
-    public static void addCardsInServerToVBox(VBox generalVBox, ArrayList<Card> cards) throws FileNotFoundException {
+    private static void addCardsInServerToVBox(VBox generalVBox, ArrayList<Card> cards) throws FileNotFoundException {
         for (int i = 0; i < cards.size(); i++) {
             if (i + 3 < cards.size()) {
                 HBox hBox = new HBox();
@@ -203,7 +197,7 @@ public class ServerView extends Application {
         }
     }
 
-    public static void setAppearanceOfCardsInServer(HBox hBox, Card card) throws FileNotFoundException {
+    private static void setAppearanceOfCardsInServer(HBox hBox, Card card) throws FileNotFoundException {
 
         Text cardName = new Text(card.getName());
         Font font = Font.loadFont(new FileInputStream(
@@ -227,7 +221,7 @@ public class ServerView extends Application {
 
     }
 
-    public static void setNumberOfCardsInShop(VBox cardVBox, Card card) throws FileNotFoundException {
+    private static void setNumberOfCardsInShop(VBox cardVBox, Card card) throws FileNotFoundException {
         ImageView back = new ImageView(new Image(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/server/price_back.png")));
         String numOfCard = Integer.toString(card.getNumInShop());
@@ -249,7 +243,7 @@ public class ServerView extends Application {
 
     }
 
-    public static void setScrollBarForServer(){
+    private static void setScrollBarForServer(){
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(currentRoot);
         currentScene.setRoot(scrollPane);
@@ -258,7 +252,7 @@ public class ServerView extends Application {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
     }
 
-    public static void showClientsWindow() throws FileNotFoundException {
+    private static void showClientsWindow() throws FileNotFoundException {
         currentRoot.getChildren().clear();
         setBackGroundPfServer();
 
@@ -268,7 +262,7 @@ public class ServerView extends Application {
         vBox.setLayoutX(primaryScreenBounds.getWidth()/2 - 400);
         vBox.setLayoutY(200);
         currentRoot.getChildren().add(vBox);
-        for (String name : Server.getClientNames()){
+        for (String name : Server.getOnlinePlayers()){
             Text textName = new Text(name);
             textName.setFont(new Font(20));
             textName.setFont(font);
@@ -280,7 +274,7 @@ public class ServerView extends Application {
         backStack.setLayoutY(primaryScreenBounds.getHeight()/7);
     }
 
-    public static StackPane setBackButton() throws FileNotFoundException {
+    private static StackPane setBackButton() throws FileNotFoundException {
         Font font = Font.loadFont(new FileInputStream(
                 HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"), 20);
 
@@ -294,14 +288,11 @@ public class ServerView extends Application {
 
         StackPane stackPane = new StackPane(backButton, backLabel);
         GameView.makeImageGlowWhileMouseEnters(stackPane);
-        stackPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                try {
-                    showCardsInServer();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+        stackPane.setOnMouseClicked(event -> {
+            try {
+                showCardsInServer();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
 

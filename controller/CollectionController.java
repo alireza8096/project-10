@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.*;
 import model.Game;
+import model.collection.Account;
 import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Hero;
@@ -371,11 +372,12 @@ public class CollectionController{
         });
 
         exportDeckStack.setOnMouseClicked(event -> {
-            try {
-                HandleFiles.exportDeck(Deck.getSelectedDeck());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Gson gson = new Gson();
+            String deck = gson.toJson(Account.returnStringOfDeck(Deck.getSelectedDeck()),String.class);
+            System.out.println(Account.returnStringOfDeck(Deck.getSelectedDeck()));
+            MainView.getClient().getDos().println(new Message(deck,"String","export").messageToString());
+            MainView.getClient().getDos().flush();
+//                HandleFiles.exportDeck(Deck.getSelectedDeck());
         });
     }
 
@@ -457,14 +459,17 @@ public class CollectionController{
         backButton.setOnMouseClicked(event -> MenuView.showDecksInCollection());
 
         importButton.setOnMouseClicked(event -> {
-            String deckName = textField.getText();
-            Deck importedDeck;
-            try {
-                importedDeck = HandleFiles.importDeck(deckName);
-                Game.getInstance().getPlayer1().getDecksOfPlayer().add(importedDeck);
-            } catch (IOException | ParseException | CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
+            Gson gson = new Gson();
+            String deckName = gson.toJson(textField.getText(),String.class);
+            MainView.getClient().getDos().println(new Message(deckName,"String","importDeck").messageToString());
+            MainView.getClient().getDos().flush();
+//            Deck importedDeck;
+//            try {
+//                importedDeck = HandleFiles.importDeck(deckName);
+//                Game.getInstance().getPlayer1().getDecksOfPlayer().add(importedDeck);
+//            } catch (IOException | ParseException | CloneNotSupportedException e) {
+//                e.printStackTrace();
+//            }
         });
     }
 }

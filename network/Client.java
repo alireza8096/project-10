@@ -6,6 +6,7 @@ import view.MainView;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Client {
@@ -17,7 +18,6 @@ public class Client {
     private Thread clientThread;
     private ChatClient chatClient;
     private boolean inChat;
-
 
     public boolean isInChat() {
         return inChat;

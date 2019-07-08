@@ -61,7 +61,9 @@ public class Account implements Cloneable {
         System.out.println("entered login");
         if (usernameAlreadyExists(name)) {
             if (checkCorrectPassword(name, password)) {
-                Server.getClientNames().add(name);
+//                System.out.println(Server.getClientNames().size() + "sizeLogin");
+//                Server.getClientNames().add(name);
+//                System.out.println(Server.getClientNames().size()+ "sizeAfterLogin");
                 setPlayer(name, dos);
             } else {
                 Gson gson = new Gson();
@@ -95,7 +97,6 @@ public class Account implements Cloneable {
         tempPlayer.put("numOfWins", 0);
         tempPlayer.put("numOfAllDecks", 0);
         tempPlayer.put("collection", "");
-        Server.getPlayers().add(name);
         Files.write((Paths.get(HandleFiles.BEFORE_RELATIVE + PLAYERS_FOLDER + "/" + name + ".json")), tempPlayer.toJSONString().getBytes());
     }
 
@@ -174,6 +175,24 @@ public class Account implements Cloneable {
         return null;
     }
 
+    public static Deck createDeckFromStringClient(String deckString) throws CloneNotSupportedException {
+        if (!deckString.matches("")) {
+            String[] parts = deckString.split(",");
+            Deck deck = new Deck(parts[0]);
+            if (parts.length > 1) {
+                deck.setHeroInDeck(Hero.findHeroByName(parts[1]));
+                for (int i = 2; i < parts.length; i++) {
+                    if (Item.thisCardIsItem(parts[i])) {
+                        deck.getItemsInDeck().add(Item.findItemByName(parts[i]));
+                    } else {
+                        deck.getCardsInDeck().add(Card.findCardByName(parts[i]));
+                    }
+                }
+            }
+            return deck;
+        }
+        return null;
+    }
     public static Deck createDeckFromString(String deckString) throws CloneNotSupportedException {
         if (!deckString.matches("")) {
             String[] parts = deckString.split(",");
@@ -259,7 +278,6 @@ public class Account implements Cloneable {
         createCollectionFromString(player, (String) jsonObject.get("collection"));
         Gson gson = new Gson();
         String str = gson.toJson(player, Player.class);
-        System.out.println(str + "**********");
         Server.getOnlinePlayers().add(player.getUserName());
 //        System.out.println(new Message(str,"Player","setPlayer").messageToString());
         dos.println(new Message(str, "Player", "setPlayer").messageToString());

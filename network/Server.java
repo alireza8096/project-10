@@ -10,16 +10,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Server {
-    private static ArrayList<String> clientNames = new ArrayList<>();
     private static ArrayList<String> players = new ArrayList<>();
     private static ArrayList<Card> cards = new ArrayList<>();
     private static ArrayList<Socket> clients = new ArrayList<>();
     private static ArrayList<String> onlinePlayers = new ArrayList<>();
     private ServerSocket serverSocket;
-
-    public static ArrayList<String> getClientNames() {
-        return clientNames;
-    }
 
 
     public static ArrayList<String> getOnlinePlayers() {
@@ -49,7 +44,7 @@ public class Server {
             Scanner dis = new Scanner(client.getInputStream());
             PrintStream dos = new PrintStream(client.getOutputStream());
             new Thread(() -> {
-                while(true) {
+                while (true) {
                     if (dis.hasNext()) {
                         String instruction = dis.nextLine();
                         Message.stringToMessage(instruction).handleMessageReceivedByServer(dos);
@@ -58,11 +53,12 @@ public class Server {
             }).start();
         }
     }
-    public static void changeCardNumInShop(String cardName, int changeValue){
+
+    public static void changeCardNumInShop(String cardName, int changeValue) {
         System.out.println("Even HERE???????");
-        for (Card card : cards){
+        for (Card card : cards) {
             System.out.println("### card name : " + card.getName() + " ,  this card : " + cardName);
-            if (card.getName().equals(cardName)){
+            if (card.getName().equals(cardName)) {
                 card.setNumInShopProperty(card.getNumInShopProperty() + changeValue);
                 card.setNumInShop(card.getNumInShop() + changeValue);
                 System.out.println("____________ card name : " + card.getNumInShopProperty());

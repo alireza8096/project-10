@@ -1,8 +1,10 @@
 package network;
 
 import com.google.gson.Gson;
+import controller.AccountController;
 import controller.Controller;
 import javafx.application.Platform;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -10,23 +12,27 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import model.AllDatas;
-import model.Game;
-import model.Player;
-import model.Shop;
+import model.*;
 import model.collection.Account;
 import model.collection.Card;
 import model.collection.HandleFiles;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 import view.GameView;
 import view.MainView;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static model.collection.Account.*;
 
 public class Message {
     private String jsonString;
@@ -78,27 +84,7 @@ public class Message {
                 break;
             case "ArrayList":
                 ArrayList<String> users = gson.fromJson(jsonString, ArrayList.class);
-                Platform.runLater(() -> {
-                    VBox names = new VBox();
-                    Text[] states = new Text[users.size()];
-                    for (int i = 0; i < states.length; i++) {
-                        states[i] = new Text(users.get(i));
-                        names.getChildren().add(states[i]);
-                    }
-                    names.setSpacing(7);
-//                    Rectangle backImage = new Rectangle(names.getWidth(), names.getHeight(),Color.RED);
-                    System.out.println(names.getMaxWidth());
-                    System.out.println(names.getMaxHeight());
-                    Rectangle backImage = new Rectangle(names.getMaxWidth(), names.getMaxHeight(), Color.RED);
-
-                    backImage.setArcWidth(30);
-                    backImage.setArcHeight(30);
-                    StackPane stack = new StackPane(backImage, names);
-                    stack.setLayoutX(AllDatas.currentScene.getWidth() / 2 - stack.getWidth() / 2);
-                    stack.setLayoutY(AllDatas.currentScene.getHeight() / 2 - stack.getHeight() / 2);
-                    stack.setOnMouseClicked(event -> stack.setOpacity(0));
-                    AllDatas.currentRoot.getChildren().add(stack);
-                });
+                functionsOfArrayListForClient(users);
                 break;
         }
     }
@@ -116,6 +102,14 @@ public class Message {
             case "getName":
                 sendClientNameToServer();
                 break;
+            case "deckToImport" :
+                try {
+                    Deck deck = createDeckFromStringClient(str);
+                    Game.getInstance().getPlayer1().getDecksOfPlayer().add(deck);
+                }
+                catch (Exception e){
+                    System.out.println(e.getMessage());
+                }
         }
     }
 
@@ -125,6 +119,56 @@ public class Message {
         Message message = new Message(name, "String", "showNameInServer");
         MainView.getClient().getDos().println(message.messageToString());
         MainView.getClient().getDos().flush();
+    }
+
+    public void functionsOfArrayListForClient(ArrayList<String> users){
+        switch (functionName){
+            case "users" :
+                Platform.runLater(() -> {
+                    VBox names = new VBox();
+                    Text[] states = new Text[users.size()];
+                    for (int i = 0; i < states.length; i++) {
+                        states[i] = new Text(users.get(i));
+                        names.getChildren().add(states[i]);
+                        states[i].setFill(Color.WHITE);
+                        states[i].setEffect(new Glow(0.6));
+                        try {
+                            states[i].setFont(Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"),20));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    names.setSpacing(7);
+                    StackPane stack = new StackPane(names);
+                    stack.setLayoutX(AllDatas.currentScene.getWidth() / 3 * 2 + stack.getWidth() / 2 + 50);
+                    stack.setLayoutY(AllDatas.currentScene.getHeight() /2 - 200);
+                    stack.setOnMouseClicked(event -> stack.setOpacity(0));
+                    AllDatas.currentRoot.getChildren().add(stack);
+                });
+                break;
+            case "showLeaderBoard" :
+                Platform.runLater(() -> {
+                    try {
+                        VBox leaderBoard = new VBox();
+                        Text[] texts = new Text[users.size()];
+                        for (int i = 0; i < texts.length; i++) {
+                            texts[i] = new Text(users.get(i));
+                            texts[i].setFill(Color.rgb(44,79,145));
+                            texts[i].setEffect(new Glow(0.7));
+                            texts[i].setFont(Font.loadFont(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Fonts/Herculanum.ttf"),25));
+                            leaderBoard.getChildren().add(texts[i]);
+                        }
+                        leaderBoard.setSpacing(10);
+                        leaderBoard.setLayoutX(100);
+                        leaderBoard.setLayoutY(400);
+
+                        AllDatas.currentRoot.getChildren().add(leaderBoard);
+                    }
+                    catch (Exception e){
+                        System.out.println(e.getMessage());
+                    }
+                });
+        }
     }
 
     public void functionsOfCardForClient(Card card) {
@@ -213,12 +257,39 @@ public class Message {
                 ArrayList<String> states = new ArrayList<>();
                 for (String name : Server.getPlayers()) {
                     if (nameIsOnline(name)) {
-                        states.add(name + " is online");
-                    } else states.add(name + " is offline");
+                        states.add(name + " is online"); } else states.add(name + " is offline");
                 }
                 String arrayList = gson.toJson(states, ArrayList.class);
                 dos.println(new Message(arrayList, "ArrayList", "users").messageToString());
                 dos.flush();
+                break;
+            case "showLeaderBoard" :
+                AccountController.getLeaderBoard(dos);
+                break;
+            case "export" :
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("deck0", str);
+                Files.write(Paths.get(HandleFiles.BEFORE_RELATIVE + DECKS_FOLDER + "/"
+                        + str.split(",")[0] + ".json"), jsonObject.toJSONString().getBytes());
+                String alert = gson.toJson("Deck was exported successfully",String.class);
+                dos.println(new Message(alert,"String","printAlert").messageToString());
+                dos.flush();
+                break;
+            case "importDeck" :
+                JSONObject deckString = null;
+                try {
+                    deckString = (JSONObject) HandleFiles.readJsonFiles(HandleFiles.BEFORE_RELATIVE + DECKS_FOLDER + "/" + str + ".json");
+                    String printAlert = gson.toJson("Deck was imported successfully",String.class);
+                    dos.println(new Message(printAlert,"String","printAlert").messageToString());
+                    dos.flush();
+                    String importedDeck = gson.toJson(deckString.get("deck0").toString(),String.class);
+                    dos.println(new Message(importedDeck,"String","deckToImport").messageToString());
+                    dos.flush();
+                } catch (ParseException e) {
+                    String printAlert = gson.toJson("Problems importing deck, please try again later",String.class);
+                    dos.println(new Message(printAlert,"String","printAlert").messageToString());
+                    dos.flush();
+                }
                 break;
         }
     }

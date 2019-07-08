@@ -6,6 +6,7 @@ import javafx.animation.Animation;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -23,6 +24,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.util.Duration;
 import model.*;
 import model.Cell;
@@ -47,9 +49,15 @@ public class MenuView {
     public static final int WINDOW_WIDTH = 1024;
     public static final int WINDOW_HEIGHT = 768;
 
+    public static Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+    public static Rectangle2D getPrimaryScreenBounds() {
+        return primaryScreenBounds;
+    }
+
+
     public static void showLoginMenu() throws FileNotFoundException {
         MainView.primaryStage.setScene(AllDatas.currentScene);
-//        MainView.primaryStage.setMaximized(true);
 
         setBackgroundOfMainMenu();
 
@@ -129,24 +137,29 @@ public class MenuView {
         chatRoom.setFont(herculanum);
         chatRoom.setTextFill(Color.WHITE);
 
-        Hyperlink onlines = new Hyperlink("Online Users");
+        Hyperlink onlines = new Hyperlink("Users Status");
         onlines.setFont(herculanum);
         onlines.setTextFill(Color.WHITE);
+
+        Hyperlink leaderBoard = new Hyperlink("Leader Board");
+        leaderBoard.setFont(herculanum);
+        leaderBoard.setTextFill(WHITE);
 
         vBox.setSpacing(15);
         setMargin(shopOption, new Insets(40, 10, 10, 100));
         setMargin(collectionOption, new Insets(7, 10, 10, 100));
         setMargin(battleOption, new Insets(7, 10, 10, 100));
+        setMargin(leaderBoard,new Insets(7,10,10,100));
         setMargin(exitOption, new Insets(7, 10, 10, 100));
         setMargin(logoutOption, new Insets(7, 10, 10, 100));
         setMargin(saveOption, new Insets(7, 10, 10, 100));
         setMargin(chatRoom, new Insets(7, 10, 10, 100));
         setMargin(onlines, new Insets(7, 10, 10, 100));
 
-        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom, saveOption, logoutOption, exitOption,onlines);
+        vBox.getChildren().addAll(shopOption, collectionOption, battleOption, chatRoom, saveOption, logoutOption, exitOption,onlines,leaderBoard);
         AllDatas.currentRoot.getChildren().addAll(vBox);
 
-        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption,exitOption, logoutOption, saveOption,chatRoom,onlines);
+        MenusCommandController.handleEventsOfMainMenu(shopOption, collectionOption, battleOption,exitOption, logoutOption, saveOption,chatRoom,onlines,leaderBoard);
 
     }
 

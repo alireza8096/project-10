@@ -10,8 +10,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
 import model.collection.HandleFiles;
+import network.Message;
 import org.json.simple.parser.ParseException;
 import view.GameView;
+import view.MainView;
 import view.MenuView;
 
 import java.io.FileInputStream;
@@ -200,6 +202,37 @@ public class Controller {
     public static void enterLeaderBoard(){
         AllDatas.currentRoot = AllDatas.leaderboard.getRoot();
         AllDatas.currentScene = AllDatas.leaderboard.getScene();
+        AllDatas.leaderboard.setNowInThisMenu(true);
+        AllDatas.commandLine.setNowInThisMenu(false);
+
+        AllDatas.currentRoot.getChildren().clear();
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+
+
+        try {
+            ImageView leaderBoardBack = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/leaderboard_background.jpg");
+            leaderBoardBack.setFitHeight(MenuView.getPrimaryScreenBounds().getHeight());
+            leaderBoardBack.setFitWidth(MenuView.getPrimaryScreenBounds().getWidth());
+            AllDatas.currentRoot.getChildren().add(leaderBoardBack);
+
+            ImageView back = MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/chatroom/button_back_corner@2x.png");
+            back.setFitWidth(100);
+            back.setFitHeight(100);
+            GameView.makeImageGlowWhileMouseEnters(back);
+            back.setOnMouseClicked(event -> {
+                try {
+                    enterMainMenu();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+            AllDatas.currentRoot.getChildren().add(back);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        String showLeaderBoardRequest = "showLeaderBoard";
+        MainView.getClient().getDos().println(new Message(showLeaderBoardRequest,"String","showLeaderBoard").messageToString());
+        MainView.getClient().getDos().flush();
     }
 
 

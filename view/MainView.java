@@ -27,6 +27,10 @@ public class MainView extends Application {
     private static Client client;
     public static Stage primaryStage;
 
+//    public static Stage getPrimaryStage() {
+//        return primaryStage;
+//    }
+
     public static void setClient(Client client) {
         MainView.client = client;
     }
