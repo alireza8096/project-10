@@ -63,9 +63,6 @@ public class Account implements Cloneable {
             if (checkCorrectPassword(name, password)) {
                 Server.getClientNames().add(name);
                 setPlayer(name, dos);
-//                AllDatas.account.setNowInThisMenu(false);
-//                AllDatas.commandLine.setNowInThisMenu(true);
-//                Controller.enterMainMenu();
             } else {
                 Gson gson = new Gson();
                 String alert = "password is not correct";
@@ -263,6 +260,7 @@ public class Account implements Cloneable {
         Gson gson = new Gson();
         String str = gson.toJson(player, Player.class);
         System.out.println(str + "**********");
+        Server.getOnlinePlayers().add(player.getUserName());
 //        System.out.println(new Message(str,"Player","setPlayer").messageToString());
         dos.println(new Message(str, "Player", "setPlayer").messageToString());
         dos.flush();

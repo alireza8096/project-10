@@ -3,6 +3,13 @@ package network;
 import com.google.gson.Gson;
 import controller.Controller;
 import javafx.application.Platform;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import model.AllDatas;
 import model.Game;
 import model.Player;
@@ -17,6 +24,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.security.Key;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Message {
     private String jsonString;
@@ -43,7 +53,7 @@ public class Message {
             case "String":
                 String message = gson.fromJson(jsonString, String.class);
                 try {
-                    functionsOfStringForServer(message);
+                    functionsOfStringForServer(message, dos);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -66,6 +76,30 @@ public class Message {
                 Card card = gson.fromJson(jsonString, Card.class);
                 functionsOfCardForClient(card);
                 break;
+            case "ArrayList":
+                ArrayList<String> users = gson.fromJson(jsonString, ArrayList.class);
+                Platform.runLater(() -> {
+                    VBox names = new VBox();
+                    Text[] states = new Text[users.size()];
+                    for (int i = 0; i < states.length; i++) {
+                        states[i] = new Text(users.get(i));
+                        names.getChildren().add(states[i]);
+                    }
+                    names.setSpacing(7);
+//                    Rectangle backImage = new Rectangle(names.getWidth(), names.getHeight(),Color.RED);
+                    System.out.println(names.getMaxWidth());
+                    System.out.println(names.getMaxHeight());
+                    Rectangle backImage = new Rectangle(names.getMaxWidth(), names.getMaxHeight(), Color.RED);
+
+                    backImage.setArcWidth(30);
+                    backImage.setArcHeight(30);
+                    StackPane stack = new StackPane(backImage, names);
+                    stack.setLayoutX(AllDatas.currentScene.getWidth() / 2 - stack.getWidth() / 2);
+                    stack.setLayoutY(AllDatas.currentScene.getHeight() / 2 - stack.getHeight() / 2);
+                    stack.setOnMouseClicked(event -> stack.setOpacity(0));
+                    AllDatas.currentRoot.getChildren().add(stack);
+                });
+                break;
         }
     }
 
@@ -85,7 +119,7 @@ public class Message {
         }
     }
 
-    public void sendClientNameToServer(){
+    public void sendClientNameToServer() {
         String name = Game.getInstance().getPlayer1().getUserName();
 
         Message message = new Message(name, "String", "showNameInServer");
@@ -156,20 +190,35 @@ public class Message {
         }
     }
 
-    public void functionsOfStringForServer(String str) throws IOException {
+    public void functionsOfStringForServer(String str, PrintStream dos) throws IOException {
         Gson gson = new Gson();
         switch (functionName) {
             case "sendToChatroom":
                 for (Socket socket : Server.getClients()) {
                     String sendToAll = gson.toJson(str, String.class);
-                    PrintStream dos = new PrintStream(socket.getOutputStream());
-                    dos.println(new Message(sendToAll, "String", "sendToAll").messageToString());
-                    dos.flush();
+                    PrintStream output = new PrintStream(socket.getOutputStream());
+                    output.println(new Message(sendToAll, "String", "sendToAll").messageToString());
+                    output.flush();
                 }
                 break;
-            case "showNameInServer":
-                String name = str;
-                Server.getClientNames().add(name);
+            case "logout":
+                ArrayList<String> copyOnline = new ArrayList<>(Server.getOnlinePlayers());
+                for (String name : copyOnline) {
+                    if (name.matches(str)) {
+                        Server.getOnlinePlayers().remove(name);
+                    }
+                }
+                break;
+            case "showOnlines":
+                ArrayList<String> states = new ArrayList<>();
+                for (String name : Server.getPlayers()) {
+                    if (nameIsOnline(name)) {
+                        states.add(name + " is online");
+                    } else states.add(name + " is offline");
+                }
+                String arrayList = gson.toJson(states, ArrayList.class);
+                dos.println(new Message(arrayList, "ArrayList", "users").messageToString());
+                dos.flush();
                 break;
         }
     }
@@ -235,5 +284,14 @@ public class Message {
 
     public String messageToString() {
         return jsonString + "@" + jsonType + "@" + functionName;
+    }
+
+    public static boolean nameIsOnline(String name) {
+        for (String check : Server.getOnlinePlayers()) {
+            if (name.matches(check)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
