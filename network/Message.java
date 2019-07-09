@@ -273,6 +273,7 @@ public class Message {
     public void handleEnterBattleCommandFromClientToServer(Player player, PrintStream dos){
         if (BattleThread.getBattleThreads()[0] == null){
             BattleThread.getBattleThreads()[0] = new ClientForBattle(player, MainView.getClient().getSocket(), dos);
+            System.out.println("waiting...");
         }else{
             BattleThread battleThread = new BattleThread(BattleThread.getBattleThreads()[0], new ClientForBattle(
                     player, MainView.getClient().getSocket(), dos));

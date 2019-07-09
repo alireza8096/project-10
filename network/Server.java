@@ -46,7 +46,7 @@ public class Server {
     public Server() throws Exception {
         HandleFiles.createStringOfPlayers();
 
-        serverSocket = new ServerSocket(Integer.parseInt(ServerView.properties.getProperty("port")));
+        serverSocket = new ServerSocket(7766);
 
         System.out.println("main server created");
         while (true) {
@@ -63,15 +63,6 @@ public class Server {
                     }
                 }
             }).start();
-        }
-    }
-
-    public static void changeCardNumInShop(String cardName, int changeValue) {
-        for (Card card : cards) {
-            if (card.getName().equals(cardName)) {
-                card.setNumInShopProperty(card.getNumInShopProperty() + changeValue);
-                card.setNumInShop(card.getNumInShop() + changeValue);
-            }
         }
     }
 }

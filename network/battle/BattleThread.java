@@ -39,6 +39,7 @@ public class BattleThread {
     public BattleThread(ClientForBattle client1, ClientForBattle client2){
         this.client1 = client1;
         this.client2 = client2;
+        System.out.println("battle started!!!!1");
         try {
             Controller.enterBattle();
         } catch (IOException | CloneNotSupportedException | ParseException e) {

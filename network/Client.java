@@ -54,13 +54,13 @@ public class Client {
     }
 
     public Client() throws IOException {
-        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
-        InputStream inputStream = new FileInputStream(configFileName);
-        MainView.properties.load(inputStream);
+//        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
+//        InputStream inputStream = new FileInputStream(configFileName);
+//        MainView.properties.load(inputStream);
 
-        String ip = MainView.properties.getProperty("ip");
-        int port = Integer.parseInt(MainView.properties.getProperty("port"));
-        this.socket = new Socket(ip, port);
+//        String ip = MainView.properties.getProperty("ip");
+//        int port = Integer.parseInt(7766);
+        this.socket = new Socket("localhost", 7766);
 //        this.socket = new Socket("localhost", 7766);
         clientThread = new Thread(new Runnable() {
             @Override
