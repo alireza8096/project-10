@@ -22,6 +22,7 @@ import org.json.simple.JSONObject;
 import view.BattleView;
 import view.GameView;
 import view.MainView;
+import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -210,6 +211,23 @@ public class Message {
                         System.out.println(e.getMessage());
                     }
                 });
+            case "getCardsInAuction":
+                try {
+                    ShopController.setCardsInAuction(users);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                MenuView.seeCardsInAuction();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
@@ -230,7 +248,6 @@ public class Message {
                 }
                 break;
             case "offeredPriceBack":
-                System.out.println("got card back!!!!!");
                 int highestPrice = card.getHighestAuctionPrice();
                 Platform.runLater(new Runnable() {
                     @Override
@@ -238,9 +255,6 @@ public class Message {
                         ShopController.setCardInCollectionAfterReceiving(card);
                     }
                 });
-
-                System.out.println("Client -> price : " + highestPrice);
-
                 card.setHighestAuctionPriceProperty(highestPrice);
                 break;
         }
@@ -368,6 +382,16 @@ public class Message {
                     e.printStackTrace();
                 }
                 break;
+            case "seeAuctionedCard":
+                ArrayList<String> cardsInAuction = new ArrayList<>();
+                for (Card card : Server.getCardsInAuction()){
+                    cardsInAuction.add(card.getName());
+                }
+                String jsonStr = gson.toJson(cardsInAuction, ArrayList.class);
+                Message message = new Message(jsonStr, "ArrayList", "getCardsInAuction");
+                dos.println(message.messageToString());
+                dos.flush();
+                break;
         }
     }
 
@@ -431,7 +455,6 @@ public class Message {
                 });
                 break;
             case "auctionCard":
-                System.out.println("THERERERERER");
                 Server.getCardsInAuction().add(card);
                 String jsonString = gson.toJson("Card was auctioned", String.class);
                 Message message = new Message(jsonString, "String", "printAlert");
@@ -439,14 +462,21 @@ public class Message {
                 dos.flush();
                 break;
             case "offeredPrice":
-                System.out.println("!@!@!@!@!@!@!@!");
                 handleOfferingPriceByServer(card, dos);
-                System.out.println("server : card name : " + card.getName());
-                System.out.println("Server -> cardhighestPrice : " + card.getHighestAuctionPrice());
                 String cardString = gson.toJson(card, Card.class);
                 Message message1 = new Message(cardString, "Card", "offeredPriceBack");
-                dos.println(message1.messageToString());
-                dos.flush();
+                PrintStream dos1;
+                for (Socket socket : Server.getClients()){
+                    try {
+                        dos1 = new PrintStream(socket.getOutputStream());
+                        dos1.println(message1.messageToString());
+                        dos1.flush();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+//                dos.println(message1.messageToString());
+//                dos.flush();
                 break;
 
         }

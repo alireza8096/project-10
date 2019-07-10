@@ -42,12 +42,20 @@ public class Card implements Cloneable {
     private int numInShop;
     private GetImage getImage;
 
+    private transient PrintStream owner;
     private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
     private int auctionPrice;
     private int highestAuctionPrice;
     private transient IntegerProperty highestAuctionPriceProperty = new SimpleIntegerProperty();
     private transient PrintStream highestPriceUser;
 
+    public PrintStream getOwner() {
+        return owner;
+    }
+
+    public void setOwner(PrintStream owner) {
+        this.owner = owner;
+    }
 
     public int getHighestAuctionPrice() {
         return highestAuctionPrice;

@@ -221,11 +221,13 @@ public class ShopController {
         });
 
         seeCardsButton.setOnMouseClicked(event -> {
-            try {
-                MenuView.seeCardsInAuction();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            Gson gson = new Gson();
+            String jsonString = gson.toJson("seeAuctionedCard", String.class);
+            Message message = new Message(jsonString, "String", "seeAuctionedCard");
+            MainView.getClient().getDos().println(message.messageToString());
+            MainView.getClient().getDos().flush();
+
+//                MenuView.seeCardsInAuction();
         });
 
         auctionButton.setOnMouseClicked(event -> {
@@ -284,6 +286,14 @@ public class ShopController {
                 card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
                 card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
             }
+        }
+    }
+
+    public static void setCardsInAuction(ArrayList<String> cardNames) throws CloneNotSupportedException {
+        Shop.getCardsInAuction().clear();
+        for (String cardName : cardNames){
+            Card card = Card.findCardByName(cardName);
+            Shop.getCardsInAuction().add(card);
         }
     }
 }
