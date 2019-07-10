@@ -6,6 +6,7 @@ import controller.BattleController;
 import controller.Controller;
 import controller.ShopController;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -32,6 +33,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.SimpleTimeZone;
 
 import static model.collection.Account.*;
 
@@ -257,6 +259,13 @@ public class Message {
                 });
                 card.setHighestAuctionPriceProperty(highestPrice);
                 break;
+            case "sellInAuction":
+                //Todo : delete from collection, delete from decks
+                ShopController.sellCardInAuction(card);
+                break;
+            case "buyInAuction":
+                ShopController.buyCardInAuction(card);
+                break;
         }
     }
 
@@ -269,6 +278,10 @@ public class Message {
                         Controller.enterMainMenu();
                         Game.setCurrentGame(createGame);
                         Game.getInstance().setPlayer1(player);
+                        System.out.println("???????????????????????");
+                        System.out.println(Game.getInstance().getPlayer1().getDaric());
+//                        Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
+
                         Game.getInstance().setPlayer1Turn(true);
                         for(String deck : player.getDecksToCreate()){
                             player.getDecksOfPlayer().add(createDeckFromStringClient(deck));
@@ -277,9 +290,7 @@ public class Message {
                         createCollectionFromString(player,player.getCollectionToCreate());
                         AllDatas.account.setNowInThisMenu(false);
                         AllDatas.commandLine.setNowInThisMenu(true);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (CloneNotSupportedException e) {
+                    } catch (FileNotFoundException | CloneNotSupportedException e) {
                         e.printStackTrace();
                     }
                 });
@@ -392,6 +403,11 @@ public class Message {
                 dos.println(message.messageToString());
                 dos.flush();
                 break;
+            case "printCards":
+                for (Card card : Server.getCardsInAuction()){
+                    System.out.println("card in auction : " + card.getHighestAuctionPrice());
+                }
+                break;
         }
     }
 
@@ -455,6 +471,7 @@ public class Message {
                 });
                 break;
             case "auctionCard":
+                card.setOwner(dos);
                 Server.getCardsInAuction().add(card);
                 String jsonString = gson.toJson("Card was auctioned", String.class);
                 Message message = new Message(jsonString, "String", "printAlert");
@@ -478,23 +495,43 @@ public class Message {
 //                dos.println(message1.messageToString());
 //                dos.flush();
                 break;
+            case "sellCardInAuction":
+                ArrayList<Card> cardsCopy = new ArrayList<>(Server.getCardsInAuction());
+                for (Card card1 : cardsCopy){
+                    if (card1.getName().equals(card.getName())){
+                        String cardJson = gson.toJson(card, Card.class);
+                        Message sellMessage = new Message(cardJson, "Card", "sellInAuction");
+                        card1.getOwner().println(sellMessage.messageToString());
+                        card1.getOwner().flush();
 
+                        Message buyMessage = new Message(cardJson, "Card", "buyInAuction");
+                        card1.getHighestPriceUser().println(buyMessage.messageToString());
+                        card1.getHighestPriceUser().flush();
+
+                        Server.getCardsInAuction().remove(card1);
+                        break;
+                    }
+                }
+                break;
         }
     }
 
     public static void handleOfferingPriceByServer(Card card, PrintStream userDos){
         Card cardInServer = Server.returnCardInServer(card.getName());
+        System.out.println("card in server : " + cardInServer);
         int currentPrice = card.getHighestAuctionPrice();
         int offeredPrice = card.getAuctionPrice();
+        System.out.println("@@@@@@@ -> currentPrice : " + currentPrice + " , offeredPrice : " + offeredPrice);
 
-        if (offeredPrice > currentPrice){
+//        if (offeredPrice > currentPrice){
             cardInServer.setHighestAuctionPrice(offeredPrice);
             cardInServer.setHighestAuctionPriceProperty(offeredPrice);
             card.setHighestAuctionPrice(offeredPrice);
             card.setHighestAuctionPriceProperty(offeredPrice);
             cardInServer.setHighestPriceUser(userDos);
             card.setHighestPriceUser(userDos);
-        }
+//        }
+
 
     }
 

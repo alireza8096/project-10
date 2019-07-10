@@ -87,66 +87,66 @@ public class Hand {
     }
 
     public static void handleHand(ImageView cards, int i) {
-//        cards.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//            Hand.indexInHand = i;
-//            if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
-//                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <=
-//                Game.getInstance().getPlayer1().getNumOfMana()) {
-//                    MenuView.resetMap();
-//                    showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
-//                    selectedInHand = true;
-//                }
-//            }
-//        });
-
-        Bounds boundsInScene = cards.localToScene(cards.getBoundsInLocal());
-
-        ImageView cardImage = cards;
-        cardImage.setX(boundsInScene.getMinX() + i*180 - 100);
-        cardImage.setY(boundsInScene.getMinY());
-        System.out.println("* " + boundsInScene.getMinX());
-        System.out.println("* " + boundsInScene.getMinY());
-        System.out.println("here");
-
-
-        AllDatas.currentRoot.getChildren().add(cardImage);
-        cards.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("pressed");
-                showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
-                draggingX = cardImage.getLayoutX() - event.getSceneX();
-                draggingY = cardImage.getLayoutY() - event.getSceneY();
-            }
-        });
-
-        cards.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                System.out.println("dragged");
-                Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].setImageViewOfCard(null);
-                cardImage.setLayoutX(event.getSceneX() + draggingX);
-                cardImage.setLayoutY(event.getSceneY() + draggingY);
-            }
-        });
-
-        cards.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Coordination coordination = Cell.returnCellHasThisCoordinationInside(cardImage.getLayoutX(), cardImage.getLayoutY());
-                System.out.println("cardImage.getLayoutX() : " + cardImage.getLayoutX());
-                System.out.println("cardImage.getLayoutY() : " + cardImage.getLayoutY());
-                System.out.println("coordination x : " + coordination.getX());
-                System.out.println("coordination y : " + coordination.getY());
-                try {
-                    cardImage.setImage(null);
-                    Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(i,
-                            coordination.getX(), coordination.getY());
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+        cards.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            Hand.indexInHand = i;
+            if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <=
+                Game.getInstance().getPlayer1().getNumOfMana()) {
+                    MenuView.resetMap();
+                    showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
+                    selectedInHand = true;
                 }
             }
         });
+
+//        Bounds boundsInScene = cards.localToScene(cards.getBoundsInLocal());
+
+//        ImageView cardImage = cards;
+//        cardImage.setX(boundsInScene.getMinX() + i*180 - 100);
+//        cardImage.setY(boundsInScene.getMinY());
+//        System.out.println("* " + boundsInScene.getMinX());
+//        System.out.println("* " + boundsInScene.getMinY());
+//        System.out.println("here");
+//
+//
+//        AllDatas.currentRoot.getChildren().add(cardImage);
+//        cards.setOnMousePressed(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                System.out.println("pressed");
+//                showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
+//                draggingX = cardImage.getLayoutX() - event.getSceneX();
+//                draggingY = cardImage.getLayoutY() - event.getSceneY();
+//            }
+//        });
+//
+//        cards.setOnMouseDragged(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                System.out.println("dragged");
+//                Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].setImageViewOfCard(null);
+//                cardImage.setLayoutX(event.getSceneX() + draggingX);
+//                cardImage.setLayoutY(event.getSceneY() + draggingY);
+//            }
+//        });
+//
+//        cards.setOnMouseReleased(new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                Coordination coordination = Cell.returnCellHasThisCoordinationInside(cardImage.getLayoutX(), cardImage.getLayoutY());
+//                System.out.println("cardImage.getLayoutX() : " + cardImage.getLayoutX());
+//                System.out.println("cardImage.getLayoutY() : " + cardImage.getLayoutY());
+//                System.out.println("coordination x : " + coordination.getX());
+//                System.out.println("coordination y : " + coordination.getY());
+//                try {
+//                    cardImage.setImage(null);
+//                    Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(i,
+//                            coordination.getX(), coordination.getY());
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
 
         cards.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
             if(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i] != null) {

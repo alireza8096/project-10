@@ -200,6 +200,7 @@ public class Shop{
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
+//        Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
         System.out.println(cardName + " was added to your collection successfully");
     }
 
@@ -294,7 +295,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
                 assert hero != null;
                 daric += hero.getPrice();
-//                daricValue.set(daric);
+                Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -352,6 +353,7 @@ public class Shop{
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
+//        Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
         System.out.println("Your daric now : " + daric);
     }
 

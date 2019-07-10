@@ -169,19 +169,22 @@ public class MenusCommandController {
     public static void loginMenuEventHandler(Button loginButton, Button createAccountButton, TextField username, TextField password) {
         loginButton.setOnMouseClicked(event -> {
             try {
+                System.out.println("HERE");
                 String name = username.getText();
                 String passWord = password.getText();
                 Player player = new Player(name, passWord);
                 System.out.println(player.getDaric());
                 try {
+                    System.out.println("12121212");
                     Gson gson = new Gson();
                     String str = gson.toJson(player, Player.class);
                     Message loginMessage = new Message(str, "Player", "login");
                     System.out.println(loginMessage.messageToString());
                     MainView.getClient().getDos().println(loginMessage.messageToString());
                     MainView.getClient().getDos().flush();
+                    System.out.println("13131313");
                 } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
                 e.printStackTrace();

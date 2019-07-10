@@ -16,18 +16,30 @@ public class Player implements Cloneable {
     private Deck mainDeck;
     private String userName;
     private String password;
-//    private IntegerProperty daricProperty = new SimpleIntegerProperty();
+    private transient IntegerProperty daricProperty = new SimpleIntegerProperty();
     private int daric;
     private Game lastGame;
     private int numOfMana;
     private int numOfWins;
-    private boolean addingManaBuffIsActive;//Todo maybe have problems when applying several buffs
+    private boolean addingManaBuffIsActive;
     private ArrayList<Card> cardsInCollection = new ArrayList<>();
     private ArrayList<Item> itemsInCollection = new ArrayList<>();
     private ArrayList<Hero> heroesInCollection = new ArrayList<>();
     private int numberOfTurnsThatPlayerHasFlag;
     private int numberOfFlags;
     private boolean hasFlag;
+
+    public int getDaricProperty() {
+        return daricProperty.get();
+    }
+
+    public IntegerProperty daricPropertyProperty() {
+        return daricProperty;
+    }
+
+    public void setDaricProperty(int daricProperty) {
+        this.daricProperty.set(daricProperty);
+    }
 
     public ArrayList<String> getDecksToCreate() {
         return decksToCreate;

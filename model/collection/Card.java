@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import model.Game;
 import model.Map;
 import model.Shop;
+import model.Timer;
 import network.Server;
 import view.MainView;
 
@@ -42,12 +43,21 @@ public class Card implements Cloneable {
     private int numInShop;
     private GetImage getImage;
 
+    private transient Timer timer;
     private transient PrintStream owner;
+    private transient PrintStream highestPriceUser;
     private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
     private int auctionPrice;
     private int highestAuctionPrice;
     private transient IntegerProperty highestAuctionPriceProperty = new SimpleIntegerProperty();
-    private transient PrintStream highestPriceUser;
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
 
     public PrintStream getOwner() {
         return owner;
@@ -176,6 +186,8 @@ public class Card implements Cloneable {
         this.desc = desc;
         this.numInShop = Integer.parseInt(numInShop);
         this.setNumInShopProperty(Integer.parseInt(numInShop));
+        this.timer = new Timer();
+        this.timer.setCard(this);
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {

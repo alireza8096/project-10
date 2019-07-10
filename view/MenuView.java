@@ -325,7 +325,6 @@ public class MenuView {
         //Todo : set daric work right
 //        currentDaric.textProperty().bind(Game.getInstance().getPlayer1().daricPropertyProperty().asString());
 
-
         return new StackPane(imageView, currentDaric);
     }
 
@@ -529,7 +528,7 @@ public class MenuView {
 
         AllDatas.currentRoot.getChildren().addAll(background, middleGround, backButton);
 
-        sampleGame();
+//        sampleGame();
         Game.getInstance().setMap(new Map());
         AI.createAIPlayer();
         Hero.insertHeroInMap();
@@ -1650,6 +1649,15 @@ public class MenuView {
         setBackGroundOfCollection();
 
         VBox buttonsVBox = new VBox();
+
+        ImageView timeBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/gray_button.png")));
+        timeBack.setFitWidth(200);
+        timeBack.setFitHeight(80);
+        StackPane timeStack = new StackPane(timeBack, card.getTimer().getLblTime());
+        card.getTimer().getLblTime().setFont(new Font(20));
+
+        card.getTimer().getTimer().start();
         HBox hBox = new HBox();
         AllDatas.currentRoot.getChildren().add(hBox);
 
@@ -1662,11 +1670,11 @@ public class MenuView {
         price.textProperty().bind(card.highestAuctionPricePropertyProperty().asString());
         StackPane priceStack = new StackPane(priceBack, price);
 
-        setButtonsVBoxInAddingPriceWindow(buttonsVBox, priceStack, hBox, card);
+        setButtonsVBoxInAddingPriceWindow(buttonsVBox, priceStack, timeStack, hBox, card);
 
     }
 
-    public static void setButtonsVBoxInAddingPriceWindow(VBox vBox, StackPane priceStack, HBox hBox, Card card) throws FileNotFoundException {
+    public static void setButtonsVBoxInAddingPriceWindow(VBox vBox, StackPane priceStack, StackPane timeStack, HBox hBox, Card card) throws FileNotFoundException {
         TextField price = new TextField();
         price.setFont(new Font(20));
 
@@ -1692,7 +1700,9 @@ public class MenuView {
 
         vBox.getChildren().addAll(price, addingPriceStack, backStack);
 
-        hBox.getChildren().addAll(vBox, priceStack);
+        VBox vBox1 = new VBox(priceStack, timeStack);
+
+        hBox.getChildren().addAll(vBox, vBox1);
         hBox.setLayoutX(primaryScreenBounds.getWidth()/2 - 200);
         hBox.setLayoutY(primaryScreenBounds.getHeight()/2 - 200);
         hBox.setLayoutY(200);
