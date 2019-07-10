@@ -114,7 +114,6 @@ public class Cell {
             if (aForceIsSelected) {
                 setAForceIsSelected(false);
                 if(Card.getCardByCoordination(yImage,xImage)!=null) {
-                    System.out.println("attackkkk konnnnn babaaa");
                     BattleController.checkAllConditionsToAttack(Card.getCardByCoordination(selectedYImage, selectedXImage), Card.getCardByCoordination(yImage, xImage));
                 }
                 if (Map.cardCanBeMovedToThisCell(Card.getCardByCoordination(selectedYImage, selectedXImage), yImage, xImage)) {
@@ -227,6 +226,20 @@ public class Cell {
             return true;
         }
         return false;
+    }
+
+    public static Coordination returnCellHasThisCoordinationInside(double x, double y){
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 5; j++) {
+                ImageView cellView = Map.getCellsView()[i][j];
+                double cellX = cellView.getLayoutX();
+                double cellY = cellView.getLayoutY();
+                if ((x >= cellX && x <= cellX + 65) && (y >= cellY && y <= cellY + 65)){
+                    return new Coordination(j, i);
+                }
+            }
+        }
+        return null;
     }
 
 

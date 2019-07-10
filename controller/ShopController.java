@@ -208,4 +208,33 @@ public class ShopController {
             }
         });
     }
+
+    public static void handleEventsOfAuctionWindow(StackPane auctionButton, StackPane seeCardsButton, StackPane backButton){
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Controller.enterShop();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        seeCardsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
+
+        auctionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    MenuView.showCardsForAuction();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
 }

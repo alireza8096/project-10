@@ -1064,4 +1064,11 @@ public class BattleController {
         MenuView.showChoosingModeWindow();
     }
 
+    public static void setBattleForMulti(Map map) throws FileNotFoundException {
+        Game game = new Game();
+        Game.setCurrentGame(game);
+        game.setMap(map);
+        BattleView.showBattleForMultiPlayerGame();
+    }
+
 }

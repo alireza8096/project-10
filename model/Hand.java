@@ -3,6 +3,7 @@ package model;
 import animation.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
@@ -33,6 +34,9 @@ public class Hand {
     private Card nextCard;
     private static boolean selectedInHand;
     private static int indexInHand;
+
+    private static double draggingX;
+    private static double draggingY;
 
 
     public static boolean isSelectedInHand() {
@@ -83,16 +87,67 @@ public class Hand {
     }
 
     public static void handleHand(ImageView cards, int i) {
-        cards.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            Hand.indexInHand = i;
-            if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
-                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
-                    MenuView.resetMap();
-                    showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
-                    selectedInHand = true;
+//        cards.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//            Hand.indexInHand = i;
+//            if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
+//                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <=
+//                Game.getInstance().getPlayer1().getNumOfMana()) {
+//                    MenuView.resetMap();
+//                    showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
+//                    selectedInHand = true;
+//                }
+//            }
+//        });
+
+        Bounds boundsInScene = cards.localToScene(cards.getBoundsInLocal());
+
+        ImageView cardImage = cards;
+        cardImage.setX(boundsInScene.getMinX() + i*180 - 100);
+        cardImage.setY(boundsInScene.getMinY());
+        System.out.println("* " + boundsInScene.getMinX());
+        System.out.println("* " + boundsInScene.getMinY());
+        System.out.println("here");
+
+
+        AllDatas.currentRoot.getChildren().add(cardImage);
+        cards.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("pressed");
+                showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
+                draggingX = cardImage.getLayoutX() - event.getSceneX();
+                draggingY = cardImage.getLayoutY() - event.getSceneY();
+            }
+        });
+
+        cards.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("dragged");
+                Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].setImageViewOfCard(null);
+                cardImage.setLayoutX(event.getSceneX() + draggingX);
+                cardImage.setLayoutY(event.getSceneY() + draggingY);
+            }
+        });
+
+        cards.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Coordination coordination = Cell.returnCellHasThisCoordinationInside(cardImage.getLayoutX(), cardImage.getLayoutY());
+                System.out.println("cardImage.getLayoutX() : " + cardImage.getLayoutX());
+                System.out.println("cardImage.getLayoutY() : " + cardImage.getLayoutY());
+                System.out.println("coordination x : " + coordination.getX());
+                System.out.println("coordination y : " + coordination.getY());
+                try {
+                    cardImage.setImage(null);
+                    Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(i,
+                            coordination.getX(), coordination.getY());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
                 }
             }
         });
+
         cards.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
             if(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i] != null) {
                 if (Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
@@ -269,6 +324,10 @@ public class Hand {
 
     }
 
+    public void insertCardFromHandInMapWithDragging(int index, int x, int y){
+
+    }
+
     public void insertCardFromHandInMap(int index, int x, int y) throws FileNotFoundException {
             Card card = cardsInHand[index];
             Game.getInstance().getPlayer1().setNumOfMana(Game.getInstance().getPlayer1().getNumOfMana() - card.getMana());
@@ -298,9 +357,11 @@ public class Hand {
             card.setHasAttackedInThisTurn(true);
             Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);
             for(int i=0; i<9; i++){
-                Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
+                Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(
+                        HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
                 if(i < Game.getInstance().getPlayer1().getNumOfMana()){
-                    Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
+                    Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(
+                            HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
                 }
             }
             try {

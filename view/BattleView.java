@@ -1,5 +1,6 @@
 package view;
 
+import controller.AI;
 import controller.BattleController;
 import controller.Controller;
 import javafx.animation.KeyFrame;
@@ -10,11 +11,9 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import model.AllDatas;
-import model.Game;
-import model.Hand;
-import model.Shop;
+import model.*;
 import model.collection.*;
 import org.json.simple.parser.ParseException;
 
@@ -22,6 +21,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.concurrent.Callable;
+
+import static controller.Controller.sampleGame;
+import static view.MenuView.resetMap;
+import static view.MenuView.setBackButtonInBattle;
 
 public class BattleView {
     private static ImageView endTurn;
@@ -189,26 +192,6 @@ public class BattleView {
         System.out.println("Desc : " + minion.getDesc());
     }
 
-    //    public static void showSpellInGame(String cardName){
-//        Spell spell = null;
-//        for (Card card:
-//                Game.getInstance().getMap().getFriendMinions()) {
-//            if(card.getName().equals(cardName)){
-//                spell = (Spell) card;
-//            }
-//        }
-//        for (Card card:
-//                Game.getInstance().getMap().) {
-//            if(card.getName().equals(cardName)){
-//                spell = (Spell) card;
-//            }
-//        }
-//        System.out.println("Spell: ");
-//        System.out.println("Name : " + spell.getName());
-//        System.out.println("MP : " + spell.getMana());
-//        System.out.println("Cost : " + spell.getPrice());
-//        System.out.println("Desc : " + spell.getDesc());
-//    }
     public static void showHand(String[] commands) throws Exception {
         if (commands.length == 2 && commands[0].compareToIgnoreCase("show") == 0
                 && commands[1].compareToIgnoreCase("hand") == 0) {
@@ -238,5 +221,69 @@ public class BattleView {
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(keyFrame);
         timeline.play();
+    }
+
+    public static void showBattleForMultiPlayerGame() throws FileNotFoundException {
+        System.out.println("showing battle");
+        AllDatas.currentRoot.getChildren().clear();
+        MainView.primaryStage.setScene(AllDatas.currentScene);
+
+        ImageView background = MainView.getPhotoWithThisPath(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/background@2x.jpg");
+        background.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
+        background.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
+        background.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            Hand.setSelectedInHand(false);
+            Cell.setAForceIsSelected(false);
+            resetMap();
+        });
+
+        ImageView middleGround = MainView.getPhotoWithThisPath(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/midground@2x.png");
+        middleGround.fitHeightProperty().bind(AllDatas.currentScene.heightProperty());
+        middleGround.fitWidthProperty().bind(AllDatas.currentScene.widthProperty());
+        middleGround.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                    Hand.setSelectedInHand(false);
+                    Cell.setAForceIsSelected(false);
+                    resetMap();
+                }
+        );
+
+        ImageView backButton = setBackButtonInBattle();
+
+        AllDatas.currentRoot.getChildren().addAll(background, middleGround, backButton);
+
+//        sampleGame();
+        Game.getInstance().setMap(new Map());
+//        AI.createAIPlayer();
+        Hero.insertHeroInMap();
+        Rectangle rectangle = new Rectangle(258, 293);
+        rectangle.setX(100);
+        rectangle.setY(100);
+        ImageView yourProfile = new ImageView(Game.getInstance().getMap().getFriendHero().getForceInField());
+        System.out.println(Game.getInstance().getMap().getFriendHero().getForceInField() + " force in field");
+        yourProfile.setX(100);
+        yourProfile.setY(30);
+        yourProfile.fitWidthProperty().bind(rectangle.widthProperty());
+        yourProfile.fitHeightProperty().bind(rectangle.heightProperty());
+        AllDatas.currentRoot.getChildren().add(yourProfile);
+
+        AllDatas.currentRoot.getChildren().addAll(Game.getYourHbox(), Game.getEnemyHbox());
+        ImageView enemyProfile = new ImageView(Game.getInstance().getMap().getEnemyHero().getForceInField());
+        enemyProfile.setX(1300);
+        enemyProfile.setY(30);
+        enemyProfile.fitHeightProperty().bind(rectangle.heightProperty());
+        enemyProfile.fitWidthProperty().bind(rectangle.widthProperty());
+        AllDatas.currentRoot.getChildren().add(enemyProfile);
+
+
+        Cell.handleCell();
+        Cell.handleForce();
+        Hand.createHand();
+        Hand.setHand();
+        Hand.handController();
+        BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_end_turn_mine@2x.png"));
+        AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
+        BattleView.handleEndTurn();
     }
 }

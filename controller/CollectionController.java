@@ -332,17 +332,11 @@ public class CollectionController{
 
         deleteDeckStack.setOnMouseClicked(event -> {
             try {
-                System.out.println("deck deleted name : " + Deck.getSelectedDeck().getDeckName());
-                for (Deck deck : Game.getInstance().getPlayer1().getDecksOfPlayer())
-                    System.out.println("deck name : " + deck.getDeckName());
                 ArrayList<Deck> decksCopy = new ArrayList<>(Game.getInstance().getPlayer1().getDecksOfPlayer());
                 for (Deck deck : decksCopy){
                     if (deck.getDeckName().equals(Deck.getSelectedDeck().getDeckName()))
                         Game.getInstance().getPlayer1().getDecksOfPlayer().remove(deck);
                 }
-                System.out.println("After : ");
-                for (Deck deck : Game.getInstance().getPlayer1().getDecksOfPlayer())
-                    System.out.println("deck name : " + deck.getDeckName());
                 MenuView.showDecksInCollection();
             } catch (NullPointerException e) {
                 System.out.println(e.getMessage());

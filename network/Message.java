@@ -2,6 +2,7 @@ package network;
 
 import com.google.gson.Gson;
 import controller.AccountController;
+import controller.BattleController;
 import controller.Controller;
 import javafx.application.Platform;
 import javafx.scene.effect.Glow;
@@ -17,6 +18,7 @@ import model.collection.HandleFiles;
 import network.battle.BattleThread;
 import network.battle.ClientForBattle;
 import org.json.simple.JSONObject;
+import view.BattleView;
 import view.GameView;
 import view.MainView;
 
@@ -99,6 +101,13 @@ public class Message {
             case "receiveMap":
                 Game.getInstance().setMap(map);
                 break;
+            case "getFirstMap":
+                try {
+                    BattleController.setBattleForMulti(map);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                break;
         }
     }
 
@@ -137,6 +146,9 @@ public class Message {
                 catch (Exception e){
                     System.out.println(e.getMessage());
                 }
+            case "opponentName":
+                MainView.getClient().setOpponentName(str);
+                break;
         }
     }
 
@@ -271,15 +283,15 @@ public class Message {
     }
 
     public void handleEnterBattleCommandFromClientToServer(Player player, PrintStream dos){
-        if (BattleThread.getBattleThreads()[0] == null){
-            BattleThread.getBattleThreads()[0] = new ClientForBattle(player, MainView.getClient().getSocket(), dos);
-            System.out.println("waiting...");
+        System.out.println("servered received enter battle message!!");
+        if (BattleThread.getClientForBattle1() == null){
+            BattleThread.setClientForBattle1(new ClientForBattle(player, dos));
+            System.out.println("waiting");
         }else{
-            BattleThread battleThread = new BattleThread(BattleThread.getBattleThreads()[0], new ClientForBattle(
-                    player, MainView.getClient().getSocket(), dos));
+            BattleThread battleThread = new BattleThread(BattleThread.getClientForBattle1().returnCopy(),
+                    new ClientForBattle(player, dos));
             Server.setCurrentBattleThread(battleThread);
-            BattleThread.getBattleThreads()[0] = null;
-            BattleThread.getBattleThreads()[1] = null;
+            BattleThread.setClientForBattle1(null);
         }
     }
 
@@ -399,6 +411,13 @@ public class Message {
                         }
                     }
                 });
+                break;
+            case "auctionCard":
+                Shop.getCardsInAuction().add(card);
+                String jsonString = gson.toJson("Card was auctioned", String.class);
+                Message message = new Message(jsonString, "String", "printAlert");
+                dos.println(message.messageToString());
+                dos.flush();
                 break;
 
         }

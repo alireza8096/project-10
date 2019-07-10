@@ -20,6 +20,15 @@ public class Client {
     private Thread clientThread;
     private ChatClient chatClient;
     private boolean inChat;
+    private String opponentName;
+
+    public String getOpponentName() {
+        return opponentName;
+    }
+
+    public void setOpponentName(String opponentName) {
+        this.opponentName = opponentName;
+    }
 
     public boolean isInChat() {
         return inChat;

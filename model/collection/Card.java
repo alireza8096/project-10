@@ -47,6 +47,16 @@ public class Card implements Cloneable {
     private int numInShop;
     private GetImage getImage;
 
+    private int auctionPrice;
+
+    public int getAuctionPrice() {
+        return auctionPrice;
+    }
+
+    public void setAuctionPrice(int auctionPrice) {
+        this.auctionPrice = auctionPrice;
+    }
+
     public GetImage getGetImage() {
         return getImage;
     }
