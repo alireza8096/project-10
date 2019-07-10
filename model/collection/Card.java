@@ -3,24 +3,19 @@ package model.collection;
 import animation.GetImage;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import model.AttackType;
 import model.Game;
 import model.Map;
 import model.Shop;
 import network.Server;
-import org.json.simple.parser.ParseException;
 import view.MainView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintStream;
 import java.util.Iterator;
 
 import static javafx.scene.paint.Color.rgb;
@@ -47,7 +42,40 @@ public class Card implements Cloneable {
     private int numInShop;
     private GetImage getImage;
 
+    private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
     private int auctionPrice;
+    private int highestAuctionPrice;
+    private transient IntegerProperty highestAuctionPriceProperty = new SimpleIntegerProperty();
+    private transient PrintStream highestPriceUser;
+
+
+    public int getHighestAuctionPrice() {
+        return highestAuctionPrice;
+    }
+
+    public void setHighestAuctionPrice(int highestAuctionPrice) {
+        this.highestAuctionPrice = highestAuctionPrice;
+    }
+
+    public int getHighestAuctionPriceProperty() {
+        return highestAuctionPriceProperty.get();
+    }
+
+    public IntegerProperty highestAuctionPricePropertyProperty() {
+        return highestAuctionPriceProperty;
+    }
+
+    public void setHighestAuctionPriceProperty(int highestAuctionPriceProperty) {
+        this.highestAuctionPriceProperty.set(highestAuctionPriceProperty);
+    }
+
+    public PrintStream getHighestPriceUser() {
+        return highestPriceUser;
+    }
+
+    public void setHighestPriceUser(PrintStream highestPriceUser) {
+        this.highestPriceUser = highestPriceUser;
+    }
 
     public int getAuctionPrice() {
         return auctionPrice;
@@ -64,8 +92,8 @@ public class Card implements Cloneable {
     public void setGetImage(GetImage getImage) {
         this.getImage = getImage;
     }
-
     private boolean hasFlag;
+
 
     public boolean isHasFlag() {
         return hasFlag;
@@ -74,8 +102,6 @@ public class Card implements Cloneable {
     public void setHasFlag(boolean hasFlag) {
         this.hasFlag = hasFlag;
     }
-
-    private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
 
     public int getNumInShopProperty() {
         return numInShopProperty.get();

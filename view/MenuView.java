@@ -3,6 +3,7 @@ package view;
 import animation.SpriteAnimation;
 import controller.*;
 import javafx.animation.Animation;
+import javafx.beans.property.IntegerProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -1611,17 +1612,92 @@ public class MenuView {
         showCards(vBox);
     }
 
-//    public static void showWindowToEnterAuctionPrice() throws FileNotFoundException {
-//        AllDatas.currentRoot.getChildren().clear();
-//
-//        setBackGroundOfCollection();
-//
-//        HBox hBox = new HBox();
-//
-//        TextField textField = new TextField();
-//        textField.setFont(new Font(20));
-//
-//
-//
-//    }
+    public static void seeCardsInAuction() throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+        setBackGroundOfCollection();
+        Shop.setInAddingPriceWindow(true);
+
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        Text backText = new Text("Back");
+        backText.setFont(new Font(25));
+        backText.setFill(rgb(207, 249, 252));
+        backButton.setFitWidth(300);
+        backButton.setFitHeight(100);
+
+        StackPane backStack = new StackPane(backButton, backText);
+        backStack.setOnMouseClicked(event -> {
+            try {
+                showAuctionWindow();
+                Shop.setInAddingPriceWindow(false);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+        GameView.makeImageGlowWhileMouseEnters(backStack);
+
+        backStack.setLayoutX(900);
+        backStack.setLayoutY(200);
+        AllDatas.currentRoot.getChildren().add(backStack);
+
+        VBox cardsVBox = new VBox();
+        AllDatas.currentRoot.getChildren().add(cardsVBox);
+        addCardsToVBox(Shop.getCardsInAuction(), cardsVBox);
+    }
+
+    public static void showAddingPriceWindow(Card card) throws FileNotFoundException {
+        AllDatas.currentRoot.getChildren().clear();
+        setBackGroundOfCollection();
+
+        VBox buttonsVBox = new VBox();
+        HBox hBox = new HBox();
+        AllDatas.currentRoot.getChildren().add(hBox);
+
+        ImageView priceBack = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/gray_button.png")));
+        priceBack.setFitWidth(200);
+        priceBack.setFitHeight(80);
+        Label price = new Label(Integer.toString(card.getAuctionPrice()));
+        price.setTextFill(rgb(223, 243, 245));
+        price.textProperty().bind(card.highestAuctionPricePropertyProperty().asString());
+        StackPane priceStack = new StackPane(priceBack, price);
+
+        setButtonsVBoxInAddingPriceWindow(buttonsVBox, priceStack, hBox, card);
+
+    }
+
+    public static void setButtonsVBoxInAddingPriceWindow(VBox vBox, StackPane priceStack, HBox hBox, Card card) throws FileNotFoundException {
+        TextField price = new TextField();
+        price.setFont(new Font(20));
+
+        ImageView addPriceButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        addPriceButton.setFitWidth(200);
+        addPriceButton.setFitHeight(80);
+        Label addPriceLabel = new Label("Add Price");
+        addPriceLabel.setTextFill(rgb(223, 243, 245));
+        addPriceLabel.setFont(new Font(25));
+        StackPane addingPriceStack = new StackPane(addPriceButton, addPriceLabel);
+
+        ImageView backButton = new ImageView(new Image(new FileInputStream(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/collection/blueButton.png")));
+        backButton.setFitWidth(200);
+        backButton.setFitHeight(80);
+        Label backLabel = new Label("Back");
+        backLabel.setTextFill(rgb(223, 243, 245));
+        backLabel.setFont(new Font(25));
+        StackPane backStack = new StackPane(backButton, backLabel);
+
+        GameView.makeImageGlowWhileMouseEnters(backStack, addingPriceStack);
+
+        vBox.getChildren().addAll(price, addingPriceStack, backStack);
+
+        hBox.getChildren().addAll(vBox, priceStack);
+        hBox.setLayoutX(primaryScreenBounds.getWidth()/2 - 200);
+        hBox.setLayoutY(primaryScreenBounds.getHeight()/2 - 200);
+        hBox.setLayoutY(200);
+        hBox.setPadding(new Insets(50));
+
+        ShopController.handleEventsOfAddingPriceForAuction(backStack, addingPriceStack, price, card);
+    }
 }

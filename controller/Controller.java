@@ -351,11 +351,21 @@ public class Controller {
         vBox.setOnMouseClicked(event -> {
             if (Shop.isInAuctionWindow()){
                 //Todo : auction a card
+                System.out.println("HERERERERERERERERERERE");
+                Shop.getCardsInAuction().add(card);
                 Gson gson = new Gson();
                 String jsonString = gson.toJson(card, Card.class);
                 Message message = new Message(jsonString, "Card", "auctionCard");
                 MainView.getClient().getDos().println(message.messageToString());
                 MainView.getClient().getDos().flush();
+            }else if (Shop.isInAddingPriceWindow()){
+                try {
+                    System.out.println("card name : " + card.getName());
+                    System.out.println("cards highest price : " + card.getHighestAuctionPrice());
+                    MenuView.showAddingPriceWindow(card);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             }else {
                 if (!CollectionController.isIsChoosingForCreatingNewDeck()) {
                     try {

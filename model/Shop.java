@@ -30,6 +30,15 @@ public class Shop{
     private static ArrayList<Card> cardsInAuction = new ArrayList<>();
 
     private static boolean inAuctionWindow;
+    private static boolean inAddingPriceWindow;
+
+    public static boolean isInAddingPriceWindow() {
+        return inAddingPriceWindow;
+    }
+
+    public static void setInAddingPriceWindow(boolean inAddingPriceWindow) {
+        Shop.inAddingPriceWindow = inAddingPriceWindow;
+    }
 
     //for not handle events of cards that are not selected while buying a card
     private static boolean isShowingSpecificCard;

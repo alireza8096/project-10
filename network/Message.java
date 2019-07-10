@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import controller.AccountController;
 import controller.BattleController;
 import controller.Controller;
+import controller.ShopController;
 import javafx.application.Platform;
 import javafx.scene.effect.Glow;
 import javafx.scene.layout.StackPane;
@@ -48,6 +49,7 @@ public class Message {
         Gson gson = new Gson();
         switch (jsonType) {
             case "Player":
+                System.out.println("player to server");
                 Player player = gson.fromJson(jsonString, Player.class);
                 functionsOfPlayerForServer(player, dos);
                 break;
@@ -78,6 +80,7 @@ public class Message {
                 functionsOfStringForClient(str);
                 break;
             case "Player":
+                System.out.println("a player has been sent");
                 Player player = gson.fromJson(jsonString, Player.class);
                 functionsOfPlayerForClient(player);
                 break;
@@ -226,6 +229,20 @@ public class Message {
                     e.printStackTrace();
                 }
                 break;
+            case "offeredPriceBack":
+                System.out.println("got card back!!!!!");
+                int highestPrice = card.getHighestAuctionPrice();
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        ShopController.setCardInCollectionAfterReceiving(card);
+                    }
+                });
+
+                System.out.println("Client -> price : " + highestPrice);
+
+                card.setHighestAuctionPriceProperty(highestPrice);
+                break;
         }
     }
 
@@ -260,6 +277,7 @@ public class Message {
         switch (functionName) {
             case "login":
                 try {
+                    System.out.println("logging in...");
                     Account.login(player.getUserName(), player.getPassword(), dos);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
@@ -413,14 +431,41 @@ public class Message {
                 });
                 break;
             case "auctionCard":
-                Shop.getCardsInAuction().add(card);
+                System.out.println("THERERERERER");
+                Server.getCardsInAuction().add(card);
                 String jsonString = gson.toJson("Card was auctioned", String.class);
                 Message message = new Message(jsonString, "String", "printAlert");
                 dos.println(message.messageToString());
                 dos.flush();
                 break;
+            case "offeredPrice":
+                System.out.println("!@!@!@!@!@!@!@!");
+                handleOfferingPriceByServer(card, dos);
+                System.out.println("server : card name : " + card.getName());
+                System.out.println("Server -> cardhighestPrice : " + card.getHighestAuctionPrice());
+                String cardString = gson.toJson(card, Card.class);
+                Message message1 = new Message(cardString, "Card", "offeredPriceBack");
+                dos.println(message1.messageToString());
+                dos.flush();
+                break;
 
         }
+    }
+
+    public static void handleOfferingPriceByServer(Card card, PrintStream userDos){
+        Card cardInServer = Server.returnCardInServer(card.getName());
+        int currentPrice = card.getHighestAuctionPrice();
+        int offeredPrice = card.getAuctionPrice();
+
+        if (offeredPrice > currentPrice){
+            cardInServer.setHighestAuctionPrice(offeredPrice);
+            cardInServer.setHighestAuctionPriceProperty(offeredPrice);
+            card.setHighestAuctionPrice(offeredPrice);
+            card.setHighestAuctionPriceProperty(offeredPrice);
+            cardInServer.setHighestPriceUser(userDos);
+            card.setHighestPriceUser(userDos);
+        }
+
     }
 
     public static Message stringToMessage(String toConvert) {

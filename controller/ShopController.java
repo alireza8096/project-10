@@ -15,6 +15,7 @@ import model.collection.*;
 import model.Game;
 import network.Client;
 import network.Message;
+import network.Server;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.events.EventException;
 import view.GameView;
@@ -23,6 +24,7 @@ import view.MenuView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
@@ -218,23 +220,70 @@ public class ShopController {
             }
         });
 
-        seeCardsButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
+        seeCardsButton.setOnMouseClicked(event -> {
+            try {
+                MenuView.seeCardsInAuction();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
         });
 
-        auctionButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        auctionButton.setOnMouseClicked(event -> {
+            try {
+                MenuView.showCardsForAuction();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public static void handleEventsOfAddingPriceForAuction(StackPane backButton,
+                                                           StackPane addPriceButton, TextField price, Card card){
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 try {
-                    MenuView.showCardsForAuction();
+                    MenuView.seeCardsInAuction();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             }
         });
 
+        addPriceButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int offeredPrice = Integer.parseInt(price.getText());
+                Gson gson = new Gson();
+                card.setAuctionPrice(offeredPrice);
+                String jsonString = gson.toJson(card, Card.class);
+                Message message = new Message(jsonString, "Card", "offeredPrice");
+                MainView.getClient().getDos().println(message.messageToString());
+                MainView.getClient().getDos().flush();
+            }
+        });
+    }
+
+
+    public static void setCardInCollectionAfterReceiving(Card card){
+        for (Card card1 : Game.getInstance().getPlayer1().getCardsInCollection()){
+            if (card1.getName().equals(card.getName())) {
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
+        for (Card card1 : Game.getInstance().getPlayer1().getItemsInCollection()){
+            if (card1.getName().equals(card.getName())) {
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
+        for (Card card1 : Game.getInstance().getPlayer1().getHeroesInCollection()){
+            if (card1.getName().equals(card.getName())){
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
     }
 }

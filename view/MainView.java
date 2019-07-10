@@ -42,8 +42,6 @@ public class MainView extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        System.out.println("ip : " + properties.getProperty("ip"));
-
         Shop.setRightVBox(new VBox());
         Shop.setLeftVBox(new VBox());
         Shop.getRightVBox().setLayoutX(300);

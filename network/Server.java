@@ -16,8 +16,13 @@ public class Server {
     private static ArrayList<Card> cards = new ArrayList<>();
     private static ArrayList<Socket> clients = new ArrayList<>();
     private static ArrayList<String> onlinePlayers = new ArrayList<>();
+    private static ArrayList<Card> cardsInAuction = new ArrayList<>();
     private ServerSocket serverSocket;
     private static BattleThread currentBattleThread;
+
+    public static ArrayList<Card> getCardsInAuction() {
+        return cardsInAuction;
+    }
 
     public static BattleThread getCurrentBattleThread() {
         return currentBattleThread;
@@ -64,5 +69,13 @@ public class Server {
                 }
             }).start();
         }
+    }
+
+    public static Card returnCardInServer(String cardName){
+        for (Card card : cards)
+            if (card.getName().equals(cardName))
+                return card;
+
+        return null;
     }
 }
