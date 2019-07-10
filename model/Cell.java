@@ -136,10 +136,10 @@ public class Cell {
 
     private static void handleEventForce(ImageView force, int xImage, int yImage) {
         force.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-                    Card card = Card.getCardByCoordination(yImage, xImage);
-                    System.out.println("name : " + card.getName());
-                    System.out.println("attacked : " + card.isHasAttackedInThisTurn());
-                    System.out.println("moved : " + card.isHasMovedInThisTurn());
+//                    Card card = Card.getCardByCoordination(yImage, xImage);
+//                    System.out.println("name : " + card.getName());
+//                    System.out.println("attacked : " + card.isHasAttackedInThisTurn());
+//                    System.out.println("moved : " + card.isHasMovedInThisTurn());
                     if (Card.thisCardIsYours(yImage, xImage) && (!Card.getCardByCoordination(yImage, xImage).isHasMovedInThisTurn()
                             || !Card.getCardByCoordination(yImage, xImage).isHasAttackedInThisTurn())) {
                         force.setEffect(new Glow(0.7));

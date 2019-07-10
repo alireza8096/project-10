@@ -97,12 +97,12 @@ public class SpriteAnimation extends Transition {
         }
     }
 
-    public void removeThisAnimation(){
-        ArrayList<SpriteAnimation> copy = new ArrayList<>(Game.getInstance().getMap().getAnimations());
-        for(SpriteAnimation remove : copy){
-            if(remove.equals(this)){
-                Game.getInstance().getMap().getAnimations().remove(this);
-            }
-        }
-    }
+//    public void removeThisAnimation(){
+//        ArrayList<SpriteAnimation> copy = new ArrayList<>(Game.getInstance().getMap().getAnimations());
+//        for(SpriteAnimation remove : copy){
+//            if(remove.equals(this)){
+//                Game.getInstance().getMap().getAnimations().remove(this);
+//            }
+//        }
+//    }
 }

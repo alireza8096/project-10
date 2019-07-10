@@ -20,9 +20,8 @@ public class Map {
     private static ImageView[][] cellsView = new ImageView[9][5];
     private static ImageView[][] forcesView = new ImageView[9][5];
     private static ImageView[][] itemsView = new ImageView[9][5];
-    private ArrayList<SpriteAnimation> animations = new ArrayList<>();
-
     private static StackPane[][] forcesStack = new StackPane[9][5];
+    private static SpriteAnimation[][] animations = new SpriteAnimation[9][5];
 
     private ArrayList<Minion> enemyMinions = new ArrayList<>();
     private ArrayList<Minion> friendMinions = new ArrayList<>();
@@ -35,14 +34,6 @@ public class Map {
 
     public static void setItemsView(ImageView[][] itemsView) {
         Map.itemsView = itemsView;
-    }
-
-    public ArrayList<SpriteAnimation> getAnimations() {
-        return animations;
-    }
-
-    public void setAnimations(ArrayList<SpriteAnimation> animations) {
-        this.animations = animations;
     }
 
     public static void insertFlagInThisCell(int x, int y) throws FileNotFoundException {
@@ -72,10 +63,11 @@ public class Map {
                     AllDatas.currentRoot.getChildren().add(itemsView[i][j]);
 
                     forcesView[i][j] = new ImageView();
-                    forcesView[i][j].fitHeightProperty().bind(rectangle.heightProperty());
-                    forcesView[i][j].fitWidthProperty().bind(rectangle.widthProperty());
                     forcesView[i][j].setX(cellsView[i][j].getX());
                     forcesView[i][j].setY(cellsView[i][j].getY());
+                    forcesView[i][j].fitHeightProperty().bind(rectangle.heightProperty());
+                    forcesView[i][j].fitWidthProperty().bind(rectangle.widthProperty());
+                    animations[i][j] = new SpriteAnimation(forcesView[i][j]);
                     AllDatas.currentRoot.getChildren().add(forcesView[i][j]);
 
                 } catch (FileNotFoundException e) {
@@ -83,6 +75,10 @@ public class Map {
                 }
             }
         }
+    }
+
+    public static SpriteAnimation[][] getAnimations() {
+        return animations;
     }
 
     public void placeFlagsOnMap(){
