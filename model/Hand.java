@@ -29,6 +29,7 @@ public class Hand {
     private static ImageView[] scenesBehind = new ImageView[5];
     private static ImageView[] cards = new ImageView[5];
     private static Label[] manas = new Label[5];
+    private static SpriteAnimation[] animation = new SpriteAnimation[5];
     private Card[] cardsInHand = new Card[5];
     private Card nextCard;
     private static boolean selectedInHand;
@@ -114,19 +115,17 @@ public class Hand {
     }
 
     public static void createHand() {
-        Rectangle rectangle = new Rectangle(65,65);
         HBox handScenes = new HBox();
         HBox cardsView = new HBox();
         HBox manasView = new HBox();
         for (int i = 0; i < 5; i++) {
             cards[i] = new ImageView();
-            cards[i].fitWidthProperty().bind(rectangle.widthProperty());
-            cards[i].fitHeightProperty().bind(rectangle.heightProperty());
             cards[i].setScaleX(1.3);
             cards[i].setScaleY(1.3);
             scenesBehind[i] = new ImageView();
             manas[i] = new Label();
             manas[i].setTextFill(Color.WHITE);
+            animation[i] = new SpriteAnimation(cards[i]);
             handScenes.getChildren().add(scenesBehind[i]);
             cardsView.getChildren().add(cards[i]);
             manasView.getChildren().add(manas[i]);
@@ -189,9 +188,12 @@ public class Hand {
                         "view/Photos/battle/card_background_disabled@2x.png")));
             }
             Hand.cards[i].setImage(card.getImageViewOfCard().getImage());
-            final Animation animation = new SpriteAnimation(card,"breathing",Hand.cards[i], Duration.millis(1000),0,0);
-            animation.setCycleCount(Animation.INDEFINITE);
-            animation.play();
+            Rectangle rectangle = new Rectangle(65,65);
+            cards[i].fitHeightProperty().bind(rectangle.heightProperty());
+            cards[i].fitWidthProperty().bind(rectangle.widthProperty());
+            animation[i].setSpriteAnimation(card,"breathing",Duration.millis(1000));
+            animation[i].setCycleCount(Animation.INDEFINITE);
+            animation[i].play();
             Hand.manas[i].setText(Integer.toString(card.getMana()));
             Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck().remove(card);
         }
@@ -231,10 +233,12 @@ public class Hand {
                         System.out.println(e.getMessage());
                     }
                     cards[i].setImage(nextCard.getImageViewOfCard().getImage());
-                    final Animation animation = new SpriteAnimation(nextCard,"breathing",cards[i]
-                    ,Duration.millis(1000),0,0);
-                    animation.setCycleCount(Animation.INDEFINITE);
-                    animation.play();
+                    Rectangle rectangle = new Rectangle(65,65);
+                    cards[i].fitWidthProperty().bind(rectangle.widthProperty());
+                    cards[i].fitHeightProperty().bind(rectangle.heightProperty());
+                    animation[i].setSpriteAnimation(nextCard,"breathing",Duration.millis(1000));
+                    animation[i].setCycleCount(Animation.INDEFINITE);
+                    animation[i].play();
                     manas[i].setText(Integer.toString(nextCard.getMana()));
                     return;
                 }
@@ -283,17 +287,9 @@ public class Hand {
             Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
             card.setX(x);
             card.setY(y);
-//            Map.getCellsView()[y][x].setDisable(true);
             Map.getForcesView()[y][x].setImage(card.getImageViewOfCard().getImage());
-            final Animation animation = new SpriteAnimation(card,"breathing",Map.getForcesView()[y][x],
-                    Duration.millis(1000),0,0);
-            animation.setCycleCount(Animation.INDEFINITE);
-            animation.play();
-            Map.getForcesView()[0][2].setY(Map.getForcesView()[y][x].getY()-70);
-//            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
-//            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
-//            minion.setCanMove(false);
-//            minion.setCanAttack(false);
+            Game.getInstance().getMap().getAnimations().add(card.getAnimation());
+            Map.getForcesView()[0][2].setY(Map.getForcesView()[y][x].getY()-25);
             card.setHasMovedInThisTurn(true);
             card.setHasAttackedInThisTurn(true);
             Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);

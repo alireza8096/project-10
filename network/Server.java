@@ -46,8 +46,9 @@ public class Server {
     public Server() throws Exception {
         HandleFiles.createStringOfPlayers();
 
-        serverSocket = new ServerSocket(Integer.parseInt(ServerView.properties.getProperty("port")));
+//        serverSocket = new ServerSocket(Integer.parseInt(ServerView.properties.getProperty("port")));
 
+        serverSocket = new ServerSocket(7766);
         System.out.println("main server created");
         while (true) {
             Socket client = serverSocket.accept();

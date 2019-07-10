@@ -707,8 +707,7 @@ public class MenuView {
                 card,
                 "breathing",
                 image,
-                Duration.millis(1000),
-                0, 0
+                Duration.millis(1000)
         );
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();

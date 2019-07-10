@@ -1,6 +1,7 @@
 package model.collection;
 
 import animation.GetImage;
+import animation.SpriteAnimation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
@@ -46,6 +47,7 @@ public class Card implements Cloneable {
     private String desc;
     private int numInShop;
     private GetImage getImage;
+    private transient SpriteAnimation animation;
 
     public GetImage getGetImage() {
         return getImage;
@@ -53,6 +55,14 @@ public class Card implements Cloneable {
 
     public void setGetImage(GetImage getImage) {
         this.getImage = getImage;
+    }
+
+    public SpriteAnimation getAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(SpriteAnimation animation) {
+        this.animation = animation;
     }
 
     private boolean hasFlag;

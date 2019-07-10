@@ -77,7 +77,7 @@ public class AI {
         Game.getInstance().getMap().setEnemyHero(AIPlayer.getMainDeck().getHeroInDeck());
         Map.getForcesView()[8][2].setImage(AIPlayer.getMainDeck().getHeroInDeck().getImageViewOfCard().getImage());
         final Animation animation = new SpriteAnimation(AIPlayer.getMainDeck().getHeroInDeck(),"breathing"
-        ,Map.getForcesView()[8][2],Duration.millis(1000),0,0);
+        ,Map.getForcesView()[8][2],Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
         Map.getForcesView()[8][2].setY(Map.getForcesView()[8][2].getY() - 25);
@@ -184,7 +184,7 @@ public class AI {
                 force.setY(y);
                 Map.getForcesView()[y][x].setImage(force.getImageViewOfCard().getImage());
                 final Animation animation = new SpriteAnimation(force,"breathing",Map.getForcesView()[y][x]
-                ,Duration.millis(1000),0,0);
+                ,Duration.millis(1000));
                 animation.setCycleCount(Animation.INDEFINITE);
                 animation.play();
 //                if (force.getCardType().matches("hero")) {
@@ -316,7 +316,7 @@ public class AI {
         Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.enemyMinion);
         Map.getForcesView()[y][x].setImage(minion.getImageViewOfCard().getImage());
         final Animation animation = new SpriteAnimation(minion,"breathing",Map.getForcesView()[y][x],
-                Duration.millis(1000),0,0);
+                Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
 //        Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);

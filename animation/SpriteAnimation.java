@@ -6,21 +6,36 @@ import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
+import model.Game;
 import model.collection.Card;
 
+import java.util.ArrayList;
+
 public class SpriteAnimation extends Transition {
-    private final ImageView imageView;
+    private transient final ImageView imageView;
     private String type;
     private int lastIndex;
-    private Card card;
+    private transient Card card;
 
+    public SpriteAnimation(ImageView imageView){
+        this.imageView = imageView;
+    }
     public SpriteAnimation(
             Card card,
             String type,
             ImageView imageView,
-            Duration duration,
-            int offsetX, int offsetY) {
+            Duration duration) {
+        this.type = type;
+        this.card = card;
         this.imageView = imageView;
+        setCycleDuration(duration);
+        setInterpolator(Interpolator.LINEAR);
+    }
+
+    public void setSpriteAnimation(
+            Card card,
+            String type,
+            Duration duration) {
         this.type = type;
         this.card = card;
         setCycleDuration(duration);
@@ -82,4 +97,12 @@ public class SpriteAnimation extends Transition {
         }
     }
 
+    public void removeThisAnimation(){
+        ArrayList<SpriteAnimation> copy = new ArrayList<>(Game.getInstance().getMap().getAnimations());
+        for(SpriteAnimation remove : copy){
+            if(remove.equals(this)){
+                Game.getInstance().getMap().getAnimations().remove(this);
+            }
+        }
+    }
 }

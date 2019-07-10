@@ -54,7 +54,7 @@ public class Client {
     }
 
     public Client() throws IOException {
-        String configFileName = "/Users/bahar/Desktop/DUELYST/config.txt";
+        String configFileName = "/Users/hamilamailee/Documents/project-10/config.txt";
         InputStream inputStream = new FileInputStream(configFileName);
         MainView.properties.load(inputStream);
 

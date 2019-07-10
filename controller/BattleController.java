@@ -429,7 +429,7 @@ public class BattleController {
 //        Map.getCellsView()[y][x].setDisable(true);
         Map.getForcesView()[y][x].setImage(force.getImageViewOfCard().getImage());
         final Animation animation = new SpriteAnimation(force,"breathing",Map.getForcesView()[y][x]
-        , Duration.millis(1000),0,0);
+        , Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
 //        if (force.getCardType().matches("hero")) {

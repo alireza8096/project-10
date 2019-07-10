@@ -20,6 +20,7 @@ public class Map {
     private static ImageView[][] cellsView = new ImageView[9][5];
     private static ImageView[][] forcesView = new ImageView[9][5];
     private static ImageView[][] itemsView = new ImageView[9][5];
+    private ArrayList<SpriteAnimation> animations = new ArrayList<>();
 
     private static StackPane[][] forcesStack = new StackPane[9][5];
 
@@ -34,6 +35,14 @@ public class Map {
 
     public static void setItemsView(ImageView[][] itemsView) {
         Map.itemsView = itemsView;
+    }
+
+    public ArrayList<SpriteAnimation> getAnimations() {
+        return animations;
+    }
+
+    public void setAnimations(ArrayList<SpriteAnimation> animations) {
+        this.animations = animations;
     }
 
     public static void insertFlagInThisCell(int x, int y) throws FileNotFoundException {
