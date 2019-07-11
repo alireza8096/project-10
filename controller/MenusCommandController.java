@@ -243,16 +243,14 @@ public class MenusCommandController {
             Controller.enterLeaderBoard();
         });
 
-//        exit.setOnAction(event -> {
-//            String name = Game.getInstance().getPlayer1().getUserName();
-//            ArrayList<String> copyOnline = new ArrayList<>(Server.getOnlinePlayers());
-//            for (String check: copyOnline) {
-//                if(check.matches(name)){
-//                    Server.getOnlinePlayers().remove(name);
-//                }
-//            }
-//            System.exit(0);
-//        });
+        exit.setOnAction(event -> {
+            Gson gson = new Gson();
+            String logoutUser = gson.toJson(Game.getInstance().getPlayer1().getUserName(),String.class);
+            MainView.getClient().getDos().println(new Message(logoutUser,"String","logout").messageToString());
+            MainView.getClient().getDos().flush();
+            Thread.currentThread().interrupt();
+            System.exit(0);
+        });
 
         logout.setOnAction(event -> {
             try {
