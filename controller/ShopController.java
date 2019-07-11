@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.sun.tools.javac.Main;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -15,6 +16,7 @@ import model.collection.*;
 import model.Game;
 import network.Client;
 import network.Message;
+import network.Server;
 import org.json.simple.parser.ParseException;
 import org.w3c.dom.events.EventException;
 import view.GameView;
@@ -23,6 +25,7 @@ import view.MenuView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
@@ -207,5 +210,175 @@ public class ShopController {
                 GameView.printInvalidCommandWithThisContent("This card isn't available in shop!");
             }
         });
+    }
+
+    public static void handleEventsOfAuctionWindow(StackPane auctionButton, StackPane seeCardsButton, StackPane backButton){
+        backButton.setOnMouseClicked(event -> {
+            try {
+                Controller.enterShop();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+        seeCardsButton.setOnMouseClicked(event -> {
+            Gson gson = new Gson();
+            String jsonString = gson.toJson("seeAuctionedCard", String.class);
+            Message message = new Message(jsonString, "String", "seeAuctionedCard");
+            MainView.getClient().getDos().println(message.messageToString());
+            MainView.getClient().getDos().flush();
+
+//                MenuView.seeCardsInAuction();
+        });
+
+        auctionButton.setOnMouseClicked(event -> {
+            try {
+                MenuView.showCardsForAuction();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        });
+
+    }
+
+    public static void handleEventsOfAddingPriceForAuction(StackPane backButton,
+                                                           StackPane addPriceButton, TextField price, Card card){
+        backButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    MenuView.seeCardsInAuction();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        addPriceButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                int offeredPrice = Integer.parseInt(price.getText());
+                int currentPrice = card.getHighestAuctionPrice();
+                System.out.println("^^^^^^ -> currentHighestPrice : " + currentPrice);
+
+//                if (offeredPrice > currentPrice){
+//                    card.setHighestPriceUser(MainView.getClient().getDos());
+//                    card.setHighestAuctionPrice(offeredPrice);
+//                }
+//                System.out.println("%%%%%%%%%%%%% card : " + card.getName() + " , price : " + card.getHighestAuctionPrice());
+                Gson gson = new Gson();
+//                String jsonStr = gson.toJson("string", String.class);
+//                Message message1 = new Message(jsonStr, "String", "printCards");
+//                MainView.getClient().getDos().println(message1.messageToString());
+//                MainView.getClient().getDos().flush();
+
+                card.setAuctionPrice(offeredPrice);
+                String jsonString = gson.toJson(card, Card.class);
+                Message message = new Message(jsonString, "Card", "offeredPrice");
+                MainView.getClient().getDos().println(message.messageToString());
+                MainView.getClient().getDos().flush();
+            }
+        });
+    }
+
+
+    public static void setCardInCollectionAfterReceiving(Card card){
+        card.getTimer().setCard(new Card());
+
+        for (Card card1 : Shop.getCardsInAuction()){
+            if (card1.getName().equals(card.getName())){
+                card.setTimer(card1.getTimer());
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
+
+        for (Card card1 : Game.getInstance().getPlayer1().getCardsInCollection()){
+            if (card1.getName().equals(card.getName())) {
+                card.setTimer(card1.getTimer());
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
+        for (Card card1 : Game.getInstance().getPlayer1().getItemsInCollection()){
+            if (card1.getName().equals(card.getName())) {
+                card.setTimer(card1.getTimer());
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
+        for (Card card1 : Game.getInstance().getPlayer1().getHeroesInCollection()){
+            if (card1.getName().equals(card.getName())){
+                card.setTimer(card1.getTimer());
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
+    }
+
+    public static void setCardsInAuction(ArrayList<String> cardNames) throws CloneNotSupportedException {
+        Shop.getCardsInAuction().clear();
+        for (String cardName : cardNames){
+            Card card = Card.findCardByName(cardName);
+            System.out.println("_________");
+            System.out.println("card name : " + card.getName());
+            Shop.getCardsInAuction().add(card);
+        }
+    }
+
+    public static void sellCardInAuction(Card card){
+        System.out.println("selling card " + card.getName());
+        int price = card.getHighestAuctionPrice();
+
+        System.out.println("1. highest price : " + price);
+        Game.getInstance().getPlayer1().setDaric(Game.getInstance().getPlayer1().getDaric() + price);
+//        Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
+
+        ArrayList<Card> copyCard = new ArrayList<>(Game.getInstance().getPlayer1().getCardsInCollection());
+        for (Card card1 : copyCard){
+            if (card1.getName().equals(card.getName())){
+                Game.getInstance().getPlayer1().getCardsInCollection().remove(card1);
+            }
+
+        }
+
+        copyCard = new ArrayList<>(Game.getInstance().getPlayer1().getItemsInCollection());
+        for (Card card1 : copyCard){
+            if (card1.getName().equals(card.getName())){
+                Game.getInstance().getPlayer1().getItemsInCollection().remove(card1);
+            }
+
+        }
+
+        copyCard = new ArrayList<>(Game.getInstance().getPlayer1().getHeroesInCollection());
+        for (Card card1 : copyCard){
+            if (card1.getName().equals(card.getName())){
+                Game.getInstance().getPlayer1().getHeroesInCollection().remove(card1);
+            }
+
+        }
+    }
+
+    public static void buyCardInAuction(Card card){
+        System.out.println("buying card " + card.getName());
+        int price = card.getHighestAuctionPrice();
+
+        System.out.println("2. highest price : " + price);
+        Game.getInstance().getPlayer1().setDaric(Game.getInstance().getPlayer1().getDaric() - price);
+//        Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
+
+        switch (card.getCardType()){
+            case "minion":
+            case "spell":
+                Game.getInstance().getPlayer1().getCardsInCollection().add(card);
+                break;
+            case "hero":
+                Game.getInstance().getPlayer1().getHeroesInCollection().add((Hero)card);
+                break;
+            case "item":
+                Game.getInstance().getPlayer1().getItemsInCollection().add((Item)card);
+                break;
+
+        }
     }
 }

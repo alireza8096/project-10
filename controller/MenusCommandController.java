@@ -308,7 +308,7 @@ public class MenusCommandController {
                 Controller.enterShop();
                 break;
             case "Battle":
-                Controller.enterBattle();
+//                Controller.enterBattle();
                 break;
         }
     }

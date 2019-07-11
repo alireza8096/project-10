@@ -69,7 +69,7 @@ public class Timer {
                         Gson gson = new Gson();
 
                     }
-                    if (seconds == 50){
+                    if (seconds == 20){
                         stop();
                         Gson gson = new Gson();
                         String jsonString = gson.toJson(card, Card.class);

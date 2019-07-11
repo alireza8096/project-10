@@ -1,6 +1,7 @@
 package controller;
 
 import Audio.AudioPlayer;
+import com.google.gson.Gson;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,8 @@ import view.GameView;
 import view.MainView;
 import view.MenuView;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileInputStream;
@@ -37,11 +40,12 @@ public class Controller {
         Controller.pressedButton = pressedButton;
     }
 
-    public static void createAll() throws Exception{
+    public static void createAll() throws Exception {
         createAllMenus();
         createAllDataFromJSON("client");
     }
-    public static void createAllDataFromJSON(String thread) throws Exception{
+
+    public static void createAllDataFromJSON(String thread) throws Exception {
         HandleFiles.createHeroes(thread);
         HandleFiles.createItems(thread);
         HandleFiles.createMinions(thread);
@@ -50,14 +54,14 @@ public class Controller {
 
 
     public static void createAllMenus() {
-        AllDatas.account= new LinkedListMenus("Account",true);
-        AllDatas.leaderboard = new LinkedListMenus("Leaderboard",false);
-        AllDatas.commandLine = new LinkedListMenus("Command Line",false);
-        AllDatas.collection = new LinkedListMenus("Collection",false);
-        AllDatas.shop = new LinkedListMenus("Shop",false);
-        AllDatas.battle = new LinkedListMenus("Battle",false);
-        AllDatas.help = new LinkedListMenus("Help",false);
-        AllDatas.chatroom = new LinkedListMenus("Chatroom",false);
+        AllDatas.account = new LinkedListMenus("Account", true);
+        AllDatas.leaderboard = new LinkedListMenus("Leaderboard", false);
+        AllDatas.commandLine = new LinkedListMenus("Command Line", false);
+        AllDatas.collection = new LinkedListMenus("Collection", false);
+        AllDatas.shop = new LinkedListMenus("Shop", false);
+        AllDatas.battle = new LinkedListMenus("Battle", false);
+        AllDatas.help = new LinkedListMenus("Help", false);
+        AllDatas.chatroom = new LinkedListMenus("Chatroom", false);
         AllDatas.account.getChilds().add(AllDatas.commandLine);
         AllDatas.commandLine.getChilds().add(AllDatas.collection);
         AllDatas.commandLine.getChilds().add(AllDatas.shop);
@@ -75,7 +79,7 @@ public class Controller {
 //        AllDatas.cardsInCollection.setParent(AllDatas.collection);
 //        AllDatas.decksInCollection.setParent(AllDatas.collection);
 
-   //     Controller.enterLoginMenu();
+        //     Controller.enterLoginMenu();
 //        AllDatas.account.setCommandsForHelp("create account [user name]","login [user name]","show leaderboard","save");
 //        AllDatas.leaderboard.setCommandsForHelp("exit");
 //        AllDatas.commandLine.setCommandsForHelp("Collection","Shop","Battle","exit","Help","logout");
@@ -97,7 +101,8 @@ public class Controller {
 //        LinkedListMenus.allMenus.add(AllDatas.decksInCollection);
 
     }
-    public static void handleCommands(Scanner scanner) throws Exception{
+
+    public static void handleCommands(Scanner scanner) throws Exception {
         assert LinkedListMenus.whichMenuNow() != null;
         switch (LinkedListMenus.whichMenuNow().getMenuName()) {
             case "Account":
@@ -125,7 +130,7 @@ public class Controller {
                 if (Game.getInstance().isPlayer1Turn()) {
                     MenusCommandController.battleController(scanner);
                     System.out.println(Game.getInstance().getPlayer1().getNumOfMana());
-                }else{
+                } else {
                     System.out.println(Game.getInstance().getPlayer2().getNumOfMana());
                     AI.insertCardTillPossible();
                     AI.moveTillPossible();
@@ -143,7 +148,7 @@ public class Controller {
         }
     }
 
-    public static void enterLoginMenu() throws IOException{
+    public static void enterLoginMenu() throws IOException {
         AllDatas.currentRoot = AllDatas.account.getRoot();
         AllDatas.currentScene = AllDatas.account.getScene();
         AllDatas.account.setNowInThisMenu(true);
@@ -180,7 +185,7 @@ public class Controller {
     }
 
 
-    public static void enterChatroom(){
+    public static void enterChatroom() {
         AllDatas.currentRoot = AllDatas.chatroom.getRoot();
         AllDatas.currentScene = AllDatas.chatroom.getScene();
 
@@ -195,13 +200,15 @@ public class Controller {
         }
     }
 
-    public static void enterBattle() throws IOException, CloneNotSupportedException, ParseException {
+    public static void enterBattle() throws IOException, CloneNotSupportedException, ParseException, java.text.ParseException {
         AudioPlayer.getBattleAudio().play();
+
         try {
             AudioPlayer.getMenuAudio().stop();
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
+
         AllDatas.currentRoot = AllDatas.battle.getRoot();
         AllDatas.currentScene = AllDatas.battle.getScene();
         AllDatas.battle.setNowInThisMenu(true);
@@ -209,7 +216,7 @@ public class Controller {
         MenuView.showBattle();
     }
 
-    public static void enterLeaderBoard(){
+    public static void enterLeaderBoard() {
         AllDatas.currentRoot = AllDatas.leaderboard.getRoot();
         AllDatas.currentScene = AllDatas.leaderboard.getScene();
         AllDatas.leaderboard.setNowInThisMenu(true);
@@ -241,7 +248,7 @@ public class Controller {
             e.printStackTrace();
         }
         String showLeaderBoardRequest = "showLeaderBoard";
-        MainView.getClient().getDos().println(new Message(showLeaderBoardRequest,"String","showLeaderBoard").messageToString());
+        MainView.getClient().getDos().println(new Message(showLeaderBoardRequest, "String", "showLeaderBoard").messageToString());
         MainView.getClient().getDos().flush();
     }
 
@@ -332,14 +339,63 @@ public class Controller {
         GameView.makeImageGlowWhileMouseEnters(singleStack, multiStack, backStack);
 
         HBox hBox = new HBox(singleStack, multiStack);
-        generalVBox.setLayoutX(MenuView.WINDOW_WIDTH/2 - 140);
-        generalVBox.setLayoutY(MenuView.WINDOW_HEIGHT/2 - 100);
+        generalVBox.setLayoutX(MenuView.WINDOW_WIDTH / 2 - 140);
+        generalVBox.setLayoutY(MenuView.WINDOW_HEIGHT / 2 - 100);
 
         generalVBox.getChildren().addAll(hBox, backStack);
 
         AllDatas.currentRoot.getChildren().add(generalVBox);
 
         BattleController.handleEventsOfChoosingMultiOrSingleMode(multiStack, singleStack, backStack);
+    }
+
+    public static void handleEventsOfCards(VBox vBox, Card card, HBox hBox) {
+        vBox.setOnMouseClicked(event -> {
+            if (Shop.isInAuctionWindow()) {
+                //Todo : auction a card
+                card.setOwner(MainView.getClient().getDos());
+                Shop.getCardsInAuction().add(card);
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(card, Card.class);
+                Message message = new Message(jsonString, "Card", "auctionCard");
+                MainView.getClient().getDos().println(message.messageToString());
+                MainView.getClient().getDos().flush();
+            } else if (Shop.isInAddingPriceWindow()) {
+                try {
+                    System.out.println("card name : " + card.getName());
+                    System.out.println("cards highest price : " + card.getHighestAuctionPrice());
+                    MenuView.showAddingPriceWindow(card);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                if (!CollectionController.isIsChoosingForCreatingNewDeck()) {
+                    try {
+                        if (Controller.getPressedButton().getAccessibleText() != null) {
+                            if (Controller.getPressedButton().getAccessibleText().equals("Add Card")) {
+                                Deck.getSelectedDeck().addCardToDeck(card);
+                                GameView.printInfoMessageWithThisContent(card.getName() +
+                                        " was added to " + Deck.getSelectedDeck().getDeckName());
+                            }
+                        } else if (!Shop.isIsShowingSpecificCard()) {
+                            MenuView.makeSceneBlur();
+                            Shop.setIsShowingSpecificCard(true);
+                            MenuView.showCardForSelling(card, vBox, hBox);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    if (Controller.getPressedButton().getAccessibleText().equals("New Deck")) {
+                        try {
+                            CollectionController.getDeckIsBeingCreated().addCardToDeck(card);
+                        } catch (ParseException | CloneNotSupportedException | IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+        });//is showing cards for creating new deck
     }
 
 
