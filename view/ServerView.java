@@ -24,13 +24,17 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import model.AllDatas;
 import model.collection.Card;
 import model.collection.HandleFiles;
+import network.Message;
 import network.Server;
+import org.w3c.dom.events.EventException;
+import view.GameView;
+import view.MenuView;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -50,7 +54,7 @@ public class ServerView extends Application {
 //        InputStream inputStream = new FileInputStream(configFileName);
 //        properties.load(inputStream);
 
-//        System.out.println("port : " + properties.getProperty("port"));
+        System.out.println("port : " + properties.getProperty("port"));
 
         currentRoot = new Pane();
         currentScene = new Scene(currentRoot, MenuView.WINDOW_WIDTH, MenuView.WINDOW_HEIGHT);

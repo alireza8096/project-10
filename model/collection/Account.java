@@ -239,9 +239,6 @@ public class Account implements Cloneable {
                 (String) jsonObject.get("password")
         );
         player.setDaric(Integer.parseInt(jsonObject.get("daric").toString()));
-        System.out.println("HERERERERREERERERE");
-        player.setDaricProperty(player.getDaric());
-        System.out.println(player.getDaricProperty());
         player.setNumOfWins(Integer.parseInt(jsonObject.get("numOfWins").toString()));
         player.setNumOfMana(2);
         int numOfDecks = Integer.parseInt(jsonObject.get("numOfAllDecks").toString());

@@ -1,23 +1,18 @@
 package network.battle;
 
 import model.Player;
-import network.Client;
 
 import java.io.PrintStream;
 import java.net.Socket;
 
-public class ClientForBattle implements Cloneable{
+public class ClientForBattle {
     private Player player;
     private Socket socket;
     private PrintStream dos;
 
-    public ClientForBattle(){
-
-    }
-
-    public ClientForBattle(Player player, PrintStream dos){
+    public ClientForBattle(Player player, Socket socket, PrintStream dos){
         this.player = player;
-//        this.socket = socket;
+        this.socket = socket;
         this.dos = dos;
     }
 
@@ -43,14 +38,5 @@ public class ClientForBattle implements Cloneable{
 
     public void setDos(PrintStream dos) {
         this.dos = dos;
-    }
-
-    public ClientForBattle returnCopy() {
-        try {
-            return (ClientForBattle) this.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

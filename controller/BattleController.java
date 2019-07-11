@@ -82,8 +82,8 @@ public class BattleController {
             makeAllCardsActiveAI();
             AI.insertCardTillPossible();
             System.out.println("inserted finished");
-            AI.moveTillPossible();
-            System.out.println("move finished");
+//            AI.moveTillPossible();
+//            System.out.println("move finished");
             AI.attackHeroAI();
             System.out.println("attack finished");
 //            BattleController.endTurn();
@@ -400,11 +400,11 @@ public class BattleController {
     }
 
     public static void move(Force force, int x, int y) {
-        double initialX = Map.getForcesView()[force.getY()][force.getX()].getX();
-        double initialY = Map.getForcesView()[force.getY()][force.getX()].getY();
+//        double initialX = Map.getForcesView()[force.getY()][force.getX()].getX();
+//        double initialY = Map.getForcesView()[force.getY()][force.getX()].getY();
 
-        BattleView.moveForcesWithAnimation(Map.getForcesView()[y][x].getX(),
-                Map.getForcesView()[y][x].getY(), Map.getForcesView()[force.getY()][force.getX()]);
+//        BattleView.moveForcesWithAnimation(Map.getForcesView()[y][x].getX(),
+//                Map.getForcesView()[y][x].getY(), Map.getForcesView()[force.getY()][force.getX()]);
 
         try {
             Audio.AudioPlayer.playThisAudio(
@@ -414,42 +414,23 @@ public class BattleController {
         }
         Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
         Map.getForcesView()[force.getY()][force.getX()].setImage(null);
-//        if (force.getCardType().matches("hero")) {
-            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() + 25);
-        System.out.println("commented here");
-//        } else {
-//            Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
-//            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
-//        }
-//        Map.getCellsView()[force.getY()][force.getX()].setDisable(false);
-
-
+        Map.getForcesView()[force.getY()][force.getX()] = new ImageView();
+        Map.getForcesView()[force.getY()][force.getX()].setX(Map.getCellsView()[force.getY()][force.getX()].getX());
+        Map.getForcesView()[force.getY()][force.getX()].setY(Map.getCellsView()[force.getY()][force.getX()].getY());
+        Cell.handleEventForce(Map.getForcesView()[force.getY()][force.getX()],force.getY(),force.getX());
+        AllDatas.currentRoot.getChildren().add(Map.getForcesView()[force.getY()][force.getX()]);
         force.setX(x);
         force.setY(y);
-//        Map.getCellsView()[y][x].setDisable(true);
         Map.getForcesView()[y][x].setImage(force.getImageViewOfCard().getImage());
-        final Animation animation = new SpriteAnimation(force,"breathing",Map.getForcesView()[y][x]
-        , Duration.millis(1000),0,0);
+        final Animation animation = new SpriteAnimation(force,"breathing",Map.getForcesView()[y][x],Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
-//        if (force.getCardType().matches("hero")) {
-            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
-        System.out.println("also commented here");
-//        } else {
-//            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
-//            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
-//        }
-//        Map.getForcesView()[y][x].setDisable(false);
         force.setHasMovedInThisTurn(true);
         applyEffectsOfTargetCellOnCard(force, x, y);
     }
 
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y) {
         applyCellType(card, x, y);
-//        applyCellItemTypeOnCard(card, x, y);
-
-
-//        applyCellImpactTypeOnCard(card, x, y);
     }
 
     public static void applyCellType(Card card, int x, int y) {
@@ -593,6 +574,9 @@ public class BattleController {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setContentText("enemy won !");
                         alert.show();
+                        final Animation death = new SpriteAnimation(force,"death",Map.getForcesView()[force.getY()][force.getX()],Duration.millis(1000));
+                        death.setCycleCount(1);
+                        death.play();
                         try {
                             Controller.enterMainMenu();
 //                            Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
@@ -618,6 +602,9 @@ public class BattleController {
                         Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setContentText("you won !");
                         alert.show();
+                        final Animation death = new SpriteAnimation(force,"death",Map.getForcesView()[force.getY()][force.getX()],Duration.millis(1000));
+                        death.setCycleCount(1);
+                        death.play();
                         try {
                             Controller.enterMainMenu();
 //                            Account.setPlayer(Game.getInstance().getPlayer1().getUserName());
@@ -636,12 +623,18 @@ public class BattleController {
                 break;
             case selfMinion:
                 if (force.getHealthPoint() == 0) {
+                    final Animation death = new SpriteAnimation(force,"death",Map.getForcesView()[force.getY()][force.getX()],Duration.millis(1000));
+                    death.setCycleCount(1);
+                    death.play();
                     AudioPlayer.playDeathSound();
                     Shop.removeProcess(Game.getInstance().getMap().getFriendMinions(), (Minion) force);
                     Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
                     Map.getForcesView()[force.getY()][force.getX()].setImage(null);
-                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
-                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
+                    Map.getForcesView()[force.getY()][force.getX()] = new ImageView();
+                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getCellsView()[force.getY()][force.getX()].getX());
+                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getCellsView()[force.getY()][force.getX()].getY());
+                    Cell.handleEventForce(Map.getForcesView()[force.getY()][force.getX()],force.getY(),force.getX());
+                    AllDatas.currentRoot.getChildren().add(Map.getForcesView()[force.getY()][force.getX()]);
                     if (force.isHasFlag()) {
                         Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellItemType(CellItemType.flag);
                     }
@@ -655,11 +648,17 @@ public class BattleController {
             case enemyMinion:
                 if (force.getHealthPoint() == 0) {
                     AudioPlayer.playDeathSound();
+                    final Animation death = new SpriteAnimation(force,"death",Map.getForcesView()[force.getY()][force.getX()],Duration.millis(1000));
+                    death.setCycleCount(1);
+                    death.play();
                     Shop.removeProcess(Game.getInstance().getMap().getEnemyMinions(), (Minion) force);
                     Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellType(CellType.empty);
                     Map.getForcesView()[force.getY()][force.getX()].setImage(null);
-                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
-                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
+                    Map.getForcesView()[force.getY()][force.getX()] = new ImageView();
+                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getCellsView()[force.getY()][force.getX()].getX());
+                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getCellsView()[force.getY()][force.getX()].getY());
+                    Cell.handleEventForce(Map.getForcesView()[force.getY()][force.getX()],force.getY(),force.getX());
+                    AllDatas.currentRoot.getChildren().add(Map.getForcesView()[force.getY()][force.getX()]);
                     if (force.isHasFlag()) {
                         Game.getInstance().getMap().getCells()[force.getX()][force.getY()].setCellItemType(CellItemType.flag);
                     }
@@ -685,7 +684,8 @@ public class BattleController {
             } else {
                 Game.getInstance().getPlayer2().setNumberOfFlags(Game.getInstance().getPlayer2().getNumberOfFlags() - 1);
             }
-        }try {
+        }
+        try {
             Map.insertFlagInThisCell(force.getX(), force.getY());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -698,18 +698,17 @@ public class BattleController {
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+        final Animation animation = new SpriteAnimation(attacker,"attack",Map.getForcesView()[attacker.getY()][attacker.getX()],Duration.millis(1000));
+        animation.setCycleCount(1);
+        animation.play();
         if (opponent.getHealthPoint() <= attacker.getAttackPower()) {
             opponent.setHealthPoint(0);
         } else {
             opponent.setHealthPoint(opponent.getHealthPoint() - attacker.getAttackPower());
         }
-        if (checkRangeForAttack(opponent, attacker)) {
-            if (attacker.getHealthPoint() <= opponent.getAttackPower()) {
-                attacker.setHealthPoint(0);
-            } else {
-                attacker.setHealthPoint(attacker.getHealthPoint() - opponent.getAttackPower());
-            }
-        }
+        final Animation hit = new SpriteAnimation(opponent,"hit",Map.getForcesView()[opponent.getY()][opponent.getX()],Duration.millis(1000));
+        hit.setCycleCount(1);
+        hit.play();
         attacker.setHasAttackedInThisTurn(true);
         checkKill(attacker);
         checkKill(opponent);
@@ -729,7 +728,7 @@ public class BattleController {
                 attackAndCounterAttack((Force) attackerCard, (Force) opponentCard);
             }
         } else {
-            if(Game.getInstance().isPlayer1Turn()) {
+            if (Game.getInstance().isPlayer1Turn()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("has attacked in this turn");
                 alert.show();
@@ -1062,13 +1061,6 @@ public class BattleController {
 
     public static void enterCustomGame() throws FileNotFoundException {
         MenuView.showChoosingModeWindow();
-    }
-
-    public static void setBattleForMulti(Map map) throws FileNotFoundException {
-        Game game = new Game();
-        Game.setCurrentGame(game);
-        game.setMap(map);
-        BattleView.showBattleForMultiPlayerGame();
     }
 
 }

@@ -261,10 +261,10 @@ public class Hero extends Force implements Cloneable{
         Game.getInstance().getMap().getCells()[2][0].setCellType(CellType.selfHero);
         Map.getForcesView()[0][2].setImage(hero.getImageViewOfCard().getImage());
         final Animation animation = new SpriteAnimation(hero,"breathing",Map.getForcesView()[0][2]
-        , Duration.millis(1000),0,0);
+        , Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
-        Map.getForcesView()[0][2].setY(Map.getForcesView()[0][2].getY()-25);
+        Map.getSpriteAnimations().add(animation);
         Game.getInstance().getMap().setFriendHero(hero);
         Game.getInstance().getMap().getFriendHero().setHasAttackedInThisTurn(false);
         Game.getInstance().getMap().getFriendHero().setHasMovedInThisTurn(false);

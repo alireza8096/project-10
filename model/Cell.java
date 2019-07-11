@@ -10,10 +10,12 @@ import model.collection.Buff;
 import model.collection.Card;
 import model.collection.Force;
 import model.collection.HandleFiles;
+import org.json.simple.parser.ParseException;
 import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -114,6 +116,7 @@ public class Cell {
             if (aForceIsSelected) {
                 setAForceIsSelected(false);
                 if(Card.getCardByCoordination(yImage,xImage)!=null) {
+                    System.out.println("attackkkk konnnnn babaaa");
                     BattleController.checkAllConditionsToAttack(Card.getCardByCoordination(selectedYImage, selectedXImage), Card.getCardByCoordination(yImage, xImage));
                 }
                 if (Map.cardCanBeMovedToThisCell(Card.getCardByCoordination(selectedYImage, selectedXImage), yImage, xImage)) {
@@ -126,6 +129,10 @@ public class Cell {
                         Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Hand.getIndexInHand(), yImage, xImage);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -133,12 +140,8 @@ public class Cell {
     }
 
 
-    private static void handleEventForce(ImageView force, int xImage, int yImage) {
+    public static void handleEventForce(ImageView force, int xImage, int yImage) {
         force.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-                    Card card = Card.getCardByCoordination(yImage, xImage);
-                    System.out.println("name : " + card.getName());
-                    System.out.println("attacked : " + card.isHasAttackedInThisTurn());
-                    System.out.println("moved : " + card.isHasMovedInThisTurn());
                     if (Card.thisCardIsYours(yImage, xImage) && (!Card.getCardByCoordination(yImage, xImage).isHasMovedInThisTurn()
                             || !Card.getCardByCoordination(yImage, xImage).isHasAttackedInThisTurn())) {
                         force.setEffect(new Glow(0.7));
@@ -226,20 +229,6 @@ public class Cell {
             return true;
         }
         return false;
-    }
-
-    public static Coordination returnCellHasThisCoordinationInside(double x, double y){
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 5; j++) {
-                ImageView cellView = Map.getCellsView()[i][j];
-                double cellX = cellView.getLayoutX();
-                double cellY = cellView.getLayoutY();
-                if ((x >= cellX && x <= cellX + 65) && (y >= cellY && y <= cellY + 65)){
-                    return new Coordination(j, i);
-                }
-            }
-        }
-        return null;
     }
 
 

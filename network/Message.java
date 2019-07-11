@@ -52,7 +52,6 @@ public class Message {
         Gson gson = new Gson();
         switch (jsonType) {
             case "Player":
-                System.out.println("player to server");
                 Player player = gson.fromJson(jsonString, Player.class);
                 functionsOfPlayerForServer(player, dos);
                 break;
@@ -83,7 +82,6 @@ public class Message {
                 functionsOfStringForClient(str);
                 break;
             case "Player":
-                System.out.println("a player has been sent");
                 Player player = gson.fromJson(jsonString, Player.class);
                 functionsOfPlayerForClient(player);
                 break;
@@ -289,6 +287,7 @@ public class Message {
                         }
                         player.setMainDeck(Deck.findDeckByName(player.getMainDeckName()));
                         createCollectionFromString(player,player.getCollectionToCreate());
+
                         AllDatas.account.setNowInThisMenu(false);
                         AllDatas.commandLine.setNowInThisMenu(true);
                     } catch (FileNotFoundException | CloneNotSupportedException e) {
@@ -303,7 +302,6 @@ public class Message {
         switch (functionName) {
             case "login":
                 try {
-                    System.out.println("logging in...");
                     Account.login(player.getUserName(), player.getPassword(), dos);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());

@@ -1,22 +1,27 @@
 package model.collection;
 
 import animation.GetImage;
+import animation.SpriteAnimation;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.AttackType;
 import model.Game;
 import model.Map;
 import model.Shop;
-import model.Timer;
 import network.Server;
+import org.json.simple.parser.ParseException;
 import view.MainView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import static javafx.scene.paint.Color.rgb;
@@ -42,66 +47,7 @@ public class Card implements Cloneable {
     private String desc;
     private int numInShop;
     private GetImage getImage;
-
-    private transient Timer timer;
-    private transient PrintStream owner;
-    private transient PrintStream highestPriceUser;
-    private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
-    private int auctionPrice;
-    private int highestAuctionPrice;
-    private transient IntegerProperty highestAuctionPriceProperty = new SimpleIntegerProperty();
-
-    public Timer getTimer() {
-        return timer;
-    }
-
-    public void setTimer(Timer timer) {
-        this.timer = timer;
-    }
-
-    public PrintStream getOwner() {
-        return owner;
-    }
-
-    public void setOwner(PrintStream owner) {
-        this.owner = owner;
-    }
-
-    public int getHighestAuctionPrice() {
-        return highestAuctionPrice;
-    }
-
-    public void setHighestAuctionPrice(int highestAuctionPrice) {
-        this.highestAuctionPrice = highestAuctionPrice;
-    }
-
-    public int getHighestAuctionPriceProperty() {
-        return highestAuctionPriceProperty.get();
-    }
-
-    public IntegerProperty highestAuctionPricePropertyProperty() {
-        return highestAuctionPriceProperty;
-    }
-
-    public void setHighestAuctionPriceProperty(int highestAuctionPriceProperty) {
-        this.highestAuctionPriceProperty.set(highestAuctionPriceProperty);
-    }
-
-    public PrintStream getHighestPriceUser() {
-        return highestPriceUser;
-    }
-
-    public void setHighestPriceUser(PrintStream highestPriceUser) {
-        this.highestPriceUser = highestPriceUser;
-    }
-
-    public int getAuctionPrice() {
-        return auctionPrice;
-    }
-
-    public void setAuctionPrice(int auctionPrice) {
-        this.auctionPrice = auctionPrice;
-    }
+    private transient SpriteAnimation animation;
 
     public GetImage getGetImage() {
         return getImage;
@@ -110,8 +56,16 @@ public class Card implements Cloneable {
     public void setGetImage(GetImage getImage) {
         this.getImage = getImage;
     }
-    private boolean hasFlag;
 
+    public SpriteAnimation getAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(SpriteAnimation animation) {
+        this.animation = animation;
+    }
+
+    private boolean hasFlag;
 
     public boolean isHasFlag() {
         return hasFlag;
@@ -120,6 +74,8 @@ public class Card implements Cloneable {
     public void setHasFlag(boolean hasFlag) {
         this.hasFlag = hasFlag;
     }
+
+    private transient IntegerProperty numInShopProperty = new SimpleIntegerProperty();
 
     public int getNumInShopProperty() {
         return numInShopProperty.get();
@@ -186,8 +142,6 @@ public class Card implements Cloneable {
         this.desc = desc;
         this.numInShop = Integer.parseInt(numInShop);
         this.setNumInShopProperty(Integer.parseInt(numInShop));
-        this.timer = new Timer();
-        this.timer.setCard(this);
     }
 
     public static Card findCardById(int id) throws CloneNotSupportedException {

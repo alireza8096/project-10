@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Stack;
 import java.util.logging.SocketHandler;
 
@@ -332,11 +331,7 @@ public class CollectionController{
 
         deleteDeckStack.setOnMouseClicked(event -> {
             try {
-                ArrayList<Deck> decksCopy = new ArrayList<>(Game.getInstance().getPlayer1().getDecksOfPlayer());
-                for (Deck deck : decksCopy){
-                    if (deck.getDeckName().equals(Deck.getSelectedDeck().getDeckName()))
-                        Game.getInstance().getPlayer1().getDecksOfPlayer().remove(deck);
-                }
+                Game.getInstance().getPlayer1().getDecksOfPlayer().remove(Deck.getSelectedDeck());
                 MenuView.showDecksInCollection();
             } catch (NullPointerException e) {
                 System.out.println(e.getMessage());

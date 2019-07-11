@@ -1,9 +1,9 @@
 package model;
 
+import animation.GetImage;
 import animation.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Glow;
@@ -19,10 +19,13 @@ import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Minion;
 import model.collection.Spell;
+import org.json.simple.parser.ParseException;
+import org.w3c.dom.css.Rect;
 import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -30,13 +33,11 @@ public class Hand {
     private static ImageView[] scenesBehind = new ImageView[5];
     private static ImageView[] cards = new ImageView[5];
     private static Label[] manas = new Label[5];
+    private static SpriteAnimation[] animation = new SpriteAnimation[5];
     private Card[] cardsInHand = new Card[5];
     private Card nextCard;
     private static boolean selectedInHand;
     private static int indexInHand;
-
-    private static double draggingX;
-    private static double draggingY;
 
 
     public static boolean isSelectedInHand() {
@@ -90,66 +91,15 @@ public class Hand {
         cards.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             Hand.indexInHand = i;
             if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
-                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <=
-                Game.getInstance().getPlayer1().getNumOfMana()) {
+                if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
                     MenuView.resetMap();
                     showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
                     selectedInHand = true;
                 }
             }
         });
-
-//        Bounds boundsInScene = cards.localToScene(cards.getBoundsInLocal());
-
-//        ImageView cardImage = cards;
-//        cardImage.setX(boundsInScene.getMinX() + i*180 - 100);
-//        cardImage.setY(boundsInScene.getMinY());
-//        System.out.println("* " + boundsInScene.getMinX());
-//        System.out.println("* " + boundsInScene.getMinY());
-//        System.out.println("here");
-//
-//
-//        AllDatas.currentRoot.getChildren().add(cardImage);
-//        cards.setOnMousePressed(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                System.out.println("pressed");
-//                showAllPossibleEntries(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]);
-//                draggingX = cardImage.getLayoutX() - event.getSceneX();
-//                draggingY = cardImage.getLayoutY() - event.getSceneY();
-//            }
-//        });
-//
-//        cards.setOnMouseDragged(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                System.out.println("dragged");
-//                Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].setImageViewOfCard(null);
-//                cardImage.setLayoutX(event.getSceneX() + draggingX);
-//                cardImage.setLayoutY(event.getSceneY() + draggingY);
-//            }
-//        });
-//
-//        cards.setOnMouseReleased(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                Coordination coordination = Cell.returnCellHasThisCoordinationInside(cardImage.getLayoutX(), cardImage.getLayoutY());
-//                System.out.println("cardImage.getLayoutX() : " + cardImage.getLayoutX());
-//                System.out.println("cardImage.getLayoutY() : " + cardImage.getLayoutY());
-//                System.out.println("coordination x : " + coordination.getX());
-//                System.out.println("coordination y : " + coordination.getY());
-//                try {
-//                    cardImage.setImage(null);
-//                    Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(i,
-//                            coordination.getX(), coordination.getY());
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-
         cards.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-            if(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i] != null) {
+            if (Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i] != null) {
                 if (Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
                     cards.setEffect(new Glow(0.7));
                     scenesBehind[i].setEffect(new Glow(0.7));
@@ -157,7 +107,7 @@ public class Hand {
             }
         });
         cards.addEventHandler(MouseEvent.MOUSE_EXITED, event -> {
-            if(Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i]!=null) {
+            if (Game.getInstance().getPlayer1().getMainDeck().getHand().cardsInHand[i] != null) {
                 if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i] != null) {
                     if (Game.getInstance().getPlayer1().getMainDeck().getHand().getCardsInHand()[i].getMana() <= Game.getInstance().getPlayer1().getNumOfMana()) {
                         cards.setEffect(null);
@@ -169,19 +119,17 @@ public class Hand {
     }
 
     public static void createHand() {
-        Rectangle rectangle = new Rectangle(65,65);
         HBox handScenes = new HBox();
         HBox cardsView = new HBox();
         HBox manasView = new HBox();
         for (int i = 0; i < 5; i++) {
             cards[i] = new ImageView();
-            cards[i].fitWidthProperty().bind(rectangle.widthProperty());
-            cards[i].fitHeightProperty().bind(rectangle.heightProperty());
             cards[i].setScaleX(1.3);
             cards[i].setScaleY(1.3);
             scenesBehind[i] = new ImageView();
             manas[i] = new Label();
             manas[i].setTextFill(Color.WHITE);
+            animation[i] = new SpriteAnimation(cards[i]);
             handScenes.getChildren().add(scenesBehind[i]);
             cardsView.getChildren().add(cards[i]);
             manasView.getChildren().add(manas[i]);
@@ -244,9 +192,12 @@ public class Hand {
                         "view/Photos/battle/card_background_disabled@2x.png")));
             }
             Hand.cards[i].setImage(card.getImageViewOfCard().getImage());
-            final Animation animation = new SpriteAnimation(card,"breathing",Hand.cards[i], Duration.millis(1000),0,0);
-            animation.setCycleCount(Animation.INDEFINITE);
-            animation.play();
+            Rectangle rectangle = new Rectangle(65, 65);
+            cards[i].fitHeightProperty().bind(rectangle.heightProperty());
+            cards[i].fitWidthProperty().bind(rectangle.widthProperty());
+            animation[i].setSpriteAnimation(card, "breathing", Duration.millis(1000));
+            animation[i].setCycleCount(Animation.INDEFINITE);
+            animation[i].play();
             Hand.manas[i].setText(Integer.toString(card.getMana()));
             Game.getInstance().getPlayer1().getMainDeck().getCardsInDeck().remove(card);
         }
@@ -282,14 +233,16 @@ public class Hand {
                             scenesBehind[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE +
                                     "view/Photos/battle/card_background_disabled@2x.png")));
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
                     cards[i].setImage(nextCard.getImageViewOfCard().getImage());
-                    final Animation animation = new SpriteAnimation(nextCard,"breathing",cards[i]
-                    ,Duration.millis(1000),0,0);
-                    animation.setCycleCount(Animation.INDEFINITE);
-                    animation.play();
+                    Rectangle rectangle = new Rectangle(65, 65);
+                    cards[i].fitWidthProperty().bind(rectangle.widthProperty());
+                    cards[i].fitHeightProperty().bind(rectangle.heightProperty());
+                    animation[i].setSpriteAnimation(nextCard, "breathing", Duration.millis(1000));
+                    animation[i].setCycleCount(Animation.INDEFINITE);
+                    animation[i].play();
                     manas[i].setText(Integer.toString(nextCard.getMana()));
                     return;
                 }
@@ -314,67 +267,57 @@ public class Hand {
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/hp_icon_in_map.png")));
         healthPointIcon.setFitWidth(25);
         healthPointIcon.setFitHeight(25);
-        StackPane.setMargin(healthPointIcon, new Insets(20, 20,  1, 1));
+        StackPane.setMargin(healthPointIcon, new Insets(20, 20, 1, 1));
         StackPane.setMargin(Map.getForcesView()[y][x], new Insets(1, 1, 30, 1));
 
-        Map.getForcesStack()[y][x].getChildren().addAll( Map.getForcesView()[y][x], healthPointIcon);
+        Map.getForcesStack()[y][x].getChildren().addAll(Map.getForcesView()[y][x], healthPointIcon);
         Map.getForcesStack()[y][x].setLayoutX(Map.getForcesView()[y][x].getX() + 34);
         Map.getForcesStack()[y][x].setLayoutY(Map.getForcesView()[y][x].getY() + 34);
 
 
     }
 
-    public void insertCardFromHandInMapWithDragging(int index, int x, int y){
-
-    }
-
-    public void insertCardFromHandInMap(int index, int x, int y) throws FileNotFoundException {
-            Card card = cardsInHand[index];
-            Game.getInstance().getPlayer1().setNumOfMana(Game.getInstance().getPlayer1().getNumOfMana() - card.getMana());
-            for(int i=0; i<5; i++){
-                if(cardsInHand[i] != null) {
-                    if (cardsInHand[i].getMana() > Game.getInstance().getPlayer1().getNumOfMana()) {
-                        scenesBehind[i].setImage(new Image(new FileInputStream(
-                                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
-                    }
+    public void insertCardFromHandInMap(int index, int x, int y) throws IOException, ParseException {
+        Card card = cardsInHand[index];
+        Game.getInstance().getPlayer1().setNumOfMana(Game.getInstance().getPlayer1().getNumOfMana() - card.getMana());
+        for (int i = 0; i < 5; i++) {
+            if (cardsInHand[i] != null) {
+                if (cardsInHand[i].getMana() > Game.getInstance().getPlayer1().getNumOfMana()) {
+                    scenesBehind[i].setImage(new Image(new FileInputStream(
+                            HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
                 }
             }
-            Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
-            card.setX(x);
-            card.setY(y);
-//            Map.getCellsView()[y][x].setDisable(true);
-            Map.getForcesView()[y][x].setImage(card.getImageViewOfCard().getImage());
-            final Animation animation = new SpriteAnimation(card,"breathing",Map.getForcesView()[y][x],
-                    Duration.millis(1000),0,0);
-            animation.setCycleCount(Animation.INDEFINITE);
-            animation.play();
-            Map.getForcesView()[0][2].setY(Map.getForcesView()[y][x].getY()-70);
-//            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
-//            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
-//            minion.setCanMove(false);
-//            minion.setCanAttack(false);
-            card.setHasMovedInThisTurn(true);
-            card.setHasAttackedInThisTurn(true);
-            Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);
-            for(int i=0; i<9; i++){
-                Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(
-                        HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
-                if(i < Game.getInstance().getPlayer1().getNumOfMana()){
-                    Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(
-                            HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
-                }
+        }
+        Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
+//        card.setX(x);
+//        card.setY(y);
+        Map.getForcesView()[y][x].setImage(card.getImageViewOfCard().getImage());
+        final Animation animation = new SpriteAnimation(card,"breathing",Map.getForcesView()[y][x],Duration.millis(1000));
+        Map.setAnimations(y,x,new SpriteAnimation(card.getImageViewOfCard()));
+        animation.setCycleCount(Animation.INDEFINITE);
+        animation.play();
+        card.setX(x);
+        card.setY(y);
+        card.setHasMovedInThisTurn(true);
+        card.setHasAttackedInThisTurn(true);
+        Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);
+        for (int i = 0; i < 9; i++) {
+            Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana_inactive.png")));
+            if (i < Game.getInstance().getPlayer1().getNumOfMana()) {
+                Game.getPlayerMana()[i].setImage(new Image(new FileInputStream(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/icon_mana.png")));
             }
-            try {
-                Hand.cards[Hand.indexInHand].setOpacity(0);
-                Hand.manas[Hand.indexInHand].setOpacity(0);
-                Hand.scenesBehind[Hand.indexInHand].setImage(new Image(new FileInputStream(
-                        HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-            if(card.getCardType().matches("minion")) {
-                Game.getInstance().getMap().getFriendMinions().add((Minion) card);
-            }
+        }
+        try {
+            Hand.cards[Hand.indexInHand].setOpacity(0);
+            Hand.manas[Hand.indexInHand].setOpacity(0);
+            Hand.scenesBehind[Hand.indexInHand].setImage(new Image(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/card_background_disabled@2x.png")));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        if (card.getCardType().matches("minion")) {
+            Game.getInstance().getMap().getFriendMinions().add((Minion) card);
+        }
     }
 
     public void removeCardFromHand(int index) {

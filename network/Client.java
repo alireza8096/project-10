@@ -20,15 +20,6 @@ public class Client {
     private Thread clientThread;
     private ChatClient chatClient;
     private boolean inChat;
-    private String opponentName;
-
-    public String getOpponentName() {
-        return opponentName;
-    }
-
-    public void setOpponentName(String opponentName) {
-        this.opponentName = opponentName;
-    }
 
     public boolean isInChat() {
         return inChat;
@@ -63,7 +54,14 @@ public class Client {
     }
 
     public Client() throws IOException {
-        this.socket = new Socket("localhost", 7766);
+        String configFileName = "/Users/hamilamailee/Documents/project-10/config.txt";
+        InputStream inputStream = new FileInputStream(configFileName);
+        MainView.properties.load(inputStream);
+
+        String ip = MainView.properties.getProperty("ip");
+        int port = Integer.parseInt(MainView.properties.getProperty("port"));
+        this.socket = new Socket(ip, port);
+//        this.socket = new Socket("localhost", 7766);
         clientThread = new Thread(new Runnable() {
             @Override
             public void run() {

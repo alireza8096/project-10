@@ -27,38 +27,11 @@ public class Shop{
     private static VBox itemCardsVBox = new VBox();
     private static VBox heroCardsVBox = new VBox();
 
-    private static ArrayList<Card> cardsInAuction = new ArrayList<>();
-
-    private static boolean inAuctionWindow;
-    private static boolean inAddingPriceWindow;
-
-    public static boolean isInAddingPriceWindow() {
-        return inAddingPriceWindow;
-    }
-
-    public static void setInAddingPriceWindow(boolean inAddingPriceWindow) {
-        Shop.inAddingPriceWindow = inAddingPriceWindow;
-    }
-
     //for not handle events of cards that are not selected while buying a card
     private static boolean isShowingSpecificCard;
 
 
-    public static ArrayList<Card> getCardsInAuction() {
-        return cardsInAuction;
-    }
 
-    public static void setCardsInAuction(ArrayList<Card> cardsInAuction) {
-        Shop.cardsInAuction = cardsInAuction;
-    }
-
-    public static boolean isInAuctionWindow() {
-        return inAuctionWindow;
-    }
-
-    public static void setInAuctionWindow(boolean inAuctionWindow) {
-        Shop.inAuctionWindow = inAuctionWindow;
-    }
 
     private Game game;
 
@@ -200,7 +173,6 @@ public class Shop{
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
-//        Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
         System.out.println(cardName + " was added to your collection successfully");
     }
 
@@ -295,7 +267,7 @@ public class Shop{
                 removeProcess(Game.getInstance().getPlayer1().getHeroesInCollection(), hero);
                 assert hero != null;
                 daric += hero.getPrice();
-                Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
+//                daricValue.set(daric);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -353,7 +325,6 @@ public class Shop{
                 break;
         }
         Game.getInstance().getPlayer1().setDaric(daric);
-//        Game.getInstance().getPlayer1().setDaricProperty(Game.getInstance().getPlayer1().getDaric());
         System.out.println("Your daric now : " + daric);
     }
 
