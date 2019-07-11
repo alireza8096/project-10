@@ -259,6 +259,7 @@ public class ShopController {
             public void handle(MouseEvent event) {
                 int offeredPrice = Integer.parseInt(price.getText());
                 int currentPrice = card.getHighestAuctionPrice();
+                System.out.println("^^^^^^ -> currentHighestPrice : " + currentPrice);
 
 //                if (offeredPrice > currentPrice){
 //                    card.setHighestPriceUser(MainView.getClient().getDos());
@@ -282,6 +283,21 @@ public class ShopController {
 
 
     public static void setCardInCollectionAfterReceiving(Card card){
+        System.out.println("$$$$$$$$$$$$$$$ -> cardName : " + card.getName());
+        System.out.println("card type : " + card.getCardType());
+        System.out.println("highest price : " + card.getHighestAuctionPrice());
+        System.out.println("TTTTimer : " + card.getTimer());
+        System.out.println("Tiimer.getCard : " + card.getTimer().getCard());
+        card.getTimer().setCard(new Card());
+
+        for (Card card1 : Shop.getCardsInAuction()){
+            if (card1.getName().equals(card.getName())){
+                card.setTimer(card1.getTimer());
+                card1.setHighestAuctionPrice(card.getHighestAuctionPrice());
+                card1.setHighestAuctionPriceProperty(card1.getHighestAuctionPrice());
+            }
+        }
+
         for (Card card1 : Game.getInstance().getPlayer1().getCardsInCollection()){
             if (card1.getName().equals(card.getName())) {
                 card.setTimer(card1.getTimer());
