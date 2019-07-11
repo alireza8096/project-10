@@ -1,0 +1,744 @@
+{
+  "frames": {
+    "boss_vampire_idle_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,224},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_018.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_024.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_030.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_017.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_023.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,123},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{1010,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_hit_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_016.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_022.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{414,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_015.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{717,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_014.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,830},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_021.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_014.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_020.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_projectile_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{110,40}}",
+      "frame": "{{0,41},{110,40}}",
+      "sourceSize": "{110,40}",
+      "rotated": false
+    },
+    "boss_vampire_attack_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_015.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,729},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{111,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{1010,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_016.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,628},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{818,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,830},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{212,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{808,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_014.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_038.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_017.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,527},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,729},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{313,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_015.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_hit_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_037.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_018.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,426},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{919,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_036.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,628},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{1010,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_029.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_035.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{515,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_020.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,224},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_019.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,325},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,426},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,527},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_034.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_028.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_projectile_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{110,40}}",
+      "frame": "{{0,0},{110,40}}",
+      "sourceSize": "{110,40}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_027.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_033.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_hit_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_021.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,123},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_death_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,325},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_idle_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_026.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_032.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_breathing_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_run_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{909,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_019.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{707,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_projectile_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{110,40}}",
+      "frame": "{{0,82},{110,40}}",
+      "sourceSize": "{110,40}",
+      "rotated": false
+    },
+    "boss_vampire_attack_025.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{616,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "boss_vampire_attack_031.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    }
+  },
+  "metadata": {
+    "format": 2,
+    "size": "{2048,1024}",
+    "textureFileName": "boss_vampire.png"
+  }
+}

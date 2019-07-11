@@ -1,0 +1,576 @@
+{
+  "frames": {
+    "neutral_firestarter_attack_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1128,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{705,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_020.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{987,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{423,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_hit_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1410,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{705,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{0,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1410,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{423,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_019.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1128,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_026.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{987,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{0,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{282,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_014.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1128,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_021.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{987,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{423,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1269,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1410,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{423,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{423,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_hit_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_027.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{423,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{0,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{705,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1269,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_015.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1128,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_022.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{987,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{705,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{0,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1410,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1269,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_028.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_023.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{987,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_030.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1269,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_016.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1128,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_hit_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{282,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{282,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1410,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1269,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{282,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{0,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{282,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{141,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{282,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_029.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{282,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{141,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{564,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{141,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{0,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_017.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1128,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_024.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{987,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{141,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{141,564},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_idle_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{141,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1269,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1410,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{705,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{846,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{0,423},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{705,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_025.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{987,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_018.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1128,141},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_death_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{423,282},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_breathing_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{705,705},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_run_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{141,0},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    },
+    "neutral_firestarter_attack_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{140,140}}",
+      "frame": "{{1269,846},{140,140}}",
+      "sourceSize": "{140,140}",
+      "rotated": false
+    }
+  },
+  "metadata": {
+    "format": 2,
+    "size": "{2048,1024}",
+    "textureFileName": "neutral_firestarter.png"
+  }
+}

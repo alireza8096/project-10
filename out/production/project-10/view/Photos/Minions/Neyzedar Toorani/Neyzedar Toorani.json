@@ -1,0 +1,758 @@
+{
+  "frames": {
+    "neutral_giantcrab_breathing_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_016.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_hit_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_036.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_031.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_028.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_051.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_023.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_048.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_043.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_015.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_035.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_hit_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_030.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_027.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_050.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_022.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_047.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_042.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_019.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_014.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_039.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_034.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_hit_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_026.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_014.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_021.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_046.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_018.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_041.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_013.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_038.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_008.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_033.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_053.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_025.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,101},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_020.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_011.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_045.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_017.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,909},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_040.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_006.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{202,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_000.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_037.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_009.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_032.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,404},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_run_002.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{0,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_029.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_052.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{606,707},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_024.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_001.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,303},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_010.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,606},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_003.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,202},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_049.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_005.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{404,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_012.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,505},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_idle_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{101,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_attack_044.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{505,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_death_004.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,0},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    },
+    "neutral_giantcrab_breathing_007.png": {
+      "offset": "{0,0}",
+      "sourceColorRect": "{{0,0},{100,100}}",
+      "frame": "{{303,808},{100,100}}",
+      "sourceSize": "{100,100}",
+      "rotated": false
+    }
+  },
+  "metadata": {
+    "format": 2,
+    "size": "{1024,1024}",
+    "textureFileName": "neutral_giantcrab.png"
+  }
+}
