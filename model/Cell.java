@@ -10,10 +10,12 @@ import model.collection.Buff;
 import model.collection.Card;
 import model.collection.Force;
 import model.collection.HandleFiles;
+import org.json.simple.parser.ParseException;
 import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
@@ -127,6 +129,10 @@ public class Cell {
                         Game.getInstance().getPlayer1().getMainDeck().getHand().insertCardFromHandInMap(Hand.getIndexInHand(), yImage, xImage);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -134,12 +140,8 @@ public class Cell {
     }
 
 
-    private static void handleEventForce(ImageView force, int xImage, int yImage) {
+    public static void handleEventForce(ImageView force, int xImage, int yImage) {
         force.addEventHandler(MouseEvent.MOUSE_ENTERED, event -> {
-//                    Card card = Card.getCardByCoordination(yImage, xImage);
-//                    System.out.println("name : " + card.getName());
-//                    System.out.println("attacked : " + card.isHasAttackedInThisTurn());
-//                    System.out.println("moved : " + card.isHasMovedInThisTurn());
                     if (Card.thisCardIsYours(yImage, xImage) && (!Card.getCardByCoordination(yImage, xImage).isHasMovedInThisTurn()
                             || !Card.getCardByCoordination(yImage, xImage).isHasAttackedInThisTurn())) {
                         force.setEffect(new Glow(0.7));

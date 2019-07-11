@@ -264,7 +264,7 @@ public class Hero extends Force implements Cloneable{
         , Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
-        Map.getForcesView()[0][2].setY(Map.getForcesView()[0][2].getY()-25);
+        Map.getSpriteAnimations().add(animation);
         Game.getInstance().getMap().setFriendHero(hero);
         Game.getInstance().getMap().getFriendHero().setHasAttackedInThisTurn(false);
         Game.getInstance().getMap().getFriendHero().setHasMovedInThisTurn(false);

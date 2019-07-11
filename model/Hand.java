@@ -1,5 +1,6 @@
 package model;
 
+import animation.GetImage;
 import animation.SpriteAnimation;
 import javafx.animation.Animation;
 import javafx.event.EventHandler;
@@ -18,11 +19,13 @@ import model.collection.Card;
 import model.collection.HandleFiles;
 import model.collection.Minion;
 import model.collection.Spell;
+import org.json.simple.parser.ParseException;
 import org.w3c.dom.css.Rect;
 import view.MenuView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -274,7 +277,7 @@ public class Hand {
 
     }
 
-    public void insertCardFromHandInMap(int index, int x, int y) throws FileNotFoundException {
+    public void insertCardFromHandInMap(int index, int x, int y) throws IOException, ParseException {
         Card card = cardsInHand[index];
         Game.getInstance().getPlayer1().setNumOfMana(Game.getInstance().getPlayer1().getNumOfMana() - card.getMana());
         for (int i = 0; i < 5; i++) {
@@ -286,11 +289,15 @@ public class Hand {
             }
         }
         Game.getInstance().getMap().getCells()[x][y].setCellType(CellType.selfMinion);
-        card.setX(x);
+//        card.setX(x);
+//        card.setY(y);
         Map.getForcesView()[y][x].setImage(card.getImageViewOfCard().getImage());
-        Map.getAnimations()[y][x].setSpriteAnimation(card,"breathing",Duration.millis(1000));
-        Map.getAnimations()[y][x].setCycleCount(Animation.INDEFINITE);
-        Map.getAnimations()[y][x].play();
+        final Animation animation = new SpriteAnimation(card,"breathing",Map.getForcesView()[y][x],Duration.millis(1000));
+        Map.setAnimations(y,x,new SpriteAnimation(card.getImageViewOfCard()));
+        animation.setCycleCount(Animation.INDEFINITE);
+        animation.play();
+        card.setX(x);
+        card.setY(y);
         card.setHasMovedInThisTurn(true);
         card.setHasAttackedInThisTurn(true);
         Game.getInstance().getPlayer1().getMainDeck().getHand().removeCardFromHand(index);

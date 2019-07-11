@@ -80,7 +80,6 @@ public class AI {
         ,Map.getForcesView()[8][2],Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
-        Map.getForcesView()[8][2].setY(Map.getForcesView()[8][2].getY() - 25);
         AI.setAllAICardsMovable();
     }
 
@@ -174,8 +173,12 @@ public class AI {
             if (cardCanBeMovedToThisCellAI(force, x, y)) {
                 Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
                 Map.getForcesView()[force.getY()][force.getX()].setImage(null);
+                Map.getForcesView()[force.getY()][force.getX()] = new ImageView();
+                Map.getForcesView()[force.getY()][force.getX()].setX(Map.getCellsView()[force.getY()][force.getX()].getX());
+                Map.getForcesView()[force.getY()][force.getX()].setY(Map.getCellsView()[force.getY()][force.getX()].getY());
+                Cell.handleEventForce(Map.getForcesView()[force.getY()][force.getX()],force.getY(),force.getX());
+                AllDatas.currentRoot.getChildren().add(Map.getForcesView()[force.getY()][force.getX()]);
 //                if (force.getCardType().matches("hero")) {
-                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() + 25);
 //                } else {
 //                    Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
 //                    Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
@@ -187,8 +190,9 @@ public class AI {
                 ,Duration.millis(1000));
                 animation.setCycleCount(Animation.INDEFINITE);
                 animation.play();
+                Map.getSpriteAnimations().add(animation);
 //                if (force.getCardType().matches("hero")) {
-                    Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
+//                    Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
 //                } else {
 //                    Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
 //                    Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
@@ -321,7 +325,7 @@ public class AI {
         animation.play();
 //        Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
 //        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
-        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 25);
+//        Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 25);
         minion.setX(x);
         minion.setY(y);
         minion.setHasMovedInThisTurn(true);

@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import model.*;
+import model.collection.Card;
 import model.collection.HandleFiles;
 import network.Message;
 import org.json.simple.parser.ParseException;
@@ -201,7 +202,6 @@ public class Controller {
         } catch (UnsupportedAudioFileException | LineUnavailableException e) {
             e.printStackTrace();
         }
-
         AllDatas.currentRoot = AllDatas.battle.getRoot();
         AllDatas.currentScene = AllDatas.battle.getScene();
         AllDatas.battle.setNowInThisMenu(true);

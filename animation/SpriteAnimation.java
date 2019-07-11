@@ -1,18 +1,21 @@
 package animation;
 
 import animation.GetImage;
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.Game;
+import model.Map;
 import model.collection.Card;
 
 import java.util.ArrayList;
 
 public class SpriteAnimation extends Transition {
-    private transient final ImageView imageView;
+    private transient ImageView imageView;
     private String type;
     private int lastIndex;
     private transient Card card;
@@ -77,9 +80,6 @@ public class SpriteAnimation extends Transition {
                     height = GetImage.getHeight(card.getGetImage().hits[index]);
                     break;
                 case "breathing":
-//                    System.out.println("name : " + card.getName());
-//                    System.out.println("index : " +index);
-//                    System.out.println("length : " + card.getGetImage().breathings.length);
                     x = GetImage.getX(card.getGetImage().breathings[index]);
                     y = GetImage.getY(card.getGetImage().breathings[index]);
                     width = GetImage.getWidth(card.getGetImage().breathings[index]);
@@ -97,12 +97,12 @@ public class SpriteAnimation extends Transition {
         }
     }
 
-//    public void removeThisAnimation(){
-//        ArrayList<SpriteAnimation> copy = new ArrayList<>(Game.getInstance().getMap().getAnimations());
-//        for(SpriteAnimation remove : copy){
-//            if(remove.equals(this)){
-//                Game.getInstance().getMap().getAnimations().remove(this);
-//            }
-//        }
-//    }
+    public void removeThisAnimation(){
+        ArrayList<Animation> copy = new ArrayList<>(Map.getSpriteAnimations());
+        for(Animation animation : copy){
+            if(copy.equals(this)){
+                Map.getSpriteAnimations().remove(this);
+            }
+        }
+    }
 }

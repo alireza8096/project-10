@@ -232,6 +232,7 @@ public class Message {
                         }
                         player.setMainDeck(Deck.findDeckByName(player.getMainDeckName()));
                         createCollectionFromString(player,player.getCollectionToCreate());
+
                         AllDatas.account.setNowInThisMenu(false);
                         AllDatas.commandLine.setNowInThisMenu(true);
                     } catch (FileNotFoundException e) {

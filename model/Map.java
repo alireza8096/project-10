@@ -22,11 +22,16 @@ public class Map {
     private static ImageView[][] itemsView = new ImageView[9][5];
     private static StackPane[][] forcesStack = new StackPane[9][5];
     private static SpriteAnimation[][] animations = new SpriteAnimation[9][5];
+    private static ArrayList<Animation> spriteAnimations = new ArrayList<>();
 
     private ArrayList<Minion> enemyMinions = new ArrayList<>();
     private ArrayList<Minion> friendMinions = new ArrayList<>();
     private Hero enemyHero;
     private Hero friendHero;
+
+    public static ArrayList<Animation> getSpriteAnimations() {
+        return spriteAnimations;
+    }
 
     public static ImageView[][] getItemsView() {
         return itemsView;
@@ -65,9 +70,9 @@ public class Map {
                     forcesView[i][j] = new ImageView();
                     forcesView[i][j].setX(cellsView[i][j].getX());
                     forcesView[i][j].setY(cellsView[i][j].getY());
-                    forcesView[i][j].fitHeightProperty().bind(rectangle.heightProperty());
-                    forcesView[i][j].fitWidthProperty().bind(rectangle.widthProperty());
-                    animations[i][j] = new SpriteAnimation(forcesView[i][j]);
+//                    forcesView[i][j].fitHeightProperty().bind(rectangle.heightProperty());
+//                    forcesView[i][j].fitWidthProperty().bind(rectangle.widthProperty());
+//                    animations[i][j] = new SpriteAnimation(forcesView[i][j]);
                     AllDatas.currentRoot.getChildren().add(forcesView[i][j]);
 
                 } catch (FileNotFoundException e) {
@@ -75,6 +80,10 @@ public class Map {
                 }
             }
         }
+    }
+
+    public static void setAnimations(int x,int y,SpriteAnimation animation) {
+        Map.getAnimations()[x][y] = animation;
     }
 
     public static SpriteAnimation[][] getAnimations() {
