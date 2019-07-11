@@ -106,11 +106,11 @@ public class Message {
                 Game.getInstance().setMap(map);
                 break;
             case "getFirstMap":
-                try {
-                    BattleController.setBattleForMulti(map);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    BattleController.setBattleForMulti(map);
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
                 break;
         }
     }
@@ -151,7 +151,7 @@ public class Message {
                     System.out.println(e.getMessage());
                 }
             case "opponentName":
-                MainView.getClient().setOpponentName(str);
+//                MainView.getClient().setOpponentName(str);
                 break;
         }
     }

@@ -986,11 +986,7 @@ public class BattleController {
             Game.getInstance().setGameMode(GameMode.killingHeroOfEnemy);
             try {
                 Controller.enterBattle();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
+            } catch (IOException | CloneNotSupportedException | ParseException | java.text.ParseException e) {
                 e.printStackTrace();
             }
         });
@@ -1037,7 +1033,7 @@ public class BattleController {
 
 
                 Controller.enterBattle();
-            } catch (IOException | CloneNotSupportedException | ParseException e) {
+            } catch (IOException | CloneNotSupportedException | ParseException | java.text.ParseException e) {
                 e.printStackTrace();
             }
         });

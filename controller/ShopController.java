@@ -283,11 +283,6 @@ public class ShopController {
 
 
     public static void setCardInCollectionAfterReceiving(Card card){
-        System.out.println("$$$$$$$$$$$$$$$ -> cardName : " + card.getName());
-        System.out.println("card type : " + card.getCardType());
-        System.out.println("highest price : " + card.getHighestAuctionPrice());
-        System.out.println("TTTTimer : " + card.getTimer());
-        System.out.println("Tiimer.getCard : " + card.getTimer().getCard());
         card.getTimer().setCard(new Card());
 
         for (Card card1 : Shop.getCardsInAuction()){
