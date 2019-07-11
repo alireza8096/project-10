@@ -251,6 +251,7 @@ public class Message {
                 break;
             case "offeredPriceBack":
                 int highestPrice = card.getHighestAuctionPrice();
+                System.out.println("offered price back : " + highestPrice);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
@@ -523,14 +524,14 @@ public class Message {
         int offeredPrice = card.getAuctionPrice();
         System.out.println("@@@@@@@ -> currentPrice : " + currentPrice + " , offeredPrice : " + offeredPrice);
 
-//        if (offeredPrice > currentPrice){
+        if (offeredPrice > currentPrice){
             cardInServer.setHighestAuctionPrice(offeredPrice);
             cardInServer.setHighestAuctionPriceProperty(offeredPrice);
             card.setHighestAuctionPrice(offeredPrice);
             card.setHighestAuctionPriceProperty(offeredPrice);
             cardInServer.setHighestPriceUser(userDos);
             card.setHighestPriceUser(userDos);
-//        }
+        }
 
 
     }
