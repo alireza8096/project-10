@@ -29,7 +29,7 @@ public class Cell {
 //    private ArrayList<Buff> buffs = new ArrayList<>();
 //    private ArrayList<CellImpactType> impactTypes = new ArrayList<>();
 
-    private static CellItemType cellItemType;
+    private CellItemType cellItemType;
     private static boolean aForceIsSelected;
     private static int selectedXImage;
     private static int selectedYImage;
@@ -72,12 +72,12 @@ public class Cell {
         return aForceIsSelected;
     }
 
-    public static CellItemType getCellItemType() {
+    public CellItemType getCellItemType() {
         return cellItemType;
     }
 
-    public static void setCellItemType(CellItemType cellItemType) {
-        Cell.cellItemType = cellItemType;
+    public void setCellItemType(CellItemType cellItemType) {
+        this.cellItemType = cellItemType;
     }
 
     public static void setAForceIsSelected(boolean aForceIsSelected) {

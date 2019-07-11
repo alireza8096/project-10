@@ -201,6 +201,7 @@ public class Controller {
     }
 
     public static void enterBattle() throws IOException, CloneNotSupportedException, ParseException, java.text.ParseException {
+        System.out.println("entered battle here!!!!");
         AudioPlayer.getBattleAudio().play();
 
         try {

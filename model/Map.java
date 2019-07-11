@@ -2,8 +2,11 @@ package model;
 
 import animation.SpriteAnimation;
 import javafx.animation.Animation;
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import model.collection.*;
@@ -16,6 +19,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Map {
+    public static Random random = new Random();
     private Cell[][] cells = new Cell[5][9];
     private static ImageView[][] cellsView = new ImageView[9][5];
     private static ImageView[][] forcesView = new ImageView[9][5];
@@ -49,7 +53,7 @@ public class Map {
     }
 
     {
-        Rectangle rectangle = new Rectangle(130,130);
+
         for(int i=0; i<9; i++){
             for(int j=0; j<5; j++){
                 try {
@@ -60,6 +64,15 @@ public class Map {
                     cellsView[i][j].setY(320+j*69);
                     AllDatas.currentRoot.getChildren().add(cellsView[i][j]);
 
+                    Bounds boundsInScene = cellsView[i][j].localToScene(cellsView[i][j].getBoundsInLocal());
+
+                    cellsView[i][j].setOnMousePressed(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+
+                        }
+                    });
+
                     itemsView[i][j] = new ImageView();
                     itemsView[i][j].setScaleX(0.45);
                     itemsView[i][j].setScaleY(0.45);
@@ -67,13 +80,18 @@ public class Map {
                     itemsView[i][j].setY(cellsView[i][j].getY() - 50);
                     AllDatas.currentRoot.getChildren().add(itemsView[i][j]);
 
+                    forcesStack[i][j] = new StackPane();
+                    forcesStack[i][j].setPrefWidth(cellsView[i][j].getFitWidth());
+                    forcesStack[i][j].setPrefHeight(cellsView[i][j].getFitHeight());
+                    forcesStack[i][j].setLayoutX(cellsView[i][j].getX());
+                    forcesStack[i][j].setLayoutY(cellsView[i][j].getY());
+                    AllDatas.currentRoot.getChildren().add(forcesStack[i][j]);
+
                     forcesView[i][j] = new ImageView();
                     forcesView[i][j].setX(cellsView[i][j].getX());
                     forcesView[i][j].setY(cellsView[i][j].getY());
-//                    forcesView[i][j].fitHeightProperty().bind(rectangle.heightProperty());
-//                    forcesView[i][j].fitWidthProperty().bind(rectangle.widthProperty());
-//                    animations[i][j] = new SpriteAnimation(forcesView[i][j]);
                     AllDatas.currentRoot.getChildren().add(forcesView[i][j]);
+
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -111,7 +129,6 @@ public class Map {
     }
 
     public void placeOneFlagOnMap() {
-        Random random = new Random();
         int flagX = random.nextInt(5);
         int flagY = random.nextInt(9);
         while (!coordinationOfFlagIsRightAtFirst(flagX, flagY)){
@@ -120,7 +137,7 @@ public class Map {
         }
         try {
             itemsView[flagY][flagX].setImage(new Image(new FileInputStream(
-                    HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/temp_flag.png")));
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/shop/price_icon.png")));
             itemsView[flagY][flagX].setFitWidth(cellsView[flagY][flagX].getFitWidth() - 100);
             itemsView[flagY][flagX].setFitHeight(cellsView[flagY][flagX].getFitHeight() - 100);
             cells[flagX][flagY].setCellItemType(CellItemType.flag);
@@ -179,21 +196,6 @@ public class Map {
                 cells[i][j] = new Cell();
                 cells[i][j].setCellType(CellType.empty);
             }
-        }
-    }
-
-
-    public static void setFlagForGame() {
-        int x = (int) Math.random() % 5;
-        int y = (int) Math.random() % 9;
-        Cell.getCellByCoordination(x, y).setCellItemType(CellItemType.flag);
-    }
-
-    public static void setMultiFlag() {
-        for (int i = 0; i < 5; i++) {
-            int x = (int) Math.random() % 5;
-            int y = (int) Math.random() % 9;
-            Cell.getCellByCoordination(x, y).setCellItemType(CellItemType.collectibleItem);
         }
     }
 

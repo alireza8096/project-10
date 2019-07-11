@@ -283,8 +283,7 @@ public class ShopController {
 
 
     public static void setCardInCollectionAfterReceiving(Card card){
-        card.getTimer().setCard(new Card());
-
+//        card.getTimer().setCard(new Card());
         for (Card card1 : Shop.getCardsInAuction()){
             if (card1.getName().equals(card.getName())){
                 card.setTimer(card1.getTimer());

@@ -1,5 +1,6 @@
 package view;
 
+import Audio.AudioPlayer;
 import animation.SpriteAnimation;
 import controller.*;
 import javafx.animation.Animation;
@@ -36,6 +37,8 @@ import model.collection.Hero;
 import model.collection.Item;
 import network.chatroom.ChatClient;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -502,6 +505,7 @@ public class MenuView {
     public static void showBattle() throws IOException, CloneNotSupportedException, java.text.ParseException {
         AllDatas.currentRoot.getChildren().clear();
         MainView.primaryStage.setScene(AllDatas.currentScene);
+        System.out.println("showing battle herererere!!!");
 
         ImageView background = MainView.getPhotoWithThisPath(
                 HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/background@2x.jpg");
@@ -529,7 +533,16 @@ public class MenuView {
         AllDatas.currentRoot.getChildren().addAll(background, middleGround, backButton);
 
 //        sampleGame();
+        System.out.println("before map");
         Game.getInstance().setMap(new Map());
+        System.out.println("after map");
+
+        if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags){
+            Game.getInstance().getMap().placeFlagsOnMap();
+        }else if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags){
+            Game.getInstance().getMap().placeOneFlagOnMap();
+        }
+
         AI.createAIPlayer();
         Hero.insertHeroInMap();
         Rectangle rectangle = new Rectangle(258, 293);
@@ -557,7 +570,8 @@ public class MenuView {
         Hand.createHand();
         Hand.setHand();
         Hand.handController();
-        BattleView.setEndTurn(MainView.getPhotoWithThisPath(HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_end_turn_mine@2x.png"));
+        BattleView.setEndTurn(MainView.getPhotoWithThisPath(
+                HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/button_end_turn_mine@2x.png"));
         AllDatas.currentRoot.getChildren().add(BattleView.getEndTurn());
         BattleView.handleEndTurn();
     }
@@ -569,8 +583,10 @@ public class MenuView {
 
         backButton.setOnMouseClicked(event -> {
             try {
+                AudioPlayer.getBattleAudio().stop();
+                AudioPlayer.getMenuAudio().play();
                 Controller.chooseSingleOrMultiPlayerWindow();
-            } catch (FileNotFoundException e) {
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                 e.printStackTrace();
             }
         });

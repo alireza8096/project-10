@@ -407,11 +407,12 @@ public class BattleController {
 //                Map.getForcesView()[y][x].getY(), Map.getForcesView()[force.getY()][force.getX()]);
 
         try {
-            Audio.AudioPlayer.playThisAudio(
+            AudioPlayer.playThisAudio(
                     HandleFiles.BEFORE_RELATIVE + "Audio/sounds/move_sound.wav", AudioPlayer.Duration.oneTime);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
+
         Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
         Map.getForcesView()[force.getY()][force.getX()].setImage(null);
         Map.getForcesView()[force.getY()][force.getX()] = new ImageView();
@@ -425,12 +426,35 @@ public class BattleController {
         final Animation animation = new SpriteAnimation(force,"breathing",Map.getForcesView()[y][x],Duration.millis(1000));
         animation.setCycleCount(Animation.INDEFINITE);
         animation.play();
+
+//        Cell.getCellByCoordination(force.getX(), force.getY()).setCellType(CellType.empty);
+//        if (force.getCardType().matches("hero")) {
+//            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() + 25);
+//        } else {
+//            Map.getForcesView()[force.getY()][force.getX()].setX(Map.getForcesView()[force.getY()][force.getX()].getX() - 34);
+//            Map.getForcesView()[force.getY()][force.getX()].setY(Map.getForcesView()[force.getY()][force.getX()].getY() - 34);
+//        }
+//        Map.getCellsView()[force.getY()][force.getX()].setDisable(false);
+
+
+//        force.setX(x);
+//        force.setY(y);
+////        Map.getCellsView()[y][x].setDisable(true);
+//        Map.getForcesView()[y][x].setImage(force.getForceInField());
+//        if (force.getCardType().matches("hero")) {
+//            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() - 25);
+//        } else {
+//            Map.getForcesView()[y][x].setX(Map.getForcesView()[y][x].getX() + 34);
+//            Map.getForcesView()[y][x].setY(Map.getForcesView()[y][x].getY() + 34);
+//        }
+//        Map.getForcesView()[y][x].setDisable(false);
         force.setHasMovedInThisTurn(true);
         applyEffectsOfTargetCellOnCard(force, x, y);
     }
 
     public static void applyEffectsOfTargetCellOnCard(Card card, int x, int y) {
         applyCellType(card, x, y);
+        applyCellItemTypeOnCard(card, x, y);
     }
 
     public static void applyCellType(Card card, int x, int y) {
@@ -441,50 +465,35 @@ public class BattleController {
         }
     }
 
-//    public static void applyCellImpactTypeOnCard(Card card, int x, int y){
-////        CellImpactType cellImpactType = Game.getInstance().getMap().getCells()[x][y].getCellImpactType();
-//        Buff buff;
-//        switch (cellImpactType){
-//            case fire:
-//                buff = new Buff("fireBuff", 2, 1);
-//                CellImpactType.applyFireImpactOnCard(card, buff);
-//                break;
-//            case poison:
-//                buff = new Buff("poisonBuff", 1, 1);
-//                CellImpactType.applyPoisonImpactOnCard(card, buff);
-//                break;
-//            case holy:
-//                CellImpactType.applyHolyImpactOnCard(card);
-//                break;
-//        }
-//    }
+    public static void applyCellItemTypeOnCard(Card card, int x, int y) {
+        System.out.println("HERE 11111111");
+        CellItemType cellItemType = Game.getInstance().getMap().getCells()[x][y].getCellItemType();
+        switch (cellItemType) {
+            case flag://collecting flag
+                System.out.println("HERE 2222222");
+                if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags) {
+                    Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
+                    card.setHasFlag(true);
+                    System.out.println("HERERERR");
+                    Map.getItemsView()[y][x].setImage(null);
+                    if (((Force) card).thisForceIsFriend()) {
+                        Game.getInstance().getPlayer1().setHasFlag(true);
+                    } else {
+                        Game.getInstance().getPlayer2().setHasFlag(true);
+                    }
 
-//    public static void applyCellItemTypeOnCard(Card card, int x, int y) {
-//        CellItemType cellItemType = Game.getInstance().getMap().getCells()[x][y].getCellItemType();
-//        switch (cellItemType) {
-//            case flag://collecting flag
-//                if (Game.getInstance().getGameMode() == GameMode.collectingAndKeepingFlags) {
-//                    Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
-//                    card.setHasFlag(true);
-//                    Map.getItemsView()[y][x].setImage(null);
-//                    if (((Force) card).thisForceIsFriend()) {
-//                        Game.getInstance().getPlayer1().setHasFlag(true);
-//                    } else {
-//                        Game.getInstance().getPlayer2().setHasFlag(true);
-//                    }
-//
-//                } else if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags) {
-//                    Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
-//                    card.setHasFlag(true);
-//                    Game.getInstance().getPlayer1().setNumberOfFlags(Game.getInstance().getPlayer1().getNumberOfFlags() + 1);
-//                    Map.getItemsView()[y][x].setImage(null);
-//                }
-//                break;//collecting an item on the map
-//            case collectibleItem:
-//
-//                break;
-//        }
-//    }
+                } else if (Game.getInstance().getGameMode() == GameMode.collectingHalfOfTheFlags) {
+                    Game.getInstance().getMap().getCells()[x][y].setCellItemType(CellItemType.empty);
+                    card.setHasFlag(true);
+                    Game.getInstance().getPlayer1().setNumberOfFlags(Game.getInstance().getPlayer1().getNumberOfFlags() + 1);
+                    Map.getItemsView()[y][x].setImage(null);
+                }
+                break;//collecting an item on the map
+            case collectibleItem:
+
+                break;
+        }
+    }
 
     public static void handleCollectingFlag(Card card, int x, int y) {
         if (((Force) card).thisForceIsFriend()) {
