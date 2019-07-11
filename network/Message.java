@@ -8,6 +8,8 @@ import controller.ShopController;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -152,6 +154,22 @@ public class Message {
                 }
             case "opponentName":
 //                MainView.getClient().setOpponentName(str);
+                break;
+            case "enterLoadingPage":
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        BattleController.enterLoadingPage();
+                    }
+                });
+                break;
+            case "exitLoadingPage":
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        BattleController.exitLoadingPage();
+                    }
+                });
                 break;
         }
     }
@@ -329,11 +347,26 @@ public class Message {
         if (BattleThread.getClientForBattle1() == null){
             BattleThread.setClientForBattle1(new ClientForBattle(player, dos));
             System.out.println("waiting");
+
+            Gson gson = new Gson();
+            String jsonStr = gson.toJson("enterLoadingPage", String.class);
+            Message message = new Message(jsonStr, "String", "enterLoadingPage");
+            dos.println(message.messageToString());
+            dos.flush();
         }else{
             BattleThread battleThread = new BattleThread(BattleThread.getClientForBattle1().returnCopy(),
                     new ClientForBattle(player, dos));
             Server.setCurrentBattleThread(battleThread);
             BattleThread.setClientForBattle1(null);
+
+            Gson gson = new Gson();
+            String jsonStr = gson.toJson("enterLoadingPage", String.class);
+            Message message = new Message(jsonStr, "String", "exitLoadingPage");
+            battleThread.getClient1().getDos().println(message.messageToString());
+            battleThread.getClient1().getDos().flush();
+            battleThread.getClient2().getDos().println(message.messageToString());
+            battleThread.getClient2().getDos().flush();
+
         }
     }
 

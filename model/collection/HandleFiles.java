@@ -185,6 +185,7 @@ public class HandleFiles {
                     Server.getCards().add(hero);
                 }
             }
+
         }
     }
 

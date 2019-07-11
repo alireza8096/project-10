@@ -1068,4 +1068,30 @@ public class BattleController {
         MenuView.showChoosingModeWindow();
     }
 
+    public static void enterLoadingPage(){
+        ImageView imageView;
+        try {
+            imageView = new ImageView(new Image(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/loading_page.gif")));
+            imageView.setFitWidth(MenuView.primaryScreenBounds.getWidth());
+            imageView.setFitHeight(MenuView.primaryScreenBounds.getHeight());
+            AllDatas.currentRoot.getChildren().add(imageView);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void exitLoadingPage(){
+        ImageView imageView;
+        try {
+            imageView = new ImageView(new Image(new FileInputStream(
+                    HandleFiles.BEFORE_RELATIVE + "view/Photos/battle/battle_screen.png")));
+            imageView.setFitWidth(MenuView.primaryScreenBounds.getWidth());
+            imageView.setFitHeight(MenuView.primaryScreenBounds.getHeight());
+            AllDatas.currentRoot.getChildren().add(imageView);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

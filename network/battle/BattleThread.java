@@ -51,10 +51,6 @@ public class BattleThread {
         this.client1 = client1;
         this.client2 = client2;
         System.out.println("battle started!!!!1");
-
-        sendBattleInfoForPlayers();
-
-
     }
 
     public void sendBattleInfoForPlayers(){
